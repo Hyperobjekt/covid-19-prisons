@@ -3,7 +3,6 @@ import { SvgMap, HoverShape, StateLayer } from "@hyperobjekt/svg-maps"
 import MapGradients from "../MapGradients"
 import FacilitiesMarkerLayer from "../MarkerLayer/FacilitiesMarkerLayer"
 import { useShapeStyles } from "../styles"
-import { groups } from "d3-array"
 
 const NationalMap = memo(
   ({ children, facilities, metric, group, onSelect, ...props }) => {
