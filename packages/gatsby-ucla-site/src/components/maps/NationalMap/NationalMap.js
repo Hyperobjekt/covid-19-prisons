@@ -35,7 +35,6 @@ const NationalMap = memo(
 )
 
 NationalMap.defaultProps = {
-  highlightFacilities: [],
 }
 
 export default NationalMap
