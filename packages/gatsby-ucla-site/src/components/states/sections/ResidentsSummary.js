@@ -13,8 +13,10 @@ import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 const ResidentsSummary = ({ id, lang, data, classes, className, ...props }) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)
+
   // jurisdiction totals for the state
   const summary = getDataByJurisdiction(all)
+  
   // metric for the stat list
   const metric = useActiveMetric()
   const notes = [

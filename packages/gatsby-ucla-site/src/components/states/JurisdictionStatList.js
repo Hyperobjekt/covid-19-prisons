@@ -8,6 +8,7 @@ import { JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
+import { formatMetricValue } from "../../common/utils/formatters"
 
 const styles = (theme) => ({
   root: {
@@ -58,7 +59,7 @@ const JurisdictionStatList = ({
       : getKey(jurisdiction, metric)
     if (!groupData[key] || !groupData[key].length > 0) return null
     // key 0 has count, key 1 has avg
-    return isRate ? groupData[key][0] : groupData[key][1]
+    return isRate ? groupData[key][1] : groupData[key][0]
   }
 
   const isRateSelected = metric.split("_").pop() === "rate"
@@ -87,7 +88,7 @@ const JurisdictionStatList = ({
               value={getGroupData(jurisdiction, baseMetric, true)}
               label={getLang(baseMetric, "rate")}
               isSelectedMetric={isRateSelected}
-              format={(n) => d3Format(".1%")(n / 100)} // d3Format expects decimal
+              format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>
           )}
         </Stack>
