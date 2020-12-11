@@ -12,7 +12,10 @@ export const styles = (theme) => ({
   root: {},
   number: {
     fontSize: theme.typography.pxToRem(32),
-    color: theme.palette.secondary.main,
+    color: theme.palette.secondary.secondary,
+    "&.selected": {
+      color: theme.palette.secondary.main,
+    },
     fontWeight: 700,
     lineHeight: 1,
   },
@@ -36,6 +39,7 @@ const NumberStat = ({
   value,
   label,
   format = ",d",
+  isSelectedMetric,
   children,
   ...props
 }) => {
@@ -51,7 +55,12 @@ const NumberStat = ({
       )}
       {...props}
     >
-      <Typography className={classes.number} variant="number">
+      <Typography
+        className={clsx(classes.number, {
+          selected: isSelectedMetric,
+        })}
+        variant="number"
+      >
         {isValid ? formatter(value) : getLang("unavailable")}
       </Typography>
       <Typography className={classes.label} variant="body2">
@@ -67,6 +76,7 @@ NumberStat.propTypes = {
   className: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
+  isSelectedMetric: PropTypes.bool,
 }
 
 export default withStyles(styles)(NumberStat)
