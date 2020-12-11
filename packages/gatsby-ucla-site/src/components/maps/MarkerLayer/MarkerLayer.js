@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import clsx from "clsx"
 import { Marker } from "react-simple-maps"
 import { Spike, Dot } from "../../markers"
+import useStatesStore from "../../states/useStatesStore"
 
 import { withStyles } from "@material-ui/core"
 import { extent } from "d3-array"
@@ -39,6 +40,7 @@ const MarkerLayer = ({
   children,
   ...props
 }) => {
+  console.log("MarkerLayer, ", markers)
   // spike length calculation
   const sizeExtent = overrideSizeExtent || extent(markers, sizeSelector)
   const getMarkerSize = getScalerFunction(sizeValue, sizeExtent, sizeSelector)
@@ -47,6 +49,9 @@ const MarkerLayer = ({
     [0, 1, sizeExtent[1]],
     sizeSelector
   )
+
+  // const [setHoveredMarker] = useOptionsStore((state) => state.setHoveredMarker)
+  const setHoveredMarker = useStatesStore((state) => state.setHoveredMarker)
 
   // spike width calculation
   const widthExtent = overrideWidthExtent || extent(markers, widthSelector)
@@ -75,6 +80,7 @@ const MarkerLayer = ({
         const stroke = getValue(getStroke, marker)
         const label = getValue(labelValue, marker)
         const highlight = getValue(highlightValue, marker)
+        const name = marker.name
         const coords = marker.coords
         return (
           <Marker
@@ -82,12 +88,10 @@ const MarkerLayer = ({
             coordinates={coords}
             className={clsx(classes.marker, "testy-test")}
             onMouseEnter={() => {
-              console.log("mouse enter")
-              setTooltipContent("Map tooltip")
+              setHoveredMarker(marker)
             }}
             onMouseLeave={() => {
-              console.log("mouse leave")
-              setTooltipContent("")
+              setHoveredMarker(null)
             }}
           >
             {type === "dots" && (

@@ -9,6 +9,7 @@ import { useActiveMetric, useMappableFacilities } from "../../../common/hooks"
 import { Typography, withStyles } from "@material-ui/core"
 import Stack from "../../Stack"
 import { getLang } from "../../../common/utils/i18n"
+import FacilitiesMapTooltip from "./FacilitiesMapTooltip"
 
 const styles = (theme) => ({
   contentContainer: {
@@ -80,7 +81,7 @@ const FacilitiesMap = ({ classes, ...props }) => {
           setTooltipContent={setTooltipContent}
         />
       </StateMap>
-      <ReactTooltip>{tooltipContent}</ReactTooltip>
+      <FacilitiesMapTooltip />
       <Stack className={classes.contentContainer} horizontal spacing={3}>
         <MapLegend className={classes.legend} data={facilities} />
         <Typography className={classes.description} variant="body2">

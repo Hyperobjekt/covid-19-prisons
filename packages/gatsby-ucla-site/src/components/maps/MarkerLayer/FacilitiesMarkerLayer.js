@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from "react"
+import React, { memo, useCallback, useMemo, useState, useEffect } from "react"
 import MarkerLayer from "./MarkerLayer"
 import { useOptionsStore, useMappableFacilities } from "../../../common/hooks"
 import shallow from "zustand/shallow"
@@ -11,7 +11,6 @@ const FacilitiesMarkerLayer = memo(
       categories,
       categoryColors,
       categoryGradients,
-      setTooltipContent,
     ] = useOptionsStore(
       (state) => [
         state.metric,
@@ -46,7 +45,6 @@ const FacilitiesMarkerLayer = memo(
           groups={categories}
           groupSelector={typeSelector}
           sizeSelector={dataSelector}
-          setTooltipContent={setTooltipContent}
           {...props}
         />
       </>
