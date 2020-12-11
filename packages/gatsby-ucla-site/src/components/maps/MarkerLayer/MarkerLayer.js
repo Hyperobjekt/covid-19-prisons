@@ -65,6 +65,10 @@ const MarkerLayer = ({
     <g className={clsx("spike-layer", classes.root, className)} {...props}>
       {markers.map((marker, i) => {
         const size = getValue(getMarkerSize, marker)
+        if (size <= 0) {
+          // fixes #53 - avoid negative spikes
+          return null
+        }
         const width = getValue(getSpikeWidth, marker)
         const color = getValue(getColor, marker)
         const stroke = getValue(getStroke, marker)
