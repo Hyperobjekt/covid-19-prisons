@@ -51,7 +51,7 @@ const NumberStat = ({
       )}
       {...props}
     >
-      <Typography className={classes.number} variant="number">
+      <Typography className={classes.number} variant="body1">
         {isValid ? formatter(value) : getLang("unavailable")}
       </Typography>
       <Typography className={classes.label} variant="body2">

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import clsx from "clsx"
 import { Marker } from "react-simple-maps"
 import { Spike, Dot } from "../../markers"
@@ -35,6 +35,7 @@ const MarkerLayer = ({
   sizeSelector,
   groupSelector,
   widthSelector,
+  setTooltipContent,
   children,
   ...props
 }) => {
@@ -75,7 +76,15 @@ const MarkerLayer = ({
           <Marker
             key={marker.id}
             coordinates={coords}
-            className={classes.marker}
+            className={clsx(classes.marker, "testy-test")}
+            onMouseEnter={() => {
+              console.log("mouse enter")
+              setTooltipContent("Map tooltip")
+            }}
+            onMouseLeave={() => {
+              console.log("mouse leave")
+              setTooltipContent("")
+            }}
           >
             {type === "dots" && (
               <Dot
