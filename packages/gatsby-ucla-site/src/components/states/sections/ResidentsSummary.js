@@ -10,25 +10,36 @@ import { summaryStyles as styles } from "./styles"
 import Notes from "../Notes"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 
-const ResidentsSummary = ({ id, lang, data, classes, className, ...props }) => {
+const ResidentsSummary = ({
+  id,
+  lang,
+  data,
+  classes,
+  className,
+  isFederal,
+  ...props
+}) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)
 
   // jurisdiction totals for the state
   const summary = getDataByJurisdiction(all)
-  
+
   // metric for the stat list
   const metric = useActiveMetric()
   const notes = [
     lang.notes && lang.notes[metric],
     lang.notes && lang.notes[metric + "_rate"],
   ].filter((n) => !!n)
+
+  const group = isFederal ? "residentsFederal" : "residents"
   return (
     <Stack className={clsx(classes.root, className)} {...props}>
-      <MetricSelectionTitle title={lang.title} group="residents" />
+      <MetricSelectionTitle title={lang.title} group={group} />
       <JurisdictionStatList
+        isFederal={isFederal}
         metric={metric}
-        group="residents"
+        group={group}
         groupData={summary["residents"]}
       />
       {notes.length > 0 && <Notes notes={notes} />}

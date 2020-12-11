@@ -51,6 +51,7 @@ const JurisdictionStatList = ({
   metric,
   group,
   groupData,
+  isFederal,
 }) => {
   const baseMetric = metric.split("_")[0]
   const getGroupData = (jurisdiction, metric, isRate) => {
@@ -63,9 +64,10 @@ const JurisdictionStatList = ({
   }
 
   const isRateSelected = metric.split("_").pop() === "rate"
+  const jurisdictions = isFederal ? ["federal"] : JURISDICTIONS
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
-      {JURISDICTIONS.map((jurisdiction) => (
+      {jurisdictions.map((jurisdiction) => (
         <Stack
           key={jurisdiction}
           className={classes.jurisdictionContainer}

@@ -9,7 +9,7 @@ export const KEYS = {
   population: "population",
 }
 
-export const GROUPS = ["residents", "staff"]
+export const GROUPS = ["residents", "staff", "residentsFederal"]
 
 export const JURISDICTIONS = ["state", "federal", "county"]
 
@@ -23,6 +23,7 @@ export const METRICS = {
     "active_rate",
   ],
   staff: ["confirmed", "deaths", "active"],
+  residentsFederal: ["confirmed", "deaths", "active"],
 }
 
 export const METRIC_FORMATTERS = {
