@@ -1,5 +1,7 @@
 import React from "react"
 import clsx from "clsx"
+import { format as d3Format } from "d3-format"
+
 import { Typography, withStyles } from "@material-ui/core"
 import { getLang } from "../../common/utils/i18n"
 import { JURISDICTIONS, METRICS } from "../../common/constants"
@@ -58,6 +60,8 @@ const JurisdictionStatList = ({
     // key 0 has count, key 1 has avg
     return isRate ? groupData[key][0] : groupData[key][1]
   }
+
+  const isRateSelected = metric.split("_").pop() === "rate"
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
       {JURISDICTIONS.map((jurisdiction) => (
@@ -74,14 +78,16 @@ const JurisdictionStatList = ({
           <NumberStat
             className={classes.stat}
             value={getGroupData(jurisdiction, baseMetric)}
+            isSelectedMetric={!isRateSelected}
             label={getLang(baseMetric, "label")}
           ></NumberStat>
           {groupHasRates(group) && (
             <NumberStat
               className={classes.stat}
-              value={getGroupData(jurisdiction, baseMetric + "_rate", true)}
+              value={getGroupData(jurisdiction, baseMetric, true)}
               label={getLang(baseMetric, "rate")}
-              format=".1%"
+              isSelectedMetric={isRateSelected}
+              format={(n) => d3Format(".1%")(n / 100)} // d3Format expects decimal
             ></NumberStat>
           )}
         </Stack>
