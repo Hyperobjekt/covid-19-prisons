@@ -23,7 +23,15 @@ export const METRICS = {
     "active_rate",
   ],
   staff: ["confirmed", "deaths", "active"],
-  residentsFederal: ["confirmed", "deaths", "active"],
+  residentsFederal: [
+    // TODO: revert
+    "confirmed",
+    "deaths",
+    "active",
+    "confirmed_rate",
+    "deaths_rate",
+    "active_rate",
+  ],
 }
 
 export const METRIC_FORMATTERS = {

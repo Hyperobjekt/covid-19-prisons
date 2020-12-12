@@ -7,7 +7,7 @@ import shallow from "zustand/shallow"
 import useStatesStore from "../useStatesStore"
 import { useActiveMetric, useFacilitiesData } from "../../../common/hooks"
 
-const Facilities = ({ id, lang, data, ...props }) => {
+const Facilities = ({ id, lang, data, isFederal, ...props }) => {
   const all = useFacilitiesData()
 
   // currently selected metric
@@ -24,7 +24,9 @@ const Facilities = ({ id, lang, data, ...props }) => {
   )
 
   // get facilities for current state
-  const facilities = all.filter((f) => f.state === stateName)
+  const facilities = isFederal ?
+    all.filter((f) => f.jurisdiction === "federal") :
+    all.filter((f) => f.state === stateName)
 
   // handler for when table headers are clicked
   const handleFacilitiesGroupChange = React.useCallback(
@@ -45,6 +47,7 @@ const Facilities = ({ id, lang, data, ...props }) => {
         group={facilitiesGroup}
         data={facilities}
         onSort={handleFacilitiesGroupChange}
+        isFederal={isFederal}
       />
     </Stack>
   )
