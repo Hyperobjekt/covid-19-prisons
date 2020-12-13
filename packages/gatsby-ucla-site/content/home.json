@@ -2,7 +2,7 @@
   "intro": {
     "title": "COVID-19 behind bars data project",
     "subtitle": "UCLA Law",
-    "body": "We are tracking the spread and impact of Covid-19 in American carceral facilities and pushing for greater transparency and accountability around the pandemic response of the carceral system."
+    "body": "This map tracks COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. The data are collected several times per week from the websites of federal, state, and local correctional agencies."
   },
   "map": {
     "title": "Showing ${metric} in carceral facilities",
