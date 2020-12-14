@@ -13,7 +13,7 @@ export const styles = (theme) => ({
   number: {
     fontSize: theme.typography.pxToRem(32),
     color: theme.palette.secondary.secondary,
-    "&.selected": {
+    "&.highlighted": {
       color: theme.palette.secondary.main,
     },
     fontWeight: 700,
@@ -39,7 +39,7 @@ const NumberStat = ({
   value,
   label,
   format = ",d",
-  isSelectedMetric,
+  secondary,
   children,
   ...props
 }) => {
@@ -57,7 +57,7 @@ const NumberStat = ({
     >
       <Typography
         className={clsx(classes.number, {
-          selected: isSelectedMetric,
+          highlighted: !secondary,
         })}
         variant="body1"
       >
@@ -76,7 +76,7 @@ NumberStat.propTypes = {
   className: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
-  isSelectedMetric: PropTypes.bool,
+  secondary: PropTypes.bool,
 }
 
 export default withStyles(styles)(NumberStat)
