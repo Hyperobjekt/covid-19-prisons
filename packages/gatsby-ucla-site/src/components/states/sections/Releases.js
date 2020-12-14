@@ -12,7 +12,13 @@ const Releases = ({ id, lang, data, isFederal, ...props }) => {
     const releaseCount = data.allPrisonReleases?.edges?.length
     const label = content.sections.find((s) => s.id === "releases").lang.visual
       .prisonCount
-    federalStat = <NumberStat value={releaseCount} label={label} />
+    federalStat = (
+      <NumberStat
+        className="embedded-stats"
+        value={releaseCount}
+        label={label}
+      />
+    )
   }
   return (
     <Stack {...props}>

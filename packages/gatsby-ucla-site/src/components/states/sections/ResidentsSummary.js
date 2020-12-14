@@ -32,14 +32,13 @@ const ResidentsSummary = ({
     lang.notes && lang.notes[metric + "_rate"],
   ].filter((n) => !!n)
 
-  const group = isFederal ? "residentsFederal" : "residents"
   return (
     <Stack className={clsx(classes.root, className)} {...props}>
-      <MetricSelectionTitle title={lang.title} group={group} />
+      <MetricSelectionTitle title={lang.title} group="residents" />
       <JurisdictionStatList
         isFederal={isFederal}
         metric={metric}
-        group={group}
+        group="residents"
         groupData={summary["residents"]}
       />
       {notes.length > 0 && <Notes notes={notes} />}

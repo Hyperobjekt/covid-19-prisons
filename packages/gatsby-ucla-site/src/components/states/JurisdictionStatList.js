@@ -65,6 +65,7 @@ const JurisdictionStatList = ({
 
   const isRateSelected = metric.split("_").pop() === "rate"
   const jurisdictions = isFederal ? ["federal"] : JURISDICTIONS
+
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
       {jurisdictions.map((jurisdiction) => (
@@ -81,7 +82,7 @@ const JurisdictionStatList = ({
           <NumberStat
             className={classes.stat}
             value={getGroupData(jurisdiction, baseMetric)}
-            isSelectedMetric={!isRateSelected}
+            secondary={isRateSelected}
             label={getLang(baseMetric, "label")}
           ></NumberStat>
           {groupHasRates(group) && (
@@ -89,7 +90,7 @@ const JurisdictionStatList = ({
               className={classes.stat}
               value={getGroupData(jurisdiction, baseMetric, true)}
               label={getLang(baseMetric, "rate")}
-              isSelectedMetric={isRateSelected}
+              secondary={!isRateSelected}
               format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>
           )}

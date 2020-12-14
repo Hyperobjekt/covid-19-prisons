@@ -234,7 +234,6 @@ const StateTemplate = ({ pageContext, data }) => {
   }
 
   const handleNavigation = (section) => {
-    console.log("seciton", section)
     navigate("#" + section)
     setCurrentStep(section)
   }

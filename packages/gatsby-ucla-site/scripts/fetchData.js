@@ -73,6 +73,7 @@ const filingsOrdersMap = {
   state: ["State or Territory", "string", roughMatch],
   court: ["Federal Court Name", "string", selectCourtName],
   granted: ["Release Granted", "string", roughMatch],
+  incarcerationType: ["Type of Incarceration", "string", roughMatch],
 }
 
 const filingsOrdersParser = (row) => parseMap(row, filingsOrdersMap)
@@ -83,6 +84,7 @@ exports.getFilingsOrders = () =>
     const lines = d.substring(dataIndex)
     const rows = csvParse(lines, filingsOrdersParser)
     const byState = groups(rows, (d) => d.state)
+
     const result = byState.map((stateGroup) => {
       const stateData = stateGroup[1]
       const facilityCount = groups(stateData, (d) => d.facility).length
@@ -96,6 +98,20 @@ exports.getFilingsOrders = () =>
           .length,
       }
     })
+
+    const federalTypeRows = rows.filter((d) => d.incarcerationType.toLowerCase() === "federal prison")
+    const federalFacilityCount = groups(federalTypeRows, (d) => d.facility).length
+    const federalCourtCount = groups(federalTypeRows, (d) => d.court).length
+    const federalData = {
+      state: 'federal',
+      total: federalTypeRows.length,
+      facilityCount: federalFacilityCount,
+      courtCount: federalCourtCount,
+      granted: federalTypeRows.filter((d) => d.granted.toLowerCase() === "yes")
+        .length,
+    }
+    result.push(federalData)  
+
     return result
   })
 
