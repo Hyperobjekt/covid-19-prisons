@@ -90,11 +90,7 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
     setSelected(geo)
     navigate(`states/${getSlug(geo.properties.name)}`)
   }
-  const goFederal = () => {
-    // TODO
-    setSelected("fed")
-    navigate(`federal`)
-  }
+
   return (
     <Block
       type="fullWidth"
@@ -102,7 +98,6 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
       className={clsx(classes.root, className)}
       {...props}
     >
-      <div onClick={goFederal}>Federal Page</div>
       <ResponsiveContainer className={classes.controls}>
         <Grid container spacing={1}>
           <Grid item xs={12} md={8}>

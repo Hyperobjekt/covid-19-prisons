@@ -99,18 +99,21 @@ exports.getFilingsOrders = () =>
       }
     })
 
-    const federalTypeRows = rows.filter((d) => d.incarcerationType.toLowerCase() === "federal prison")
-    const federalFacilityCount = groups(federalTypeRows, (d) => d.facility).length
+    const federalTypeRows = rows.filter(
+      (d) => d.incarcerationType.toLowerCase() === "federal prison"
+    )
+    const federalFacilityCount = groups(federalTypeRows, (d) => d.facility)
+      .length
     const federalCourtCount = groups(federalTypeRows, (d) => d.court).length
     const federalData = {
-      state: 'federal',
+      state: "federal",
       total: federalTypeRows.length,
       facilityCount: federalFacilityCount,
       courtCount: federalCourtCount,
       granted: federalTypeRows.filter((d) => d.granted.toLowerCase() === "yes")
         .length,
     }
-    result.push(federalData)  
+    result.push(federalData)
 
     return result
   })

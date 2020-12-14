@@ -24,9 +24,9 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
   )
 
   // get facilities for current state
-  const facilities = isFederal ?
-    all.filter((f) => f.jurisdiction === "federal") :
-    all.filter((f) => f.state === stateName)
+  const facilities = isFederal
+    ? all.filter((f) => f.jurisdiction === "federal")
+    : all.filter((f) => f.state === stateName)
 
   // handler for when table headers are clicked
   const handleFacilitiesGroupChange = React.useCallback(

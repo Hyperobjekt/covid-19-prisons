@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   step: {
     display: "flex",
     minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
-    // justifyContent: "center",
+    justifyContent: "center",
     padding: theme.spacing(3, 0),
   },
   first: {
