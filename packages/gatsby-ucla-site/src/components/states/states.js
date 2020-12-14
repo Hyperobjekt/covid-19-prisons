@@ -233,10 +233,10 @@ const StateTemplate = ({ pageContext, data }) => {
     setCurrentStep(data)
   }
 
-  const handleNavigation = (section) => {
-    navigate("#" + section)
-    setCurrentStep(section)
-  }
+  // const handleNavigation = (section) => {
+  //   navigate("#" + section)
+  //   setCurrentStep(section)
+  // }
 
   // setctions for section nav
   const sections = content.sections.map((s) => ({
@@ -249,7 +249,7 @@ const StateTemplate = ({ pageContext, data }) => {
       <SectionNavigation
         current={currentStep}
         sections={sections}
-        onSelect={handleNavigation}
+        // onSelect={handleNavigation}
       />
       <ResponsiveContainer>
         <Visual className={classes.visual} />
