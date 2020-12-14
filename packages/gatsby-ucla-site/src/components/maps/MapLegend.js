@@ -9,6 +9,7 @@ import { extent } from "d3-array"
 import { getDataMetricSelector } from "../../common/utils"
 import { formatMetricValue } from "../../common/utils/formatters"
 import JurisdictionToggles from "../controls/JurisdictionToggles"
+import useStatesStore from "../states/useStatesStore"
 
 const styles = (theme) => ({
   root: {
@@ -31,9 +32,20 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
     (state) => [state.categoryColors, state.categoryGradients],
     shallow
   )
+  const [currentStep, facilitiesGroup] = useStatesStore(
+    (state) => [state.currentStep, state.facilitiesGroup],
+    shallow
+  )
   const metric = useActiveMetric()
-  const accessor = getDataMetricSelector(metric)
+
+  const legendGroup = (() => {
+    if (currentStep === "staff") return "staff"
+    if (currentStep === "facilities") return facilitiesGroup
+    return "residents"
+  })()
+  const accessor = getDataMetricSelector(metric, legendGroup)
   const dataExtent = extent(data, accessor)
+
   const isRate = metric.indexOf("_rate") > -1
   const formatId = isRate ? "rate_legend" : "count_legend"
   const spikeLabels = [isRate ? 0 : 1, dataExtent[1] / 2, dataExtent[1]].map(
