@@ -29,6 +29,7 @@ const styles = (theme) => ({
 
 const FacilitiesTable = ({
   classes,
+  data,
   group = "residents",
   metric,
   isFederal,
@@ -111,6 +112,8 @@ const FacilitiesTable = ({
       className={classes.table}
       columns={columns}
       options={options}
+      // fixes #45
+      data={data.filter((d) => d.name !== "Statewide")}
       {...props}
     ></Table>
   )
