@@ -50,6 +50,10 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
   const formatId = isRate ? "rate_legend" : "count_legend"
   const spikeLabels = [isRate ? 0 : 1, dataExtent[1] / 2, dataExtent[1]].map(
     (d) => {
+      if (!isRate && d < 1) {
+        // when max value is 0 or 1
+        return "N/A"
+      }
       const value = formatMetricValue(d, formatId)
       const parts = value.split(".")
       // if integer with .0 ending, return only the integer part
