@@ -81,7 +81,7 @@ const FacilitiesMap = ({ classes, ...props }) => {
           setTooltipContent={setTooltipContent}
         />
       </StateMap>
-      <FacilitiesMapTooltip />
+      <FacilitiesMapTooltip group={mapGroup} metric={metric} />
       <Stack className={classes.contentContainer} horizontal spacing={3}>
         <MapLegend className={classes.legend} data={facilities} />
         <Typography className={classes.description} variant="body2">
