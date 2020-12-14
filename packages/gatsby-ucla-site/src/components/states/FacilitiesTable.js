@@ -30,6 +30,7 @@ const FacilitiesTable = ({
   classes,
   group = "residents",
   metric,
+  isFederal,
   ...props
 }) => {
   const columns = React.useMemo(
@@ -44,9 +45,11 @@ const FacilitiesTable = ({
               <Typography className={classes.name} variant="body1">
                 {prop.value}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {getLang(prop.row.original.jurisdiction)}
-              </Typography>
+              {!isFederal && (
+                <Typography variant="body2" color="textSecondary">
+                  {getLang(prop.row.original.jurisdiction)}
+                </Typography>
+              )}
             </>
           )
         },

@@ -9,7 +9,7 @@ import { getLang } from "../../../common/utils/i18n"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import Notes from "../Notes"
 
-const StaffSummary = ({ id, lang, data, ...props }) => {
+const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)
   // jurisdiction totals for the state
@@ -25,6 +25,7 @@ const StaffSummary = ({ id, lang, data, ...props }) => {
       <MetricSelectionTitle title={lang.title} group="staff" />
       {isStaffMetric && (
         <JurisdictionStatList
+          isFederal={isFederal}
           metric={metric}
           group="staff"
           groupData={summary["staff"]}

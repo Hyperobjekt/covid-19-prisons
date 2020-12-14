@@ -156,7 +156,8 @@
           "link": "/states/wisconsin",
           "type": "internal"
         },
-        { "name": "Wyoming", "link": "/states/wyoming", "type": "internal" }
+        { "name": "Wyoming", "link": "/states/wyoming", "type": "internal" },
+        { "name": "United States", "link": "/federal", "type": "internal" }
       ]
     },
     {

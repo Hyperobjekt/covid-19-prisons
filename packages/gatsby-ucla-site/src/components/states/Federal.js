@@ -28,22 +28,22 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(0, 3),
     },
   },
-  visual: {
-    position: "sticky",
-    top: `calc(${theme.layout.headerHeight} + 56px)`,
-    width: `calc(100% - 26.25rem)`,
-    // full vertical height, minus header
-    height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
-    marginLeft: "auto",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "stretch",
-    // make some space for the legend
-    "& .rsm-svg": {
-      flex: 1,
-      maxHeight: `calc(100% - 5rem)`,
-    },
-  },
+  // visual: {
+  //   position: "sticky",
+  //   top: `calc(${theme.layout.headerHeight} + 56px)`,
+  //   width: `calc(100% - 26.25rem)`,
+  //   // full vertical height, minus header
+  //   height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
+  //   marginLeft: "auto",
+  //   display: "flex",
+  //   justifyContent: "center",
+  //   alignItems: "stretch",
+  //   // make some space for the legend
+  //   "& .rsm-svg": {
+  //     flex: 1,
+  //     maxHeight: `calc(100% - 5rem)`,
+  //   },
+  // },
   title: {
     marginTop: theme.spacing(5),
   },
@@ -59,9 +59,15 @@ const useStyles = makeStyles((theme) => ({
     )})`,
   },
   content: {
-    marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
     position: "relative",
-    maxWidth: "26.25rem",
+    // DEPARTURES FROM STATES PAGES
+    marginTop: `calc(${theme.layout.headerHeight} + 56px)`,
+    // to center single column
+    maxWidth: "42rem",
+    margin: "auto",
+    "& .embedded-stats": {
+      padding: theme.spacing(1, 2, 3),
+    },
   },
 }))
 
@@ -71,19 +77,20 @@ const content = {
     {
       id: "residents",
       lang: {
-        title: "Statewide ${metric} among incarcerated people",
+        title: "Nationwide ${metric} among incarcerated people",
         link: "Incarcerated People",
         notes: {
+          // TODO: prune
           confirmed:
-            "Testing practices vary widely by correctional agency. True case counts are likely higher and may be significantly higher than reported.",
+            "True case counts are likely higher and may be significantly higher than reported.",
           confirmed_rate:
             "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
           active:
-            "Testing practices vary widely by correctional agency. True case counts are likely higher and may be significantly higher than reported.",
+            "True case counts are likely higher and may be significantly higher than reported.",
           active_rate:
             "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
           deaths:
-            "Testing practices vary widely by correctional agency. True mortality counts are likely higher and may be significantly higher than reported. Agencies also differ in the categories of deaths they report as COVID-19-related.",
+            "True mortality counts are likely higher and may be significantly higher than reported.",
           deaths_rate:
             "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach. ",
           tests:
@@ -96,24 +103,23 @@ const content = {
     {
       id: "staff",
       lang: {
-        title: "Statewide ${metric} among staff",
+        title: "Nationwide ${metric} among staff",
         link: "Staff",
         unavailable: "${metric} is not available for staff.",
         notes: {
           active:
-            "Not all agencies report data on staff COVID-19 cases. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. As a result, the number of staff cases reported may be lower even than the number detected by testing.",
+            "True case counts are likely higher and may be significantly higher than reported",
           active_rate:
             "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
           confirmed:
-            "Not all agencies report data on staff COVID-19 cases. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers.",
+            "True case counts are likely higher and may be significantly higher than reported",
           confirmed_rate:
             "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
           deaths:
-            "Not all correctional agencies report data on staff deaths related to COVID-19. True COVID-19-related mortality counts are likely higher and may be significantly higher than reported.",
+            "True case counts are likely higher and may be significantly higher than reported",
           deaths_rate:
             "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
-          tests:
-            "Testing data is not reported by all correctional agencies. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. True test counts are likely higher and may be significantly higher than reported.",
+          tests: "",
           tests_rate:
             "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
         },
@@ -146,43 +152,12 @@ const content = {
     {
       id: "releases",
       lang: {
-        title: "Prison and Jail Releases Related to COVID-19",
+        title: "Federal Prison Releases Related to COVID-19",
         link: "Releases",
         body:
-          "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). See our <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985' rel='noreferrer' target='_blank'>full prison releases dataset</a> here and <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533' rel='noreferrer' target='_blank'>jail releases dataset</a> for more.",
+          "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). See our <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985' rel='noreferrer' target='_blank'>full prison releases dataset</a> for more.",
         visual: {
           prisonCount: "prison release efforts",
-          jailCount: "jail release efforts",
-        },
-      },
-    },
-    {
-      id: "immigration",
-      lang: {
-        title: "COVID-19 Cases and Deaths in Immigration Detention",
-        link: "Immigration",
-        body:
-          "We collect data on COVID-19 infections and deaths of detainees and staff within all 120 U.S. Immigration and Customs Enforcement (ICE) facilities, as well as other facilities detaining people under ICE jurisdiction, across the United States. Our data come directly from ICE’s website and are updated almost every day. As of November 23, 2020, ICE no longer reports COVID-19-related cases and deaths among staff. View our <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=278828877' rel='noreferrer' target='_blank'>full immigration dateset</a>.",
-        visual: {
-          facilityCount: "ICE facilities",
-          caseCount: "detainee cases",
-          deathsCount: "detainee deaths",
-        },
-      },
-    },
-    {
-      id: "grassroots",
-      lang: {
-        title:
-          "Grassroots and Community Organizing Efforts Related to COVID-19",
-        link: "Grassroots & Organizing",
-        body:
-          "Our team collects data on grassroots and community organizing efforts by incarcerated people, their families, community-based organizations, nonprofits, and advocates aimed at influencing government agencies to protect the lives of people incarcerated in prisons, jails, and detention centers against the threats posed by COVID-19. <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154' rel='noreferrer' target='_blank'>View our full grassroots and organizing dataset</a>. ",
-        visual: {
-          effortCount: "efforts",
-          internalCount: "efforts happening behind bars",
-          externalCount: "efforts started externally",
-          coordinatedCount: "coordinated efforts (inside and outside)",
         },
       },
     },
@@ -195,15 +170,12 @@ const SECTION_COMPONENTS = {
   facilities: Facilities,
   filings: Filings,
   releases: Releases,
-  immigration: Immigration,
-  grassroots: Grassroots,
 }
 
 const StateTemplate = ({ pageContext, data }) => {
   // classes used on this page
   const classes = useStyles()
-  // pull state name from page context
-  const { state } = pageContext
+  const state = "Federal"
   // track current step index for scrollytelling
   const [
     currentStep,
@@ -252,7 +224,7 @@ const StateTemplate = ({ pageContext, data }) => {
         onSelect={handleNavigation}
       />
       <ResponsiveContainer>
-        <Visual className={classes.visual} />
+        {/* <Visual className={classes.visual} /> */}
         <div className={classes.content}>
           <Scrollama onStepEnter={handleStepEnter}>
             {content.sections.map((section, index) => {
@@ -262,10 +234,11 @@ const StateTemplate = ({ pageContext, data }) => {
                   <div id={section.id}>
                     {index === 0 && (
                       <Typography variant="h2" className={classes.title}>
-                        {state}
+                        United States
                       </Typography>
                     )}
                     <Component
+                      isFederal={true}
                       className={clsx(classes.step, {
                         [classes.first]: index === 0,
                       })}
@@ -286,15 +259,15 @@ const StateTemplate = ({ pageContext, data }) => {
 StateTemplate.propTypes = {}
 
 export const query = graphql`
-  query($state: String!) {
-    allFacilities(filter: { state: { eq: $state } }) {
+  query {
+    allFacilities(filter: { jurisdiction: { eq: "federal" } }) {
       edges {
         node {
-          id
-          name
-          coords
           city
+          coords
+          id
           jurisdiction
+          name
           residents {
             active
             active_rate
@@ -302,109 +275,35 @@ export const query = graphql`
             confirmed_rate
             deaths
             deaths_rate
-            population
           }
           staff {
             active
             confirmed
             deaths
+            recovered
           }
-          date
         }
       }
     }
-    allFilings(filter: { state: { eq: $state } }) {
+    allPrisonReleases(filter: { state: { eq: "Federal BOP" } }) {
+      edges {
+        node {
+          id
+          releases
+          facility
+          source
+          state
+          capacity
+        }
+      }
+    }
+    allFilings(filter: { state: { eq: "federal" } }) {
       edges {
         node {
           courtCount
           facilityCount
           granted
           total
-        }
-      }
-    }
-    allFundraisers(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          ongoing
-          goal
-          fundraiser
-          date
-          organization
-          sources
-        }
-      }
-    }
-    allGrassroots(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          county
-          external_effort
-          facility
-          internal_effort
-          organization
-          releases
-          response
-          sanitary
-          success
-          testing
-          type
-        }
-      }
-    }
-    allImmigrationCases(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cases
-          deaths
-          facility
-          fieldOffice
-        }
-      }
-    }
-    allImmigrationFilings(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cancer
-          diabetes
-          heart
-          facility
-          lung
-          medication
-          other
-          smoking
-          substance
-        }
-      }
-    }
-    allJailReleases(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          facility
-          capacity
-          releases
-          source
-        }
-      }
-    }
-    allPrisonReleases(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          facility
-          capacity
-          releases
-          source
-        }
-      }
-    }
-    allYouth(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cases_staff
-          cases_youth
-          city
-          county
-          facility
         }
       }
     }

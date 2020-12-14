@@ -228,6 +228,9 @@ const CovidTheme = () => {
           "&.page.page--states .content": {
             maxWidth: "none",
           },
+          "&.page.page--federal .content": {
+            maxWidth: "none",
+          },
         },
       },
       /** Header style overrides */

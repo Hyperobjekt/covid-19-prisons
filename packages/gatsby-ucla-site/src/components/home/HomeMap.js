@@ -90,6 +90,7 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
     setSelected(geo)
     navigate(`states/${getSlug(geo.properties.name)}`)
   }
+
   return (
     <Block
       type="fullWidth"
