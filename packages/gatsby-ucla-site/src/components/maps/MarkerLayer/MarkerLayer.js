@@ -63,47 +63,48 @@ const MarkerLayer = ({
 
   return (
     <g className={clsx("spike-layer", classes.root, className)} {...props}>
-      {markers.map((marker, i) => {
-        const size = getValue(getMarkerSize, marker)
-        if (size <= 0) {
-          // fixes #53 - avoid negative spikes
-          return null
-        }
-        const width = getValue(getSpikeWidth, marker)
-        const color = getValue(getColor, marker)
-        const stroke = getValue(getStroke, marker)
-        const label = getValue(labelValue, marker)
-        const highlight = getValue(highlightValue, marker)
-        const coords = marker.coords
-        return (
-          <Marker
-            key={marker.id}
-            coordinates={coords}
-            className={classes.marker}
-          >
-            {type === "dots" && (
-              <Dot
-                radius={size}
-                stroke={stroke}
-                fill={color}
-                fillOpacity={getValue(getCircleOpacity, marker)}
-              />
-            )}
-            {type === "spikes" && (
-              <Spike
-                fill={color}
-                stroke={stroke}
-                length={size}
-                width={width}
-                className={clsx(classes.spike, {
-                  [classes.highlight]: highlight,
-                })}
-              />
-            )}
-            {label && <text className={classes.text}>{label}</text>}
-          </Marker>
-        )
-      })}
+      {!!sizeExtent[1] && // fixes #67 - if max size is 0, don't plot spikes
+        markers.map((marker, i) => {
+          const size = getValue(getMarkerSize, marker)
+          if (size <= 0) {
+            // fixes #53 - avoid negative spikes
+            return null
+          }
+          const width = getValue(getSpikeWidth, marker)
+          const color = getValue(getColor, marker)
+          const stroke = getValue(getStroke, marker)
+          const label = getValue(labelValue, marker)
+          const highlight = getValue(highlightValue, marker)
+          const coords = marker.coords
+          return (
+            <Marker
+              key={marker.id}
+              coordinates={coords}
+              className={classes.marker}
+            >
+              {type === "dots" && (
+                <Dot
+                  radius={size}
+                  stroke={stroke}
+                  fill={color}
+                  fillOpacity={getValue(getCircleOpacity, marker)}
+                />
+              )}
+              {type === "spikes" && (
+                <Spike
+                  fill={color}
+                  stroke={stroke}
+                  length={size}
+                  width={width}
+                  className={clsx(classes.spike, {
+                    [classes.highlight]: highlight,
+                  })}
+                />
+              )}
+              {label && <text className={classes.text}>{label}</text>}
+            </Marker>
+          )
+        })}
       {children}
     </g>
   )
