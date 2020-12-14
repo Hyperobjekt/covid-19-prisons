@@ -29,9 +29,9 @@ export const METRIC_FORMATTERS = {
   confirmed: d3Format(",d"),
   deaths: d3Format(",d"),
   active: d3Format(",d"),
-  confirmed_rate: d3Format(".1%"),
-  deaths_rate: d3Format(".1%"),
-  active_rate: d3Format(".1%"),
+  confirmed_rate: d3Format(".2%"),
+  deaths_rate: d3Format(".2%"),
+  active_rate: d3Format(".2%"),
   count_legend: d3Format(".2s"),
   rate_legend: d3Format(".1%"),
 }

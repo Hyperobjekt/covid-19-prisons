@@ -8,6 +8,7 @@ import { JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
+import { formatMetricValue } from "../../common/utils/formatters"
 
 const styles = (theme) => ({
   root: {
@@ -50,6 +51,7 @@ const JurisdictionStatList = ({
   metric,
   group,
   groupData,
+  isFederal,
 }) => {
   const baseMetric = metric.split("_")[0]
   const getGroupData = (jurisdiction, metric, isRate) => {
@@ -58,13 +60,15 @@ const JurisdictionStatList = ({
       : getKey(jurisdiction, metric)
     if (!groupData[key] || !groupData[key].length > 0) return null
     // key 0 has count, key 1 has avg
-    return isRate ? groupData[key][0] : groupData[key][1]
+    return isRate ? groupData[key][1] : groupData[key][0]
   }
 
   const isRateSelected = metric.split("_").pop() === "rate"
+  const jurisdictions = isFederal ? ["federal"] : JURISDICTIONS
+
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
-      {JURISDICTIONS.map((jurisdiction) => (
+      {jurisdictions.map((jurisdiction) => (
         <Stack
           key={jurisdiction}
           className={classes.jurisdictionContainer}
@@ -78,7 +82,7 @@ const JurisdictionStatList = ({
           <NumberStat
             className={classes.stat}
             value={getGroupData(jurisdiction, baseMetric)}
-            isSelectedMetric={!isRateSelected}
+            secondary={isRateSelected}
             label={getLang(baseMetric, "label")}
           ></NumberStat>
           {groupHasRates(group) && (
@@ -86,8 +90,8 @@ const JurisdictionStatList = ({
               className={classes.stat}
               value={getGroupData(jurisdiction, baseMetric, true)}
               label={getLang(baseMetric, "rate")}
-              isSelectedMetric={isRateSelected}
-              format={(n) => d3Format(".1%")(n / 100)} // d3Format expects decimal
+              secondary={!isRateSelected}
+              format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>
           )}
         </Stack>

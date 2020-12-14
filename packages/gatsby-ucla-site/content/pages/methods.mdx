@@ -7,173 +7,188 @@ path: /methods
 
 ### Background
 
-The UCLA Covid-19 Behind Bars Data Project, launched in March 2020, tracks the spread and impact of Covid-19 in American carceral facilities and pushes for greater transparency and accountability around the pandemic response of the carceral system.
-
-Our team of over 90 staff and volunteer researchers gathers and presents timely data about Covid-19 in prisons, jails, youth facilities, and immigration detention centers across the United States.
-
-Since the beginning of the Covid-19 pandemic, shortcomings in data reporting have limited the public’s ability to assess the extent of the spread of the virus. This situation is particularly true for Covid-19 data concerning the approximately two million individuals confined within U.S. jails, prisons, immigrant detention centers, and other carceral settings. Facilities housing incarcerated individuals do not have mandates for Covid-19 testing or precautions, and data reporting for epidemiological monitoring is limited at best. For such a highly-vulnerable population subjected to living in close quarters, the opaque data situation poses a serious problem.
-
-In an effort to centralize the limited data that is available and make it accessible to the general public, the UCLA Covid-19 Behind Bars Data Project has been collecting data on Covid-19 infections and deaths for incarcerated populations and staff within carceral facilities across the U.S. Our methods for collecting and reporting data on prisons and jails differ from those used for data on immigration and youth facilities, and are explained separately below.
-
-We also collect data on prison and jail releases in response to the pandemic, legal filings and court orders bearing on the safety of incarcerated people during the pandemic, and grassroots organizing campaigns and fundraisers.
+The UCLA Law COVID-19 Behind Bars Data Project, launched in March 2020, tracks the spread and impact of the novel coronavirus in American carceral facilities and advocates for greater transparency and accountability around the pandemic response of the carceral system.
+ 
+Our team of over 100 staff and volunteer researchers gathers and presents data about COVID-19 in prisons, jails, youth facilities, and immigration detention centers across the United States. We also collect information about pandemic-related prison and jail releases, legal filings and court orders bearing on the safety of incarcerated people, and grassroots organizing campaigns and fundraisers.
+ 
+Since the beginning of the pandemic, the U.S. public’s ability to assess the extent and impact of viral spread has been limited by shortcomings in data reporting. Data concerning America’s carceral institutions — which confine over two million people — is particularly hard to come by, and this opacity costs lives. The crowding and subpar healthcare systems in carceral facilities make them hotspots for viral spread, and the people who work and are incarcerated in them do not have the option to socially distance. Epidemiological data reported in these settings are limited, often vaguely defined, and difficult to compare between jurisdictions. To save lives, advocates and policymakers need data to demonstrate and appreciate the urgency of this public health crisis and the need for significant decarceration to limit the spread and protect those who are medically vulnerable.
+ 
+In an effort to make publicly accessible the limited data that correctional agencies report, the UCLA Law COVID-19 Behind Bars Data Project collects and centralizes detailed, facility-level data on COVID-19 infections and related deaths for incarcerated persons and staff in the U.S. The project also gathers other data, such as regarding population levels in carceral facilities, which are critical to contextualizing COVID-19 infection numbers and do not exist elsewhere in a unified dataset. Our methods for collecting and reporting data on prisons and jails differ from those used for data on immigration and youth facilities; these methods are explained separately below.
 
 ### Prison and jail data overview
 
-We primarily collect data from federal, state, and local correctional agency websites using web scraping programs that automatically collect reported data three to four times per week.
-
-Our core data of interest include:
-
-- the cumulative number of infections among incarcerated people and staff,
-- the cumulative number of deaths among incarcerated people and staff,
-- and the cumulative number of tests among incarcerated people and staff.
-
-However, correctional authorities vary in what they report publicly. Pennsylvania, for example, reports data for all six of these core variables, while Mississippi reports data for only one.
-We aim to collect and report Covid-19 facility-level data, where possible, from all federal, state, and county correctional agencies across the country. However, not all jurisdictions report data disaggregated by facility.
-
-We currently collect and report facility-level data from:
-
-- the Federal Bureau of Prisons, which includes federal facilities located in Puerto Rico and the District of Columbia
-- X state correctional agencies
-- X county correctional agencies
-
-We currently collect and report aggregate data from:
-
-- X state correctional agencies, including the District of Columbia Department of Correction
-- X county correctional agencies
-
-We compile the results into a spreadsheet we maintain on GitHub. When data are not available publicly, we make every effort to obtain information through public records requests. In some cases, we also partner with other organizations who gather data directly from agencies.
+We primarily collect data from federal, state, and local correctional agency websites using web scraping programs we developed to automatically pull reported data three to four times per week.
+ 
+Our core dataset includes:
+ 
+- the cumulative number of infections among both incarcerated people and staff;
+- the cumulative number of deaths among both incarcerated people and staff;
+- and the cumulative number of tests among both incarcerated people and staff.
+ 
+However, correctional authorities vary dramatically in what they report publicly. For example, as of December 2020, the Pennsylvania Department of Corrections reports data for all six of these core variables, while the Mississippi Department of Corrections reports data for only one.
+ 
+Further, we aim to collect and report COVID-19 facility-level data, where available, from all federal, state, and county correctional agencies across the country. In general, the Federal Bureau of Prisons reports its COVID-19 prison data by facility. However, not all state and county jurisdictions report data disaggregated by facility for all variables. We are working on a detailed table of variable availability by jurisdiction. In the meantime, please consult the individual state pages to see where we have facility-level data.
+ 
+There have been instances when the values reported by an agency changed over time in ways that were unexpected based on the description of the variable. We actively work to address these issues as they arise, at times adjusting our dataset as we learn the nuances of each agency’s reporting.
+ 
+When data are not available publicly, we make every effort to obtain missing information through original public records requests. In some cases, we also partner with other organizations who gather data directly from agencies. We compile our data into a spreadsheet we maintain on [GitHub](https://github.com/uclalawcovid19behindbars/data).
+ 
+We also maintain a historical dataset that includes all data we have collected since the start of the pandemic. We are currently working to clean reporting inconsistencies in that data to enable us to display time series visualizations.
 
 ### Core prison and jail variables: definitions and considerations
 
-#### Cumulative Cases
-
-- **Residents.Confirmed:** The cumulative number of confirmed Covid-19 cases among incarcerated persons at a federal, state, or county facility.
-- **Staff.Confirmed:** The cumulative number of confirmed Covid-19 cases among corrections staff members at a federal, state, or county facility.
-- **Considerations:** In many cases, agencies consider “cumulative cases” to mean the number of individuals who were ever at a facility who have ever had Covid-19. However, some agencies, such as the Ohio Department of Rehabilitation and Correction, consider “cumulative cases” to mean the number of individuals who currently reside in a facility who have ever had Covid-19. Therefore, the facility-level value can decrease as people are transfered or released.<br /><br />Some agencies also reduce the cumulative count if someone dies or recovers from Covid-19. In these instances, we calculate the cumulative case count by summing their reported number of recovered cases, number of deaths, and number of confirmed cases. For more details on individual state practices, see the section “Notes about Individual States” in our data dictionary. <br /><br /> Not all agencies report data on staff Covid-19 cases.<br /><br /> Another important consideration is that testing practices vary widely by correctional agency, and we are not always able to collect testing data. Low levels of testing mean that the total of cumulative cases is underreported.
-
 #### Active Cases
 
-- **Residents.Active:** the number of individuals currently incarcerated at the facility who have an active infection of Covid-19 and have not been medically cleared to return to the general incarcerated population.
-- **Staff.Active:** the number of individuals currently working at the facility who have an active infection of Covid-19 and have not been medically cleared to return to the general incarcerated population.
-- **Considerations:** It is not always clear if an agency distinguishes between active cases (those who have Covid-19 now) and cumulative cases (those who have ever had Covid-19). As we continue to collect data, we are gradually learning the nuances of each agency’s reporting. <br /><br /> Not all agencies report data on staff Covid-19 cases. <br /><br />Another important consideration is that testing practices vary widely by correctional agency, and we are not always able to collect testing data. Low levels of testing mean that the total of active cases is underreported.
+- **Residents.Active**: the number of individuals currently incarcerated at a facility who have an active infection of COVID-19 and have not been deemed recovered.
+
+- **Staff.Active**: the number of individuals currently working at the facility who have an active infection of COVID-19 and have not been medically cleared to return to work.
+
+- **Considerations**: Though testing data is not always made available, we know that testing practices vary widely by correctional agency. As a result, true case counts are likely higher than reported, and the extent of this underdetection is extremely variable.  
+&nbsp;  
+Finally, not all agencies report data on staff COVID-19 cases. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. As a result, the number of staff cases reported may be lower even than the number detected by testing.
+
+#### Cumulative Cases
+
+- **Residents.Confirmed**: The cumulative number of confirmed COVID-19 cases among persons incarcerated at a facility.
+- **Staff.Confirmed**: The cumulative number of confirmed COVID-19 cases among staff members at a facility.
+- **Considerations**: In many cases, agencies consider “cumulative cases” to mean the number of individuals who were ever at a facility who have ever been infected with COVID-19. However, some agencies, such as the Ohio Department of Rehabilitation and Correction, consider “cumulative cases” to mean the number of individuals who currently reside in a facility who have ever been infected with COVID-19. Therefore, the reported facility-level value can decrease as people are transferred or released. For more details on methodology by state, see the section “Notes about Individual States” in our data dictionary.  
+&nbsp;   
+Another important consideration is that, though testing data is not always made available, we know that testing practices vary widely by correctional agency. As a result, true case counts are likely higher than reported, and the extent of this underdetection is extremely variable.  
+&nbsp;   
+Finally, not all agencies report data on staff COVID-19 cases. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. As a result, the number of staff cases reported may be lower even than the number detected by testing.
 
 #### Deaths
-
-- **Residents.Deaths:** The cumulative number of incarcerated persons who have died from Covid-19 at a federal, state, or county facility.
-- **Staff.Deaths:** The cumulative number of corrections staff who have died from Covid-19 at a federal, state, or county facility.
-- **Considerations:** We are not always able to collect data on Covid-19-related mortality at the facility level -- many correctional agencies report this number in aggregate the state level. Furthermore, there is no standard for how to report this number -- some agencies include all deaths suspected of being related to Covid-19, while others include only those with a positive test result. There are examples of correctional agencies underreporting Covid-19-related deaths by assigning another cause of death, even when the deceased had or were suspected to have been infected. <br /><br /> If a news source reports deaths that a correctional agency has not yet reported, we add the deaths to our data’s count. If this occurs, we make a note of it in the Add’l.Notes column. This is the only instance in which we enter information from a news source that might conflict with an agency’s reported data. <br /><br />Finally, not all agencies report data on staff deaths related to Covid-19.
+ 
+- **Residents.Deaths**: The cumulative number of incarcerated persons who have died with or from COVID-19 while in custody of a facility.
+ 
+- **Staff.Deaths**: The cumulative number of staff who have died from COVID-19 while employed by a facility.
+ 
+- **Considerations**: Many correctional agencies only report death figures in aggregate, rather than by facility. Furthermore, agencies differ in the categories of deaths they report as COVID-19-related. Some agencies include all deaths suspected of being related to COVID-19, and some include only those with a positive test result. Some jurisdictions do not include deaths that occur after or while someone has COVID-19 if the medical provider or examiner declares an alternative cause of death, such as a heart attack. There have also been instances where jurisdictions have not counted the deaths of people who died of COVID-19 after being released, even when they contracted the virus inside a facility. We are currently investigating suspected undercounts in COVID-19-related deaths. If a news source reports deaths that a correctional agency has not reported, we add the deaths to our data count. When this occurs, we make a note of it in the Add’l.Notes column. This is the only instance in which we enter information from a news source that might conflict with an agency’s self-reported data.  
+&nbsp;   
+Finally, not all agencies report data on staff deaths related to COVID-19.
 
 #### Tests
-
-- **Residents.Tested:** The cumulative number of incarcerated persons tested for COVID-19, or the cumulative number of tests performed of incarcerated persons.
-- **Staff.Tested:** The cumulative number of corrections staff tested for COVID-19, or the cumulative number of tests performed of corrections staff.
-- **Considerations:** Some agencies report the number of persons tested, while others report the number of tests administered. It is not always clear which. We record whichever number is available. A link to information directly from the agency about how each state reports testing data can be found in the “Sources” column of our dataset on GitHub.
+ 
+- **Residents.Tested**: The cumulative number of incarcerated persons tested for COVID-19, or the cumulative number of tests performed on incarcerated persons.
+ 
+- **Staff.Tested**: The cumulative number of staff tested for COVID-19, or the cumulative number of tests performed on staff.
+ 
+- **Considerations**: As noted in the definitions above, some agencies report the number of persons tested, while others report the number of tests administered. It is not always clear which is being reported; we record whichever number is available and make a note in our dataset where possible. A link to information directly from the agency about how it reports testing data can be found in the “Sources” column of our dataset on [GitHub](https://github.com/uclalawcovid19behindbars/data).
 
 ### How We Calculate Rates of Infection and Death Among Incarcerated People in Prisons and Jails
 
-Our website displays approximate rates for cumulative cases, active cases, and deaths among incarcerated people at the facility level. We calculate these rates by dividing the total number of infections or deaths at a facility (numerator) by the total number of people incarcerated at that facility (denominator). On each state page, we aggregate the numerators and denominators for all facilities in that state to come up with an approximate statewide rate.
+Our website displays approximate rates per population for cumulative cases, active cases, and deaths among incarcerated people at the facility level. Rates provide necessary context for understanding the severity of the COVID-19 situation within a particular facility or jurisdiction. For example, 600 cases in a facility detaining 1,000 people represent more significant viral spread than do the same number of cases in a facility detaining 5,000 people.
+ 
+We calculate these rates by dividing the total number of infections or deaths at a facility (numerator) by the population of people incarcerated at that facility (denominator). On each state page, we also aggregate the numerators and denominators for all federal, state, and county facilities to approximate rates by jurisdiction type within a particular state.
 
-For the denominators, we elected to use the latest reported facility populations as of February 2020 -- the start of the pandemic -- because the majority of correctional agencies do not regularly report up-to-date facility populations that account for releases, intake, and movement between facilities. Since no reported population count can be accurately up-to-date, and we are reporting cumulative counts since the start of the pandemic, we chose to align our population denominators with the data available at that point in time.
-
-It is important to note that facility populations are reported in aggregate rather than at the individual case level. Aggregate reporting, combined with the fact that prison and jail populations turn over frequently, make it impossible to determine whether people who have been infected with Covid-19 at some point during the pandemic are still among those incarcerated. As a result, the universe of people for the infection and death counts (numerators) is not necessarily the same as the universe for the population counts (denominators). Eventually, this may mean that some numerators exceed the denominators.
-
-We compiled our February 2020 population dataset through a combination of scraping agency websites, submitting public records requests to correctional agencies, and filling in gaps with Homeland Infrastructure Foundation-Level Data.
-
-We do not yet have accurate and/or comparable totals for staff at all facilities. As a result, we are not currently providing rates for staff, but we plan to in the future.
+We collected our population data from agency websites and through public records requests to correctional agencies; we filled in gaps with the [Homeland Infrastructure Foundation-Level Data (HIFLD) Prison Boundaries dataset](https://hifld-geoplatform.opendata.arcgis.com/datasets/2d6109d4127d458eaf0958e4c5296b67_0?geometry=92.100%2C-54.107%2C-111.806%2C85.179&selectedAttribute=SOURCEDATE) maintained by the Department of Homeland Security, which contains population estimates for approximately 6,700 facilities. We are currently in the process of adding all population data and sources to our dataset on [GitHub](https://github.com/uclalawcovid19behindbars/data).
+ 
+Because the majority of correctional agencies do not regularly report up-to-date facility-level population figures and we are reporting cumulative counts since the start of the pandemic, we chose to align our population denominators with data reflecting that point in time where possible: the most recently reported facility populations as of February 2020. These figures do not account for subsequent releases, intakes, and movement between facilities.  
+ 
+We use the **last reported** facility population total for a date prior to the end of February 2020. However, some agencies have not updated their population level reports since December 2019. For facilities where we relied on HIFLD data, the figures may be up to five years old.
+ 
+Because the data we collect are reported in aggregate rather than at the individual case level, turnover in prison and jail populations makes it impossible for us to determine whether people who have been infected with COVID-19 at some point during the pandemic are still among those incarcerated (and, if so, whether they remain at the same facility). As a result, the universe of people for the infection and death counts (numerators) is not the same as the universe for the population counts (denominators). Eventually, at some facilities with large outbreaks, this may mean that numerators exceed denominators.
+ 
+We are currenting gathering more detailed time-series population data from many jurisdictions and will make that data available in the future.
+ 
+We do not have reliable data for staffing levels at all facilities. It is also difficult to determine who each agency includes in its definition of “staff,” how many staff are actually present in each facility (versus on leave or working in administrative offices), and whether staff work within one or multiple facilities. Due to these complexities, we are not currently providing rates for staff, but we hope to do so in the future.
 
 ### How to Cite Our Prison and Jail Data
 
 Citations for academic publications and research reports:
-
-> Sharon Dolovich, Aaron Littman, Kalind Parish, Grace DiLaura, Chase Hommeyer, Michael Everett, Hope Johnson, and Neal Everett. UCLA Law Covid-19 Behind Bars Data Project: Jail/Prison Confirmed Cases Dataset [date you downloaded the data]. UCLA Law, 2020, https://law.ucla.edu/centers/criminal-justice/criminal-justice-program/related-programs/covid-19-behind-bars-data-project/.
-
+ 
+> Sharon Dolovich, Aaron Littman, Kalind Parish, Grace DiLaura, Chase Hommeyer, Michael Everett, Hope Johnson, and Neal Everett. UCLA Law COVID-19 Behind Bars Data Project: Prison/Jail Cases and Deaths Dataset [date you downloaded the data]. UCLA School of Law, covid19behindbars.org.
+ 
 Citations for media outlets, policy briefs, and online resources:
+ 
+> UCLA Law COVID-19 Behind Bars Data Project, covid19behindbars.org.
+ 
+Data licensing:
+ 
+> Our data is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). That means that you must give appropriate credit, provide a link to the license, and indicate if changes were made. You may not use our data for commercial purposes, which means anything primarily intended for or directed toward commercial advantage or monetary compensation.
 
-> UCLA Law Covid-19 Behind Bars Data Project, https://law.ucla.edu/centers/criminal-justice/criminal-justice-program/related-programs/covid-19-behind-bars-data-project/.
+### Data on Legal Filings and Court Orders
 
-Data Licensing
+Our project collaborates with Bronx Defenders, Columbia Law School’s Center for Institutional and Social Change, and Zealous to collect legal documents from around the country related to COVID-19 and incarceration. Together, we then organize and code them into the jointly managed [Health is Justice litigation hub](https://healthisjustice.org/litigation-hub/login) for public defenders, litigators, and other advocates. The majority of the legal documents in the Health is Justice litigation hub are federal court opinions, but we are expanding to state legal filings, declarations, and exhibits.
 
-> Our data is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. That means that you must give appropriate credit, provide a link to the license, and indicate if changes were made. You may not use our work for commercial purposes, which means anything primarily intended for or directed toward commercial advantage or monetary compensation.
+In addition to the Health is Justice litigation hub, our project also manages additional data self-reported by advocates regarding COVID-19-related legal filings involving incarcerated youth ([via this form](https://docs.google.com/forms/d/e/1FAIpQLScftO4jL15zWF2loqcUB8tJoi5ZsAoId6S1wdWcarJ94WBsiw/viewform)) and individuals in immigration detention ([via this form](https://docs.google.com/forms/d/e/1FAIpQLSdhQrq0HJFMarSWKFQhK3o31H2cUmdNKWcfVLamZeRR9nxKFg/viewform)).
 
-### Court Filing Data
+Our data reflect only a subset of filings and are by no means exhaustive.
 
-Our project collaborates with the Bronx Defenders, Columbia Law School’s Center for Institutional and Social Change, and Zealous to collect information on court filings related to Covid-19 and incarceration in courts across across the country. Our team reads and codes each filing in the Health is Justice court filing database.
-We also collect data on youth and immigration court filings. For these data, we ask advocates to self-report about relevant filings using this form for youth filings and this form for immigration filings.  
-Our court fillings data reflect only those filings we know of, and are by no means exhaustive.
+### Data on Prison and Jail Releases
 
-### Prison and Jail Release Data
+We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. Variables we collect include the official or agency authorizing release, the number of people released, and details on the conditions for release, among others. Our data collection relies on published articles, reports, and data demonstrating realized and pandemic-related releases. We also perform strategic outreach to various legal and advocacy groups to request pertinent data via [this form](https://docs.google.com/forms/d/1t_dojH6EOOwaNY7RQTgYR8wiM42K7YmVI7wOhZMp3es/viewform?ts=5f6de758&edit_requested=true). For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). Though we maintain the most complete dataset of COVID-19-related release efforts, it reflects only a subset of efforts and is by no means exhaustive.
 
-We collect data on court efforts to release incarcerated people from prisons and jails for reasons related to Covid-19. We generally gather data through media sources, though we also ask advocates to self-report release efforts via this form. Our releases data reflect only those release efforts we know of, and are by no means exhaustive.
+### Data on Immigration Detention
 
-### Immigration Detention Data
+We scrape the Immigration and Customs Enforcement (ICE) website daily to collect data relating to COVID-19 infections and deaths of detainees and staff within all 120 ICE facilities, as well as other facilities detaining people under ICE jurisdiction, across the United States. ICE only provides a live dataset, meaning that when new data is published, it replaces the previously published data without creating an archive. Therefore, we maintain a historical dataset and merge in newly scraped data as we collect it so that we can understand how the pandemic has unfolded in ICE facilities over time. ICE first started disclosing COVID-19 cases in detention facilities on March 26, 2020, and the agency stopped providing updates regarding COVID-19-related cases and deaths among staff on June 18, 2020. 
 
-Our team collects data on Covid-19 infections and deaths for detainees and staff within U.S. Immigration and Customs Enforcement (ICE) facilities across the United States. Our data come directly from ICE’s website and are updated on X basis. Our data reflect what is reported by ICE directly, and infection and death counts may be underreported.
+### Data on Grassroots and Community Organizing Efforts
 
-### Youth Corrections Data
-
-We gather data on Covid-19 in youth correctional facilities directly from state and county juvenile corrections websites. Many states and counties either underreport or neglect to report data altogether on youth incarceration. These data are supplemented with news reports. Our youth corrections data reflect only those Covid-19 cases we know of, and are by no means exhaustive.
-
-### Grassroots Organizing Data
-
-We collect data on Covid-19-related grassroots actions and fundraisers organized inside and outside of facilities. Our team gathers data from the media, and we ask organizers to self-report on their work through this form. Our grassroots organizing data reflect only those efforts we know of, and are by no means exhaustive.
+Our team collects data on grassroots and community organizing efforts by incarcerated people, their families, community-based organizations, nonprofits, and advocates aimed at influencing government agencies to protect the lives of people incarcerated in prisons, jails, and detention centers against the threats posed by COVID-19.
+ 
+In the context of this project, we define _grassroots organizing_ as efforts and actions planned by, for, and with incarcerated people. We define _community organizing_ as efforts and actions planned by community-based organizations.
+ 
+We do not include efforts for which we have no basis to believe that the action was connected to a health and safety risk posed by COVID-19 in a carceral facility, or efforts that are too individualized to be considered an organizing effort.
+ 
+The Perilous Chronicle’s [List of Prisoner Actions](https://perilouschronicle.com/covid-19-list-of-prisoner-actions/) is a vital source for our data, as are social media platforms such as Twitter, where organizers often promote their efforts. For example, our team has learned about many efforts by following the hashtag #FreeThemAll, commonly used to amplify demands by organizers inside and outside facilities to release incarcerated individuals to prevent COVID-19 outbreaks. We also gather data from news reports and social media to enhance our existing understanding of efforts happening on the ground. Finally, we ask organizers to self-report their efforts through [this form](https://docs.google.com/forms/d/e/1FAIpQLSe_ok4o9612E8FqOtNiBQcmUSV-inijstwm7lGheLpNO83gYg/viewform). Our grassroots and community organizing data reflect only a subset of efforts and are by no means exhaustive.
 
 ## FAQs
 
 ### How do you collect your data?
 
 Please see our methodology for information on how we collect data.
+ 
+### What makes this project distinct from others tracking COVID-19 in the carceral context?
 
-### What makes this project distinct from others tracking Covid-19 in the correctional context?
+There are a number of other organizations and initiatives, such as [The Marshall Project](https://www.themarshallproject.org/coronavirus), [Vera Institute of Justice](https://www.vera.org/projects/covid-19-criminal-justice-responses/covid-19-data), and [Prison Policy Initiative](https://www.prisonpolicy.org/virus/index.html), doing the important work of collecting and reporting on COVID-19 data in carceral facilities. What sets our project apart is that we collect and report this data at the facility level, in addition to the state level. You may notice that our state-level case and death totals differ from those reported by other organizations; those discrepancies are due to differences in data collection methods.
 
-There are a number of other organizations and initiatives, such as The Marshall Project, Vera Institute of Justice, X, and X doing the important work of collecting and reporting on Covid-19 data in carceral facilities. What sets our project apart is that we collect and report prison, jail, youth detention, and immigration detention data at the facility level, in addition to state-level reporting. You may notice that our state-level case and death totals differ from those reported by other organizations, and those discrepancies are due to differences in data collection methods.
+### Which jurisdictions are reporting facility-level data?
 
-### Which prisons and jails are reporting facility-level data?
-
-We aim to collect and report Covid-19 facility-level data, where possible, for all prisons and jails across the country. However, not all jurisdictions report data disaggregated by facility.
-
-We currently collect and report facility-level data from:
-
-- The Federal Bureau of Prisons, which includes federal facilities located in Puerto Rico and the District of Columbia
-- X state correctional agencies
-- X county correctional agencies
-
-Our data on youth and immigration detention is also collected and reported at the facility level.
-
-We currently collect and report aggregate state or county-wide data from:
-
-- X state correctional agencies, including the District of Columbia Department of Correction
-- X county correctional agencies
+We aim to collect and report COVID-19-related facility-level data, where possible, for all prisons and jails across the country. In general, the Federal Bureau of Prisons reports COVID-19-related prison data by facility. However, not all state and county jurisdictions report data disaggregated by facility for all variables. We are also working on a detailed table of variable availability by jurisdiction. In the meantime, please consult the individual state pages to see where we have facility-level data.
+ 
+Most jail jurisdictions (usually counties, but occasionally cities) do not report data at all. We plan to supplement our existing jail data by partnering with other initiatives who are directly requesting data from specific jurisdictions.
 
 ### How often do you update your data?
 
-We aim to keep our data as current as possible by collecting new data three to four times per week, but because correctional agencies update their data on varying schedules, some lags in reporting are inevitable. We have noted in our datasets when we last updated the data for a particular facility or jurisdiction.
+We collect new data three to four times per week. However, because correctional agencies update their data according to their own often varying schedules, the date we scraped and updated data may not be precisely the same as the date it was reported by the jurisdiction. We have noted in our datasets when we last updated the data for a particular facility or jurisdiction.
 
-### Are the deaths you’re reporting Covid-19 specific, or deaths from any cause?
+### Are the deaths you report those caused by COVID-19 or those from any cause?
 
-We report Covid-19 specific deaths. There have been instances where deaths suspected of being related to Covid-19 were classified as due to another cause. Therefore, it is reasonable to suspect underreporting of deaths. This applies to both the prison and jail dataset and the immigration detention dataset.
+To the extent possible, we aim to report only deaths caused by COVID-19. However, agencies differ in the categories of deaths they report as COVID-19-related. Some agencies include all deaths suspected of being related to COVID-19, and some include only those with a positive test result. Some jurisdictions do not include deaths that occur after or while someone has COVID-19 if the medical provider or examiner declares an alternative cause of death, such as a heart attack. There have also been instances where jurisdictions have not counted the deaths of people who died of COVID-19 after being released, even when they contracted the virus inside a facility. We are currently investigating suspected undercounts in COVID-19-related deaths.
 
 ### Can we compare data from one jurisdiction to another?
 
-It can be complicated to compare data between jurisdictions, because variable definitions sometimes vary. We recommend consulting the “Sources” column in our prison and jail dataset on GitHub for specific information directly from correctional agencies. It is important to note that not all jurisdictions clearly define their variables. Our team is working on harmonizing the data to the extent possible to enable better comparisons in the future.
-
-### Why don’t you have more data from jails?
-
-We collect data for the major jail systems in Los Angeles, New York City, and Chicago, as well as for jails in X other counties.
-
-Because jails fall under the jurisdiction of counties, rather than states, the number of jurisdictions we would need to extract data from in order to report on all jails far exceeds our capacity for the time being. In some cases, we have partnered with other initiatives who track jail data and incorporate their data into our database. For example, we partner with a team of researchers at Davis Vanguard to report data on Alameda, Fresno, Orange, Sacramento, San Francisco, Santa Clara, Solano, and Yolo county jails in California.
+It can be complicated to compare data between jurisdictions, because variable definitions sometimes vary. We recommend consulting the “Sources” column in our prison and jail dataset on [GitHub](https://github.com/uclalawcovid19behindbars/data) for specific information directly from correctional agencies. It is important to note that not all jurisdictions clearly define their variables. Our team is working on harmonizing the data to the extent possible to better enable inter-state comparisons.
 
 ### How do you calculate rates?
 
 Please see our methodology section to learn how we calculate rates.
-
+ 
 ### Who do you consider to be staff?
 
-We try to include only staff who work within facility walls, such as corrections officers, health personnel, or other custodial staff. Administrative staff and non-custodial employees typically do not work in prisons and jails, and are thus not “behind bars.” When a correctional agency does not distinguish between different types of staff in its reporting, we include data for all staff. Jurisdictions who do not distinguish staff roles will have relatively higher counts for staff.
-
-### Why do your total case or death count for X jurisdiction decrease?
+We endeavor to include data only for correctional staff who work within facility walls and exclude administrative staff, who typically do not work on site in prisons and jails. However, few agencies distinguish between different types of staff in their reporting. In these cases, we include data for all staff reported by the agency.
+ 
+### Why did your cumulative case or death count for a particular jurisdiction decrease?
 
 Our data reflect the totals that correctional agencies provide on their websites, though we are occasionally able to supplement this information with public information requests and media reports. At times, correctional agencies change the data they report or the manner in which they report it, resulting in occasional fluctuations in the numbers we display.
-
+ 
 ### Why don’t you report case and death rates for staff?
+ 
+We do not have reliable data for staffing levels at all facilities. It is also difficult to determine how many staff are actually present in each facility (versus on leave or working in administrative offices) and whether staff work within one or multiple facilities. Due to these complexities, we are not currently providing rates for staff, but we hope to do so in the future.
+ 
+### Why don’t you display prison and jail data over time?
+ 
+While we do maintain a historical dataset with the facility-level data we’ve been collecting since the start of the pandemic, correctional agencies have not always been consistent in their reporting of COVID-19-related data. We are working hard to clean and verify that historical dataset to enable us to display trends over the course of the pandemic. Please stay tuned!
 
-We do not yet have accurate and/or comparable totals of staff for a majority of facilities. As a result, we are not currently providing rates for staff, but we plan to in the future.
+&nbsp;  
+&nbsp;  
+&nbsp;  
+
+
+
+
+
+
+
+

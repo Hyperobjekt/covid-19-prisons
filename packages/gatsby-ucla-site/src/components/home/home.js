@@ -9,6 +9,7 @@ import CdcLogo from "../../../content/assets/cdc-logo.svg"
 import VitalProjectsFundLogo from "../../../content/assets/vital-projects-fund-logo.svg"
 import ArnoldVenturesLogo from "../../../content/assets/arnold-ventures-logo.svg"
 import MapTooltip from "./HomeMapTooltip"
+import { Link } from "gatsby-theme-material-ui"
 
 export const query = graphql`
   query($pathSlug: String!) {
@@ -26,7 +27,7 @@ const content = {
   intro: {
     title: "COVID-19 behind bars data project",
     subtitle: "UCLA Law",
-    body: `We are tracking the spread and impact of Covid-19 in American carceral facilities and pushing for greater transparency and accountability around the pandemic response of the carceral system.`,
+    body: <p>This map tracks COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. The data are collected several times per week from the websites of federal, state, and local correctional agencies. <Link to="/about/">Learn more about this project.</Link></p>,
   },
   map: {
     title: "Showing ${metric} in carceral facilities",
