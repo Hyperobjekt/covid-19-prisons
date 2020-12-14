@@ -99,9 +99,10 @@ const parseFacility = (facility = {}) => {
     "population",
     "released",
     "recovered",
+    "tadmin"
   ]
-  const residentRates = ["confirmed", "deaths", "active"]
-  const staffKeys = ["confirmed", "deaths", "active", "recovered"]
+  const residentRates = ["confirmed", "deaths", "active", "tested"]
+  const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"]
 
   const result = {}
 
@@ -118,8 +119,13 @@ const parseFacility = (facility = {}) => {
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    obj[key] = parseInt(source.residents[key])
-    return obj
+    if(key === "tadmin") {
+      obj["tested"] = parseInt(source.residents[key])
+      return obj
+    }else{
+      obj[key] = parseInt(source.residents[key])
+      return obj
+    }
   }, {})
 
   // add rates

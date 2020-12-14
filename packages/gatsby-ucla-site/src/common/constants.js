@@ -18,11 +18,12 @@ export const METRICS = {
     "confirmed",
     "deaths",
     "active",
+    "tested",
     "confirmed_rate",
     "deaths_rate",
     "active_rate",
   ],
-  staff: ["confirmed", "deaths", "active"],
+  staff: ["confirmed", "deaths", "active", "tested"],
 }
 
 export const METRIC_FORMATTERS = {
