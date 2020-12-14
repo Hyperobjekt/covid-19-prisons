@@ -45,28 +45,28 @@ const useStyles = makeStyles((theme) => ({
   //   },
   // },
   title: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(0),
   },
   step: {
     display: "flex",
-    minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
+    //minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
     justifyContent: "center",
     padding: theme.spacing(3, 0),
   },
   first: {
-    minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
+    /*minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
       10
-    )})`,
+    )})`,*/
   },
   content: {
     position: "relative",
     // DEPARTURES FROM STATES PAGES
-    marginTop: `calc(${theme.layout.headerHeight} + 56px)`,
+    marginTop: `calc(${theme.layout.headerHeight} + 24px)`,
     // to center single column
     maxWidth: "42rem",
     margin: "auto",
     "& .embedded-stats": {
-      padding: theme.spacing(1, 2, 3),
+      padding: theme.spacing(3,2),
     },
   },
 }))
@@ -155,7 +155,7 @@ const content = {
         title: "Federal Prison Releases Related to COVID-19",
         link: "Releases",
         body:
-          "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). See our <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985' rel='noreferrer' target='_blank'>full prison releases dataset</a> for more.",
+          "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). See our <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985' rel='noreferrer' target='_blank'>full prison releases dataset</a> for more.<br><br><br>",
         visual: {
           prisonCount: "prison release efforts",
         },
