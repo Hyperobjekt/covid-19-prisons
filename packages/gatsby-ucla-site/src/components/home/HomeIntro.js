@@ -14,7 +14,7 @@ const styles = (theme) => ({
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(44),
-    maxWidth: "16em",
+    maxWidth: "11em",
     marginTop: 0,
   },
   subtitle: {
