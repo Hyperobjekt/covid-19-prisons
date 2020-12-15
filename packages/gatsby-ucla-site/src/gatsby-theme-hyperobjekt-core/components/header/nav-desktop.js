@@ -56,6 +56,19 @@ const styles = (theme) => ({
     "& .SubMenu-listItem": {
       display: "inline-block",
     },
+    "& .SubMenu-listItem:last-child": {
+      marginTop: theme.spacing(2),
+      position: "relative",
+    },
+    "& .SubMenu-listItem:last-child:before": {
+      content: '""',
+      display: "block",
+      background: theme.palette.text.secondary,
+      position: "absolute",
+      height: "2px",
+      width: "3rem",
+      top: "-0.5rem",
+    },
     "& .SubMenu-link": {
       padding: 0,
       display: "inline",
