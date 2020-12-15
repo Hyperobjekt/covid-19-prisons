@@ -24,7 +24,7 @@ const styles = (theme) => ({
     marginTop: 0,
   },
   body: {
-    maxWidth: "25em",
+    maxWidth: "32em",
   },
 })
 

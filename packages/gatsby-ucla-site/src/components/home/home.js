@@ -27,7 +27,7 @@ const content = {
   intro: {
     title: "COVID-19 behind bars data project",
     subtitle: "UCLA Law",
-    body: <p>This map tracks COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. The data are collected several times per week from the websites of federal, state, and local correctional agencies. <Link to="/about/">Learn more about this project.</Link></p>,
+    body: <p>This map displays COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. Click on a state to access more data about prisons, jails, immigration detention centers, pandemic-related prison and jail releases, legal filings and court orders, and grassroots and community organizing efforts. </p>,
   },
   map: {
     title: "Showing ${metric} in carceral facilities",
