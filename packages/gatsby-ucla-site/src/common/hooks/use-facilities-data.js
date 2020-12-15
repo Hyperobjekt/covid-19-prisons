@@ -24,8 +24,9 @@ export default function useFacilitiesData() {
               confirmed_rate
               deaths_rate
               active_rate
-              population
               tested
+              tested_rate
+              population
             }
             staff {
               confirmed

@@ -302,8 +302,9 @@ export const query = graphql`
             confirmed_rate
             deaths
             deaths_rate
-            population
             tested
+            tested_rate
+            population
           }
           staff {
             active

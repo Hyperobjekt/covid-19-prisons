@@ -158,6 +158,13 @@ const HomeTable = ({ title, note, classes, ...props }) => {
         Cell: (prop) => countFormatter(prop.value),
         style: numberColStyle,
       },
+      {
+        id: "tested_rate",
+        Header: getLang("tested_rate"),
+        accessor: "residents.tested_rate",
+        Cell: (prop) => countFormatter(prop.value),
+        style: numberColStyle,
+      },
     ],
     [classes.name]
   )
