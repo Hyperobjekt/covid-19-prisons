@@ -59,7 +59,7 @@ const NumberStat = ({
         className={clsx(classes.number, {
           highlighted: !secondary,
         })}
-        variant="number"
+        variant="body1"
       >
         {isValid ? formatter(value) : getLang("unavailable")}
       </Typography>

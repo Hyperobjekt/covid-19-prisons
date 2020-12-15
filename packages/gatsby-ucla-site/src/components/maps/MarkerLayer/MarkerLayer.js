@@ -2,6 +2,8 @@ import React from "react"
 import clsx from "clsx"
 import { Marker } from "react-simple-maps"
 import { Spike, Dot } from "../../markers"
+import useStatesStore from "../../states/useStatesStore"
+import shallow from "zustand/shallow"
 
 import { withStyles } from "@material-ui/core"
 import { extent } from "d3-array"
@@ -9,7 +11,8 @@ import { getScalerFunction, getValue, getColorFunction } from "../selectors"
 
 export const styles = {
   highlight: {
-    strokeWidth: 2,
+    strokeWidth: 2.3,
+    fillOpacity: 1,
   },
   text: {
     textAnchor: "middle",
@@ -24,6 +27,7 @@ const MarkerLayer = ({
   size: sizeValue = 10,
   sizeExtent: overrideSizeExtent,
   color: colorValue = "#666",
+  highlightColor: highlightColorValue = "#",
   label: labelValue = false,
   stroke: strokeValue = "#666",
   highlight: highlightValue = false,
@@ -35,9 +39,11 @@ const MarkerLayer = ({
   sizeSelector,
   groupSelector,
   widthSelector,
+  setTooltipContent,
   children,
   ...props
 }) => {
+  // console.log("MarkerLayer, ", markers)
   // spike length calculation
   const sizeExtent = overrideSizeExtent || extent(markers, sizeSelector)
   const getMarkerSize = getScalerFunction(sizeValue, sizeExtent, sizeSelector)
@@ -45,6 +51,15 @@ const MarkerLayer = ({
     [0, 0.1, 1],
     [0, 1, sizeExtent[1]],
     sizeSelector
+  )
+
+  const [hoveredMarker, setHoveredMarker, hoveredFacility] = useStatesStore(
+    (state) => [
+      state.hoveredMarker,
+      state.setHoveredMarker,
+      state.hoveredFacility,
+    ],
+    shallow
   )
 
   // spike width calculation
@@ -61,6 +76,19 @@ const MarkerLayer = ({
   // create stroke function (or value)
   const getStroke = getColorFunction(strokeValue, groups, groupSelector)
 
+  const isHighlight = (marker) => {
+    // console.log("isHighlight")
+    // console.log(marker)
+    if (!hoveredMarker && !hoveredFacility) return
+    if (!!hoveredMarker) {
+      return marker.id === hoveredMarker.id
+    }
+    if (!!hoveredFacility) {
+      return marker.id === hoveredFacility.id
+    }
+    return false
+  }
+
   return (
     <g className={clsx("spike-layer", classes.root, className)} {...props}>
       {!!sizeExtent[1] && // fixes #67 - if max size is 0, don't plot spikes
@@ -71,16 +99,25 @@ const MarkerLayer = ({
             return null
           }
           const width = getValue(getSpikeWidth, marker)
-          const color = getValue(getColor, marker)
+          const highlight = isHighlight(marker)
+          const color = !!highlight
+            ? getValue(getStroke, marker)
+            : getValue(getColor, marker)
           const stroke = getValue(getStroke, marker)
           const label = getValue(labelValue, marker)
-          const highlight = getValue(highlightValue, marker)
+          const name = marker.name
           const coords = marker.coords
           return (
             <Marker
               key={marker.id}
               coordinates={coords}
-              className={classes.marker}
+              className={clsx(classes.marker)}
+              onMouseEnter={() => {
+                setHoveredMarker(marker)
+              }}
+              onMouseLeave={() => {
+                setHoveredMarker(null)
+              }}
             >
               {type === "dots" && (
                 <Dot
