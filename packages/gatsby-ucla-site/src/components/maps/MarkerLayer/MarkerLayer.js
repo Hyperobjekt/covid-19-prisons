@@ -43,7 +43,7 @@ const MarkerLayer = ({
   children,
   ...props
 }) => {
-  // console.log("MarkerLayer, ", markers, colorValue)
+  // console.log("MarkerLayer, ", markers)
   // spike length calculation
   const sizeExtent = overrideSizeExtent || extent(markers, sizeSelector)
   const getMarkerSize = getScalerFunction(sizeValue, sizeExtent, sizeSelector)
@@ -77,8 +77,8 @@ const MarkerLayer = ({
   const getStroke = getColorFunction(strokeValue, groups, groupSelector)
 
   const isHighlight = (marker) => {
-    console.log("isHighlight")
-    console.log(marker)
+    // console.log("isHighlight")
+    // console.log(marker)
     if (!hoveredMarker && !hoveredFacility) return
     if (!!hoveredMarker) {
       return marker.id === hoveredMarker.id

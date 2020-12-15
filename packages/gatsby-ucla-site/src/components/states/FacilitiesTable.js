@@ -47,6 +47,7 @@ const FacilitiesTable = ({
             <>
               <Typography
                 onMouseEnter={() => {
+                  // console.log("Hovering in table: ", prop.cell.row.original)
                   setHoveredFacility(prop.cell.row.original)
                 }}
                 onMouseLeave={() => {
