@@ -15,6 +15,10 @@ const useStatesStore = create((set) => ({
   setCurrentStep: (currentStep) => set({ currentStep }),
   facilitiesGroup: GROUPS[0],
   setFacilitiesGroup: (facilitiesGroup) => set({ facilitiesGroup }),
+  hoveredMarker: null,
+  setHoveredMarker: (hoveredMarker) => set({ hoveredMarker }),
+  hoveredFacility: null,
+  setHoveredFacility: (hoveredFacility) => set({ hoveredFacility }),
 }))
 
 export default useStatesStore

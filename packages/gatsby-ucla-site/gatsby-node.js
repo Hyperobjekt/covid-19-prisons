@@ -59,6 +59,7 @@ exports.sourceNodes = async (params) => {
 }
 
 const StateTemplate = require.resolve(`./src/components/states/states.js`)
+const FederalPage = require.resolve(`./src/components/states/Federal.js`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -97,5 +98,11 @@ exports.createPages = async ({ graphql, actions }) => {
         `invalid state name: not creating a state page for ${pageName} `
       )
     }
+  })
+
+  createPage({
+    path: `/federal/`,
+    component: FederalPage,
+    context: {},
   })
 }

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Stack from "../../Stack"
 import { GROUPS } from "../../../common/constants"
 import FacilitiesTable from "../FacilitiesTable"
@@ -7,7 +7,7 @@ import shallow from "zustand/shallow"
 import useStatesStore from "../useStatesStore"
 import { useActiveMetric, useFacilitiesData } from "../../../common/hooks"
 
-const Facilities = ({ id, lang, data, ...props }) => {
+const Facilities = ({ id, lang, data, isFederal, ...props }) => {
   const all = useFacilitiesData()
 
   // currently selected metric
@@ -24,13 +24,15 @@ const Facilities = ({ id, lang, data, ...props }) => {
   )
 
   // get facilities for current state
-  const facilities = all.filter((f) => f.state === stateName)
+  const facilities = isFederal
+    ? all.filter((f) => f.jurisdiction === "federal")
+    : all.filter((f) => f.state === stateName)
 
   // handler for when table headers are clicked
   const handleFacilitiesGroupChange = React.useCallback(
     (newGroup) => {
       const group = newGroup.split(".")[0]
-      console.log(group)
+      // console.log(group)
       // exit if invalid
       if (!group || GROUPS.indexOf(group) === -1) return
       group && group !== facilitiesGroup && setFacilitiesGroup(group)
@@ -45,6 +47,7 @@ const Facilities = ({ id, lang, data, ...props }) => {
         group={facilitiesGroup}
         data={facilities}
         onSort={handleFacilitiesGroupChange}
+        isFederal={isFederal}
       />
     </Stack>
   )

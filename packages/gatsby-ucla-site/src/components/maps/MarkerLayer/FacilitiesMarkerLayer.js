@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from "react"
+import React, { memo, useCallback, useMemo, useState, useEffect } from "react"
 import MarkerLayer from "./MarkerLayer"
 import { useOptionsStore, useMappableFacilities } from "../../../common/hooks"
 import shallow from "zustand/shallow"
@@ -26,7 +26,6 @@ const FacilitiesMarkerLayer = memo(
     //   () => (filter ? facilities.filter(filter) : facilities),
     //   [filter, facilities]
     // )
-
     const isDots = props.type && props.type === "dots"
     const size = isDots ? 3.5 : [0, 200]
     const colors = isDots ? categoryColors : categoryGradients
@@ -35,17 +34,19 @@ const FacilitiesMarkerLayer = memo(
       group,
     ])
     return (
-      <MarkerLayer
-        markers={facilities}
-        size={size}
-        width={7}
-        color={colors}
-        stroke={categoryColors}
-        groups={categories}
-        groupSelector={typeSelector}
-        sizeSelector={dataSelector}
-        {...props}
-      />
+      <>
+        <MarkerLayer
+          markers={facilities}
+          size={size}
+          width={7}
+          color={colors}
+          stroke={categoryColors}
+          groups={categories}
+          groupSelector={typeSelector}
+          sizeSelector={dataSelector}
+          {...props}
+        />
+      </>
     )
   }
 )

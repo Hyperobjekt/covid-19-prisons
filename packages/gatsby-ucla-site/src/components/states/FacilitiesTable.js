@@ -4,6 +4,7 @@ import { Typography, withStyles } from "@material-ui/core"
 import { titleTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 import { getLang } from "../../common/utils/i18n"
 import { formatMetricValue } from "../../common/utils/formatters"
+import useStatesStore from "./useStatesStore"
 
 const styles = (theme) => ({
   root: {
@@ -28,10 +29,13 @@ const styles = (theme) => ({
 
 const FacilitiesTable = ({
   classes,
+  data,
   group = "residents",
   metric,
+  isFederal,
   ...props
 }) => {
+  const setHoveredFacility = useStatesStore((state) => state.setHoveredFacility)
   const columns = React.useMemo(
     () => [
       {
@@ -41,12 +45,24 @@ const FacilitiesTable = ({
         Cell: (prop) => {
           return (
             <>
-              <Typography className={classes.name} variant="body1">
+              <Typography
+                onMouseEnter={() => {
+                  // console.log("Hovering in table: ", prop.cell.row.original)
+                  setHoveredFacility(prop.cell.row.original)
+                }}
+                onMouseLeave={() => {
+                  setHoveredFacility(null)
+                }}
+                className={classes.name}
+                variant="body1"
+              >
                 {prop.value}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                {getLang(prop.row.original.jurisdiction)}
-              </Typography>
+              {!isFederal && (
+                <Typography variant="body2" color="textSecondary">
+                  {getLang(prop.row.original.jurisdiction)}
+                </Typography>
+              )}
             </>
           )
         },
@@ -97,6 +113,8 @@ const FacilitiesTable = ({
       className={classes.table}
       columns={columns}
       options={options}
+      // fixes #45
+      data={data.filter((d) => d.name !== "Statewide")}
       {...props}
     ></Table>
   )
