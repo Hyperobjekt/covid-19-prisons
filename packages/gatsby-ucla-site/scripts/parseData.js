@@ -130,7 +130,6 @@ const parseFacility = (facility = {}) => {
 
   // add rates
   residentRates.forEach((rateType) => {
-    console.log(rateType)
     result.residents[rateType + "_rate"] = result.residents.population
       ? result.residents[rateType] / result.residents.population
       : null
