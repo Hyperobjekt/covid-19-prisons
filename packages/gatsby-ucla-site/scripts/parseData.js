@@ -50,6 +50,11 @@ const UPPER_CASE = [
 ]
 
 /**
+ * All ways DC is represented in source data (in lower case)
+ */
+const DC_VARIANTS = ["dc", "district of columbia", "district of col"]
+
+/**
  * Fixes casing on strings THAT ARE ALL UPPERCASE
  * so that They Have Title Casing
  * @param {string} str
@@ -65,6 +70,16 @@ function fixCasing(str) {
     )
     .join(" ")
   return result
+}
+
+/**
+ * Fixes for inconsistent state naming
+ * @param {string} str
+ */
+function formatState(str) {
+  return DC_VARIANTS.includes(str.toLowerCase())
+   ? "District of Columbia"
+   : str
 }
 
 /**
@@ -109,7 +124,7 @@ const parseFacility = (facility = {}) => {
   result.name = fixCasing(source.name)
   result.jurisdiction = source["jurisdiction"]
   result.city = source["city"]
-  result.state = source["state"]
+  result.state = formatState(source["state"])
   result.date = Date.parse(source["date"])
 
   // parse coordinates
@@ -196,6 +211,10 @@ const parseMap = (row, colMap) => {
     let parsedValue = valueParser(rawValue)
     if ((parser === "int" || parser === "float") && isNaN(parsedValue))
       parsedValue = null
+
+    if (colName === "state") {
+      parsedValue = formatState(parsedValue)
+    }
     result[colName] = parsedValue
   })
   return result
