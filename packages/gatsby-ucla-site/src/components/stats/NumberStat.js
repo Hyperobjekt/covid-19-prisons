@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 import { format as d3Format } from "d3-format"
-
+import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 import PropTypes from "prop-types"
 import { Typography, withStyles } from "@material-ui/core"
 import Stack from "../Stack"
@@ -11,6 +11,7 @@ import { getLang } from "../../common/utils/i18n"
 export const styles = (theme) => ({
   root: {},
   number: {
+    ...sansSerifyTypography,
     fontSize: theme.typography.pxToRem(32),
     color: theme.palette.secondary.secondary,
     "&.highlighted": {
