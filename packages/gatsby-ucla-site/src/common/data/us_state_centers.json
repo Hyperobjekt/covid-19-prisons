@@ -57,7 +57,8 @@
     "State": "District of Columbia",
     "StateCode": "DC",
     "Latitude": 38.8974,
-    "Longitude": -77.0268
+    "Longitude": -77.0268,
+    "scale": 120000
   },
   "FL": {
     "State": "Florida",
