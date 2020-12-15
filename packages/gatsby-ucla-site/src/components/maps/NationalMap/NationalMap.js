@@ -3,13 +3,15 @@ import { SvgMap, HoverShape, StateLayer } from "@hyperobjekt/svg-maps"
 import MapGradients from "../MapGradients"
 import FacilitiesMarkerLayer from "../MarkerLayer/FacilitiesMarkerLayer"
 import { useShapeStyles } from "../styles"
+import { geoAlbersUsaTerritories } from "geo-albers-usa-territories"
+
+const projection = geoAlbersUsaTerritories().scale(1070).translate([400, 300])
 
 const NationalMap = memo(
   ({ children, facilities, metric, group, onSelect, ...props }) => {
     const shapeClasses = useShapeStyles()
-
     return (
-      <SvgMap {...props}>
+      <SvgMap projection={projection} {...props}>
         <MapGradients />
         <StateLayer
           classes={{
@@ -33,7 +35,6 @@ const NationalMap = memo(
   }
 )
 
-NationalMap.defaultProps = {
-}
+NationalMap.defaultProps = {}
 
 export default NationalMap
