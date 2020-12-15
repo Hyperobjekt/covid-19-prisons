@@ -12,6 +12,8 @@ yarn install
 
 ## Website (`/packages/gatsby-ucla-site`)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1886ec87-389f-470e-a6c0-84f5d44ed418/deploy-status)](https://app.netlify.com/sites/covid-19-behind-bars/deploys)
+
 Run the Gatsby site in development mode with
 
 ```
