@@ -304,11 +304,13 @@ export const query = graphql`
             deaths
             deaths_rate
             population
+            tested
           }
           staff {
             active
             confirmed
             deaths
+            tested
           }
           date
         }

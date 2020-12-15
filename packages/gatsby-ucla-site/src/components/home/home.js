@@ -30,7 +30,7 @@ const content = {
     body: <p>This map tracks COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. The data are collected several times per week from the websites of federal, state, and local correctional agencies. <Link to="/about/">Learn more about this project.</Link></p>,
   },
   map: {
-    title: "foo",
+    title: "Showing ${metric} in carceral facilities",
     description:
       "Each spike represents the number of cases in a facility, select a state for more details",
   },

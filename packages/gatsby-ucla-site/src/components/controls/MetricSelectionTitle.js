@@ -43,7 +43,9 @@ const MetricSelectionTitle = ({
       variant="h3"
       {...props}
     >
-      yes
+      {titleArray.map((t, i) => (
+        <React.Fragment key={i}>{t}</React.Fragment>
+      ))}
     </Typography>
   )
 }

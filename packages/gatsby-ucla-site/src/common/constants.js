@@ -6,6 +6,7 @@ export const KEYS = {
   cases: "confirmed",
   deaths: "deaths",
   active: "active",
+  tested: "tested",
   population: "population",
 }
 
