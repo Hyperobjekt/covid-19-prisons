@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Stack from "../../Stack"
 import { GROUPS } from "../../../common/constants"
 import FacilitiesTable from "../FacilitiesTable"

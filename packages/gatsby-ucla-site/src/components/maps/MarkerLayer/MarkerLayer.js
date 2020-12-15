@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import clsx from "clsx"
 import { Marker } from "react-simple-maps"
 import { Spike, Dot } from "../../markers"
 import useStatesStore from "../../states/useStatesStore"
+import shallow from "zustand/shallow"
 
 import { withStyles } from "@material-ui/core"
 import { extent } from "d3-array"
@@ -10,7 +11,8 @@ import { getScalerFunction, getValue, getColorFunction } from "../selectors"
 
 export const styles = {
   highlight: {
-    strokeWidth: 2,
+    strokeWidth: 2.3,
+    fillOpacity: 1,
   },
   text: {
     textAnchor: "middle",
@@ -25,6 +27,7 @@ const MarkerLayer = ({
   size: sizeValue = 10,
   sizeExtent: overrideSizeExtent,
   color: colorValue = "#666",
+  highlightColor: highlightColorValue = "#",
   label: labelValue = false,
   stroke: strokeValue = "#666",
   highlight: highlightValue = false,
@@ -40,7 +43,7 @@ const MarkerLayer = ({
   children,
   ...props
 }) => {
-  console.log("MarkerLayer, ", markers)
+  console.log("MarkerLayer, ", markers, colorValue)
   // spike length calculation
   const sizeExtent = overrideSizeExtent || extent(markers, sizeSelector)
   const getMarkerSize = getScalerFunction(sizeValue, sizeExtent, sizeSelector)
@@ -50,8 +53,10 @@ const MarkerLayer = ({
     sizeSelector
   )
 
-  // const [setHoveredMarker] = useOptionsStore((state) => state.setHoveredMarker)
-  const setHoveredMarker = useStatesStore((state) => state.setHoveredMarker)
+  const [hoveredMarker, setHoveredMarker] = useStatesStore(
+    (state) => [state.hoveredMarker, state.setHoveredMarker],
+    shallow
+  )
 
   // spike width calculation
   const widthExtent = overrideWidthExtent || extent(markers, widthSelector)
@@ -76,17 +81,21 @@ const MarkerLayer = ({
           return null
         }
         const width = getValue(getSpikeWidth, marker)
-        const color = getValue(getColor, marker)
+        const highlight = !!hoveredMarker
+          ? marker.id === hoveredMarker.id
+          : false
+        const color = !!highlight
+          ? getValue(getStroke, marker)
+          : getValue(getColor, marker)
         const stroke = getValue(getStroke, marker)
         const label = getValue(labelValue, marker)
-        const highlight = getValue(highlightValue, marker)
         const name = marker.name
         const coords = marker.coords
         return (
           <Marker
             key={marker.id}
             coordinates={coords}
-            className={clsx(classes.marker, "testy-test")}
+            className={clsx(classes.marker)}
             onMouseEnter={() => {
               setHoveredMarker(marker)
             }}

@@ -3,6 +3,7 @@ import MarkerLayer from "./MarkerLayer"
 import { useOptionsStore, useMappableFacilities } from "../../../common/hooks"
 import shallow from "zustand/shallow"
 import { typeSelector, getDataMetricSelector } from "../../../common/utils"
+import useStatesStore from "../../states/useStatesStore"
 
 const FacilitiesMarkerLayer = memo(
   ({ facilities, group = "residents", ...props }) => {
@@ -26,7 +27,7 @@ const FacilitiesMarkerLayer = memo(
     //   () => (filter ? facilities.filter(filter) : facilities),
     //   [filter, facilities]
     // )
-
+    const hoveredMarker = useStatesStore((state) => state.hoveredMarker)
     const isDots = props.type && props.type === "dots"
     const size = isDots ? 3.5 : [0, 200]
     const colors = isDots ? categoryColors : categoryGradients
@@ -45,6 +46,7 @@ const FacilitiesMarkerLayer = memo(
           groups={categories}
           groupSelector={typeSelector}
           sizeSelector={dataSelector}
+          hovered={hoveredMarker}
           {...props}
         />
       </>

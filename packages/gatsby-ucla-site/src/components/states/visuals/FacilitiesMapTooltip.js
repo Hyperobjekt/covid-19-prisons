@@ -17,22 +17,26 @@ const styles = (theme) => ({
 })
 
 const FacilitiesMapTooltip = ({ classes, group, metric, ...props }) => {
-  // const hovered = useMapStore((state) => state.hovered)
-  // const metric = useOptionsStore((state) => state.metric)
   const hoveredMarker = useStatesStore((state) => state.hoveredMarker)
-  useEffect(() => {
-    console.log(`Metric changed to ${metric}.`)
-  }, [metric])
-  useEffect(() => {
-    console.log(`group changed to ${group}.`)
-  }, [group])
-  useEffect(() => {
-    console.log(`Marker changed, `, hoveredMarker)
-  }, [hoveredMarker])
 
   const getLabel = () => {
     const text = hoveredMarker && `${hoveredMarker.name}`
     return text
+  }
+
+  const getRounded = (num, metric) => {
+    let r = ""
+    const v = Math.round((num + Number.EPSILON) * 100) / 100
+    if (metric.indexOf("rate") > -1) {
+      if (v < 0.01) {
+        r = "< 0.0.%"
+      } else {
+        r = v.toLocaleString() + "%"
+      }
+    } else {
+      r = v.toLocaleString()
+    }
+    return r
   }
 
   const getStat = () => {
@@ -41,9 +45,7 @@ const FacilitiesMapTooltip = ({ classes, group, metric, ...props }) => {
       `${getLang(metric)}: ${
         !hoveredMarker[group][metric]
           ? getLang("unavailable")
-          : Math.round((hoveredMarker[group][metric] + Number.EPSILON) * 100) /
-              100 +
-            (metric.indexOf("rate") > -1 ? "%" : "")
+          : getRounded(hoveredMarker[group][metric], metric)
       }`
     return text
   }
