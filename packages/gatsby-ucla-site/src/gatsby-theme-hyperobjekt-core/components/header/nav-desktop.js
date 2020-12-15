@@ -1,5 +1,7 @@
+import React from "react"
 import { withStyles } from "@material-ui/core"
 import Navigation from "gatsby-theme-hyperobjekt-core/src/components/header/nav"
+import useBreadcrumb from "gatsby-theme-hyperobjekt-core/src/utils/use-breadcrumb"
 import { sansSerifyTypography } from "../../theme"
 
 /** number of cols for the subnav */
@@ -75,7 +77,22 @@ const styles = (theme) => ({
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(14),
     },
+    "& .SubMenu-link.active": {
+      fontWeight: "bold",
+    },
   },
 })
 
-export default withStyles(styles)(Navigation)
+const Nav = ({ links, ...props }) => {
+  const breadcrumb = useBreadcrumb()
+  // replace State & Federal link with state name if currently on a state page
+  const modLinks =
+    breadcrumb.length === 2
+      ? links.map((l) =>
+          l.link === "#" ? { ...l, name: breadcrumb[1].name } : l
+        )
+      : links
+  return <Navigation links={modLinks} {...props} />
+}
+
+export default withStyles(styles)(Nav)
