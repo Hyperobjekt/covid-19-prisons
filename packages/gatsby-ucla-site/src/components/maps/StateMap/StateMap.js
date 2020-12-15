@@ -9,11 +9,6 @@ const filterZoomEvent = () => false
 
 const StateMap = ({ stateName, children, ...props }) => {
   const [hovered] = useHoveredFacilities()
-  // console.log("useHoveredFacilities, ", useHoveredFacilities)
-  // const [hovered] = useHoveredFacilities({ state=> state.hovered})
-  useEffect(() => {
-    console.log(`mapHovered changed: ${hovered}`)
-  }, [hovered])
 
   const classes = useShapeStyles()
   const state_code = getStateCodeByName(stateName)
