@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Stack from "../../Stack"
 import { GROUPS } from "../../../common/constants"
 import FacilitiesTable from "../FacilitiesTable"
@@ -32,7 +32,7 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
   const handleFacilitiesGroupChange = React.useCallback(
     (newGroup) => {
       const group = newGroup.split(".")[0]
-      console.log(group)
+      // console.log(group)
       // exit if invalid
       if (!group || GROUPS.indexOf(group) === -1) return
       group && group !== facilitiesGroup && setFacilitiesGroup(group)

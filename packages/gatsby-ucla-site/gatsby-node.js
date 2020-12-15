@@ -103,10 +103,6 @@ exports.createPages = async ({ graphql, actions }) => {
   createPage({
     path: `/federal/`,
     component: FederalPage,
-    context: {
-      // TODO: delete
-      slug: "fed",
-      state: "feda",
-    },
+    context: {},
   })
 }

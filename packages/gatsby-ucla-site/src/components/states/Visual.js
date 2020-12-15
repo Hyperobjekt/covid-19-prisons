@@ -38,14 +38,25 @@ const Visual = ({ classes, className, ...props }) => {
   const isVisible = (step) => currentStep === step
 
   // springs for transitioning opacity
-  const mapOpacity = useSpring({ opacity: isMapVisible ? 1 : 0 })
-  const filingsOpacity = useSpring({ opacity: isVisible("filings") ? 1 : 0 })
-  const releasesOpacity = useSpring({ opacity: isVisible("releases") ? 1 : 0 })
+  const mapOpacity = useSpring({
+    opacity: isMapVisible ? 1 : 0,
+    zIndex: isMapVisible ? 2000 : -1,
+  })
+  const filingsOpacity = useSpring({
+    opacity: isVisible("filings") ? 1 : 0,
+    zIndex: isVisible("filings") ? 2000 : -1,
+  })
+  const releasesOpacity = useSpring({
+    opacity: isVisible("releases") ? 1 : 0,
+    zIndex: isVisible("releases") ? 2000 : -1,
+  })
   const immigrationOpacity = useSpring({
     opacity: isVisible("immigration") ? 1 : 0,
+    zIndex: isVisible("immigration") ? 2000 : -1,
   })
   const grassrootsOpacity = useSpring({
     opacity: isVisible("grassroots") ? 1 : 0,
+    zIndex: isVisible("grassroots") ? 2000 : -1,
   })
 
   return (
