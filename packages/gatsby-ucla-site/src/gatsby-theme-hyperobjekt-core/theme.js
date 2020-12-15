@@ -210,6 +210,16 @@ const CovidTheme = () => {
           },
         },
       },
+      MuiIconButton: {
+        root: {
+          color: theme.palette.text.secondary,
+        },
+      },
+      MuiSelect: {
+        icon: {
+          color: theme.palette.text.secondary,
+        },
+      },
       MuiPopover: {
         paper: {
           boxShadow: `0 0 0 1px #DDDDCB`,

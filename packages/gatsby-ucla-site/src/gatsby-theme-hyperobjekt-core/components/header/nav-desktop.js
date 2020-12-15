@@ -75,12 +75,6 @@ const styles = (theme) => ({
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(14),
     },
-    "& .SubMenu-link": {
-      padding: 0,
-      display: "inline",
-      ...sansSerifyTypography,
-      fontSize: theme.typography.pxToRem(14),
-    },
   },
 })
 
