@@ -46,7 +46,7 @@ const FacilitiesTable = ({
             <>
               <Typography
                 onMouseEnter={() => {
-                  setHoveredFacility(prop.cell.row.original.id)
+                  setHoveredFacility(prop.cell.row.original)
                 }}
                 onMouseLeave={() => {
                   setHoveredFacility(null)

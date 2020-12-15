@@ -53,8 +53,12 @@ const MarkerLayer = ({
     sizeSelector
   )
 
-  const [hoveredMarker, setHoveredMarker] = useStatesStore(
-    (state) => [state.hoveredMarker, state.setHoveredMarker],
+  const [hoveredMarker, setHoveredMarker, hoveredFacility] = useStatesStore(
+    (state) => [
+      state.hoveredMarker,
+      state.setHoveredMarker,
+      state.hoveredFacility,
+    ],
     shallow
   )
 
@@ -72,6 +76,19 @@ const MarkerLayer = ({
   // create stroke function (or value)
   const getStroke = getColorFunction(strokeValue, groups, groupSelector)
 
+  const isHighlight = (marker) => {
+    console.log("isHighlight")
+    console.log(marker)
+    if (!hoveredMarker && !hoveredFacility) return
+    if (!!hoveredMarker) {
+      return marker.id === hoveredMarker.id
+    }
+    if (!!hoveredFacility) {
+      return marker.id === hoveredFacility.id
+    }
+    return false
+  }
+
   return (
     <g className={clsx("spike-layer", classes.root, className)} {...props}>
       {markers.map((marker, i) => {
@@ -81,9 +98,7 @@ const MarkerLayer = ({
           return null
         }
         const width = getValue(getSpikeWidth, marker)
-        const highlight = !!hoveredMarker
-          ? marker.id === hoveredMarker.id
-          : false
+        const highlight = isHighlight(marker)
         const color = !!highlight
           ? getValue(getStroke, marker)
           : getValue(getColor, marker)
