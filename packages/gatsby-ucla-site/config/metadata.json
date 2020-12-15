@@ -1,13 +1,13 @@
 {
   "logoImage": "site-logo.svg",
-  "socialImage": "site-social.jpg",
+  "socialImage": "covid-19-behind-bars-map-social.png",
   "iconImage": "site-icon.png",
-  "title": "COVID-19 Behind Bars",
-  "description": "Reporting COVID-19 data from facilities across the country",
+  "title": "UCLA Law COVID-19 Behind Bars Data Project",
+  "description": "Reporting COVID-19 data from U.S. carceral facilities.",
   "keywords": ["gatsby", "theme", "react"],
   "author": "Lane Olson",
   "copyright": "Copyright © 2020",
-  "siteUrl": "https://covid-19-behind-bars.netlify.app",
+  "siteUrl": "https://uclacovidbehindbars.org",
   "menuLinks": [
     {
       "name": "Home",
