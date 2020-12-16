@@ -6,7 +6,7 @@ import { getLang } from "../../common/utils/i18n"
 import ArrowDown from "@material-ui/icons/ArrowDropDown"
 import { METRICS, GROUPS } from "../../common/constants"
 const styles = (theme) => ({
-  button: { lineHeight: 1 },
+  button: { lineHeight: 1, textAlign: `left` },
   menu: {},
   menuItem: {},
   menuItemActive: {},

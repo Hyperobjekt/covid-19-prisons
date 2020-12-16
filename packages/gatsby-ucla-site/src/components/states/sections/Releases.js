@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core"
 import NumberStat from "../../stats/NumberStat"
 import useStatesStore from "../useStatesStore"
 import shallow from "zustand/shallow"
+import StepWrapper from "./../StepWrapper"
 
 const Releases = ({ id, lang, data, isFederal, ...props }) => {
   const content = useStatesStore((state) => state.content, shallow)
@@ -22,14 +23,16 @@ const Releases = ({ id, lang, data, isFederal, ...props }) => {
   }
   return (
     <Stack {...props}>
-      <Typography variant="h3">{lang.title}</Typography>
-      {federalStat}
-      {lang.body && (
-        <Typography
-          variant="body1"
-          dangerouslySetInnerHTML={{ __html: lang.body }}
-        />
-      )}
+      <StepWrapper>
+        <Typography variant="h3">{lang.title}</Typography>
+        {federalStat}
+        {lang.body && (
+          <Typography
+            variant="body1"
+            dangerouslySetInnerHTML={{ __html: lang.body }}
+          />
+        )}
+      </StepWrapper>
     </Stack>
   )
 }

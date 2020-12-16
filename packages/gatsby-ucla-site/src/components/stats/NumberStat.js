@@ -12,7 +12,10 @@ export const styles = (theme) => ({
   root: {},
   number: {
     ...sansSerifyTypography,
-    fontSize: theme.typography.pxToRem(32),
+    fontSize: theme.typography.pxToRem(24),
+    [theme.breakpoints.up("md")]: {
+      fontSize: theme.typography.pxToRem(32),
+    },
     color: theme.palette.secondary.secondary,
     "&.highlighted": {
       color: theme.palette.secondary.main,
