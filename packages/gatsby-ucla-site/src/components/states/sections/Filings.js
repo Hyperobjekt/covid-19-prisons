@@ -5,6 +5,7 @@ import HealthJustice from "../../../../content/assets/health-justice-logo.png"
 import NumberStat from "../../stats/NumberStat"
 import shallow from "zustand/shallow"
 import useStatesStore from "../useStatesStore"
+import StepWrapper from "./../StepWrapper"
 
 const Filings = ({ id, lang, data, isFederal, ...props }) => {
   const content = useStatesStore((state) => state.content, shallow)
@@ -25,14 +26,16 @@ const Filings = ({ id, lang, data, isFederal, ...props }) => {
 
   return (
     <Stack {...props}>
-      <Typography variant="h3">{lang.title}</Typography>
-      {federalStat}
-      {lang.body && (
-        <Typography
-          variant="body1"
-          dangerouslySetInnerHTML={{ __html: lang.body }}
-        />
-      )}
+      <StepWrapper>
+        <Typography variant="h3">{lang.title}</Typography>
+        {federalStat}
+        {lang.body && (
+          <Typography
+            variant="body1"
+            dangerouslySetInnerHTML={{ __html: lang.body }}
+          />
+        )}
+      </StepWrapper>
     </Stack>
   )
 }
