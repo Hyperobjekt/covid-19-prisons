@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
+
     position: "relative",
     maxWidth: "26.25rem",
     marginLeft: `auto`,
@@ -92,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("md")]: {
       marginLeft: 0,
       marginRight: `auto`,
+      paddingTop: "3rem",
     },
   },
 }))
