@@ -2,7 +2,7 @@
   "logoImage": "site-logo.svg",
   "socialImage": "covid-19-behind-bars-map-social.png",
   "iconImage": "site-icon.png",
-  "title": "",
+  "title": "UCLA Law COVID-19 Behind Bars Data Project",
   "description": "Reporting COVID-19 data from U.S. carceral facilities.",
   "keywords": ["gatsby", "theme", "react"],
   "author": "Lane Olson",
