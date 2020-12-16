@@ -1,11 +1,10 @@
 // import useMapStore from "@hyperobjekt/svg-maps/lib/hooks/useMapStore"
-import React, { useEffect } from "react"
+import React from "react"
 import ReactTooltip from "react-tooltip"
 import useStatesStore from "../useStatesStore"
-import { useOptionsStore } from "../../../common/hooks"
 import { getLang } from "../../../common/utils/i18n"
 import clsx from "clsx"
-import { Typography, withStyles } from "@material-ui/core"
+import { withStyles } from "@material-ui/core"
 
 const styles = (theme) => ({
   shared: {

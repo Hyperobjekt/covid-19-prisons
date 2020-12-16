@@ -2,7 +2,12 @@ import React from "react"
 import clsx from "clsx"
 import { graphql } from "gatsby"
 import { Layout } from "gatsby-theme-hyperobjekt-core"
-import { makeStyles, Typography } from "@material-ui/core"
+import {
+  makeStyles,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core"
 
 import { Step, Scrollama } from "@hyperobjekt/react-scrollama"
 import {
@@ -34,10 +39,11 @@ const useStyles = makeStyles((theme) => ({
     top: `calc(${theme.layout.headerHeight} + 56px)`,
     width: `100%`,
     // full vertical height, minus header
-    height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
+    height: `calc(80vh - ${theme.layout.headerHeight} - 56px)`,
     marginLeft: "0",
     [theme.breakpoints.up("md")]: {
       marginLeft: "auto",
+      height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
       width: `calc(100% - 26.25rem)`,
     },
     display: "flex",
@@ -47,6 +53,10 @@ const useStyles = makeStyles((theme) => ({
     "& .rsm-svg": {
       flex: 1,
       maxHeight: `calc(100% - 5rem)`,
+      transform: `translateY(-25%)`,
+      [theme.breakpoints.up("md")]: {
+        transform: `none`,
+      },
     },
   },
   title: {
@@ -54,14 +64,22 @@ const useStyles = makeStyles((theme) => ({
   },
   step: {
     display: "flex",
-    minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
     justifyContent: "center",
-    padding: theme.spacing(3, 0),
+    margin: theme.spacing(0, -2),
+    paddingTop: `calc(80vh - ${theme.layout.headerHeight}/4)`,
+    [theme.breakpoints.up("md")]: {
+      minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
+      paddingTop: 0,
+      margin: 0,
+      alignItems: "center",
+    },
   },
   first: {
-    minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
-      10
-    )})`,
+    [theme.breakpoints.up("md")]: {
+      minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
+        10
+      )})`,
+    },
   },
   content: {
     marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
@@ -125,6 +143,8 @@ const StateTemplate = ({ pageContext, data }) => {
     id: s.id,
     name: s.lang.link,
   }))
+  const theme = useTheme()
+  const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"))
 
   return (
     <Layout title={state}>
@@ -132,7 +152,10 @@ const StateTemplate = ({ pageContext, data }) => {
       <ResponsiveContainer>
         <Visual className={classes.visual} />
         <div className={classes.content}>
-          <Scrollama onStepEnter={handleStepEnter}>
+          <Scrollama
+            onStepEnter={handleStepEnter}
+            offset={isHorizontalLayout ? 0.3 : 0.15}
+          >
             {content.sections.map((section, index) => {
               const Component = SECTION_COMPONENTS[section.id]
               return (

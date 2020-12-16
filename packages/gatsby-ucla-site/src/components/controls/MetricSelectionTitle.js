@@ -1,6 +1,5 @@
 import React from "react"
 import clsx from "clsx"
-import PropTypes from "prop-types"
 import { fade, Typography, withStyles } from "@material-ui/core"
 import MetricSelection from "./MetricSelection"
 import { serifTypography } from "../../gatsby-theme-hyperobjekt-core/theme"

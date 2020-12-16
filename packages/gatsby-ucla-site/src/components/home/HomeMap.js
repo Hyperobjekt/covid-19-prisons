@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React from "react"
 import clsx from "clsx"
 import PropTypes from "prop-types"
 import { fade, Grid, Typography, withStyles } from "@material-ui/core"
@@ -13,7 +13,6 @@ import { useActiveMetric, useMappableFacilities } from "../../common/hooks"
 import { getLang } from "../../common/utils/i18n"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import { getSlug } from "../../common/utils/selectors"
-import useMapHovered from "@hyperobjekt/svg-maps/lib/hooks/useMapHovered"
 const styles = (theme) => ({
   root: {
     position: "relative",

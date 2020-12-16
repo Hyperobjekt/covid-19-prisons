@@ -9,13 +9,10 @@ import {
   ResidentsSummary,
   Facilities,
   Filings,
-  Grassroots,
-  Immigration,
   Releases,
   StaffSummary,
 } from "./sections"
 import useStatesStore from "./useStatesStore"
-import Visual from "./Visual"
 import shallow from "zustand/shallow"
 import SectionNavigation from "../SectionNavigation"
 import ResponsiveContainer from "../ResponsiveContainer"
@@ -66,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "42rem",
     margin: "auto",
     "& .embedded-stats": {
-      padding: theme.spacing(3,2),
+      padding: theme.spacing(3, 2),
     },
   },
 }))

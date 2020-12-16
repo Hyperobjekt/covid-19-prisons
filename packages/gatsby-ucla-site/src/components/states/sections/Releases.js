@@ -22,7 +22,7 @@ const Releases = ({ id, lang, data, isFederal, ...props }) => {
     )
   }
   return (
-    <Stack {...props}>
+    <div {...props}>
       <StepWrapper>
         <Typography variant="h3">{lang.title}</Typography>
         {federalStat}
@@ -33,7 +33,7 @@ const Releases = ({ id, lang, data, isFederal, ...props }) => {
           />
         )}
       </StepWrapper>
-    </Stack>
+    </div>
   )
 }
 

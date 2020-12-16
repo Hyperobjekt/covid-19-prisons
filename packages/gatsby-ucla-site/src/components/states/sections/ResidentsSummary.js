@@ -34,7 +34,7 @@ const ResidentsSummary = ({
   ].filter((n) => !!n)
 
   return (
-    <Stack className={clsx(classes.root, className)} {...props}>
+    <div className={clsx(classes.root, className)} {...props}>
       <StepWrapper>
         <MetricSelectionTitle title={lang.title} group="residents" />
         <JurisdictionStatList
@@ -45,7 +45,7 @@ const ResidentsSummary = ({
         />
         {notes.length > 0 && <Notes notes={notes} />}
       </StepWrapper>
-    </Stack>
+    </div>
   )
 }
 

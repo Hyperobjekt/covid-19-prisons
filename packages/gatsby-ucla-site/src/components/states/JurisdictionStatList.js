@@ -1,13 +1,11 @@
 import React from "react"
 import clsx from "clsx"
-import { format as d3Format } from "d3-format"
 
 import { Typography, withStyles } from "@material-ui/core"
 import { getLang } from "../../common/utils/i18n"
 import { JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
-import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import { formatMetricValue } from "../../common/utils/formatters"
 
 const styles = (theme) => ({

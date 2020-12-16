@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Stack from "../../Stack"
 import { GROUPS } from "../../../common/constants"
 import FacilitiesTable from "../FacilitiesTable"
@@ -41,7 +41,7 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
     [facilitiesGroup, setFacilitiesGroup]
   )
   return (
-    <Stack {...props}>
+    <div {...props}>
       <StepWrapper>
         <MetricSelectionTitle title={lang.title} />
         <FacilitiesTable
@@ -52,7 +52,7 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
           isFederal={isFederal}
         />
       </StepWrapper>
-    </Stack>
+    </div>
   )
 }
 
