@@ -85,7 +85,6 @@ const styles = (theme) => ({
 
 const Nav = ({ links, ...props }) => {
   const breadcrumb = useBreadcrumb()
-  console.log("bc", breadcrumb)
   // replace State & Federal link with state name if currently on a state page
   const modLinks =
     breadcrumb.length === 2
