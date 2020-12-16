@@ -106,7 +106,7 @@ export const subtitleTypography = {
 const CovidTheme = () => {
   // create a base theme to utilize theme values and functions
   const theme = createMuiTheme(base)
-  console.log("theme, ", theme)
+  // console.log("theme, ", theme)
 
   const headingStyles = {
     ...serifTypography,

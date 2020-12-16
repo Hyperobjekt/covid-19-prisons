@@ -56,8 +56,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
     justifyContent: "center",
     padding: theme.spacing(3, 0),
-    // background: `#fff`,
-    // border: `1px solid gray`,
   },
   first: {
     minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(

@@ -19,7 +19,10 @@ const styles = (theme) => ({
     right: 0,
     margin: "auto",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "flex-end",
+    },
   },
   legend: {
     margin: 0,
