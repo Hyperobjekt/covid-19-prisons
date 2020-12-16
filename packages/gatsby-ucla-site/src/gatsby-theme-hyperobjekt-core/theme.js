@@ -167,10 +167,7 @@ const CovidTheme = () => {
       MuiListItem: {
         root: {
           ...serifTypography,
-          fontSize: theme.typography.pxToRem(14),
-          [theme.breakpoints.up("lg")]: {
-            fontSize: theme.typography.pxToRem(16),
-          },
+          fontSize: "1rem",
         },
       },
       MuiInputBase: {
