@@ -239,6 +239,9 @@ const CovidTheme = () => {
           "&.page.page--federal .content": {
             maxWidth: "none",
           },
+          "&.page.page--home .branding__logo": {
+            clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`
+          },
         },
       },
       /** Header style overrides */
@@ -280,7 +283,7 @@ const CovidTheme = () => {
       },
       HypBranding: {
         logo: {
-          width: theme.typography.pxToRem(32),
+          width: theme.typography.pxToRem(184),
           height: theme.typography.pxToRem(32),
         },
       },
