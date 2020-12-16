@@ -1,10 +1,10 @@
 // import useMapStore from "@hyperobjekt/svg-maps/lib/hooks/useMapStore"
 import React from "react"
-import ReactTooltip from "react-tooltip"
 import useStatesStore from "../useStatesStore"
 import { getLang } from "../../../common/utils/i18n"
 import clsx from "clsx"
 import { withStyles } from "@material-ui/core"
+import Tooltip from "../../Tooltip"
 
 const styles = (theme) => ({
   shared: {
@@ -50,7 +50,7 @@ const FacilitiesMapTooltip = ({ classes, group, metric, ...props }) => {
   }
 
   return (
-    <ReactTooltip>
+    <Tooltip>
       {!!hoveredMarker && (
         <>
           <span className={clsx("intitution-name", classes.shared)}>
@@ -61,7 +61,7 @@ const FacilitiesMapTooltip = ({ classes, group, metric, ...props }) => {
           </span>
         </>
       )}
-    </ReactTooltip>
+    </Tooltip>
   )
 }
 
