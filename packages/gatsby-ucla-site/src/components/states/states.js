@@ -31,10 +31,14 @@ const useStyles = makeStyles((theme) => ({
   visual: {
     position: "sticky",
     top: `calc(${theme.layout.headerHeight} + 56px)`,
-    width: `calc(100% - 26.25rem)`,
+    width: `100%`,
     // full vertical height, minus header
     height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
-    marginLeft: "auto",
+    marginLeft: "0",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "auto",
+      width: `calc(100% - 26.25rem)`,
+    },
     display: "flex",
     justifyContent: "center",
     alignItems: "stretch",
@@ -52,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
     minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
     justifyContent: "center",
     padding: theme.spacing(3, 0),
+    // background: `#fff`,
+    // border: `1px solid gray`,
   },
   first: {
     minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
@@ -62,6 +68,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
     position: "relative",
     maxWidth: "26.25rem",
+    marginLeft: `auto`,
+    marginRight: `auto`,
+    [theme.breakpoints.up("md")]: {
+      marginLeft: 0,
+      marginRight: `auto`,
+    },
   },
 }))
 

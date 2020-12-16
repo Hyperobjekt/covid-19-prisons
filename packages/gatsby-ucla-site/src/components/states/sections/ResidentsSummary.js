@@ -9,6 +9,7 @@ import { withStyles } from "@material-ui/core"
 import { summaryStyles as styles } from "./styles"
 import Notes from "../Notes"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
+import StepWrapper from "./../StepWrapper"
 
 const ResidentsSummary = ({
   id,
@@ -34,14 +35,16 @@ const ResidentsSummary = ({
 
   return (
     <Stack className={clsx(classes.root, className)} {...props}>
-      <MetricSelectionTitle title={lang.title} group="residents" />
-      <JurisdictionStatList
-        isFederal={isFederal}
-        metric={metric}
-        group="residents"
-        groupData={summary["residents"]}
-      />
-      {notes.length > 0 && <Notes notes={notes} />}
+      <StepWrapper>
+        <MetricSelectionTitle title={lang.title} group="residents" />
+        <JurisdictionStatList
+          isFederal={isFederal}
+          metric={metric}
+          group="residents"
+          groupData={summary["residents"]}
+        />
+        {notes.length > 0 && <Notes notes={notes} />}
+      </StepWrapper>
     </Stack>
   )
 }
