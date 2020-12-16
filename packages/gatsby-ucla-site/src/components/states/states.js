@@ -37,36 +37,38 @@ const useStyles = makeStyles((theme) => ({
   visual: {
     position: "sticky",
     top: `calc(${theme.layout.headerHeight} + 56px)`,
-    width: `100%`,
     // full vertical height, minus header
     height: `calc(80vh - ${theme.layout.headerHeight} - 56px)`,
-    marginLeft: "0",
-    [theme.breakpoints.up("md")]: {
-      marginLeft: "auto",
-      height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
-      width: `calc(100% - 26.25rem)`,
-    },
+    minHeight: 420,
+    // span full viewport width
+    width: `calc(100% + ${theme.spacing(6)})`,
+    margin: theme.spacing(0, -3),
     display: "flex",
     justifyContent: "center",
     alignItems: "stretch",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "auto",
+      height: `calc(100vh - ${theme.layout.headerHeight} - 6rem)`,
+      width: `calc(100% - 26.25rem)`,
+      margin: 0,
+    },
     // make some space for the legend
     "& .rsm-svg": {
       flex: 1,
       maxHeight: `calc(100% - 5rem)`,
-      transform: `translateY(-25%)`,
       [theme.breakpoints.up("md")]: {
         transform: `none`,
       },
     },
   },
   title: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(4),
   },
   step: {
     display: "flex",
     justifyContent: "center",
     margin: theme.spacing(0, -2),
-    paddingTop: `calc(80vh - ${theme.layout.headerHeight}/4)`,
+    paddingTop: `calc(100vh - ${theme.layout.headerHeight})`,
     [theme.breakpoints.up("md")]: {
       minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
       paddingTop: 0,
@@ -150,6 +152,9 @@ const StateTemplate = ({ pageContext, data }) => {
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
       <ResponsiveContainer>
+        <Typography variant="h2" className={classes.title}>
+          {state}
+        </Typography>
         <Visual className={classes.visual} />
         <div className={classes.content}>
           <Scrollama
@@ -161,11 +166,6 @@ const StateTemplate = ({ pageContext, data }) => {
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
-                    {index === 0 && (
-                      <Typography variant="h2" className={classes.title}>
-                        {state}
-                      </Typography>
-                    )}
                     <Component
                       className={clsx(classes.step, {
                         [classes.first]: index === 0,

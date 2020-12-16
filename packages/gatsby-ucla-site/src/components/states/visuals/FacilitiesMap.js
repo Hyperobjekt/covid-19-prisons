@@ -12,15 +12,17 @@ import FacilitiesMapTooltip from "./FacilitiesMapTooltip"
 
 const styles = (theme) => ({
   contentContainer: {
-    position: "absolute",
-    bottom: theme.spacing(3),
-    left: 0,
-    right: 0,
     margin: "auto",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "column",
     [theme.breakpoints.up("md")]: {
       justifyContent: "flex-end",
+      flexDirection: "row",
+      position: "absolute",
+      bottom: theme.spacing(3),
+      left: 0,
+      right: 0,
     },
   },
   legend: {
