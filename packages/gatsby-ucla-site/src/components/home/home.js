@@ -65,7 +65,7 @@ const HomeTemplate = ({
   const content = mdx.frontmatter
   content.sponsors.logos = logos
   return (
-    <Layout title={"home"}>
+    <Layout title={content.title}>
       <Intro
         title={content.intro.title}
         subtitle={content.intro.subtitle}
