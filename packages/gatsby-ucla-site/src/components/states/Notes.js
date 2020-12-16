@@ -1,6 +1,5 @@
 import React from "react"
 import clsx from "clsx"
-import PropTypes from "prop-types"
 import { Typography, withStyles } from "@material-ui/core"
 
 export const styles = (theme) => ({

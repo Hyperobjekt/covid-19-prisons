@@ -2,7 +2,12 @@ import React from "react"
 import clsx from "clsx"
 import { graphql } from "gatsby"
 import { Layout } from "gatsby-theme-hyperobjekt-core"
-import { makeStyles, Typography } from "@material-ui/core"
+import {
+  makeStyles,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core"
 
 import { Step, Scrollama } from "@hyperobjekt/react-scrollama"
 import {
@@ -32,36 +37,51 @@ const useStyles = makeStyles((theme) => ({
   visual: {
     position: "sticky",
     top: `calc(${theme.layout.headerHeight} + 56px)`,
-    width: `100%`,
     // full vertical height, minus header
-    height: `calc(100vh - ${theme.layout.headerHeight} - 56px)`,
-    marginLeft: "0",
-    [theme.breakpoints.up("md")]: {
-      marginLeft: "auto",
-      width: `calc(100% - 26.25rem)`,
-    },
+    height: `calc(80vh - ${theme.layout.headerHeight} - 56px)`,
+    minHeight: 420,
+    // span full viewport width
+    width: `calc(100% + ${theme.spacing(6)})`,
+    margin: theme.spacing(0, -3),
     display: "flex",
     justifyContent: "center",
     alignItems: "stretch",
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "auto",
+      height: `calc(100vh - ${theme.layout.headerHeight} - 6rem)`,
+      width: `calc(100% - 26.25rem)`,
+      margin: 0,
+    },
     // make some space for the legend
     "& .rsm-svg": {
       flex: 1,
       maxHeight: `calc(100% - 5rem)`,
+      [theme.breakpoints.up("md")]: {
+        transform: `none`,
+      },
     },
   },
   title: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(4),
   },
   step: {
     display: "flex",
-    minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
     justifyContent: "center",
-    padding: theme.spacing(3, 0),
+    margin: theme.spacing(0, -2),
+    paddingTop: `calc(100vh - ${theme.layout.headerHeight})`,
+    [theme.breakpoints.up("md")]: {
+      minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
+      paddingTop: 0,
+      margin: 0,
+      alignItems: "center",
+    },
   },
   first: {
-    minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
-      10
-    )})`,
+    [theme.breakpoints.up("md")]: {
+      minHeight: `calc(100vh - ${theme.layout.headerHeight} - ${theme.spacing(
+        10
+      )})`,
+    },
   },
   content: {
     marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
@@ -125,24 +145,27 @@ const StateTemplate = ({ pageContext, data }) => {
     id: s.id,
     name: s.lang.link,
   }))
+  const theme = useTheme()
+  const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"))
 
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
       <ResponsiveContainer>
+        <Typography variant="h2" className={classes.title}>
+          {state}
+        </Typography>
         <Visual className={classes.visual} />
         <div className={classes.content}>
-          <Scrollama onStepEnter={handleStepEnter}>
+          <Scrollama
+            onStepEnter={handleStepEnter}
+            offset={isHorizontalLayout ? 0.3 : 0.15}
+          >
             {content.sections.map((section, index) => {
               const Component = SECTION_COMPONENTS[section.id]
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
-                    {index === 0 && (
-                      <Typography variant="h2" className={classes.title}>
-                        {state}
-                      </Typography>
-                    )}
                     <Component
                       className={clsx(classes.step, {
                         [classes.first]: index === 0,

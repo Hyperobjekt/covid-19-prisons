@@ -1,15 +1,12 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { GeoJsonLayer } from "@hyperobjekt/svg-maps"
 import { ComposableMap, ZoomableGroup } from "react-simple-maps"
-import { useHoveredFacilities } from "../../../common/hooks"
 import { getStateCenter, getStateCodeByName } from "../../../common/utils"
 import { useShapeStyles } from "../styles"
 
 const filterZoomEvent = () => false
 
 const StateMap = ({ stateName, children, ...props }) => {
-  const [hovered] = useHoveredFacilities()
-
   const classes = useShapeStyles()
   const state_code = getStateCodeByName(stateName)
   const stateCode = state_code.toUpperCase()

@@ -11,7 +11,7 @@ const useStatesStore = create((set) => ({
   setData: (data) => set({ data }),
   content: null,
   setContent: (content) => set({ content }),
-  currentStep: null,
+  currentStep: "residents",
   setCurrentStep: (currentStep) => set({ currentStep }),
   facilitiesGroup: GROUPS[0],
   setFacilitiesGroup: (facilitiesGroup) => set({ facilitiesGroup }),

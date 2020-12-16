@@ -5,7 +5,7 @@ import StepWrapper from "./../StepWrapper"
 
 const Immigration = ({ id, lang, data, ...props }) => {
   return (
-    <Stack {...props}>
+    <div {...props}>
       <StepWrapper>
         <Typography variant="h3">{lang.title}</Typography>
         {lang.body && (
@@ -15,7 +15,7 @@ const Immigration = ({ id, lang, data, ...props }) => {
           />
         )}
       </StepWrapper>
-    </Stack>
+    </div>
   )
 }
 

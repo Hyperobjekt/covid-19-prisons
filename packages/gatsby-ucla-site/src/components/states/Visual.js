@@ -17,7 +17,6 @@ const styles = (theme) => ({
   },
   visual: {
     position: "absolute",
-    width: "100%",
     height: "100%",
     top: 0,
     bottom: 0,
@@ -26,7 +25,19 @@ const styles = (theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    paddingLeft: theme.spacing(3),
+    width: "100%",
+    margin: 0,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: theme.spacing(3),
+    },
+  },
+  mapVisual: {
+    padding: 0,
+    flexDirection: "column",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "row",
+    },
   },
 })
 
@@ -61,7 +72,10 @@ const Visual = ({ classes, className, ...props }) => {
 
   return (
     <div className={clsx(classes.root, className)} {...props}>
-      <FacilitiesMap className={classes.visual} style={mapOpacity} />
+      <FacilitiesMap
+        className={clsx(classes.visual, classes.mapVisual)}
+        style={mapOpacity}
+      />
       <FilingsVisual className={classes.visual} style={filingsOpacity} />
       <ReleasesVisual className={classes.visual} style={releasesOpacity} />
       <ImmigrationVisual

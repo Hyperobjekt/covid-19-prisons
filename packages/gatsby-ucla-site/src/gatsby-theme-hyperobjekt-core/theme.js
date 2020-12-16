@@ -63,6 +63,7 @@ const base = {
   overrides: {
     MuiCssBaseline: {
       "@global": {
+        ":root": { "--reach-skip-nav": 1 },
         code: {
           background: "#eee",
         },
@@ -240,7 +241,7 @@ const CovidTheme = () => {
             maxWidth: "none",
           },
           "&.page.page--home .branding__logo": {
-            clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`
+            clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`,
           },
         },
       },

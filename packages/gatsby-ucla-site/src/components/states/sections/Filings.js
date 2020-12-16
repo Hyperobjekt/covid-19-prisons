@@ -1,7 +1,6 @@
 import React from "react"
 import Stack from "../../Stack"
 import { Grid, Typography } from "@material-ui/core"
-import HealthJustice from "../../../../content/assets/health-justice-logo.png"
 import NumberStat from "../../stats/NumberStat"
 import shallow from "zustand/shallow"
 import useStatesStore from "../useStatesStore"
@@ -25,7 +24,7 @@ const Filings = ({ id, lang, data, isFederal, ...props }) => {
   }
 
   return (
-    <Stack {...props}>
+    <div {...props}>
       <StepWrapper>
         <Typography variant="h3">{lang.title}</Typography>
         {federalStat}
@@ -36,7 +35,7 @@ const Filings = ({ id, lang, data, isFederal, ...props }) => {
           />
         )}
       </StepWrapper>
-    </Stack>
+    </div>
   )
 }
 

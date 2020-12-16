@@ -1,19 +1,18 @@
 import React from "react"
 import clsx from "clsx"
-import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core"
+import Stack from "../Stack"
 
 export const styles = (theme) => ({
   root: {
     background: "#fff",
-    padding: `2rem`,
+    padding: theme.spacing(3),
     boxShadow: theme.shadows[1],
-    marginBottom: `calc(100vh - ${theme.layout.headerHeight}/4)`,
+    maxWidth: "100%",
     [theme.breakpoints.up("md")]: {
       background: `transparent`,
       boxShadow: `none`,
-      padding: 0,
-      marginBottom: 0,
+      padding: theme.spacing(3, 0),
     },
   },
 })
@@ -27,9 +26,9 @@ export const styles = (theme) => ({
  */
 const StepWrapper = ({ classes, className, children, ...props }) => {
   return (
-    <div className={clsx(classes.root, className)} {...props}>
+    <Stack className={clsx(classes.root, className)} {...props}>
       {children}
-    </div>
+    </Stack>
   )
 }
 

@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from "react"
+import React, { useMemo } from "react"
 import shallow from "zustand/shallow"
-import ReactTooltip from "react-tooltip"
 import { MapGradients, MapLegend, StateMap } from "../../maps"
 import FacilitiesMarkerLayer from "../../maps/MarkerLayer/FacilitiesMarkerLayer"
 import { animated } from "react-spring"
@@ -13,15 +12,17 @@ import FacilitiesMapTooltip from "./FacilitiesMapTooltip"
 
 const styles = (theme) => ({
   contentContainer: {
-    position: "absolute",
-    bottom: theme.spacing(3),
-    left: 0,
-    right: 0,
     margin: "auto",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "column",
     [theme.breakpoints.up("md")]: {
       justifyContent: "flex-end",
+      flexDirection: "row",
+      position: "absolute",
+      bottom: theme.spacing(3),
+      left: 0,
+      right: 0,
     },
   },
   legend: {
@@ -46,8 +47,6 @@ const FacilitiesMap = ({ classes, ...props }) => {
     ],
     shallow
   )
-
-  const [tooltipContent, setTooltipContent] = useState("")
 
   // currently selected metric
   const metric = useActiveMetric()
@@ -81,11 +80,10 @@ const FacilitiesMap = ({ classes, ...props }) => {
           facilities={facilities}
           group={mapGroup}
           metric={metric}
-          setTooltipContent={setTooltipContent}
         />
       </StateMap>
       <FacilitiesMapTooltip group={mapGroup} metric={metric} />
-      <Stack className={classes.contentContainer} horizontal spacing={3}>
+      <Stack className={classes.contentContainer} horizontal="md" spacing={3}>
         <MapLegend className={classes.legend} data={facilities} />
         <Typography className={classes.description} variant="body2">
           {mapDescription}

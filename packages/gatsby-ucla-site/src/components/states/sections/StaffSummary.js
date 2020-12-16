@@ -22,7 +22,7 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
     lang.notes && lang.notes[metric + "_rate"],
   ].filter((n) => !!n)
   return (
-    <Stack {...props}>
+    <div {...props}>
       <StepWrapper>
         <MetricSelectionTitle title={lang.title} group="staff" />
         {isStaffMetric && (
@@ -40,7 +40,7 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
         )}
         {notes.length > 0 && <Notes notes={notes} />}
       </StepWrapper>
-    </Stack>
+    </div>
   )
 }
 
