@@ -1,4 +1,4 @@
-import { ButtonBase, Menu, MenuItem, withStyles } from "@material-ui/core"
+import { ButtonBase, fade, Menu, MenuItem, withStyles } from "@material-ui/core"
 import React from "react"
 import shallow from "zustand/shallow"
 import { useOptionsStore } from "../../common/hooks"
@@ -8,8 +8,10 @@ import { METRICS, GROUPS } from "../../common/constants"
 const styles = (theme) => ({
   button: {
     lineHeight: 1,
-    "&:focus, &:hover": {
-      background: "#d7790f20",
+    textAlign: "left",
+    transition: theme.transitions.create("background"),
+    "&.MuiButtonBase-root:focus, &.MuiButtonBase-root:hover": {
+      background: fade("#d7790f", 0.08),
       borderBottomColor: "#d7790f",
     },
   },
