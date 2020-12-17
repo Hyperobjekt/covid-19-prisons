@@ -206,7 +206,7 @@ const Table = ({
                   25,
                   { label: "All", value: data.length },
                 ]}
-                colSpan={7}
+                colSpan={columns.length}
                 count={data.length}
                 rowsPerPage={pageSize}
                 page={pageIndex}

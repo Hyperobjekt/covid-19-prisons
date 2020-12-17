@@ -7,7 +7,7 @@ import { getDataByJurisdiction } from "../../../common/utils/selectors"
 import { useActiveMetric } from "../../../common/hooks"
 import { withStyles } from "@material-ui/core"
 import { summaryStyles as styles } from "./styles"
-import Notes from "../Notes"
+import Notes from "../../Notes"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import StepWrapper from "./../StepWrapper"
 
