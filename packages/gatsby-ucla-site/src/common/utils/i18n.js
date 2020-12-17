@@ -4,3 +4,16 @@ export const getLang = (...args) => {
   const key = args.join("_")
   return en[key] ? en[key] : key
 }
+
+/**
+ * Performs string replacement before returning string.
+ * @type {[type]}
+ */
+export const getLangWithArgs = (key, args) => {
+  let str = en[key]
+  const keys = Object.keys(args)
+  keys.forEach((key, i) => {
+    str = str.replaceAll("${" + key + "}", args[key])
+  })
+  return str
+}
