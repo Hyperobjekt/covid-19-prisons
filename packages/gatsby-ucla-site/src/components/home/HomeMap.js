@@ -54,7 +54,9 @@ const styles = (theme) => ({
     maxWidth: "20rem",
   },
   notes: {
-    position: "absolute",
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+    },
     bottom: theme.spacing(3),
     left: 0,
     right: 0,
