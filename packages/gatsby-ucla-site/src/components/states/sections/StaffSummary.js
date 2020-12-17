@@ -7,7 +7,7 @@ import { METRICS } from "../../../common/constants"
 import { Typography } from "@material-ui/core"
 import { getLang } from "../../../common/utils/i18n"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
-import Notes from "../Notes"
+import Notes from "../../Notes"
 import StepWrapper from "./../StepWrapper"
 
 const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {

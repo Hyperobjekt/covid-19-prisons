@@ -17,6 +17,7 @@ import { getLang } from "../../common/utils/i18n"
 import JurisdictionToggles from "../controls/JurisdictionToggles"
 import DotMarker from "../markers/DotMarker"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
+import Notes from "../Notes"
 
 const styles = (theme) => ({
   root: {
@@ -40,6 +41,22 @@ const styles = (theme) => ({
     },
   },
   table: {},
+  notes: {
+    margin: "auto",
+    maxWidth: "24rem",
+    "& li": {
+      maxWidth: "24rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      justifyContent: "space-around",
+      maxWidth: "none",
+      "& li + li": {
+        marginTop: 0
+      }
+    },
+    
+  }
 })
 
 const intFormatter = format(",d")
@@ -75,6 +92,7 @@ const HomeTable = ({ title, note, classes, ...props }) => {
     minWidth: 100,
     textAlign: "right",
   }
+
 
   // column configuration for the table
   const columns = React.useMemo(
@@ -212,6 +230,7 @@ const HomeTable = ({ title, note, classes, ...props }) => {
             classes={{ root: classes.toggleContainer }}
           />
         </Table>
+        { note && note.length > 0 && <Notes notes={note} className={classes.notes} />}
       </ResponsiveContainer>
     </Block>
   )

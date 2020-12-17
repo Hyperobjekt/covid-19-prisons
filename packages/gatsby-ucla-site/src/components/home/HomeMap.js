@@ -54,16 +54,23 @@ const styles = (theme) => ({
     maxWidth: "20rem",
   },
   notes: {
-    [theme.breakpoints.up("md")]: {
-      position: "absolute",
-    },
-    bottom: theme.spacing(3),
-    left: 0,
-    right: 0,
     margin: "auto",
     textAlign: "center",
     color: fade(theme.palette.text.secondary, 0.666),
     fontSize: theme.typography.pxToRem(12),
+    padding: theme.spacing(2, 4),
+    // drop line break to conserve space on mobile
+    [theme.breakpoints.down("sm")]: {
+      "& br": {
+        display: "none"
+      }
+    },
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+      bottom: theme.spacing(2),
+      left: 0,
+      right: 0,
+    },
   },
   controls: {
     display: "flex",
