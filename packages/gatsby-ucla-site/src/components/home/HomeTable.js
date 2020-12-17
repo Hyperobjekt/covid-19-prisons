@@ -42,7 +42,8 @@ const styles = (theme) => ({
   },
   table: {},
   notes: {
-    margin: "auto",
+    listStyle: "none",
+    margin: theme.spacing(2, "auto"),
     maxWidth: "24rem",
     "& li": {
       maxWidth: "24rem",
