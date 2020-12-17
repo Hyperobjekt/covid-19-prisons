@@ -1,6 +1,12 @@
 import React from "react"
 import clsx from "clsx"
-import { Button, TextField, Typography, withStyles } from "@material-ui/core"
+import {
+  Button,
+  Input,
+  TextField,
+  Typography,
+  withStyles,
+} from "@material-ui/core"
 import { titleTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 import Stack from "../Stack"
 
@@ -26,7 +32,7 @@ export const styles = (theme) => ({
 const Subscribe = ({ classes, className, ...props }) => {
   return (
     <Stack className={clsx(classes.root, className)} {...props}>
-      <Typography className={classes.title} variant="h3">
+      <Typography id="subscribe_prompt" className={classes.title} variant="h3">
         Subscribe to our e-mail updates
       </Typography>
       <Stack className={classes.form} align="bottom" spacing={2} horizontal>
@@ -41,13 +47,14 @@ const Subscribe = ({ classes, className, ...props }) => {
             target="_blank"
             noValidate
           >
-            <TextField
+            <Input
               className={classes.textField}
               name="EMAIL"
               id="mce-EMAIL"
               placeholder="Enter your e-mail address"
+              aria-labelledby="subscribe_prompt"
               style={{ marginRight: "0.8rem" }}
-            ></TextField>
+            ></Input>
             <div id="mce-responses" className="clear">
               <div
                 className="response"

@@ -26,5 +26,7 @@
   "federal": "Federal Facilities",
   "county": "County Jails",
   "state_summary_title": "Summary",
-  "unavailable": "Unavailable"
+  "unavailable": "Unavailable",
+  "nat_map_title": "This map displays COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. Click on a state to access more data.",
+  "state_map_title": "Map of ${stateName} with spikes representing the active metric for each facility."
 }
