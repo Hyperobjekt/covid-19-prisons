@@ -4,6 +4,7 @@ import MapGradients from "../MapGradients"
 import FacilitiesMarkerLayer from "../MarkerLayer/FacilitiesMarkerLayer"
 import { useShapeStyles } from "../styles"
 import { geoAlbersUsaTerritories } from "geo-albers-usa-territories"
+import { getLang } from "../../../common/utils/i18n"
 
 const projection = geoAlbersUsaTerritories().scale(1070).translate([400, 300])
 
@@ -12,6 +13,7 @@ const NationalMap = memo(
     const shapeClasses = useShapeStyles()
     return (
       <SvgMap projection={projection} {...props}>
+        <desc>{getLang("nat_map_title")}</desc>
         <MapGradients />
         <StateLayer
           classes={{
