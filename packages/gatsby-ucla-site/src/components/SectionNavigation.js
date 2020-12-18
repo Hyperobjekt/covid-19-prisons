@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React from "react"
 import clsx from "clsx"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { AppBar, withStyles } from "@material-ui/core"
-import { navigate } from "gatsby"
 import { Link } from "gatsby-theme-material-ui"
 
 const styles = (theme) => ({
@@ -49,20 +48,6 @@ function SectionNavigation({
   TabsProps = {},
   ...props
 }) {
-  // const [current, setCurrent] = useState(defaultCurrent)
-
-  const handleSelect = useCallback(
-    (section, e) => {
-      if (onSelect) return onSelect(section, e)
-      navigate("#" + section)
-    },
-    [onSelect]
-  )
-
-  // useEffect(() => {
-  //   setCurrent(defaultCurrent)
-  // }, [defaultCurrent, setCurrent])
-
   return (
     <AppBar
       position="sticky"

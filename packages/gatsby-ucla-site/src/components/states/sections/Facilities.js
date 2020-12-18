@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Stack from "../../Stack"
 import { GROUPS } from "../../../common/constants"
 import FacilitiesTable from "../FacilitiesTable"
@@ -6,6 +6,7 @@ import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import shallow from "zustand/shallow"
 import useStatesStore from "../useStatesStore"
 import { useActiveMetric, useFacilitiesData } from "../../../common/hooks"
+import StepWrapper from "./../StepWrapper"
 
 const Facilities = ({ id, lang, data, isFederal, ...props }) => {
   const all = useFacilitiesData()
@@ -40,16 +41,18 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
     [facilitiesGroup, setFacilitiesGroup]
   )
   return (
-    <Stack {...props}>
-      <MetricSelectionTitle title={lang.title} />
-      <FacilitiesTable
-        metric={metric}
-        group={facilitiesGroup}
-        data={facilities}
-        onSort={handleFacilitiesGroupChange}
-        isFederal={isFederal}
-      />
-    </Stack>
+    <div {...props}>
+      <StepWrapper>
+        <MetricSelectionTitle title={lang.title} />
+        <FacilitiesTable
+          metric={metric}
+          group={facilitiesGroup}
+          data={facilities}
+          onSort={handleFacilitiesGroupChange}
+          isFederal={isFederal}
+        />
+      </StepWrapper>
+    </div>
   )
 }
 

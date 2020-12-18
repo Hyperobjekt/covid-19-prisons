@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import { Grid, Typography, withStyles } from "@material-ui/core"
 import { animated } from "react-spring"
 import useStatesStore from "../useStatesStore"

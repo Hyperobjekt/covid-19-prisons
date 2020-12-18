@@ -1,4 +1,4 @@
-import { ButtonBase, Menu, MenuItem, withStyles } from "@material-ui/core"
+import { ButtonBase, fade, Menu, MenuItem, withStyles } from "@material-ui/core"
 import React from "react"
 import shallow from "zustand/shallow"
 import { useOptionsStore } from "../../common/hooks"
@@ -6,7 +6,15 @@ import { getLang } from "../../common/utils/i18n"
 import ArrowDown from "@material-ui/icons/ArrowDropDown"
 import { METRICS, GROUPS } from "../../common/constants"
 const styles = (theme) => ({
-  button: { lineHeight: 1 },
+  button: {
+    lineHeight: 1,
+    textAlign: "left",
+    transition: theme.transitions.create("background"),
+    "&.MuiButtonBase-root:focus, &.MuiButtonBase-root:hover": {
+      background: fade("#d7790f", 0.08),
+      borderBottomColor: "#d7790f",
+    },
+  },
   menu: {},
   menuItem: {},
   menuItemActive: {},

@@ -1,15 +1,13 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { GeoJsonLayer } from "@hyperobjekt/svg-maps"
 import { ComposableMap, ZoomableGroup } from "react-simple-maps"
-import { useHoveredFacilities } from "../../../common/hooks"
 import { getStateCenter, getStateCodeByName } from "../../../common/utils"
 import { useShapeStyles } from "../styles"
+import { getLangWithArgs } from "../../../common/utils/i18n"
 
 const filterZoomEvent = () => false
 
 const StateMap = ({ stateName, children, ...props }) => {
-  const [hovered] = useHoveredFacilities()
-
   const classes = useShapeStyles()
   const state_code = getStateCodeByName(stateName)
   const stateCode = state_code.toUpperCase()
@@ -19,12 +17,16 @@ const StateMap = ({ stateName, children, ...props }) => {
     <ComposableMap
       projection={"geoMercator"}
       data-tip=""
+      role="img"
       projectionConfig={{
         rotate: state.rotate ? state.rotate : null,
         scale: state.scale ? state.scale : 4000,
       }}
       {...props}
     >
+      <desc>
+        {getLangWithArgs("state_map_title", { stateName: stateName })}
+      </desc>
       <ZoomableGroup
         center={[state.Longitude, state.Latitude]}
         minZoom={1}

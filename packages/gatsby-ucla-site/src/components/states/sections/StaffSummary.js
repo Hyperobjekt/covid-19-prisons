@@ -7,7 +7,8 @@ import { METRICS } from "../../../common/constants"
 import { Typography } from "@material-ui/core"
 import { getLang } from "../../../common/utils/i18n"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
-import Notes from "../Notes"
+import Notes from "../../Notes"
+import StepWrapper from "./../StepWrapper"
 
 const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
   // data for all facilities in the state
@@ -21,23 +22,25 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
     lang.notes && lang.notes[metric + "_rate"],
   ].filter((n) => !!n)
   return (
-    <Stack {...props}>
-      <MetricSelectionTitle title={lang.title} group="staff" />
-      {isStaffMetric && (
-        <JurisdictionStatList
-          isFederal={isFederal}
-          metric={metric}
-          group="staff"
-          groupData={summary["staff"]}
-        />
-      )}
-      {!isStaffMetric && (
-        <Typography variant="body1">
-          {lang.unavailable.replace("${metric}", getLang(metric))}
-        </Typography>
-      )}
-      {notes.length > 0 && <Notes notes={notes} />}
-    </Stack>
+    <div {...props}>
+      <StepWrapper>
+        <MetricSelectionTitle title={lang.title} group="staff" />
+        {isStaffMetric && (
+          <JurisdictionStatList
+            isFederal={isFederal}
+            metric={metric}
+            group="staff"
+            groupData={summary["staff"]}
+          />
+        )}
+        {!isStaffMetric && (
+          <Typography variant="body1">
+            {lang.unavailable.replace("${metric}", getLang(metric))}
+          </Typography>
+        )}
+        {notes.length > 0 && <Notes notes={notes} />}
+      </StepWrapper>
+    </div>
   )
 }
 

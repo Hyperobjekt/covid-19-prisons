@@ -21,6 +21,8 @@ const styles = (theme) => ({
   },
   name: {},
   table: {
+    margin: theme.spacing(0, -3),
+    width: `calc(100% + ${theme.spacing(6)})`,
     "& .MuiTablePagination-input, & .MuiTablePagination-spacer + .MuiTablePagination-caption": {
       display: "none",
     },

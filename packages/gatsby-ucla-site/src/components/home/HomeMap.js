@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React from "react"
 import clsx from "clsx"
 import PropTypes from "prop-types"
 import { fade, Grid, Typography, withStyles } from "@material-ui/core"
@@ -13,7 +13,6 @@ import { useActiveMetric, useMappableFacilities } from "../../common/hooks"
 import { getLang } from "../../common/utils/i18n"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import { getSlug } from "../../common/utils/selectors"
-import useMapHovered from "@hyperobjekt/svg-maps/lib/hooks/useMapHovered"
 const styles = (theme) => ({
   root: {
     position: "relative",
@@ -55,14 +54,23 @@ const styles = (theme) => ({
     maxWidth: "20rem",
   },
   notes: {
-    position: "absolute",
-    bottom: theme.spacing(3),
-    left: 0,
-    right: 0,
     margin: "auto",
     textAlign: "center",
     color: fade(theme.palette.text.secondary, 0.666),
     fontSize: theme.typography.pxToRem(12),
+    padding: theme.spacing(2, 4),
+    // drop line break to conserve space on mobile
+    [theme.breakpoints.down("sm")]: {
+      "& br": {
+        display: "none"
+      }
+    },
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+      bottom: theme.spacing(2),
+      left: 0,
+      right: 0,
+    },
   },
   controls: {
     display: "flex",

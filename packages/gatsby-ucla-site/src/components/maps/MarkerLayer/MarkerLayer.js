@@ -39,7 +39,6 @@ const MarkerLayer = ({
   sizeSelector,
   groupSelector,
   widthSelector,
-  setTooltipContent,
   children,
   ...props
 }) => {
@@ -105,7 +104,6 @@ const MarkerLayer = ({
             : getValue(getColor, marker)
           const stroke = getValue(getStroke, marker)
           const label = getValue(labelValue, marker)
-          const name = marker.name
           const coords = marker.coords
           return (
             <Marker

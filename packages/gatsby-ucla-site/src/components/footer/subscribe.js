@@ -26,7 +26,7 @@ export const styles = (theme) => ({
 const Subscribe = ({ classes, className, ...props }) => {
   return (
     <Stack className={clsx(classes.root, className)} {...props}>
-      <Typography className={classes.title} variant="h3">
+      <Typography id="subscribe_prompt" className={classes.title} variant="h3">
         Subscribe to our e-mail updates
       </Typography>
       <Stack className={classes.form} align="bottom" spacing={2} horizontal>
@@ -47,6 +47,7 @@ const Subscribe = ({ classes, className, ...props }) => {
               id="mce-EMAIL"
               placeholder="Enter your e-mail address"
               style={{ marginRight: "0.8rem" }}
+              inputProps={{ "aria-labelledby": "subscribe_prompt" }}
             ></TextField>
             <div id="mce-responses" className="clear">
               <div
