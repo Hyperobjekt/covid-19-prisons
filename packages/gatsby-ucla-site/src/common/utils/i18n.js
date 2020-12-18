@@ -13,7 +13,7 @@ export const getLangWithArgs = (key, args) => {
   let str = en[key]
   const keys = Object.keys(args)
   keys.forEach((key, i) => {
-    str = str.replaceAll("${" + key + "}", args[key])
+    str = str.replace("${" + key + "}", args[key])
   })
   return str
 }
