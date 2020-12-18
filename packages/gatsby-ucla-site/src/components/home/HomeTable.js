@@ -199,7 +199,7 @@ const HomeTable = ({ title, note, classes, ...props }) => {
         <MetricSelectionTitle title={title} />
         <Table
           className={classes.table}
-          data={data}
+          data={data.filter((d) => d.name !== "Statewide")}
           columns={columns}
           options={options}
           sortColumn={metric}
