@@ -306,6 +306,19 @@ const CovidTheme = () => {
           "& > .block:last-child": {
             paddingBottom: undefined,
           },
+          // add columns to Project Team page
+          "& > .columns2": {
+            display: 'flex',
+            flexDirection: 'row',
+            paddingBottom: 56,
+            [theme.breakpoints.down('xs')]: {
+              display: 'block',
+            },
+          },
+          "& > .columns2 .columnChild": {
+            flex: 1,
+            paddingRight: 24,
+          },
         },
       },
       /** Code block style overrides */
