@@ -311,6 +311,9 @@ const CovidTheme = () => {
             display: 'flex',
             flexDirection: 'row',
             paddingBottom: 56,
+            [theme.breakpoints.up('md')]: {
+              width: '130%',
+            },
             [theme.breakpoints.down('xs')]: {
               display: 'block',
             },
