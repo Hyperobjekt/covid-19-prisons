@@ -243,6 +243,9 @@ const CovidTheme = () => {
           "&.page.page--home .branding__logo": {
             clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`,
           },
+          "&.page.page--project-team .HypContent-root-33": {
+            maxWidth: "50.5rem",
+          }
         },
       },
       /** Header style overrides */
@@ -311,9 +314,6 @@ const CovidTheme = () => {
             display: 'flex',
             flexDirection: 'row',
             paddingBottom: 56,
-            [theme.breakpoints.up('md')]: {
-              width: '130%',
-            },
             [theme.breakpoints.down('xs')]: {
               display: 'block',
             },
