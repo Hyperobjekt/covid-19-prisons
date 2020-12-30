@@ -1,7 +1,7 @@
 backend:
-  name: github
+  name: git-gateway
   repo: Hyperobjekt/covid-19-behind-bars
-  branch: staging
+  branch: cms
 
 # FOR LOCAL DEVELOPMENT:
 # ---
@@ -11,7 +11,7 @@ backend:
 # backend:
 #   name: proxy
 #   proxy_url: http://localhost:8081/api/v1
-#   branch: main # optional, defaults to master
+#   branch: cms # optional, defaults to master
 
 media_folder: /packages/gatsby-ucla-site/content/assets
 public_folder: /packages/gatsby-ucla-site/assets
@@ -61,10 +61,10 @@ collections:
     extension: mdx
     format: frontmatter
     create: true
-    filter: {field: "is_home", value: true}
     folder: "/packages/gatsby-ucla-site/content/pages"
     editor:
       preview: false
+    filter: {field: "pagetype", value: "home" }  
     fields:
       - {
           label: "Page Title",
@@ -81,10 +81,10 @@ collections:
         }
       - {
           label: "Is Home",
-          name: "is_home",
+          name: "ishome",
           widget: hidden,
           required: false,
-          default: false,
+          default: "yes",
       }  
       - { label: "Keywords", name: "keywords", widget: "list", required: false }
       - { label: "Template", name: "template", widget: hidden }
