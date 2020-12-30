@@ -22,7 +22,7 @@ collections:
     extension: mdx
     format: frontmatter
     create: true
-    filter: {field: "is_home", value: false}
+    filter: {field: "pagetype", value: "subsidiary"}
     folder: "/packages/gatsby-ucla-site/content/pages"
     editor:
       preview: false
@@ -41,11 +41,11 @@ collections:
           hint: "Not visible, but used for search engine optimization",
         }
       - {
-          label: "Is Home",
-          name: "is_home",
+          label: "Page Type",
+          name: "pagetype",
           widget: hidden,
           required: false,
-          default: false,
+          default: "subsidiary",
       }  
       - { label: "Keywords", name: "keywords", widget: "list", required: false }
       - {
@@ -80,12 +80,12 @@ collections:
           hint: "Not visible, but used for search engine optimization",
         }
       - {
-          label: "Is Home",
-          name: "ishome",
+          label: "Page Type",
+          name: "pagetype",
           widget: hidden,
           required: false,
-          default: "yes",
-      }  
+          default: "home",
+        }  
       - { label: "Keywords", name: "keywords", widget: "list", required: false }
       - { label: "Template", name: "template", widget: hidden }
       - { label: "Path", name: "path", widget: hidden }
@@ -96,13 +96,16 @@ collections:
           required: false,
           hint: "Image used when page is shared on social media",
         }
-#      - { 
-#          label: "Intro",
-#          name: "intro",
-#          widget: "list",
-#          fields:
-#            - { label: "Title", name: "title", widget: "string" }  
-#            - { label: "Subtitle", name: "subtitle", widget: "string" }  
-#            - { label: "Body", name: "body", widget: "markdown" } 
-#        }
-      - { label: "Body", name: "body", widget: "markdown" }    
+      - label: "Intro"
+        name: intro
+        widget: object
+        required: false
+        fields: 
+          - {label: Title, name: title, widget: string, required: false}
+          - {label: Subtitle, name: subtitle, widget: string, required: false} 
+          - {label: Body, name: body, widget: markdown, required: false}  
+      - {label: "Body", name: "body", widget: "markdown"}   
+
+
+
+   
