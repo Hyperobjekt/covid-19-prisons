@@ -3,6 +3,8 @@ backend:
   repo: Hyperobjekt/covid-19-behind-bars
   branch: staging
 
+publish_mode: editorial_workflow  
+
 # FOR LOCAL DEVELOPMENT:
 # ---
 # - uncomment the backend below
