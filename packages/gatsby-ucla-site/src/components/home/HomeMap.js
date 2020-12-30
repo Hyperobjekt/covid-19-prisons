@@ -122,9 +122,11 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
         </Grid>
       </ResponsiveContainer>
       <NationalMap facilities={data} metric={metric} onSelect={handleSelect} />
-      <Typography variant="body2" className={classes.notes}>
-        {description}
-      </Typography>
+      <Typography
+        variant="body2"
+        className={classes.notes}
+        dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
+      />
     </Block>
   )
 }

@@ -103,8 +103,20 @@ collections:
         fields: 
           - {label: Title, name: title, widget: string, required: false}
           - {label: Subtitle, name: subtitle, widget: string, required: false} 
-          - {label: Body, name: body, widget: markdown, required: false}  
-      - {label: "Body", name: "body", widget: "markdown"}   
+          - {label: Body, name: body, widget: markdown, required: false}
+      - label: "Table notes"
+        name: table
+        widget: object
+        required: false
+        fields: 
+          - {label: Notes, name: note, widget: markdown, required: false}
+      - label: "Sponsors"
+        name: sponsors
+        widget: object
+        required: false
+        fields: 
+          - {label: Title, name: title, widget: markdown, required: false}    
+         
 
 
 
