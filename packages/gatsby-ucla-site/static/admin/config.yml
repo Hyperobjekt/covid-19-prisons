@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   repo: Hyperobjekt/covid-19-behind-bars
-  branch: cms
+  branch: staging
 
 # FOR LOCAL DEVELOPMENT:
 # ---
