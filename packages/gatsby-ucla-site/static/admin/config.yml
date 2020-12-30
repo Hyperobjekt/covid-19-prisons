@@ -96,4 +96,13 @@ collections:
           required: false,
           hint: "Image used when page is shared on social media",
         }
+#      - { 
+#          label: "Intro",
+#          name: "intro",
+#          widget: "list",
+#          fields:
+#            - { label: "Title", name: "title", widget: "string" }  
+#            - { label: "Subtitle", name: "subtitle", widget: "string" }  
+#            - { label: "Body", name: "body", widget: "markdown" } 
+#        }
       - { label: "Body", name: "body", widget: "markdown" }    
