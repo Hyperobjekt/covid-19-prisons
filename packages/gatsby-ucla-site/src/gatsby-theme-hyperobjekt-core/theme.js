@@ -245,7 +245,10 @@ const CovidTheme = () => {
           },
           "&.page.page--project-team .HypContent-root-33": {
             maxWidth: "50.5rem",
-          }
+          },
+          "&.page.page--project-team .jss33": {
+            maxWidth: "50.5rem",
+          },
         },
       },
       /** Header style overrides */
