@@ -24,7 +24,7 @@ export const widthSelector = (d) => d.residents.population
 /**
  * Gets a comparator function for the given data selector
  */
-const getComparator = (dataSelector) => (a, b) => {
+export const getComparator = (dataSelector) => (a, b) => {
   const aVal = dataSelector(a)
   const bVal = dataSelector(b)
   if (!isNumber(aVal)) return -1
