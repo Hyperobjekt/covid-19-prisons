@@ -16,11 +16,13 @@ async function getData(url, parser) {
   return await fetchCsv(url, parser)
 }
 
+const dataBranch = process.env.DATA_BRANCH || "master"
+
 /**
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
  */
 
-const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/master/Adult%20Facility%20Counts/adult_facility_covid_counts_today_latest.csv`
+const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/Adult%20Facility%20Counts/adult_facility_covid_counts_today_latest.csv`
 
 exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
 

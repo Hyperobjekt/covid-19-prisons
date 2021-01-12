@@ -5,3 +5,5 @@
   NODE_VERSION = "12"
   YARN_VERSION = "1.22.10"
   YARN_FLAGS = "--no-ignore-optional"
+[context.production]
+  environment = { DATA_BRANCH = "website" }
