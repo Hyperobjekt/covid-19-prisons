@@ -7,28 +7,42 @@ import { withStyles } from "@material-ui/core"
 import Tooltip from "../../Tooltip"
 
 const styles = (theme) => ({
-  shared: {
+  institution: {
+    fontWeight: 700,
+    fontSize: theme.typography.pxToRem(14),
     display: "block",
-    width: "100%",
   },
-  label: {},
-  stat: {},
+  state: {
+    width: "100%",
+    display: "block",
+    paddingBottom: theme.spacing(1),
+    borderBottom: "dotted white 1px",
+    marginBottom: theme.spacing(1),
+  },
+  stats: {
+    "& th": {
+      textAlign: "right",
+      paddingRight: theme.spacing(1),
+    },
+    "& .selected": {
+      color: theme.palette.secondary.main
+    },
+  },
 })
 
-const FacilitiesMapTooltip = ({ classes, group, metric, ...props }) => {
+const FacilitiesMapTooltip = ({ classes, group, metric: activeMetric, ...props }) => {
   const hoveredMarker = useStatesStore((state) => state.hoveredMarker)
-
-  const getLabel = () => {
-    const text = hoveredMarker && `${hoveredMarker.name}`
-    return text
+  if (!hoveredMarker) {
+    return null
   }
 
   const getRounded = (num, metric) => {
     let r = ""
-    const v = Math.round((num + Number.EPSILON) * 100) / 100
+    const v = Math.round((num + Number.EPSILON))
     if (metric.indexOf("rate") > -1) {
-      if (v < 0.01) {
-        r = "< 0.0.%"
+      // numbers in the .5-1 range show as <1%
+      if (num < 1) {
+        r = "<1%"
       } else {
         r = v.toLocaleString() + "%"
       }
@@ -38,29 +52,40 @@ const FacilitiesMapTooltip = ({ classes, group, metric, ...props }) => {
     return r
   }
 
-  const getStat = () => {
-    const text =
-      hoveredMarker &&
-      `${getLang(metric)}: ${
-        !hoveredMarker[group][metric]
-          ? getLang("unavailable")
-          : getRounded(hoveredMarker[group][metric], metric)
-      }`
-    return text
-  }
+
+  const stats = []
+  const metrics = group === "residents" ?
+    ["active", "active_rate", "confirmed", "confirmed_rate", "deaths", "deaths_rate"] :
+    ["active", "confirmed", "deaths"] 
+  metrics.forEach(m => {
+    const statName = getLang(m)
+    const statValue = !hoveredMarker[group][m]
+      ? getLang("unavailable")
+      : getRounded(hoveredMarker[group][m], m)
+    
+    const className = m === activeMetric ? "selected" : ""
+    stats.push(
+      <tr className={className}>
+        <th>{statValue}</th>
+        <td>{statName}</td>
+      </tr>
+    )
+  })
+
 
   return (
     <Tooltip>
-      {!!hoveredMarker && (
-        <>
-          <span className={clsx("intitution-name", classes.shared)}>
-            {getLabel()}
-          </span>
-          <span className={clsx("intitution-name", classes.shared)}>
-            {getStat()}
-          </span>
-        </>
-      )}
+      <span className={clsx("intitution-name", classes.institution)}>
+        {hoveredMarker.name}
+      </span>
+      <span className={clsx(classes.state)}>
+        {hoveredMarker.state}
+      </span>
+      <table className={clsx(classes.stats)}>
+        <tbody>
+          {stats}
+        </tbody>
+      </table>
     </Tooltip>
   )
 }
