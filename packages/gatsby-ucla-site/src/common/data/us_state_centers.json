@@ -344,15 +344,15 @@
     "State": "Virginia",
     "StateCode": "VA",
     "Latitude": 37.7693,
-    "Longitude": -79.44,
-    "scale": 4700
+    "Longitude": -79.84,
+    "scale": 4300
   },
   "WA": {
     "State": "Washington",
     "StateCode": "WA",
     "Latitude": 47.4009,
-    "Longitude": -120.8905,
-    "scale": 5000
+    "Longitude": -121.2,
+    "scale": 4600
   },
   "WV": {
     "State": "West Virginia",
