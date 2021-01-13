@@ -10,17 +10,19 @@ import { formatMetricValue } from "../../../common/utils/formatters"
 const styles = (theme) => ({
   institution: {
     fontWeight: 700,
-    fontSize: theme.typography.pxToRem(14),
+    fontSize: theme.typography.pxToRem(16),
     display: "block",
   },
   state: {
     width: "100%",
     display: "block",
+    fontSize: theme.typography.pxToRem(14),
     paddingBottom: theme.spacing(1),
     borderBottom: "dotted white 1px",
     marginBottom: theme.spacing(1),
   },
   stats: {
+    fontSize: theme.typography.pxToRem(14),
     "& th": {
       textAlign: "right",
       paddingRight: theme.spacing(1),
