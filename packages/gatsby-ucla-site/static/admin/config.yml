@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   repo: Hyperobjekt/covid-19-behind-bars
-  branch: staging
+  branch: production
 
 publish_mode: editorial_workflow  
 
