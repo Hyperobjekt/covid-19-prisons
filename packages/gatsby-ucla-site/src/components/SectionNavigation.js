@@ -15,7 +15,7 @@ const styles = (theme) => ({
     margin: theme.spacing(0, -2),
     marginTop: `0!important`,
     width: `calc(100% + ${theme.spacing(4)})`,
-    zIndex: 1,
+    zIndex: 2, // so it appears above visual
     [theme.breakpoints.up("sm")]: {
       margin: theme.spacing(0, -3),
       width: `calc(100% + ${theme.spacing(6)})`,

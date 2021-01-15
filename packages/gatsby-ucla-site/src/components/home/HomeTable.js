@@ -61,7 +61,12 @@ const styles = (theme) => ({
 })
 
 const intFormatter = format(",d")
-const perFormatter = format(".0%")
+const perFormatter = (v) => {
+  if (v < 0.01 && v > 0) {
+    return "<1%"
+  }
+  return format(".0%")(v)
+}
 
 const countFormatter = (value) =>
   !isNumber(value) ? "--" : intFormatter(value)

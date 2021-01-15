@@ -77,9 +77,7 @@ function fixCasing(str) {
  * @param {string} str
  */
 function formatState(str) {
-  return DC_VARIANTS.includes(str.toLowerCase())
-   ? "District of Columbia"
-   : str
+  return DC_VARIANTS.includes(str.toLowerCase()) ? "District of Columbia" : str
 }
 
 /**
@@ -114,7 +112,7 @@ const parseFacility = (facility = {}) => {
     "population",
     "released",
     "recovered",
-    "tadmin"
+    "tadmin",
   ]
   const residentRates = ["confirmed", "deaths", "active", "tested"]
   const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"]
@@ -134,10 +132,10 @@ const parseFacility = (facility = {}) => {
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    if(key === "tadmin") {
+    if (key === "tadmin") {
       obj["tested"] = parseInt(source.residents[key])
       return obj
-    }else{
+    } else {
       obj[key] = parseInt(source.residents[key])
       return obj
     }
