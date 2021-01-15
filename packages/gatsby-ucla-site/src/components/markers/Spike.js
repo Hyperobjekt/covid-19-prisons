@@ -9,6 +9,13 @@ export const style = {
     strokeWidth: 0.8,
     fillOpacity: 1,
   },
+  // fixes 75a - create an additional, transparent spike with a wider stroke to allow easier hover
+  // (functions like added padding, which svgs don't have)
+  buffer: {
+    strokeWidth: 22,
+    fillOpacity: 0,
+    stroke: "transparent",
+  },
 }
 
 const spikePath = (length, width = 7) => {
@@ -22,11 +29,18 @@ const Spike = ({ length, width, classes, className, ...props }) => {
   })
 
   return (
-    <animated.path
-      className={clsx("spike", classes.root, className)}
-      d={path}
-      {...props}
-    />
+    <>
+      <animated.path
+        className={clsx("spike", classes.root, className)}
+        d={path}
+        {...props}
+      />
+      <animated.path
+        className={clsx(classes.buffer)}
+        d={path}
+        {...props}
+      />
+    </>
   )
 }
 

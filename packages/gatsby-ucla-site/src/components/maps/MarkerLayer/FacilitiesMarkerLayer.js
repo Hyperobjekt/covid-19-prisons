@@ -2,7 +2,11 @@ import React, { memo, useCallback } from "react"
 import MarkerLayer from "./MarkerLayer"
 import { useOptionsStore } from "../../../common/hooks"
 import shallow from "zustand/shallow"
-import { typeSelector, getDataMetricSelector } from "../../../common/utils"
+import {
+  typeSelector,
+  getDataMetricSelector,
+  getComparator,
+} from "../../../common/utils"
 
 const FacilitiesMarkerLayer = memo(
   ({ facilities, group = "residents", ...props }) => {
@@ -28,10 +32,15 @@ const FacilitiesMarkerLayer = memo(
       metric,
       group,
     ])
+
+    // fixes #75c - put smaller spikes on "top" so they're accessible
+    const sortedFacilities = facilities
+      .sort(getComparator(dataSelector))
+      .reverse()
     return (
       <>
         <MarkerLayer
-          markers={facilities}
+          markers={sortedFacilities}
           size={size}
           width={7}
           color={colors}

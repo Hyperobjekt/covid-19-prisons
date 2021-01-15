@@ -23,7 +23,7 @@ export const METRICS = {
     "confirmed_rate",
     "deaths_rate",
     "active_rate",
-    "tested_rate"
+    "tested_rate",
   ],
   staff: ["confirmed", "deaths", "active", "tested"],
 }
@@ -33,12 +33,13 @@ export const METRIC_FORMATTERS = {
   deaths: d3Format(",d"),
   active: d3Format(",d"),
   tested: d3Format(",d"),
-  confirmed_rate: d3Format(".2%"),
-  deaths_rate: d3Format(".2%"),
-  active_rate: d3Format(".2%"),
-  tested_rate: d3Format(".2%"),
+  confirmed_rate: d3Format(".0%"),
+  deaths_rate: d3Format(".0%"),
+  active_rate: d3Format(".0%"),
+  tested_rate: d3Format(".0%"),
   count_legend: d3Format(".2s"),
-  rate_legend: d3Format(".1%"),
+  rate_legend: d3Format(".0%"),
+  rate_legend_small: d3Format(".1%"), // legend gets 1 decimal for values <1
 }
 
 export const JURISDICTION_COLORS = ["#CA7F26", "#6BA084", "#758EAC", "#555526"]

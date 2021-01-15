@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const content = {
-  mapDescription: "Spikes represents the ${metric} in a facility for ${group}",
+  mapDescription: "Spikes represent the ${metric} in a facility for ${group}",
   sections: [
     {
       id: "residents",

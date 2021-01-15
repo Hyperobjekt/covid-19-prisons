@@ -5,6 +5,10 @@ export const formatMetricValue = (value, metric) => {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     // fixes #55
     return "N/A"
+  } else if (metric.includes("_rate") && (value < .01) && (value > 0)) {
+    return "<1%"
+  } else if (metric === "rate_legend" && (value < .01) && (value > 0)) {
+    return METRIC_FORMATTERS.rate_legend_small(value)
   }
   return format(value)
 }

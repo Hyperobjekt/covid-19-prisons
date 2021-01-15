@@ -7,4 +7,5 @@ export {
   getTopValues,
   getStateCodeByName,
   getStateCenter,
+  getComparator,
 } from "./selectors"

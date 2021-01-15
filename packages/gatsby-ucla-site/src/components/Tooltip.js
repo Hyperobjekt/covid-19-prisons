@@ -14,6 +14,8 @@ const Tooltip = (props) => {
     <ReactTooltip
       backgroundColor="#283224"
       className={classes.root}
+      place="left"
+      // offset={{ top: -15 }}
       {...props}
     />
   )

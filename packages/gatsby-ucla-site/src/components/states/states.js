@@ -47,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "stretch",
     [theme.breakpoints.up("md")]: {
+      // so tooltips appear above scrolling content, once they're side by side
+      zIndex: 1,
       marginLeft: "auto",
       height: `calc(100vh - ${theme.layout.headerHeight} - 6rem)`,
       width: `calc(100% - 26.25rem)`,
