@@ -88,10 +88,13 @@ const MarkerLayer = ({
     return false
   }
 
+  /** Filter out invalid coords */
+  const filteredMarkers = markers.filter((m) => m.coords[0] < 0)
+
   return (
     <g className={clsx("spike-layer", classes.root, className)} {...props}>
       {!!sizeExtent[1] && // fixes #67 - if max size is 0, don't plot spikes
-        markers.map((marker, i) => {
+        filteredMarkers.map((marker, i) => {
           const size = getValue(getMarkerSize, marker)
           if (size <= 0) {
             // fixes #53 - avoid negative spikes
