@@ -40,6 +40,8 @@ export const METRIC_FORMATTERS = {
   count_legend: d3Format(".2s"),
   rate_legend: d3Format(".0%"),
   rate_legend_small: d3Format(".1%"), // legend gets 1 decimal for values <1
+
+  home_table_rate: d3Format(".0%"), // TODO: use col id instead to select proper metric formatter
 }
 
 export const JURISDICTION_COLORS = ["#CA7F26", "#6BA084", "#758EAC", "#555526"]

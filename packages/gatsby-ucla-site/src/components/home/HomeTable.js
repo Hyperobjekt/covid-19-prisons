@@ -18,6 +18,7 @@ import JurisdictionToggles from "../controls/JurisdictionToggles"
 import DotMarker from "../markers/DotMarker"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import Notes from "../Notes"
+import { formatMetricValue } from "../../common/utils/formatters"
 
 const styles = (theme) => ({
   root: {
@@ -61,12 +62,7 @@ const styles = (theme) => ({
 })
 
 const intFormatter = format(",d")
-const perFormatter = (v) => {
-  if (v < 0.01 && v > 0) {
-    return "<1%"
-  }
-  return format(".0%")(v)
-}
+const perFormatter = (v) => formatMetricValue(v, "home_table_rate")
 
 const countFormatter = (value) =>
   !isNumber(value) ? "--" : intFormatter(value)
@@ -186,7 +182,7 @@ const HomeTable = ({ title, note, classes, ...props }) => {
         id: "tested_rate",
         Header: getLang("tested_rate"),
         accessor: "residents.tested_rate",
-        Cell: (prop) => countFormatter(prop.value),
+        Cell: (prop) => rateFormatter(prop.value),
         style: numberColStyle,
       },
     ],
