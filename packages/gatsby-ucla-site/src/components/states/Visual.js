@@ -6,7 +6,7 @@ import {
   FilingsVisual,
   GrassrootsVisual,
   ImmigrationVisual,
-  ReleasesVisual,
+  // ReleasesVisual,
 } from "./visuals"
 import { useSpring } from "react-spring"
 import { withStyles } from "@material-ui/core"
@@ -57,10 +57,10 @@ const Visual = ({ classes, className, ...props }) => {
     opacity: isVisible("filings") ? 1 : 0,
     zIndex: isVisible("filings") ? 2000 : -1,
   })
-  const releasesOpacity = useSpring({
-    opacity: isVisible("releases") ? 1 : 0,
-    zIndex: isVisible("releases") ? 2000 : -1,
-  })
+  // const releasesOpacity = useSpring({
+  //   opacity: isVisible("releases") ? 1 : 0,
+  //   zIndex: isVisible("releases") ? 2000 : -1,
+  // })
   const immigrationOpacity = useSpring({
     opacity: isVisible("immigration") ? 1 : 0,
     zIndex: isVisible("immigration") ? 2000 : -1,
@@ -77,7 +77,7 @@ const Visual = ({ classes, className, ...props }) => {
         style={mapOpacity}
       />
       <FilingsVisual className={classes.visual} style={filingsOpacity} />
-      <ReleasesVisual className={classes.visual} style={releasesOpacity} />
+      {/* <ReleasesVisual className={classes.visual} style={releasesOpacity} /> */}
       <ImmigrationVisual
         className={classes.visual}
         style={immigrationOpacity}
