@@ -6,8 +6,8 @@ import useStatesStore from "../useStatesStore"
 import shallow from "zustand/shallow"
 import StepWrapper from "./../StepWrapper"
 
-// COMPONENT OUTDATED.
-// replaced by ReleasesTable
+// COMPONENT USED ONLY FOR FEDERAL.
+// replaced for states by ReleasesTable
 
 const Releases = ({ id, lang, data, isFederal, ...props }) => {
   const content = useStatesStore((state) => state.content, shallow)
