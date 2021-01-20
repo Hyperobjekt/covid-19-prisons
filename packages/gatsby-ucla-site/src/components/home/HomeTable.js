@@ -210,7 +210,6 @@ const HomeTable = ({ title, note, classes, ...props }) => {
   )
 
   const handleRowClick = React.useCallback((row) => {
-    return
     const state = row.original.state
     state && navigate(`states/${getSlug(state)}`)
   }, [])

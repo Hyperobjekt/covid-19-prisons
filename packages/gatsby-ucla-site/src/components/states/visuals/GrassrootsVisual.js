@@ -6,6 +6,9 @@ import NumberStat from "../../stats/NumberStat"
 import shallow from "zustand/shallow"
 import { getSumAvgCount } from "../../../common/utils/selectors"
 
+// COMPONENT OUTDATED.
+// replaced by GrassrootsTable
+
 const styles = (theme) => ({
   container: {
     maxWidth: "22rem",

@@ -4,7 +4,7 @@ import useStatesStore from "./useStatesStore"
 import {
   FacilitiesMap,
   FilingsVisual,
-  GrassrootsVisual,
+  // GrassrootsVisual,
   ImmigrationVisual,
   // ReleasesVisual,
 } from "./visuals"
@@ -65,10 +65,10 @@ const Visual = ({ classes, className, ...props }) => {
     opacity: isVisible("immigration") ? 1 : 0,
     zIndex: isVisible("immigration") ? 2000 : -1,
   })
-  const grassrootsOpacity = useSpring({
-    opacity: isVisible("grassroots") ? 1 : 0,
-    zIndex: isVisible("grassroots") ? 2000 : -1,
-  })
+  // const grassrootsOpacity = useSpring({
+  //   opacity: isVisible("grassroots") ? 1 : 0,
+  //   zIndex: isVisible("grassroots") ? 2000 : -1,
+  // })
 
   return (
     <div className={clsx(classes.root, className)} {...props}>
@@ -82,7 +82,7 @@ const Visual = ({ classes, className, ...props }) => {
         className={classes.visual}
         style={immigrationOpacity}
       />
-      <GrassrootsVisual className={classes.visual} style={grassrootsOpacity} />
+      {/* <GrassrootsVisual className={classes.visual} style={grassrootsOpacity} /> */}
     </div>
   )
 }
