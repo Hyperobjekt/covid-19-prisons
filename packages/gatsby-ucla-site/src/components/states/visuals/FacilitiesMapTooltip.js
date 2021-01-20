@@ -54,8 +54,10 @@ const FacilitiesMapTooltip = ({
           "confirmed_rate",
           "deaths",
           "deaths_rate",
+          "tested",
+          "tested_rate",
         ]
-      : ["active", "confirmed", "deaths"]
+      : ["active", "confirmed", "deaths", "tested"]
   metrics.forEach((m) => {
     const statName = getLang(m)
     const rawValue = hoveredMarker[group][m]
