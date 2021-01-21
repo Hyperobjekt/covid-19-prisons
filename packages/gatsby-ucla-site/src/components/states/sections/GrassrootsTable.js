@@ -1,15 +1,12 @@
 import React from "react"
 import { DefaultTable } from "../../table"
 import { Typography, withStyles } from "@material-ui/core"
-import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 import LinkIcon from "@material-ui/icons/Link"
 import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
+import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
-  root: {
-    background: theme.palette.background.paper,
-  },
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(38),
@@ -25,16 +22,6 @@ const styles = (theme) => ({
   body: {
     margin: theme.spacing(1, 0),
   },
-  table: {
-    // margin: theme.spacing(0, -3),
-    // width: `calc(100% + ${theme.spacing(6)})`,
-    "& .MuiTablePagination-input, & .MuiTablePagination-spacer + .MuiTablePagination-caption": {
-      // display: "none",
-    },
-  },
-  // link: {
-  //   whiteSpace: "pre",
-  // },
 })
 
 const GrassrootsTable = ({ classes, data, lang, ...props }) => {
@@ -43,25 +30,16 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
       {
         Header: lang.table.facility,
         accessor: "facility",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
-      },
-      {
-        Header: lang.table.date,
-        accessor: "date",
-        // disableSortBy: true,
-        Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.county,
         accessor: "county",
-        // disableSortBy: true,
+        Cell: (prop) => prop.value,
+      },
+      {
+        Header: lang.table.date,
+        accessor: "date",
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
@@ -71,47 +49,31 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         Header: lang.table.organization,
         accessor: "organization",
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.type,
         accessor: "type",
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.effort,
         accessor: "effort",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.concerns,
         accessor: "concerns",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.source,
         accessor: "source",
-        // disableSortBy: true,
         Cell: ({ value }) => {
           if (!value) return " "
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
           return (
             <a
               title={value}
-              className={classes.link}
               href={value}
               target="__blank"
             >
@@ -119,13 +81,18 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
             </a>
           )
         },
-        style: {
-          textAlign: "right",
-          // maxWidth: "24rem",
-        },
       },
     ],
-    [classes.name]
+    [
+      lang.table.concerns,
+      lang.table.county,
+      lang.table.date,
+      lang.table.effort,
+      lang.table.facility,
+      lang.table.organization,
+      lang.table.source,
+      lang.table.type,
+    ]
   )
 
   const { concernTypeMap, effortMap } = lang.table
@@ -171,7 +138,6 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         />
       </div>
       <DefaultTable
-        className={classes.table}
         columns={columns}
         initialSortCol={"facility"}
         data={extractedData}

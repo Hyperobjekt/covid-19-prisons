@@ -89,11 +89,13 @@ const HomeTable = ({ title, note, classes, ...props }) => {
   const data = useFacilitiesData()
 
   // styles for number columns in table
-  const numberColStyle = {
-    width: "12.5%",
-    minWidth: 100,
-    textAlign: "right",
-  }
+  const numberColStyle = React.useMemo(
+    () => ({
+        width: "12.5%",
+        minWidth: 100,
+        textAlign: "right",
+      }), []
+  )
 
 
   // column configuration for the table
@@ -186,7 +188,7 @@ const HomeTable = ({ title, note, classes, ...props }) => {
         style: numberColStyle,
       },
     ],
-    [classes.name]
+    [classes.name, numberColStyle]
   )
 
   // memoized table options

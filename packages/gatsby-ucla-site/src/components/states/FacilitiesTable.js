@@ -99,13 +99,13 @@ const FacilitiesTable = ({
         },
       },
     ],
-    [classes.name, metric]
+    [classes.name, metric, isFederal, setHoveredFacility]
   )
 
   const [pageIndex, setPageIndex] = React.useState(0)
   const changePageHandler = React.useCallback((idx) => {
     setPageIndex(idx)
-  })
+  }, [])
   
   const options = React.useMemo(
     () => {

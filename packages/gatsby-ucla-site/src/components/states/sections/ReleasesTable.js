@@ -1,16 +1,13 @@
 import React from "react"
-import { DefaultTable, Table } from "../../table"
+import { DefaultTable } from "../../table"
 import { Typography, withStyles } from "@material-ui/core"
-import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 import LinkIcon from "@material-ui/icons/Link"
 import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
 import { METRIC_FORMATTERS } from "../../../common/constants"
+import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
-  root: {
-    background: theme.palette.background.paper,
-  },
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(38),
@@ -26,16 +23,6 @@ const styles = (theme) => ({
   body: {
     margin: theme.spacing(1, 0),
   },
-  table: {
-    // margin: theme.spacing(0, -3),
-    // width: `calc(100% + ${theme.spacing(6)})`,
-    "& .MuiTablePagination-input, & .MuiTablePagination-spacer + .MuiTablePagination-caption": {
-      // display: "none",
-    },
-  },
-  // link: {
-  //   whiteSpace: "pre",
-  // },
 })
 
 const ReleasesTable = ({
@@ -49,34 +36,22 @@ const ReleasesTable = ({
       {
         Header: lang.table.jurisdiction,
         accessor: "jurisdiction",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          // minWidth: "50%",
-        },
+        style: { minWidth: "50%" },
       },
       {
         Header: lang.table.facility,
         accessor: "facility",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
-      },
-      {
-        Header: lang.table.date,
-        accessor: "date",
-        // disableSortBy: true,
-        Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.authority,
         accessor: "authority",
-        // disableSortBy: true,
+        Cell: (prop) => prop.value,
+      },
+      {
+        Header: lang.table.date,
+        accessor: "date",
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
@@ -118,23 +93,17 @@ const ReleasesTable = ({
       {
         Header: lang.table.details,
         accessor: "details",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.source,
         accessor: "source",
-        // disableSortBy: true,
         Cell: ({ value }) => {
           if (!value) return " "
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
           return (
             <a
               title={value}
-              className={classes.link}
               href={value}
               target="__blank"
             >
@@ -142,13 +111,20 @@ const ReleasesTable = ({
             </a>
           )
         },
-        style: {
-          textAlign: "right",
-          // maxWidth: "24rem",
-        },
       },
     ],
-    [classes.name]
+    [
+      lang.table.authority,
+      lang.table.capacity,
+      lang.table.date,
+      lang.table.details,
+      lang.table.facility,
+      lang.table.jurisdiction,
+      lang.table.population,
+      lang.table.proportion,
+      lang.table.releases,
+      lang.table.source,
+    ]
   )
 
   const { detailTypeMap } = lang.table
@@ -184,7 +160,6 @@ const ReleasesTable = ({
         />
       </div>
       <DefaultTable
-        className={classes.table}
         columns={columns}
         initialSortCol={"jurisdiction"}
         data={extractedData}

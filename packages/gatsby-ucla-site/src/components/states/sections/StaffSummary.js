@@ -1,6 +1,5 @@
 import React from "react"
 import JurisdictionStatList from "../JurisdictionStatList"
-import Stack from "../../Stack"
 import { getDataByJurisdiction } from "../../../common/utils/selectors"
 import { useActiveMetric } from "../../../common/hooks"
 import { METRICS } from "../../../common/constants"
@@ -10,6 +9,7 @@ import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import Notes from "../../Notes"
 import StepWrapper from "./../StepWrapper"
 
+/* eslint-disable no-template-curly-in-string */
 const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)

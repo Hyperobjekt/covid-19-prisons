@@ -1,5 +1,4 @@
 import React from "react"
-import Stack from "../../Stack"
 import { GROUPS } from "../../../common/constants"
 import FacilitiesTable from "../FacilitiesTable"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"

@@ -1,5 +1,4 @@
 import React from "react"
-import Stack from "../../Stack"
 import { Grid, Typography } from "@material-ui/core"
 import NumberStat from "../../stats/NumberStat"
 import shallow from "zustand/shallow"
