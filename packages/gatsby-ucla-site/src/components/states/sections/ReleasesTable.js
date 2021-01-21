@@ -49,34 +49,22 @@ const ReleasesTable = ({
       {
         Header: lang.table.jurisdiction,
         accessor: "jurisdiction",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          // minWidth: "50%",
-        },
+        style: { minWidth: "50%" },
       },
       {
         Header: lang.table.facility,
         accessor: "facility",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
-      },
-      {
-        Header: lang.table.date,
-        accessor: "date",
-        // disableSortBy: true,
-        Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.authority,
         accessor: "authority",
-        // disableSortBy: true,
+        Cell: (prop) => prop.value,
+      },
+      {
+        Header: lang.table.date,
+        accessor: "date",
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
@@ -118,16 +106,11 @@ const ReleasesTable = ({
       {
         Header: lang.table.details,
         accessor: "details",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.source,
         accessor: "source",
-        // disableSortBy: true,
         Cell: ({ value }) => {
           if (!value) return " "
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
@@ -141,10 +124,6 @@ const ReleasesTable = ({
               <LinkIcon />
             </a>
           )
-        },
-        style: {
-          textAlign: "right",
-          // maxWidth: "24rem",
         },
       },
     ],

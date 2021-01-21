@@ -43,25 +43,16 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
       {
         Header: lang.table.facility,
         accessor: "facility",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
-      },
-      {
-        Header: lang.table.date,
-        accessor: "date",
-        // disableSortBy: true,
-        Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.county,
         accessor: "county",
-        // disableSortBy: true,
+        Cell: (prop) => prop.value,
+      },
+      {
+        Header: lang.table.date,
+        accessor: "date",
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
@@ -71,40 +62,25 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         Header: lang.table.organization,
         accessor: "organization",
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.type,
         accessor: "type",
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.effort,
         accessor: "effort",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.concerns,
         accessor: "concerns",
-        // disableSortBy: true,
         Cell: (prop) => prop.value,
-        style: {
-          textAlign: "right",
-        },
       },
       {
         Header: lang.table.source,
         accessor: "source",
-        // disableSortBy: true,
         Cell: ({ value }) => {
           if (!value) return " "
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
@@ -118,10 +94,6 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
               <LinkIcon />
             </a>
           )
-        },
-        style: {
-          textAlign: "right",
-          // maxWidth: "24rem",
         },
       },
     ],
