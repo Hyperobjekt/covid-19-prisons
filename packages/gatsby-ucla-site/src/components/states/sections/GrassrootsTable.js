@@ -125,7 +125,17 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         },
       },
     ],
-    [classes.name]
+    [
+      classes.link,
+      lang.table.concerns,
+      lang.table.county,
+      lang.table.date,
+      lang.table.effort,
+      lang.table.facility,
+      lang.table.organization,
+      lang.table.source,
+      lang.table.type,
+    ]
   )
 
   const { concernTypeMap, effortMap } = lang.table

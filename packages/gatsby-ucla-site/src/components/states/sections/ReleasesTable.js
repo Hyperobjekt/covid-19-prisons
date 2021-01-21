@@ -1,5 +1,5 @@
 import React from "react"
-import { DefaultTable, Table } from "../../table"
+import { DefaultTable } from "../../table"
 import { Typography, withStyles } from "@material-ui/core"
 import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 import LinkIcon from "@material-ui/icons/Link"
@@ -148,7 +148,19 @@ const ReleasesTable = ({
         },
       },
     ],
-    [classes.name]
+    [
+      classes.link,
+      lang.table.authority,
+      lang.table.capacity,
+      lang.table.date,
+      lang.table.details,
+      lang.table.facility,
+      lang.table.jurisdiction,
+      lang.table.population,
+      lang.table.proportion,
+      lang.table.releases,
+      lang.table.source,
+    ]
   )
 
   const { detailTypeMap } = lang.table

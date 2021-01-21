@@ -64,10 +64,10 @@ const DefaultTable = ({ initialSortCol, columns, ...props }) => {
 
   const changePageHandler = React.useCallback((idx) => {
     setPageIndex(idx)
-  })
+  }, [])
   const changeRowsPerPageHandler = React.useCallback((pages) => {
     setPageSize(pages)
-  })
+  }, [])
 
   return (
     <Table
