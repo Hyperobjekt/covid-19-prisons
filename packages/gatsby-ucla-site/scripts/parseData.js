@@ -130,10 +130,15 @@ const parseFacility = (facility = {}) => {
   const Longitude = parseFloat(source["longitude"])
   result.coords = [Longitude, Latitude]
 
+  const useAltPopCol = source.population && source.population.feb20
+  
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
     if (key === "tadmin") {
       obj["tested"] = parseInt(source.residents[key])
+      return obj
+    } else if (key === "population" && useAltPopCol) {
+      obj["population"] = parseInt(source.population.feb20)
       return obj
     } else {
       obj[key] = parseInt(source.residents[key])
