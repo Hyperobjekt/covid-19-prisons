@@ -1,16 +1,13 @@
 import React from "react"
 import { DefaultTable } from "../../table"
 import { Typography, withStyles } from "@material-ui/core"
-import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 import LinkIcon from "@material-ui/icons/Link"
 import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
 import { METRIC_FORMATTERS } from "../../../common/constants"
+import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
-  root: {
-    background: theme.palette.background.paper,
-  },
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(38),
@@ -26,16 +23,6 @@ const styles = (theme) => ({
   body: {
     margin: theme.spacing(1, 0),
   },
-  table: {
-    // margin: theme.spacing(0, -3),
-    // width: `calc(100% + ${theme.spacing(6)})`,
-    "& .MuiTablePagination-input, & .MuiTablePagination-spacer + .MuiTablePagination-caption": {
-      // display: "none",
-    },
-  },
-  // link: {
-  //   whiteSpace: "pre",
-  // },
 })
 
 const ReleasesTable = ({
@@ -117,7 +104,6 @@ const ReleasesTable = ({
           return (
             <a
               title={value}
-              className={classes.link}
               href={value}
               target="__blank"
             >
@@ -128,7 +114,6 @@ const ReleasesTable = ({
       },
     ],
     [
-      classes.link,
       lang.table.authority,
       lang.table.capacity,
       lang.table.date,
@@ -175,7 +160,6 @@ const ReleasesTable = ({
         />
       </div>
       <DefaultTable
-        className={classes.table}
         columns={columns}
         initialSortCol={"jurisdiction"}
         data={extractedData}

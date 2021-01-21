@@ -1,15 +1,12 @@
 import React from "react"
 import { DefaultTable } from "../../table"
 import { Typography, withStyles } from "@material-ui/core"
-import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 import LinkIcon from "@material-ui/icons/Link"
 import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
+import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
-  root: {
-    background: theme.palette.background.paper,
-  },
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(38),
@@ -25,16 +22,6 @@ const styles = (theme) => ({
   body: {
     margin: theme.spacing(1, 0),
   },
-  table: {
-    // margin: theme.spacing(0, -3),
-    // width: `calc(100% + ${theme.spacing(6)})`,
-    "& .MuiTablePagination-input, & .MuiTablePagination-spacer + .MuiTablePagination-caption": {
-      // display: "none",
-    },
-  },
-  // link: {
-  //   whiteSpace: "pre",
-  // },
 })
 
 const GrassrootsTable = ({ classes, data, lang, ...props }) => {
@@ -87,7 +74,6 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
           return (
             <a
               title={value}
-              className={classes.link}
               href={value}
               target="__blank"
             >
@@ -98,7 +84,6 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
       },
     ],
     [
-      classes.link,
       lang.table.concerns,
       lang.table.county,
       lang.table.date,
@@ -153,7 +138,6 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         />
       </div>
       <DefaultTable
-        className={classes.table}
         columns={columns}
         initialSortCol={"facility"}
         data={extractedData}
