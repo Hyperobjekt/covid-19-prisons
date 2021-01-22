@@ -216,7 +216,7 @@ const grassrootsCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw
 
 const grassrootsMap = {
   facility: ["Target Facility", "string", roughMatch],
-  state: ["State", "string", exactMatch],
+  state: ["State", "string", roughMatch],
   county: ["County", "string", exactMatch],
   organization: ["Organization", "string", exactMatch],
   type: ["Organizing Effort", "string", exactMatch],
@@ -265,7 +265,7 @@ exports.getGrassroots = () =>
 const fundraisersCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=903902194&format=csv`
 
 const fundraisersMap = {
-  state: ["State", "string", exactMatch],
+  state: ["State", "string", roughMatch],
   organization: ["Organization", "string", exactMatch],
   goal: ["Goal", "string", exactMatch],
   date: ["Date", "string", roughMatch],
