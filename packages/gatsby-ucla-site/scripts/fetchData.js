@@ -16,13 +16,15 @@ async function getData(url, parser) {
   return await fetchCsv(url, parser)
 }
 
-const dataBranch = process.env.DATA_BRANCH || "master"
+// const dataBranch = process.env.DATA_BRANCH || "master"
+const dataBranch = "ice_data"
 
 /**
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
  */
 
-const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/Adult%20Facility%20Counts/adult_facility_covid_counts_today_latest.csv`
+const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/adult_facility_covid_counts.csv`
+// const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/Adult%20Facility%20Counts/adult_facility_covid_counts_today_latest.csv`
 
 exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
 
@@ -150,6 +152,13 @@ const immigrationMap = {
   state: ["State", "string", exactMatch],
   fieldOffice: ["ICE Field Office", "string", roughMatch],
   cases: ["TOTAL Confirmed Cases - ICE DATA (Detainees)", "int", exactMatch],
+  // same as "cases" above, just to standardize with other facilities' nomenclature
+  confirmed: [
+    "TOTAL Confirmed Cases - ICE DATA (Detainees)",
+    "int",
+    exactMatch,
+  ],
+  active: ["ACTIVE Confirmed Cases - ICE DATA", "int", roughMatch],
   deaths: ["Confirmed Deaths - ICE DATA (Detainees)", "int", exactMatch],
 }
 
