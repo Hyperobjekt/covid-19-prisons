@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "unset !important",
     },
     "& header": {
-      background: theme.palette.background.alt3,
+      // background: theme.palette.background.alt3,
     },
   },
   hero: {
@@ -133,6 +133,12 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: theme.columnSpacing(3),
       marginBottom: theme.spacing(10),
     },
+    "& .MuiTypography-paragraph": {
+      [theme.breakpoints.between("sm", "md")]: {
+        fontSize: theme.typography.pxToRem(20),
+        lineHeight: 1.6,
+      },
+    },
 
     "& .gatsby-resp-image-wrapper": {
       [theme.breakpoints.up("md")]: {
@@ -155,9 +161,11 @@ const useStyles = makeStyles((theme) => ({
       top: `calc(-${theme.spacing(2)} + 5px)`,
       [theme.breakpoints.up("md")]: {
         top: `calc(-${theme.spacing(4)} + 10px)`,
+        padding: theme.spacing(0, 1.5),
       },
       [theme.breakpoints.up("lg")]: {
         top: `calc(-${theme.spacing(6)} + 15px)`,
+        padding: theme.spacing(0, 3),
       },
     },
   },
@@ -213,7 +221,7 @@ const useStyles = makeStyles((theme) => ({
   description: {
     ...serifTypography,
     color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(13),
+    fontSize: theme.typography.pxToRem(16),
     lineHeight: 1.5,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),
@@ -226,7 +234,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   readLink: {
-
+    "&:not(:hover)": {
+      color: `${theme.palette.text.primary} !important`,
+    },
+    textDecoration: "none !important",
+    paddingBottom: theme.spacing(1),
+    borderBottom: "solid 1px",
+    borderBottomColor: theme.palette.secondary.main,
   },
 }))
 

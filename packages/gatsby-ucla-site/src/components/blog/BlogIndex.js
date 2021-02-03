@@ -77,6 +77,9 @@ const useStyles = makeStyles((theme) => ({
       // fontSize: theme.typography.pxToRem(70),
       // marginTop: 0,
     },
+    "& $sectionTitle": {
+      fontSize: theme.typography.pxToRem(40),
+    },
   },
   title: {
     ...serifTypography,
@@ -108,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
   sectionTitle: {
     ...subtitleTypography,
     color: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(18),
+    fontSize: theme.typography.pxToRem(28),
     letterSpacing: "calc(18px / 25)",
     margin: theme.spacing(0, 0, 4),
   },
@@ -128,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
   description: {
     ...serifTypography,
     color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(13),
+    fontSize: theme.typography.pxToRem(16),
     lineHeight: 1.5,
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),
