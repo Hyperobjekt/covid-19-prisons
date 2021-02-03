@@ -200,7 +200,7 @@ const useStyles = makeStyles((theme) => ({
   sectionTitle: {
     ...subtitleTypography,
     color: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(18),
+    fontSize: theme.typography.pxToRem(28),
     letterSpacing: "calc(18px / 25)",
   },
   linkedTitle: {

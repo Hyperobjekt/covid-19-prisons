@@ -70,27 +70,24 @@ const useStyles = makeStyles((theme) => ({
     "& $title": {
       ...compactTitleTypography,
       color: theme.palette.text.secondary,
-      fontSize: theme.typography.pxToRem(62),
+      fontSize: theme.typography.pxToRem(48),
       lineHeight: 1.1,
-    },
-    "& $authorImage": {
-      // fontSize: theme.typography.pxToRem(70),
-      // marginTop: 0,
-    },
-    "& $sectionTitle": {
-      fontSize: theme.typography.pxToRem(40),
+      [theme.breakpoints.up("sm")]: {
+        fontSize: theme.typography.pxToRem(62),
+      },
     },
   },
   title: {
     ...serifTypography,
     color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(40),
+    fontSize: theme.typography.pxToRem(32),
     fontWeight: 400,
     lineHeight: 1.2,
     margin: 0,
     maxWidth: theme.columnSpacing(10),
     [theme.breakpoints.up("sm")]: {
       maxWidth: theme.columnSpacing(8),
+      fontSize: theme.typography.pxToRem(40),
     },
     [theme.breakpoints.up("md")]: {
       maxWidth: theme.columnSpacing(6),
@@ -111,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
   sectionTitle: {
     ...subtitleTypography,
     color: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(28),
+    fontSize: theme.typography.pxToRem(32),
     letterSpacing: "calc(18px / 25)",
     margin: theme.spacing(0, 0, 4),
   },
