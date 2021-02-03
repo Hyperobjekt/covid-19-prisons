@@ -14,9 +14,11 @@ import {
   ResidentsSummary,
   Facilities,
   Filings,
-  Grassroots,
+  // Grassroots,
   Immigration,
-  Releases,
+  // Releases,
+  ReleasesTable,
+  GrassrootsTable,
   StaffSummary,
 } from "./sections"
 import useStatesStore from "./useStatesStore"
@@ -98,6 +100,12 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: "3rem",
     },
   },
+  fullWidthContent: {
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "50vh",
+    },
+    paddingBottom: theme.spacing(4),
+  },
 }))
 
 const SECTION_COMPONENTS = {
@@ -105,9 +113,11 @@ const SECTION_COMPONENTS = {
   staff: StaffSummary,
   facilities: Facilities,
   filings: Filings,
-  releases: Releases,
+  // releases: Releases,
   immigration: Immigration,
-  grassroots: Grassroots,
+  // grassroots: Grassroots,
+  releases: ReleasesTable,
+  grassroots: GrassrootsTable,
 }
 
 const StateTemplate = ({ pageContext, data }) => {
@@ -152,6 +162,9 @@ const StateTemplate = ({ pageContext, data }) => {
   const theme = useTheme()
   const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"))
 
+  const scrollSections = content.sections.filter((s) => !s.fullWidth)
+  const fullWidthSections = content.sections.filter((s) => s.fullWidth)
+  
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
@@ -165,7 +178,7 @@ const StateTemplate = ({ pageContext, data }) => {
             onStepEnter={handleStepEnter}
             offset={isHorizontalLayout ? 0.3 : 0.15}
           >
-            {content.sections.map((section, index) => {
+            {scrollSections.map((section, index) => {
               const Component = SECTION_COMPONENTS[section.id]
               return (
                 <Step key={section.id} data={section.id}>
@@ -184,6 +197,47 @@ const StateTemplate = ({ pageContext, data }) => {
           </Scrollama>
         </div>
       </ResponsiveContainer>
+      <ResponsiveContainer>
+        <div className={classes.fullWidthContent}>
+          <Scrollama
+            onStepEnter={handleStepEnter}
+            offset={isHorizontalLayout ? 0.3 : 0.15}
+          >
+            {fullWidthSections.map((section, index) => {
+              const Component = SECTION_COMPONENTS[section.id]
+              return (
+                <Step key={section.id} data={section.id}>
+                  <div id={section.id}>
+                    <Component
+                      // className={clsx(classes.step, {
+                      //   [classes.first]: index === 0,
+                      // })}
+                      data={data}
+                      {...section}
+                    />
+                  </div>
+                </Step>
+              )
+            })}
+          </Scrollama>
+        </div>
+      </ResponsiveContainer>
+      {/* <div className={classes.HI}>
+          {fullWidthSections.map((section) => {
+            const Component = SECTION_COMPONENTS[section.id]
+            return (
+              <div id={section.id}>
+                <Component
+                  className={clsx(classes.BYE, {
+
+                  })}
+                  data={data}
+                  {...section}
+                />
+              </div>
+            )
+          })}
+        </div> */}
     </Layout>
   )
 }
@@ -247,6 +301,7 @@ export const query = graphql`
       edges {
         node {
           county
+          date
           external_effort
           facility
           internal_effort
@@ -254,6 +309,7 @@ export const query = graphql`
           releases
           response
           sanitary
+          source
           success
           testing
           type
@@ -291,7 +347,17 @@ export const query = graphql`
           facility
           capacity
           releases
+          population
           source
+          jurisdiction
+          date
+          authority
+          detailParole
+          detailMinor
+          detailBail
+          detailShort
+          detailVulnerable
+          detailOther
         }
       }
     }
@@ -301,7 +367,16 @@ export const query = graphql`
           facility
           capacity
           releases
+          population
           source
+          jurisdiction
+          date
+          authority
+          detailParole
+          detailMinor
+          detailShort
+          detailVulnerable
+          detailOther
         }
       }
     }

@@ -40,20 +40,39 @@ const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2
 const releasesMap = {
   facility: ["Facility", "string", exactMatch],
   state: ["State", "string", exactMatch],
+  date: ["Date", "string", exactMatch],
+  authority: ["Authorizing Agent", "string", roughMatch],
   releases: ["Overall Pop. Reduction", "int", roughMatch],
+  population: ["Population Prior", "int", roughMatch],
+  detailParole: ["Parole Tech", "string", roughMatch],
+  detailShort: ["Short Time Left", "string", roughMatch],
+  detailVulnerable: ["Vulnerable Populations", "string", roughMatch],
+  detailOther: ["Other (please explain", "string", roughMatch],
   capacity: ["Known Capacity", "int", roughMatch],
-  source: ["Source(s)", "string", roughMatch],
+  source: ["Perma links", "string", roughMatch],
+}
+const jailReleasesMap = {
+  ...releasesMap,
+  jurisdiction: ["County", "string", exactMatch],
+  detailMinor: ["Minor Offenses", "string", roughMatch],
+  detailBail: ["On Bail with Inability", "string", roughMatch],
+}
+const prisonReleasesMap = {
+  ...releasesMap,
+  jurisdiction: ["State", "string", exactMatch],
+  detailMinor: ["Non-Violent Crimes", "string", roughMatch],
 }
 
-const releaseParser = (row) => parseMap(row, releasesMap)
+const jailReleaseParser = (row) => parseMap(row, jailReleasesMap)
+const prisonReleaseParser = (row) => parseMap(row, prisonReleasesMap)
 
 // exports.getReleases = () =>
 //   Promise.all([
 //     getData(jailReleases, releaseParser),
 //     getData(prisonReleases, releaseParser),
 //   ])
-exports.getJailReleases = () => getData(jailReleases, releaseParser)
-exports.getPrisonReleases = () => getData(prisonReleases, releaseParser)
+exports.getJailReleases = () => getData(jailReleases, jailReleaseParser)
+exports.getPrisonReleases = () => getData(prisonReleases, prisonReleaseParser)
 
 /**
  * COURT FILINGS / ORDERS
@@ -231,6 +250,8 @@ const grassrootsMap = {
   testing: ["Effort for New/Improved Testing Procedures", "string", roughMatch],
   response: ["Response (if yes or partially)", "string", roughMatch],
   success: ["Demands Met?", "string", roughMatch],
+  date: ["Date (of action)", "string", roughMatch],
+  source: ["Perma links", "string", roughMatch],
 }
 
 const grassrootsParser = (row) => parseMap(row, grassrootsMap)

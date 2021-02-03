@@ -30,7 +30,9 @@ const MetricSelectionTitle = ({
   ...props
 }) => {
   // inject metric selection onto title
+  /* eslint-disable no-template-curly-in-string */
   const titleParts = title.split("${metric}")
+  /* eslint-enable no-template-curly-in-string */
   const titleArray =
     titleParts.length === 2
       ? [titleParts[0], <MetricSelection group={group} />, titleParts[1]]

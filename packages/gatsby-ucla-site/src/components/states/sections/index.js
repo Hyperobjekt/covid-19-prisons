@@ -1,7 +1,10 @@
 export { default as Facilities } from "./Facilities"
 export { default as Filings } from "./Filings"
-export { default as Grassroots } from "./Grassroots"
+// export { default as Grassroots } from "./Grassroots"
 export { default as Immigration } from "./Immigration"
+// NOTE: only used for Federal page
 export { default as Releases } from "./Releases"
+export { default as GrassrootsTable } from "./GrassrootsTable"
+export { default as ReleasesTable } from "./ReleasesTable"
 export { default as ResidentsSummary } from "./ResidentsSummary"
 export { default as StaffSummary } from "./StaffSummary"

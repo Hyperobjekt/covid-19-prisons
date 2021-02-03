@@ -60,18 +60,6 @@
       }
     },
     {
-      "id": "releases",
-      "lang": {
-        "title": "Prison and Jail Releases Related to COVID-19",
-        "link": "Releases",
-        "body": "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). You can find our full prison releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985\">here</a> and jail releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533\">here</a>.<br><br><br>",
-        "visual": {
-          "prisonCount": "prison release efforts",
-          "jailCount": "jail release efforts"
-        }
-      }
-    },
-    {
       "id": "immigration",
       "lang": {
         "title": "COVID-19 Cases and Deaths in Immigration Detention",
@@ -85,16 +73,72 @@
       }
     },
     {
+      "id": "releases",
+      "fullWidth": true,
+      "lang": {
+        "title": "Prison and Jail Releases Related to COVID-19",
+        "link": "Releases",
+        "body": "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic.",
+        "table": {
+          "jurisdiction": "Jurisdiction",
+          "facility": "Facility",
+          "date": "Date release was issued",
+          "authority": "Authorizing agent",
+          "releases": "Total Number of Releases",
+          "population": "Population prior to releases",
+          "proportion": "Releases as percentage of population",
+          "capacity": "Known capacity",
+          "details": "Release details",
+          "detailTypeMap": {
+            "detailParole": "Parole/probation violation",
+            "detailMinor": "Minor offenses",
+            "detailBail": "Inability to pay bail",
+            "detailShort": "Short remaining sentence",
+            "detailVulnerable": "Vulnerable populations",
+            "detailOther": "Other"
+          },
+          "source": "Source"
+        },
+        "notes": {
+          "sourcing": "For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). You can find our full prison releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985\">here</a> and jail releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533\">here</a>.<br><br><br>"
+        }
+      }
+    },
+    {
       "id": "grassroots",
+      "fullWidth": true,
       "lang": {
         "title": "Grassroots and Community Organizing Efforts Related to COVID-19",
         "link": "Grassroots Organizing",
-        "body": "Our team collects data on grassroots and community organizing efforts by incarcerated people, their families, community-based organizations, nonprofits, and advocates aimed at influencing government agencies to protect the lives of people incarcerated in prisons, jails, and detention centers against the threats posed by COVID-19. You can find our full dataset <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154'>here</a>. ",
+        "body": "Our team collects data on grassroots and community organizing efforts by incarcerated people, their families, community-based organizations, nonprofits, and advocates aimed at influencing government agencies to protect the lives of people incarcerated in prisons, jails, and detention centers against the threats posed by COVID-19.",
         "visual": {
           "effortCount": "efforts",
           "internalCount": "efforts happening behind bars",
           "externalCount": "efforts started externally",
           "coordinatedCount": "coordinated efforts (inside and outside)"
+        },
+        "table": {
+          "facility": "Target facility",
+          "date": "Date of action",
+          "county": "County",
+          "organization": "Organization",
+          "type": "Type of effort",
+          "effort": "Internal or external",
+          "effortMap": {
+            "external_effort": "Internal",
+            "internal_effort": "External",
+            "coordinated_effort": "Coordinated"
+          },
+          "concerns": "Effort concerns",
+          "concernTypeMap": {
+            "releases": "Accelerated releases",
+            "testing": "Testing procedures",
+            "sanitary": "Sanitation improvements"
+          },
+          "source": "Source"
+        },
+        "notes": {
+          "sourcing": "You can find our full dataset <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154'>here</a>."
         }
       }
     }

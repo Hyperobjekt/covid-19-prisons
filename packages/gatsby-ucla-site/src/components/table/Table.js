@@ -74,7 +74,10 @@ const Table = ({
   skipPageReset = false,
   onSort,
   onRowClick,
+  onChangePage,
+  onChangeRowsPerPage,
   sortColumn,
+  sortDesc = true,
   options,
   classes,
   className,
@@ -105,23 +108,28 @@ const Table = ({
     useRowSelect
   )
 
-  // override sort direction from prop
   useEffect(() => {
     if (sortColumn) {
-      const currentSortColumn = sortBy[0].id
-      if (currentSortColumn !== sortColumn) {
-        console.log("toggle sorting", sortColumn, sortBy)
-        toggleSortBy(sortColumn, true)
+      const {id, desc} = sortBy[0]
+      if ((id !== sortColumn) || (desc !== sortDesc)) {
+        toggleSortBy(sortColumn, sortDesc)
       }
     }
-  }, [sortColumn, toggleSortBy, sortBy])
+  }, [sortColumn, toggleSortBy, sortBy, sortDesc])
 
   const handleChangePage = (event, newPage) => {
     gotoPage(newPage)
+
+    if (onChangePage) {
+      onChangePage(newPage)
+    }
   }
 
   const handleChangeRowsPerPage = (event) => {
     setPageSize(Number(event.target.value))
+    if (onChangeRowsPerPage) {
+      onChangeRowsPerPage(Number(event.target.value))
+    }
   }
 
   return (
