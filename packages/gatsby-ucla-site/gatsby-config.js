@@ -10,6 +10,8 @@ module.exports = {
         typekitId: "uiz8duz",
         templates: {
           home: require.resolve("./src/components/home/home.js"),
+          blog: require.resolve("./src/components/blog/blog.js"),
+          blogIndex: require.resolve("./src/components/blog/BlogIndex.js"),
         },
       },
     },
