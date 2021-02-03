@@ -6,7 +6,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle"
 import {
   serifTypography,
   subtitleTypography,
-  compactTypography,
+  compactTitleTypography,
 } from "../../gatsby-theme-hyperobjekt-core/theme"
 import moment from "moment"
 import { Layout } from "gatsby-theme-hyperobjekt-core"
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     // },
     "& $post": {},
     "& $title": {
-      ...compactTypography,
+      ...compactTitleTypography,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(62),
       lineHeight: 1.1,

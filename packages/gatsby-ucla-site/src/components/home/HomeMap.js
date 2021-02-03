@@ -57,13 +57,22 @@ const styles = (theme) => ({
     margin: "auto",
     textAlign: "center",
     color: fade(theme.palette.text.secondary, 0.666),
+    "& a": {
+      "&:not(:hover)": {
+        color: fade(theme.palette.text.secondary, 0.666) + " !important",
+      },
+      textDecoration: "none !important",
+      paddingBottom: "1px",
+      borderBottom: "solid 1px",
+      borderBottomColor: theme.palette.secondary.main,
+    },
     fontSize: theme.typography.pxToRem(12),
     padding: theme.spacing(2, 4),
     // drop line break to conserve space on mobile
     [theme.breakpoints.down("sm")]: {
       "& br": {
-        display: "none"
-      }
+        display: "none",
+      },
     },
     [theme.breakpoints.up("md")]: {
       position: "absolute",

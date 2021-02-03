@@ -96,7 +96,7 @@ export const titleTypography = {
   fontWeight: 400,
   textTransform: "uppercase",
 }
-export const compactTypography = {
+export const compactTitleTypography = {
   fontFamily: `"Champion Featherwt A", "Champion Featherwt B", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,

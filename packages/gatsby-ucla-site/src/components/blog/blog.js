@@ -7,7 +7,7 @@ import {
   sansSerifyTypography,
   serifTypography,
   subtitleTypography,
-  compactTypography,
+  compactTitleTypography,
 } from "../../gatsby-theme-hyperobjekt-core/theme"
 import { Link } from "gatsby-theme-material-ui"
 import { graphql } from "gatsby"
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(14),
   },
   postTitle: {
-    ...compactTypography,
+    ...compactTitleTypography,
     color: theme.palette.text.secondary,
     lineHeight: 1.05,
     margin: 0,
@@ -226,13 +226,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   readLink: {
-    "&:not(:hover)": {
-      color: `${theme.palette.text.primary} !important`,
-    },
-    textDecoration: "none !important",
-    paddingBottom: theme.spacing(1),
-    borderBottom: "solid 1px",
-    borderBottomColor: theme.palette.secondary.main,
+
   },
 }))
 
