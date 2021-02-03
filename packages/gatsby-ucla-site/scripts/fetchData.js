@@ -17,7 +17,7 @@ async function getData(url, parser) {
 }
 
 // const dataBranch = process.env.DATA_BRANCH || "master"
-const dataBranch = "ice_data"
+const dataBranch = "ice_data" // switch back to the above once the data repo merge occurs
 
 /**
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)

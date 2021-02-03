@@ -70,8 +70,8 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
         <SpikeMarker
           height={sizeRange[0]}
           width={7}
-          stroke={categoryColors[3]}
-          fill={categoryGradients[3]}
+          stroke={categoryColors[4]}
+          fill={categoryGradients[4]}
         />
         <Typography className={classes.label} variant="body2">
           {spikeLabels[0]}
@@ -81,8 +81,8 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
         <SpikeMarker
           height={sizeRange[1] / 2}
           width={7}
-          stroke={categoryColors[3]}
-          fill={categoryGradients[3]}
+          stroke={categoryColors[4]}
+          fill={categoryGradients[4]}
         />
         <Typography className={classes.label} variant="body2">
           {spikeLabels[1]}
@@ -92,8 +92,8 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
         <SpikeMarker
           height={sizeRange[1]}
           width={7}
-          stroke={categoryColors[3]}
-          fill={categoryGradients[3]}
+          stroke={categoryColors[4]}
+          fill={categoryGradients[4]}
         />
         <Typography className={classes.label} variant="body2">
           {spikeLabels[2]}
