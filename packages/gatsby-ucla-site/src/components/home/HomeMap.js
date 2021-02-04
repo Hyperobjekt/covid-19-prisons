@@ -122,6 +122,13 @@ const styles = (theme) => ({
     },
   },
   controls: {
+    // on lg the controls div obscures the whole map -> need to manage pointer events
+    [theme.breakpoints.up("lg")]: {
+      pointerEvents: "none",
+      "& $detailContainer *": {
+        pointerEvents: "all",
+      },
+    },
     display: "flex",
     flexDirection: "column",
     marginTop: theme.spacing(4),
