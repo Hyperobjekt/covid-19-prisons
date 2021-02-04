@@ -221,7 +221,7 @@ const youthCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4Je
 const youthFilingsMap = {
   facility: ["Name of Facility", "string", roughMatch],
   state: ["State", "string", exactMatch],
-  city: ["City", "string", exactMatch],
+  // city: ["City", "string", exactMatch],
   county: ["County", "string", exactMatch],
   cases_youth: ["Cases (Youth)", "int", roughMatch],
   cases_staff: ["Cases (Staff)", "int", roughMatch],
