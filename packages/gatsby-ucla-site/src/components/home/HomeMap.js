@@ -41,7 +41,7 @@ const styles = (theme) => ({
   },
   notesXlContainer: {
     display: "none",
-    marginTop: "240px",
+    marginTop: "180px",
     "& $notes": {
       background: theme.palette.background.default,
       border: "2px dotted #92926C",
@@ -65,6 +65,7 @@ const styles = (theme) => ({
     background: theme.palette.background.default,
     [theme.breakpoints.up("lg")]: {
       background: "unset",
+      marginTop: theme.spacing(2),
     },
   },
   textContainer: {},
@@ -86,6 +87,9 @@ const styles = (theme) => ({
   },
   mapDescription: {
     maxWidth: "20rem",
+    [theme.breakpoints.up("lg")]: {
+      marginTop: theme.spacing(3),
+    },
   },
   notesBelow: {},
   notes: {
