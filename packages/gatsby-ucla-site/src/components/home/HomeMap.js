@@ -27,21 +27,19 @@ const styles = (theme) => ({
       margin: "auto",
       [theme.breakpoints.up("md")]: {
         margin: "auto auto 0 auto",
-        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(
-          2
-        )})`,
+        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(2)})`,
       },
       [theme.breakpoints.up("lg")]: {
         width: theme.columnSpacing(8),
         maxWidth: "1200px",
         marginRight: theme.spacing(1),
-        height: `calc(100% - ${theme.spacing(1)})`,
+        height: `calc(100% - ${theme.spacing(4)})`,
       },
     },
   },
   notesXlContainer: {
     display: "none",
-    marginTop: "180px",
+    marginTop: "18vh",
     "& $notes": {
       background: theme.palette.background.default,
       border: "2px dotted #92926C",
