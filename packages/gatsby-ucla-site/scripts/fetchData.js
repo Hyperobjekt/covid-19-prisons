@@ -214,27 +214,28 @@ exports.getImmigrationFilings = () =>
 
 /**
  * YOUTH INCARCERATION
+ * (not used)
  */
 
-const youthCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=771710274&format=csv`
+// const youthCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=771710274&format=csv`
 
-const youthFilingsMap = {
-  facility: ["Name of Facility", "string", roughMatch],
-  state: ["State", "string", exactMatch],
-  // city: ["City", "string", exactMatch],
-  county: ["County", "string", exactMatch],
-  cases_youth: ["Cases (Youth)", "int", roughMatch],
-  cases_staff: ["Cases (Staff)", "int", roughMatch],
-}
+// const youthFilingsMap = {
+//   facility: ["Name of Facility", "string", roughMatch],
+//   state: ["State", "string", exactMatch],
+//   // city: ["City", "string", exactMatch],
+//   county: ["County", "string", exactMatch],
+//   cases_youth: ["Cases (Youth)", "int", roughMatch],
+//   cases_staff: ["Cases (Staff)", "int", roughMatch],
+// }
 
-const youthParser = (row) => parseMap(row, youthFilingsMap)
+// const youthParser = (row) => parseMap(row, youthFilingsMap)
 
-exports.getYouth = () =>
-  getData(youthCsv, youthParser).then((data) => {
-    // remove total row
-    const result = data.filter((d) => d.state.toLowerCase() !== "total")
-    return result
-  })
+// exports.getYouth = () =>
+//   getData(youthCsv, youthParser).then((data) => {
+//     // remove total row
+//     const result = data.filter((d) => d.state.toLowerCase() !== "total")
+//     return result
+//   })
 
 /**
  * GRASSROOTS

@@ -380,17 +380,17 @@ export const query = graphql`
         }
       }
     }
-    allYouth(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cases_staff
-          cases_youth
-          county
-          facility
-        }
-      }
-    }
   }
 `
+// allYouth(filter: { state: { eq: $state } }) {
+//   edges {
+//     node {
+//       cases_staff
+//       cases_youth
+//       county
+//       facility
+//     }
+//   }
+// }
 
 export default StateTemplate
