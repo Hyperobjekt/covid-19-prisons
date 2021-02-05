@@ -310,7 +310,6 @@ export const query = graphql`
         node {
           cases_staff
           cases_youth
-          city
           county
           facility
         }
