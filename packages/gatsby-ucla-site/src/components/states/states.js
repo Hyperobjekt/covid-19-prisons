@@ -285,18 +285,6 @@ export const query = graphql`
         }
       }
     }
-    allFundraisers(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          ongoing
-          goal
-          fundraiser
-          date
-          organization
-          sources
-        }
-      }
-    }
     allGrassroots(filter: { state: { eq: $state } }) {
       edges {
         node {
@@ -382,15 +370,32 @@ export const query = graphql`
     }
   }
 `
-// allYouth(filter: { state: { eq: $state } }) {
-//   edges {
-//     node {
-//       cases_staff
-//       cases_youth
-//       county
-//       facility
-//     }
-//   }
-// }
+
+/* 
+ * Unused sections
+ 
+  allFundraisers(filter: { state: { eq: $state } }) {
+    edges {
+      node {
+        ongoing
+        goal
+        fundraiser
+        date
+        organization
+        sources
+      }
+    }
+  }
+  allYouth(filter: { state: { eq: $state } }) {
+    edges {
+      node {
+        cases_staff
+        cases_youth
+        county
+        facility
+      }
+    }
+  }
+*/
 
 export default StateTemplate

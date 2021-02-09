@@ -291,23 +291,24 @@ exports.getGrassroots = () =>
 
 /**
  * FUNDRAISERS
+ * (not used)
  */
 
-const fundraisersCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=903902194&format=csv`
+// const fundraisersCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=903902194&format=csv`
 
-const fundraisersMap = {
-  state: ["State", "string", roughMatch],
-  organization: ["Organization", "string", exactMatch],
-  goal: ["Goal", "string", exactMatch],
-  date: ["Date", "string", roughMatch],
-  ongoing: ["Ongoing", "string", roughMatch],
-  sources: ["Sources", "string", roughMatch],
-  fundraiser: ["Fundraiser", "string", roughMatch],
-}
+// const fundraisersMap = {
+//   state: ["State", "string", roughMatch],
+//   organization: ["Organization", "string", exactMatch],
+//   goal: ["Goal", "string", exactMatch],
+//   date: ["Date", "string", roughMatch],
+//   ongoing: ["Ongoing", "string", roughMatch],
+//   sources: ["Sources", "string", roughMatch],
+//   fundraiser: ["Fundraiser", "string", roughMatch],
+// }
 
-const fundraisersParser = (row) => parseMap(row, fundraisersMap)
+// const fundraisersParser = (row) => parseMap(row, fundraisersMap)
 
-exports.getFundraisers = () => getData(fundraisersCsv, fundraisersParser)
+// exports.getFundraisers = () => getData(fundraisersCsv, fundraisersParser)
 
 /**
  * RESOURCES

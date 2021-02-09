@@ -7,7 +7,7 @@ const {
   getImmigrationFilings,
   // getYouth,
   getGrassroots,
-  getFundraisers,
+  // getFundraisers,
   getResources,
 } = require(`./scripts/fetchData.js`)
 const { validStatePages, slugify } = require(`./scripts/utils.js`)
@@ -50,7 +50,7 @@ exports.sourceNodes = async (params) => {
     ["ImmigrationFilings", getImmigrationFilings],
     // ["Youth", getYouth],
     ["Grassroots", getGrassroots],
-    ["Fundraisers", getFundraisers],
+    // ["Fundraisers", getFundraisers],
     ["Resources", getResources],
   ]
   for (let i = 0; i < nodes.length; i++) {
