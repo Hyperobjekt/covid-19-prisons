@@ -133,18 +133,9 @@ const parseFacility = (facility = {}) => {
 
   const useAltPopCol = source.population && source.population.feb20
 
-  const now = new Date().valueOf()
-  const monthInMs = 30 * 24 * 60 * 60 * 1000
-  const outdated = result.date + monthInMs < now
-  
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    if (outdated) {
-      // console.debug(key, new Date(result.date))
-      // don't accept any data over a month old
-      obj[key] = null
-      return obj
-    } else if (key === "tadmin") {
+    if (key === "tadmin") {
       obj["tested"] = parseInt(source.residents[key])
       return obj
     } else if (key === "population" && useAltPopCol) {
