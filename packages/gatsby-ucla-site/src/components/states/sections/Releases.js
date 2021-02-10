@@ -1,10 +1,12 @@
 import React from "react"
-import Stack from "../../Stack"
 import { Typography } from "@material-ui/core"
 import NumberStat from "../../stats/NumberStat"
 import useStatesStore from "../useStatesStore"
 import shallow from "zustand/shallow"
 import StepWrapper from "./../StepWrapper"
+
+// COMPONENT USED ONLY FOR FEDERAL.
+// replaced for states by ReleasesTable
 
 const Releases = ({ id, lang, data, isFederal, ...props }) => {
   const content = useStatesStore((state) => state.content, shallow)

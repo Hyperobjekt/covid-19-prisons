@@ -5,6 +5,9 @@ import useStatesStore from "../useStatesStore"
 import NumberStat from "../../stats/NumberStat"
 import shallow from "zustand/shallow"
 
+// COMPONENT OUTDATED.
+// replaced by ReleasesTable
+
 const styles = (theme) => ({
   container: {
     maxWidth: "22rem",

@@ -3,7 +3,6 @@ import clsx from "clsx"
 import { graphql, navigate } from "gatsby"
 import { Layout } from "gatsby-theme-hyperobjekt-core"
 import { makeStyles, Typography } from "@material-ui/core"
-
 import { Step, Scrollama } from "@hyperobjekt/react-scrollama"
 import {
   ResidentsSummary,
@@ -68,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+/* eslint-disable no-template-curly-in-string */
 const content = {
   mapDescription: "Spikes represent the ${metric} in a facility for ${group}",
   sections: [
@@ -160,6 +160,7 @@ const content = {
     },
   ],
 }
+/* eslint-enable no-template-curly-in-string */
 
 const SECTION_COMPONENTS = {
   residents: ResidentsSummary,

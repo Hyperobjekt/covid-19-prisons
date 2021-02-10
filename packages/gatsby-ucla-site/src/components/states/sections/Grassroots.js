@@ -3,6 +3,9 @@ import Stack from "../../Stack"
 import { Typography } from "@material-ui/core"
 import StepWrapper from "./../StepWrapper"
 
+// COMPONENT OUTDATED.
+// replaced by GrassrootsTable
+
 const Grassroots = ({ id, lang, data, ...props }) => {
   return (
     <div {...props}>

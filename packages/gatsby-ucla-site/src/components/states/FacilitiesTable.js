@@ -99,22 +99,33 @@ const FacilitiesTable = ({
         },
       },
     ],
-    [classes.name, metric]
+    [classes.name, metric, isFederal, setHoveredFacility]
   )
+
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const changePageHandler = React.useCallback((idx) => {
+    setPageIndex(idx)
+  }, [])
+  
   const options = React.useMemo(
-    () => ({
-      initialState: {
-        pageSize: 5,
-        sortBy: [{ id: group + "." + metric, desc: true }],
-      },
-    }),
-    [metric, group]
+    () => {
+      return {
+        initialState: {
+          pageSize: 5,
+          pageIndex,
+          sortBy: [{ id: group + "." + metric, desc: true }],
+        },
+      }
+    },
+    [metric, group, pageIndex]
   )
+
   return (
     <Table
       className={classes.table}
       columns={columns}
       options={options}
+      onChangePage={changePageHandler}
       // fixes #45
       data={data.filter((d) => d.name !== "Statewide")}
       {...props}

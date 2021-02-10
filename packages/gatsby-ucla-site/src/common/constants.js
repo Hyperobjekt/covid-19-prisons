@@ -12,7 +12,7 @@ export const KEYS = {
 
 export const GROUPS = ["residents", "staff"]
 
-export const JURISDICTIONS = ["state", "federal", "county"]
+export const JURISDICTIONS = ["state", "federal", "county", "immigration"]
 
 export const METRICS = {
   residents: [
@@ -44,11 +44,19 @@ export const METRIC_FORMATTERS = {
   home_table_rate: d3Format(".0%"), // TODO: use col id instead to select proper metric formatter
 }
 
-export const JURISDICTION_COLORS = ["#CA7F26", "#6BA084", "#758EAC", "#555526"]
+export const JURISDICTION_COLORS = [
+  "#D7790F",
+  "#7FB89A",
+  "#77AAC7",
+  "#96738F",
+  "#555526",
+]
+// export const JURISDICTION_COLORS = ["#CA7F26", "#6BA084", "#758EAC", "#555526"]
 
 export const JURISDICTION_GRADIENTS = [
   "url(#g1)",
   "url(#g2)",
   "url(#g3)",
   "url(#g4)",
+  "url(#g5)",
 ]

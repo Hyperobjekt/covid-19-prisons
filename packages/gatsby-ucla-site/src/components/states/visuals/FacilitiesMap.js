@@ -67,10 +67,12 @@ const FacilitiesMap = ({ classes, ...props }) => {
     return "residents"
   })()
 
+  /* eslint-disable no-template-curly-in-string */
   const mapDescription = content.mapDescription
     .replace("${metric}", getLang(metric).toLowerCase())
     .replace("${group}", getLang(mapGroup).toLowerCase())
     .replace("${count}", facilities.length)
+  /* eslint-enable no-template-curly-in-string */
 
   return (
     <animated.div {...props}>

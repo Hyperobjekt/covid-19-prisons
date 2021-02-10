@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   repo: Hyperobjekt/covid-19-behind-bars
-  branch: production
+  branch: staging
 
 publish_mode: editorial_workflow  
 
@@ -118,7 +118,48 @@ collections:
         required: false
         fields: 
           - {label: Title, name: title, widget: markdown, required: false}    
-         
+          - name: "blog"
+  - label: "Blog post"
+    folder: "/packages/gatsby-ucla-site/content/pages/blog"
+    name: "blogpost"
+    extension: mdx
+    format: frontmatter
+    create: true
+    
+    # slug: "blogPost"
+    media_folder: ""
+    public_folder: ""
+    path: "{{title}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - {
+        label: "Slug",
+        name: "path",
+        widget: "string",
+        default: "blog/",
+        hint: "Sets the link to the post. Must be unique, begin with 'blog/', and be composed only of alphanumeric characters and dashes",
+        required: true,
+        pattern: [
+          "^blog/[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "A slug must begin with 'blog/' can have no spaces or special characters, e.g. 'blog/why-we-built-this'"
+        ]
+        }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Whether to display as the featured post on the blog index page. If more than one post is marked as featured, the most recent one will be used." }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "string" }
+      - {
+          label: "Post Image",
+          name: "image",
+          widget: "image",
+          required: false,
+          hint: "Image to embed in post",
+        }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Is Post", name: "isBlogPost", widget: "hidden", default: true }
+      - { label: "Template", name: "template", widget: "hidden", default: "blog" }
 
 
 

@@ -18,6 +18,7 @@ const base = {
       paper: "#fff",
       alt1: "#FEF3E7",
       alt2: "#F5F5ED",
+      alt3: "#FBFBF7",
     },
     text: {
       primary: "#283224",
@@ -29,6 +30,8 @@ const base = {
       active: fade("#555526", 0.2),
     },
   },
+
+  columnSpacing: (n) => `${n * (100 / 12)}vw`,
   spacing: (factor) => `${0.5 * factor}rem`,
   shape: {
     borderRadius: 0,
@@ -89,6 +92,12 @@ export const serifTypography = {
 }
 export const titleTypography = {
   fontFamily: `"Champion Middlewt A", "Champion Middlewt B", sans-serif`,
+  fontStyle: "normal",
+  fontWeight: 400,
+  textTransform: "uppercase",
+}
+export const compactTitleTypography = {
+  fontFamily: `"Champion Featherwt A", "Champion Featherwt B", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",

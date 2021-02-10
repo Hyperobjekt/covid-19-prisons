@@ -16,6 +16,11 @@ export const style = {
     fillOpacity: 0,
     stroke: "transparent",
   },
+  outline: {
+    strokeWidth: 0.2,
+    fillOpacity: 0,
+    stroke: "#000000bd",
+  },
 }
 
 const spikePath = (length, width = 7) => {
@@ -24,8 +29,9 @@ const spikePath = (length, width = 7) => {
 }
 
 const Spike = ({ length, width, classes, className, ...props }) => {
+  const rawPath = spikePath(length, width)
   const { path } = useSpring({
-    to: { path: spikePath(length, width) },
+    to: { path: rawPath },
   })
 
   return (
@@ -35,11 +41,8 @@ const Spike = ({ length, width, classes, className, ...props }) => {
         d={path}
         {...props}
       />
-      <animated.path
-        className={clsx(classes.buffer)}
-        d={path}
-        {...props}
-      />
+      <path className={classes.buffer} d={rawPath} />
+      <path className={classes.outline} d={rawPath} />
     </>
   )
 }

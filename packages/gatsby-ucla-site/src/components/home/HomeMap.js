@@ -19,18 +19,51 @@ const styles = (theme) => ({
     display: "flex",
     padding: theme.spacing(3, 0),
     minHeight: 650,
+    [theme.breakpoints.up("md")]: {
+      height: `calc(100vh - ${theme.layout.headerHeight})`,
+    },
     "& .svg-map": {
       width: "100%",
       margin: "auto",
-    },
-    [theme.breakpoints.up("md")]: {
-      height: `calc(100vh - ${theme.layout.headerHeight})`,
-      "& .svg-map": {
+      [theme.breakpoints.up("md")]: {
         margin: "auto auto 0 auto",
-        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(
-          2
-        )})`,
+        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(2)})`,
       },
+      [theme.breakpoints.up("lg")]: {
+        width: theme.columnSpacing(8),
+        maxWidth: "1200px",
+        marginRight: theme.spacing(1),
+        height: `calc(100% - ${theme.spacing(4)})`,
+      },
+    },
+  },
+  notesXlContainer: {
+    display: "none",
+    marginTop: "18vh",
+    "& $notes": {
+      background: theme.palette.background.default,
+      border: "2px dotted #92926C",
+      padding: theme.spacing(2),
+      marginRight: theme.spacing(6),
+      "& span:first-child": {
+        display: "inline-block",
+        marginBottom: theme.spacing(2),
+      },
+    },
+  },
+  detailContainer: {
+    [theme.breakpoints.up("lg")]: {
+      flexDirection: "column",
+      "& $notesXlContainer": {
+        display: "block",
+      },
+    },
+  },
+  legend: {
+    background: theme.palette.background.default,
+    [theme.breakpoints.up("lg")]: {
+      background: "unset",
+      marginTop: theme.spacing(2),
     },
   },
   textContainer: {},
@@ -52,27 +85,52 @@ const styles = (theme) => ({
   },
   mapDescription: {
     maxWidth: "20rem",
+    [theme.breakpoints.up("lg")]: {
+      marginTop: theme.spacing(3),
+    },
   },
+  notesBelow: {},
   notes: {
-    margin: "auto",
-    textAlign: "center",
+    "&$notesBelow": {
+      padding: theme.spacing(2, 4),
+      [theme.breakpoints.up("md")]: {
+        position: "absolute",
+        bottom: theme.spacing(2),
+        left: 0,
+        right: 0,
+      },
+      [theme.breakpoints.up("lg")]: {
+        display: "none",
+      },
+      margin: "auto",
+      textAlign: "center",
+    },
     color: fade(theme.palette.text.secondary, 0.666),
+    "& a": {
+      "&:not(:hover)": {
+        color: fade(theme.palette.text.secondary, 0.666) + " !important",
+      },
+      textDecoration: "none !important",
+      paddingBottom: "1px",
+      borderBottom: "solid 1px",
+      borderBottomColor: theme.palette.secondary.main,
+    },
     fontSize: theme.typography.pxToRem(12),
-    padding: theme.spacing(2, 4),
     // drop line break to conserve space on mobile
     [theme.breakpoints.down("sm")]: {
       "& br": {
-        display: "none"
-      }
-    },
-    [theme.breakpoints.up("md")]: {
-      position: "absolute",
-      bottom: theme.spacing(2),
-      left: 0,
-      right: 0,
+        display: "none",
+      },
     },
   },
   controls: {
+    // on lg the controls div obscures the whole map -> need to manage pointer events
+    [theme.breakpoints.up("lg")]: {
+      pointerEvents: "none",
+      "& $detailContainer *": {
+        pointerEvents: "all",
+      },
+    },
     display: "flex",
     flexDirection: "column",
     marginTop: theme.spacing(4),
@@ -107,7 +165,7 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
       {...props}
     >
       <ResponsiveContainer className={classes.controls}>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} className={classes.detailContainer}>
           <Grid item xs={12} md={8}>
             <Stack className={classes.textContainer} spacing={0.5}>
               <MetricSelectionTitle title={title} />
@@ -119,12 +177,19 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
           <Grid item xs={12} md={4}>
             <MapLegend data={data} className={classes.legend} />
           </Grid>
+          <Grid item xs={12} md={4} className={classes.notesXlContainer}>
+            <Typography
+              variant="body2"
+              className={classes.notes}
+              dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
+            />
+          </Grid>
         </Grid>
       </ResponsiveContainer>
       <NationalMap facilities={data} metric={metric} onSelect={handleSelect} />
       <Typography
         variant="body2"
-        className={classes.notes}
+        className={clsx(classes.notes, classes.notesBelow)}
         dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
       />
     </Block>

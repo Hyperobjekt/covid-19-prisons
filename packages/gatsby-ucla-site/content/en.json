@@ -25,6 +25,7 @@
   "state": "State Facilities",
   "federal": "Federal Facilities",
   "county": "County Jails",
+  "immigration": "ICE Detention Centers",
   "state_summary_title": "Summary",
   "unavailable": "Unavailable",
   "nat_map_title": "This map displays COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. Click on a state to access more data.",
