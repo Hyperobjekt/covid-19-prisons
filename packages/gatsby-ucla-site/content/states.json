@@ -13,8 +13,9 @@
           "active_rate": "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
           "deaths": "Testing practices vary widely by correctional agency. True mortality counts are likely higher and may be significantly higher than reported. Agencies also differ in the categories of deaths they report as COVID-19-related.",
           "deaths_rate": "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach. ",
-          "tests": "Some agencies report the number of persons tested, while others report the number of tests administered. We record whichever number is available.",
-          "tests_rate": "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach."
+          "tested": "Some agencies report the number of persons tested, while others report the number of tests administered. We record whichever number is available.",
+          "tested_rate": "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
+          "ALL": "We do not display total counts for jails because our jail data is not comprehensive for the entire state. See the table below to view jail data at the facility level."
         }
       }
     },
@@ -31,8 +32,9 @@
           "confirmed_rate": "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
           "deaths": "Not all correctional agencies report data on staff deaths related to COVID-19. True COVID-19-related mortality counts are likely higher and may be significantly higher than reported.",
           "deaths_rate": "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
-          "tests": "Testing data is not reported by all correctional agencies. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. True test counts are likely higher and may be significantly higher than reported.",
-          "tests_rate": "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff."
+          "tested": "Testing data is not reported by all correctional agencies. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. True test counts are likely higher and may be significantly higher than reported.",
+          "tested_rate": "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
+          "ALL": "We do not display total counts for jails because our jail data is not comprehensive for the entire state. See the table below to view jail data at the facility level."
         }
       }
     },

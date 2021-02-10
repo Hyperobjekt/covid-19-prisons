@@ -3,7 +3,7 @@ import clsx from "clsx"
 
 import { Typography, withStyles } from "@material-ui/core"
 import { getLang } from "../../common/utils/i18n"
-import { JURISDICTIONS, METRICS } from "../../common/constants"
+import { SUMMABLE_JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
@@ -62,7 +62,7 @@ const JurisdictionStatList = ({
   }
 
   const isRateSelected = metric.split("_").pop() === "rate"
-  const jurisdictions = isFederal ? ["federal"] : JURISDICTIONS
+  const jurisdictions = isFederal ? ["federal"] : SUMMABLE_JURISDICTIONS
 
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>

@@ -27,9 +27,11 @@ const ResidentsSummary = ({
 
   // metric for the stat list
   const metric = useActiveMetric()
+  const [baseMetric] = metric.split("_rate")
   const notes = [
+    lang.notes && metric.includes("_rate") && lang.notes[baseMetric],
     lang.notes && lang.notes[metric],
-    lang.notes && lang.notes[metric + "_rate"],
+    lang.notes && lang.notes.ALL,
   ].filter((n) => !!n)
 
   return (
