@@ -40,7 +40,7 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
             {lang.unavailable.replace("${metric}", getLang(metric))}
           </Typography>
         )}
-        {notes.length > 0 && <InfoIcon notes={notes}></InfoIcon>}
+        {notes.length > 0 && <InfoIcon id="staff" notes={notes}></InfoIcon>}
       </StepWrapper>
     </div>
   )

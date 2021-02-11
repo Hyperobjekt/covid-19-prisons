@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import ReactTooltip from "react-tooltip"
 import InfoIcon from "../../content/assets/info-icon.svg"
 import { makeStyles } from "@material-ui/core"
@@ -14,6 +15,13 @@ const useStyles = makeStyles((theme) => ({
     // cursor: "pointer",
     "& img": {
       paddingRight: theme.spacing(1),
+    },
+    "&:hover": {
+      "& img": {
+        transform: "scale(1.1)",
+        filter: "brightness(.98)",
+      },
+      color: "#353510 !important",
     },
   },
   tooltip: {
@@ -35,11 +43,12 @@ const IconWithTooltip = ({
   iconText = "Data notes",
   title = "Data notes",
   notes = [],
+  id: idSuffix,
   ...props
 }) => {
   const classes = useStyles()
 
-  const id = "icon-tooltip-" + Math.random()
+  const id = "icon-tooltip-" + idSuffix
   return (
     <>
       <a className={classes.iconWrapper} data-tip data-for={id}>
@@ -56,13 +65,20 @@ const IconWithTooltip = ({
         {title && <h4 className={classes.title}>{title}</h4>}
         {/* {children} */}
         {notes.map((note) => (
-          <p className={classes.note}>{note}</p>
+          <p className={classes.note} key={note}>
+            {note}
+          </p>
         ))}
       </ReactTooltip>
     </>
   )
 }
 
-IconWithTooltip.propTypes = {}
+IconWithTooltip.propTypes = {
+  id: PropTypes.string.isRequired,
+  notes: PropTypes.array,
+  title: PropTypes.string,
+  iconText: PropTypes.string,
+}
 
 export default IconWithTooltip

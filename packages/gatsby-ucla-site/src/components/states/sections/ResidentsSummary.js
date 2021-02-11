@@ -44,7 +44,7 @@ const ResidentsSummary = ({
           group="residents"
           groupData={summary["residents"]}
         />
-        {notes.length > 0 && <InfoIcon notes={notes}></InfoIcon>}
+        {notes.length > 0 && <InfoIcon id="residents" notes={notes}></InfoIcon>}
       </StepWrapper>
     </div>
   )
