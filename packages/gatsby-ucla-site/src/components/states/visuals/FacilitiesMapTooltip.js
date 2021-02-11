@@ -15,7 +15,8 @@ const styles = (theme) => ({
   },
   state: {
     width: "100%",
-    display: "block",
+    display: "flex",
+    justifyContent: "space-between",
     fontSize: theme.typography.pxToRem(14),
     paddingBottom: theme.spacing(1),
     borderBottom: "dotted white 1px",
@@ -79,7 +80,10 @@ const FacilitiesMapTooltip = ({
       <span className={clsx("intitution-name", classes.institution)}>
         {hoveredMarker.name}
       </span>
-      <span className={clsx(classes.state)}>{hoveredMarker.state}</span>
+      <span className={clsx(classes.state)}>
+        <span>{hoveredMarker.state}</span>
+        {group && <span>({group})</span>}
+      </span>
       <table className={clsx(classes.stats)}>
         <tbody>{stats}</tbody>
       </table>
