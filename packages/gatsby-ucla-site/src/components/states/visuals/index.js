@@ -1,5 +1,5 @@
 export { default as FilingsVisual } from "./FilingsVisual"
 export { default as FacilitiesMap } from "./FacilitiesMap"
 export { default as ReleasesVisual } from "./ReleasesVisual"
-export { default as ImmigrationVisual } from "./ImmigrationVisual"
+// export { default as ImmigrationVisual } from "./ImmigrationVisual"
 export { default as GrassrootsVisual } from "./GrassrootsVisual"
