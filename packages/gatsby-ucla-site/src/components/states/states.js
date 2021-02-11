@@ -304,31 +304,6 @@ export const query = graphql`
         }
       }
     }
-    allImmigrationCases(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cases
-          deaths
-          facility
-          fieldOffice
-        }
-      }
-    }
-    allImmigrationFilings(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cancer
-          diabetes
-          heart
-          facility
-          lung
-          medication
-          other
-          smoking
-          substance
-        }
-      }
-    }
     allJailReleases(filter: { state: { eq: $state } }) {
       edges {
         node {
@@ -374,6 +349,31 @@ export const query = graphql`
 /* 
  * Unused sections
  
+  allImmigrationCases(filter: { state: { eq: $state } }) {
+    edges {
+      node {
+        cases
+        deaths
+        facility
+        fieldOffice
+      }
+    }
+  }
+  allImmigrationFilings(filter: { state: { eq: $state } }) {
+    edges {
+      node {
+        cancer
+        diabetes
+        heart
+        facility
+        lung
+        medication
+        other
+        smoking
+        substance
+      }
+    }
+  }
   allFundraisers(filter: { state: { eq: $state } }) {
     edges {
       node {
