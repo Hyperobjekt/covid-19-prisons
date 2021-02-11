@@ -22,6 +22,10 @@ const styles = (theme) => ({
     borderBottom: "dotted white 1px",
     marginBottom: theme.spacing(1),
   },
+  group: {
+    paddingLeft: theme.spacing(1),
+    textTransform: "lowercase",
+  },
   stats: {
     fontSize: theme.typography.pxToRem(14),
     "& th": {
@@ -74,17 +78,17 @@ const FacilitiesMapTooltip = ({
       </tr>
     )
   })
-
+  
   return (
     <Tooltip>
       <span className={clsx("intitution-name", classes.institution)}>
         {hoveredMarker.name}
       </span>
-      <span className={clsx(classes.state)}>
+      <span className={classes.state}>
         <span>{hoveredMarker.state}</span>
-        {group && <span>({group})</span>}
+        {group && <span className={classes.group}>({getLang(group)})</span>}
       </span>
-      <table className={clsx(classes.stats)}>
+      <table className={classes.stats}>
         <tbody>{stats}</tbody>
       </table>
     </Tooltip>
