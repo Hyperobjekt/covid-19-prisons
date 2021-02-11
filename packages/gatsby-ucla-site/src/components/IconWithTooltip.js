@@ -25,17 +25,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   tooltip: {
+    padding: theme.spacing(3) + " !important",
     maxWidth: "350px",
   },
   title: {
     display: "block",
     fontSize: theme.typography.pxToRem(16),
+    marginTop: 0,
     paddingBottom: theme.spacing(1),
     borderBottom: "dotted white 1px",
     marginBottom: theme.spacing(1),
   },
   note: {
     fontSize: theme.typography.pxToRem(14),
+    "&:last-of-type": {
+      marginBottom: 0,
+    },
   },
 }))
 
