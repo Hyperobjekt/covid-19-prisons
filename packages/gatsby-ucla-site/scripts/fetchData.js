@@ -16,15 +16,13 @@ async function getData(url, parser) {
   return await fetchCsv(url, parser)
 }
 
-// const dataBranch = process.env.DATA_BRANCH || "master"
-const dataBranch = "ice_data" // switch back to the above once the data repo merge occurs
+const dataBranch = process.env.DATA_BRANCH || "master"
 
 /**
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
  */
 
 const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/adult_facility_covid_counts.csv`
-// const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/Adult%20Facility%20Counts/adult_facility_covid_counts_today_latest.csv`
 
 exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
 
