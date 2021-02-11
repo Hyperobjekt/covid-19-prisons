@@ -37,7 +37,7 @@ const styles = (theme) => ({
   },
   subMenu: {
     position: "fixed",
-    top: `calc(${theme.layout.headerHeight} - 2px)`,
+    top: `calc(${theme.layout.headerHeight} - 9px)`,
     left: 0,
     width: "100%",
     marginLeft: 0,
