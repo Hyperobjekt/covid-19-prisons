@@ -6,9 +6,9 @@ import { getDataByJurisdiction } from "../../../common/utils/selectors"
 import { useActiveMetric } from "../../../common/hooks"
 import { withStyles } from "@material-ui/core"
 import { summaryStyles as styles } from "./styles"
-import Notes from "../../Notes"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import StepWrapper from "./../StepWrapper"
+import InfoIcon from "../../IconWithTooltip"
 
 const ResidentsSummary = ({
   id,
@@ -44,7 +44,7 @@ const ResidentsSummary = ({
           group="residents"
           groupData={summary["residents"]}
         />
-        {notes.length > 0 && <Notes notes={notes} />}
+        {notes.length > 0 && <InfoIcon notes={notes}></InfoIcon>}
       </StepWrapper>
     </div>
   )
