@@ -326,23 +326,21 @@ const Linked = ({ next, previous }) => {
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx, allFile } = props.data
   const classes = useStyles()
-  const { image, path, title } = mdx.frontmatter
-  // console.log(image)
-  // const file = useBlogImage(image)
-  // console.log("allFile")
-  // console.log(allFile)
+  const { image, path, title, socialImage, socialDescription } = mdx.frontmatter
   const featuredImage =
     image &&
     allFile.nodes.find((n) => {
       const originalName = n?.childImageSharp?.fluid?.originalName
       return originalName === image || image.endsWith("/" + originalName)
     })
-  // console.log("featuredImage")
-  // console.log(featuredImage)
 
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id)
   return (
-    <Layout className={classes.layout}>
+    <Layout
+      className={classes.layout}
+      image={socialImage?.childImageSharp?.fixed}
+      description={socialDescription}
+    >
       {Hero(mdx.frontmatter)}
 
       <div className={classes.body}>
@@ -373,6 +371,14 @@ export const query = graphql`
         title
         image
         path
+        socialDescription
+        socialImage {
+          childImageSharp {
+            fixed(width: 300, height: 300) {
+              src
+            }
+          }
+        }
       }
       body
     }
