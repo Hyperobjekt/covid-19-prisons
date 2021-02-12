@@ -13,6 +13,8 @@ export const KEYS = {
 export const GROUPS = ["residents", "staff"]
 
 export const JURISDICTIONS = ["state", "federal", "county", "immigration"]
+// fixes #157: don't sum over county jails
+export const SUMMABLE_JURISDICTIONS = ["state", "federal", "immigration"]
 
 export const METRICS = {
   residents: [

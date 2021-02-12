@@ -90,9 +90,9 @@ const content = {
             "True mortality counts are likely higher and may be significantly higher than reported.",
           deaths_rate:
             "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach. ",
-          tests:
+          tested:
             "Some agencies report the number of persons tested, while others report the number of tests administered. We record whichever number is available.",
-          tests_rate:
+          tested_rate:
             "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
         },
       },

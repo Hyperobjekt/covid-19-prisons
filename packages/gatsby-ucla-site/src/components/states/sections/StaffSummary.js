@@ -6,8 +6,8 @@ import { METRICS } from "../../../common/constants"
 import { Typography } from "@material-ui/core"
 import { getLang } from "../../../common/utils/i18n"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
-import Notes from "../../Notes"
 import StepWrapper from "./../StepWrapper"
+import InfoIcon from "../../IconWithTooltip"
 
 /* eslint-disable no-template-curly-in-string */
 const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
@@ -17,9 +17,14 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
   const summary = getDataByJurisdiction(all)
   const metric = useActiveMetric()
   const isStaffMetric = METRICS["staff"].indexOf(metric) > -1
+
+  const [baseMetric] = metric.split("_rate")
+  const rateMetric = baseMetric + "_rate"
+  // we show the same notes for each "pair" of metrics (eg active & active_rate)
   const notes = [
-    lang.notes && lang.notes[metric],
-    lang.notes && lang.notes[metric + "_rate"],
+    lang.notes && lang.notes[baseMetric],
+    lang.notes && lang.notes[rateMetric],
+    lang.notes && isStaffMetric && lang.notes.ALL,
   ].filter((n) => !!n)
   return (
     <div {...props}>
@@ -38,7 +43,7 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
             {lang.unavailable.replace("${metric}", getLang(metric))}
           </Typography>
         )}
-        {notes.length > 0 && <Notes notes={notes} />}
+        {notes.length > 0 && <InfoIcon id="staff" notes={notes}></InfoIcon>}
       </StepWrapper>
     </div>
   )
