@@ -274,7 +274,7 @@ const SocialIcons = (title, path) => {
         <TwitterIcon />
       </IconButton>
       <IconButton onClick={facebookClick}>
-        <img alt="share on Facebook"  src={FbIcon} />
+        <img alt="share on Facebook" src={FbIcon} />
       </IconButton>
       <IconButton>
         <a target="_blank" href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`} rel="noreferrer">

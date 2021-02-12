@@ -6,9 +6,9 @@ import { getDataByJurisdiction } from "../../../common/utils/selectors"
 import { useActiveMetric } from "../../../common/hooks"
 import { withStyles } from "@material-ui/core"
 import { summaryStyles as styles } from "./styles"
-import Notes from "../../Notes"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import StepWrapper from "./../StepWrapper"
+import InfoIcon from "../../IconWithTooltip"
 
 const ResidentsSummary = ({
   id,
@@ -27,9 +27,14 @@ const ResidentsSummary = ({
 
   // metric for the stat list
   const metric = useActiveMetric()
+
+  const [baseMetric] = metric.split("_rate")
+  const rateMetric = baseMetric + "_rate"
+  // we show the same notes for each "pair" of metrics (eg active & active_rate)
   const notes = [
-    lang.notes && lang.notes[metric],
-    lang.notes && lang.notes[metric + "_rate"],
+    lang.notes && lang.notes[baseMetric],
+    lang.notes && lang.notes[rateMetric],
+    lang.notes && lang.notes.ALL,
   ].filter((n) => !!n)
 
   return (
@@ -42,7 +47,7 @@ const ResidentsSummary = ({
           group="residents"
           groupData={summary["residents"]}
         />
-        {notes.length > 0 && <Notes notes={notes} />}
+        {notes.length > 0 && <InfoIcon id="residents" notes={notes}></InfoIcon>}
       </StepWrapper>
     </div>
   )

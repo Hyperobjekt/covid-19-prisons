@@ -15,7 +15,7 @@ import {
   Facilities,
   Filings,
   // Grassroots,
-  Immigration,
+  // Immigration,
   // Releases,
   ReleasesTable,
   GrassrootsTable,
@@ -114,7 +114,7 @@ const SECTION_COMPONENTS = {
   facilities: Facilities,
   filings: Filings,
   // releases: Releases,
-  immigration: Immigration,
+  // immigration: Immigration,
   // grassroots: Grassroots,
   releases: ReleasesTable,
   grassroots: GrassrootsTable,
@@ -304,31 +304,6 @@ export const query = graphql`
         }
       }
     }
-    allImmigrationCases(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cases
-          deaths
-          facility
-          fieldOffice
-        }
-      }
-    }
-    allImmigrationFilings(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          cancer
-          diabetes
-          heart
-          facility
-          lung
-          medication
-          other
-          smoking
-          substance
-        }
-      }
-    }
     allJailReleases(filter: { state: { eq: $state } }) {
       edges {
         node {
@@ -374,6 +349,31 @@ export const query = graphql`
 /* 
  * Unused sections
  
+  allImmigrationCases(filter: { state: { eq: $state } }) {
+    edges {
+      node {
+        cases
+        deaths
+        facility
+        fieldOffice
+      }
+    }
+  }
+  allImmigrationFilings(filter: { state: { eq: $state } }) {
+    edges {
+      node {
+        cancer
+        diabetes
+        heart
+        facility
+        lung
+        medication
+        other
+        smoking
+        substance
+      }
+    }
+  }
   allFundraisers(filter: { state: { eq: $state } }) {
     edges {
       node {
