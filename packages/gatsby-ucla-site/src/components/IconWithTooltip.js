@@ -25,8 +25,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   tooltip: {
+    zIndex: "2000 !important",
     padding: theme.spacing(3) + " !important",
-    maxWidth: "350px",
+    maxWidth: "400px",
+    [theme.breakpoints.up("lg")]: {
+      maxWidth: "450px",
+    },
   },
   title: {
     display: "block",

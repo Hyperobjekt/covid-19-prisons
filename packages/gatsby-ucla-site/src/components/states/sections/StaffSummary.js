@@ -17,11 +17,14 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
   const summary = getDataByJurisdiction(all)
   const metric = useActiveMetric()
   const isStaffMetric = METRICS["staff"].indexOf(metric) > -1
+
   const [baseMetric] = metric.split("_rate")
+  const rateMetric = baseMetric + "_rate"
+  // we show the same notes for each "pair" of metrics (eg active & active_rate)
   const notes = [
-    lang.notes && metric.includes("_rate") && lang.notes[baseMetric],
-    lang.notes && lang.notes[metric],
-    lang.notes && lang.notes.ALL,
+    lang.notes && lang.notes[baseMetric],
+    lang.notes && lang.notes[rateMetric],
+    lang.notes && isStaffMetric && lang.notes.ALL,
   ].filter((n) => !!n)
   return (
     <div {...props}>
