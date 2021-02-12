@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import ReactTooltip from "react-tooltip"
 import InfoIcon from "../../content/assets/info-icon.svg"
+import CloseIcon from "../../content/assets/close-icon.svg"
 import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
         filter: "brightness(.98)",
       },
       color: "#353510 !important",
+    },
+  },
+  close: {
+    position: "absolute",
+    right: "1.2rem",
+    top: "1.2rem",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
     },
   },
   tooltip: {
@@ -70,9 +79,11 @@ const IconWithTooltip = ({
         place="top"
         id={id}
         effect="solid"
+        arrowColor="transparent"
       >
         {title && <h4 className={classes.title}>{title}</h4>}
         {/* {children} */}
+        <img alt="close" className={classes.close} src={CloseIcon} />
         {notes.map((note) => (
           <p className={classes.note} key={note}>
             {note}
