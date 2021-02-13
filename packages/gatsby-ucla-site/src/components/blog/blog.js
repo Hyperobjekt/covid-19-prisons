@@ -338,7 +338,7 @@ const BlogPostTemplate = (props) => {
   return (
     <Layout
       className={classes.layout}
-      image={socialImage?.childImageSharp?.fixed}
+      image={socialImage?.childImageSharp?.fixed?.src}
       description={socialDescription}
     >
       {Hero(mdx.frontmatter)}
