@@ -338,7 +338,7 @@ const BlogPostTemplate = (props) => {
   return (
     <Layout
       className={classes.layout}
-      image={socialImage?.childImageSharp?.fixed?.src}
+      image={socialImage?.childImageSharp?.resize?.src}
       description={socialDescription}
     >
       {Hero(mdx.frontmatter)}
@@ -374,8 +374,10 @@ export const query = graphql`
         socialDescription
         socialImage {
           childImageSharp {
-            fixed(width: 300, height: 300) {
+            resize(width: 1200) {
               src
+              height
+              width
             }
           }
         }
