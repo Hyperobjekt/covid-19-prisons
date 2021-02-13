@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   repo: Hyperobjekt/covid-19-behind-bars
-  branch: staging
+  branch: internal-staging
 
 publish_mode: editorial_workflow  
 
@@ -149,13 +149,27 @@ collections:
       - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Whether to display as the featured post on the blog index page. If more than one post is marked as featured, the most recent one will be used." }
       - { label: "Author", name: "author", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Description", name: "description", widget: "string", hint: "Description displayed after post title on blog index page", }
       - {
-          label: "Post Image",
+          label: "Featured Image",
           name: "image",
           widget: "image",
           required: false,
-          hint: "Image to embed in post",
+          hint: "Image displayed wider above blog post body",
+        }
+      - {
+        label: "Social Share Description",
+        name: "socialDescription",
+        widget: "string",
+        required: false,
+        hint: "Description displayed when blog post is shared on social media",
+        }
+      - {
+          label: "Social Share Image",
+          name: "socialImage",
+          widget: "image",
+          required: false,
+          hint: "Image displayed when blog post is shared on social media",
         }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Is Post", name: "isBlogPost", widget: "hidden", default: true }
