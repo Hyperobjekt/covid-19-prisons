@@ -166,6 +166,11 @@
       "type": "internal"
     },
     {
+      "name": "Blog",
+      "link": "/blog",
+      "type": "internal"
+    },
+    {
       "name": "Media & Publications",
       "link": "/media",
       "type": "internal"

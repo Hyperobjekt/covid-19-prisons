@@ -188,10 +188,8 @@ const BlogIndex = () => {
   const classes = useStyles()
   return (
     <Layout className={classes.layout}>
+      
       <div className={classes.featuredSection}>
-        <h2 className={classes.sectionTitle}>coming soon</h2>
-      </div>
-      {/* <div className={classes.featuredSection}>
         <h2 className={classes.sectionTitle}>featured post</h2>
         <BlogPost post={featuredPost} isFeatured={true} />
       </div>
@@ -201,7 +199,7 @@ const BlogIndex = () => {
         {posts.map((p, idx) => (
           <BlogPost post={p} key={p.frontmatter.path} />
         ))}
-      </div> */}
+      </div> 
     </Layout>
   )
 }
