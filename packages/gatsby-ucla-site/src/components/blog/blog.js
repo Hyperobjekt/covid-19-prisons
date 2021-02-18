@@ -258,14 +258,26 @@ const Hero = ({ author, date, title, image }) => {
 
 const SocialIcons = (title, path) => {
   const classes = useStyles()
-  const url = "https://uclacovidbehindbars.org/"+path
+  const url = "https://uclacovidbehindbars.org/" + path
 
-  const twitterClick = e => {
-    window.open(`https://twitter.com/share?text=${title}&url=${url}`, '_blank', 'width=550,height=420').focus();
+  const twitterClick = (e) => {
+    window
+      .open(
+        `https://twitter.com/share?text=${title}&url=${url}`,
+        "_blank",
+        "width=550,height=420"
+      )
+      .focus()
   }
-  
-  const facebookClick = e => {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=550,height=420').focus();
+
+  const facebookClick = (e) => {
+    window
+      .open(
+        `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        "_blank",
+        "width=550,height=420"
+      )
+      .focus()
   }
 
   return (
@@ -277,8 +289,12 @@ const SocialIcons = (title, path) => {
         <img alt="share on Facebook" src={FbIcon} />
       </IconButton>
       <IconButton>
-        <a target="_blank" href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`} rel="noreferrer">
-        <EmailIcon />
+        <a
+          target="_blank"
+          href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`}
+          rel="noreferrer"
+        >
+          <EmailIcon />
         </a>
       </IconButton>
     </div>
@@ -340,6 +356,7 @@ const BlogPostTemplate = (props) => {
       className={classes.layout}
       image={socialImage?.childImageSharp?.resize?.src}
       description={socialDescription}
+      title={title ? title : null}
     >
       {Hero(mdx.frontmatter)}
 
