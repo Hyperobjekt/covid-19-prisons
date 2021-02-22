@@ -17,6 +17,8 @@ yarn install
   3. When a new release is ready, merge in to `staging` to preview on the [staging site](https://staging--covid-19-behind-bars.netlify.app/).
   4. Once a staging review is complete, merge into the `production` branch to trigger a build of the live site.
 
+To share work-in-progress with the team internally, pushing to `internal-staging` triggers a build of the [internal staging site](https://internal-staging--covid-19-behind-bars.netlify.app/). This branch is not a part of the above workflow and can be overwritten with your local branch by running `git push origin head:internal-staging --force`
+
 ## Website (`/packages/gatsby-ucla-site`)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1886ec87-389f-470e-a6c0-84f5d44ed418/deploy-status)](https://app.netlify.com/sites/covid-19-behind-bars/deploys)
