@@ -36,4 +36,4 @@ Data fetching and processing happens on build in `gatsby-node.js`
 
 ## Content Management System
 
-- TODO
+- as per the [config.yml](https://github.com/Hyperobjekt/covid-19-behind-bars/blob/production/packages/gatsby-ucla-site/static/admin/config.yml), CMS updates on the public website trigger commits to the `production` branch (with `editorial_workflow`, so a preview branch with the content updates is created on save before being published). 
