@@ -75,10 +75,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           return (
             <Typography variant="body2" color="textSecondary">
               <span style={{ marginRight: 8 }}>{prop.row.original.state}</span>
-              <DotMarker
-                radius={4}
-                fill={getColorForJurisdiction(prop.row.original.jurisdiction)}
-              />
             </Typography>
           )
         },
@@ -151,8 +147,8 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   )
 
   const handleRowClick = React.useCallback((row) => {
-    const state = row.original.state
-    state && navigate(`states/${getSlug(state)}`)
+    const { state, noNavigate } = row.original
+    state && !noNavigate && navigate(`states/${getSlug(state)}`)
   }, [])
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
