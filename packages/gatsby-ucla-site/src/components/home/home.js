@@ -5,6 +5,7 @@ import Intro from "./HomeIntro"
 import HomeMap from "./HomeMap"
 import Sponsors from "./HomeSponsors"
 import Table from "./HomeTable"
+import VaccineTable from "./VaccineTable"
 import CdcLogo from "../../../content/assets/cdc-logo.svg"
 import VitalProjectsFundLogo from "../../../content/assets/vital-projects-fund-logo.svg"
 import ArnoldVenturesLogo from "../../../content/assets/arnold-ventures-logo.svg"
@@ -30,6 +31,10 @@ export const query = graphql`
         table {
           note
           title
+        }
+        vaccineTable {
+          title
+          subtitle
         }
       }
       body
@@ -74,6 +79,10 @@ const HomeTemplate = ({
       <HomeMap title={content.map.title} />
       <MapTooltip />
       <Table title={content.table.title} note={content.table.note} />
+      <VaccineTable
+        title={content.vaccineTable.title}
+        subtitle={content.vaccineTable.subtitle}
+      />
       <Sponsors title={content.sponsors.title} logos={content.sponsors.logos} />
     </Layout>
   )

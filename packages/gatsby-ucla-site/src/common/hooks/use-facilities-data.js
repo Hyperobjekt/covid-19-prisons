@@ -28,12 +28,18 @@ export default function useFacilitiesData(categories, selectedRegion) {
               tested
               tested_rate
               population
+              initiated
+              completed
+              vadmin
             }
             staff {
               confirmed
               deaths
               active
               tested
+              initiated
+              completed
+              vadmin
             }
           }
         }

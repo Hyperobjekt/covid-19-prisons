@@ -114,9 +114,21 @@ const parseFacility = (facility = {}) => {
     "released",
     "recovered",
     "tadmin",
+    "initiated",
+    "completed",
+    "vadmin",
   ]
   const residentRates = ["confirmed", "deaths", "active", "tested"]
-  const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"]
+  const staffKeys = [
+    "confirmed",
+    "deaths",
+    "active",
+    "recovered",
+    "tested",
+    "initiated",
+    "completed",
+    "vadmin",
+  ]
 
   const result = {}
 
