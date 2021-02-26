@@ -209,9 +209,6 @@ const StateTemplate = ({ pageContext, data }) => {
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
                     <Component
-                      // className={clsx(classes.step, {
-                      //   [classes.first]: index === 0,
-                      // })}
                       data={data}
                       {...section}
                     />
@@ -222,22 +219,6 @@ const StateTemplate = ({ pageContext, data }) => {
           </Scrollama>
         </div>
       </ResponsiveContainer>
-      {/* <div className={classes.HI}>
-          {fullWidthSections.map((section) => {
-            const Component = SECTION_COMPONENTS[section.id]
-            return (
-              <div id={section.id}>
-                <Component
-                  className={clsx(classes.BYE, {
-
-                  })}
-                  data={data}
-                  {...section}
-                />
-              </div>
-            )
-          })}
-        </div> */}
     </Layout>
   )
 }

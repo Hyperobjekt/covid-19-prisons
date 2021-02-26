@@ -166,6 +166,11 @@
       "type": "internal"
     },
     {
+      "name": "Immigration",
+      "link": "/immigration",
+      "type": "internal"
+    },
+    {
       "name": "Blog",
       "link": "/blog",
       "type": "internal"

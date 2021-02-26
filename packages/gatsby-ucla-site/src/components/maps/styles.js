@@ -7,7 +7,7 @@ import { color } from "d3-color"
 export const shapeStyles = (theme) => ({
   shape: {
     fill: "#F5F5ED",
-    stroke: "#DDDDCB",
+    stroke: "#E4E4DB",
   },
   shapeLabel: {
     fill: theme.palette.text.secondary,
@@ -23,6 +23,27 @@ export const shapeStyles = (theme) => ({
   },
 })
 
+export const regionShapeStyles = (theme) => ({
+  shape: {
+    fill: "#83A3B9",
+    fillOpacity: "10%",
+    stroke: "#637A89",
+    strokeOpacity: "60%",
+    "&:hover": {
+      strokeOpacity: 1,
+      strokeWidth: 2,
+    },
+  },
+  selected: {
+    fillOpacity: "40%",
+  },
+  text: {
+    // no region name labels
+    fillOpacity: 0,
+    // fill: "#67675B",
+  },
+})
+
 export const spikeStyles = (theme) => ({
   spike: {
     strokeWidth: 0.8,
@@ -35,5 +56,6 @@ export const spikeStyles = (theme) => ({
   },
 })
 
+export const useRegionShapeStyles = makeStyles(regionShapeStyles)
 export const useShapeStyles = makeStyles(shapeStyles)
 export const useSpikeStyles = makeStyles(spikeStyles)

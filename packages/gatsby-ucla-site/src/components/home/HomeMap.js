@@ -13,6 +13,7 @@ import { useActiveMetric, useMappableFacilities } from "../../common/hooks"
 import { getLang } from "../../common/utils/i18n"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import { getSlug } from "../../common/utils/selectors"
+
 const styles = (theme) => ({
   root: {
     position: "relative",
@@ -146,17 +147,26 @@ const styles = (theme) => ({
   },
 })
 
-const HomeMap = ({ classes, title, description, className, ...props }) => {
+const HomeMap = ({
+  classes,
+  title,
+  description = getLang("map", "notes"), // home.js description uses markup
+  className,
+  categories,
+  children,
+  isImmigration,
+  selectedRegion,
+  ...props
+}) => {
   const setSelected = useMapStore((state) => state.setSelected)
   const metric = useActiveMetric()
-  const data = useMappableFacilities()
+  const data = useMappableFacilities(categories, selectedRegion)
 
   // handler for selection
   const handleSelect = (geo) => {
     setSelected(geo)
     navigate(`states/${getSlug(geo.properties.name)}`)
   }
-
   return (
     <Block
       type="fullWidth"
@@ -181,16 +191,23 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
             <Typography
               variant="body2"
               className={classes.notes}
-              dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           </Grid>
         </Grid>
       </ResponsiveContainer>
-      <NationalMap facilities={data} metric={metric} onSelect={handleSelect} />
+      <NationalMap
+        facilities={data}
+        metric={metric}
+        onSelect={handleSelect}
+        isImmigration={isImmigration}
+      >
+        {children}
+      </NationalMap>
       <Typography
         variant="body2"
         className={clsx(classes.notes, classes.notesBelow)}
-        dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
+        dangerouslySetInnerHTML={{ __html: description }}
       />
     </Block>
   )

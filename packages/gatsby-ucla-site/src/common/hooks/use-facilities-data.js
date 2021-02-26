@@ -3,7 +3,7 @@ import { useMemo } from "react"
 import { typeSelector } from "../utils"
 import useOptionsStore from "./use-options-store"
 
-export default function useFacilitiesData() {
+export default function useFacilitiesData(categories, selectedRegion) {
   const {
     allFacilities: { nodes },
   } = useStaticQuery(
@@ -17,6 +17,7 @@ export default function useFacilitiesData() {
             state
             jurisdiction
             coords
+            iceFieldOffice
             residents {
               confirmed
               deaths
@@ -42,11 +43,16 @@ export default function useFacilitiesData() {
   const selectedCategories = useOptionsStore(
     (state) => state.selectedCategories
   )
+  const desiredCategories = categories || selectedCategories
   return useMemo(
     () =>
       nodes.filter((d) => {
-        return selectedCategories.indexOf(typeSelector(d)) > -1
+        if (selectedRegion && d.iceFieldOffice !== selectedRegion) {
+          return false
+        }
+
+        return desiredCategories.indexOf(typeSelector(d)) > -1
       }),
-    [nodes, selectedCategories]
+    [nodes, desiredCategories, selectedRegion]
   )
 }

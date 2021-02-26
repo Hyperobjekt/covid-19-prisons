@@ -71,10 +71,7 @@ const HomeTemplate = ({
         subtitle={content.intro.subtitle}
         body={content.intro.body}
       />
-      <HomeMap
-        title={content.map.title}
-        description={content.map.description}
-      />
+      <HomeMap title={content.map.title} />
       <MapTooltip />
       <Table title={content.table.title} note={content.table.note} />
       <Sponsors title={content.sponsors.title} logos={content.sponsors.logos} />

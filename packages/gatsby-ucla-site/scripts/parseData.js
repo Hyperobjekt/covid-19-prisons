@@ -147,6 +147,9 @@ const parseFacility = (facility = {}) => {
     }
   }, {})
 
+  // add field office id
+  result.iceFieldOffice = source.ice["field.office"] || null
+
   // add rates
   residentRates.forEach((rateType) => {
     result.residents[rateType + "_rate"] = result.residents.population
