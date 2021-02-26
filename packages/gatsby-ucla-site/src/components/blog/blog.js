@@ -121,9 +121,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
+    wordWrap: "break-word",
     paddingLeft: theme.columnSpacing(1),
     paddingRight: theme.columnSpacing(1),
     marginBottom: theme.spacing(7),
+    "& p, i": {
+      maxWidth: "700px",
+      [theme.breakpoints.up("lg")]: {
+        // maxWidth: "900px",
+      },
+    },
     [theme.breakpoints.up("sm")]: {
       paddingLeft: theme.columnSpacing(2),
       paddingRight: theme.columnSpacing(2),
