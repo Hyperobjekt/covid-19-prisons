@@ -127,6 +127,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(7),
     "& p, i": {
       maxWidth: "700px",
+      marginLeft: "auto",
+      marginRight: "auto",
       [theme.breakpoints.up("lg")]: {
         // maxWidth: "900px",
       },
