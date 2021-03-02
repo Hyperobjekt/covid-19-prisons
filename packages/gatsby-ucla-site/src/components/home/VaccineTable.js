@@ -7,16 +7,14 @@ import { useVaccineData } from "../../common/hooks"
 import { Block } from "gatsby-theme-hyperobjekt-core"
 
 import ResponsiveContainer from "../ResponsiveContainer"
-import {
-  getColorForJurisdiction,
-  getSlug,
-  isNumber,
-} from "../../common/utils/selectors"
+import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
-import { DotMarker } from "../markers"
 
 const alphaStateSort = (a, b) => {
-  return a.original.state > b.original.state ? -1 : 1
+  if (a.original.isState !== b.original.isState) {
+    return a.original.isState ? -1 : 1
+  }
+  return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1
 }
 
 const styles = (theme) => ({
@@ -68,13 +66,15 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
       {
         id: "jurisdiction",
         Header: getLang("jurisdiction"),
-        accessor: "name",
+        accessor: "jurisdiction",
         disableSortBy: true,
         sortType: alphaStateSort,
         Cell: (prop) => {
           return (
             <Typography variant="body2" color="textSecondary">
-              <span style={{ marginRight: 8 }}>{prop.row.original.state}</span>
+              <span style={{ marginRight: 8 }}>
+                {prop.row.original.jurisdiction}
+              </span>
             </Typography>
           )
         },
@@ -84,41 +84,9 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         },
       },
       {
-        id: "r-initiated",
-        Header: getLang("residents_initiated"),
-        accessor: "residents.initiated",
-        disableSortBy: true,
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "r-completed",
-        Header: getLang("residents_completed"),
-        accessor: "residents.completed",
-        disableSortBy: true,
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
         id: "r-vadmin",
         Header: getLang("residents_vadmin"),
         accessor: "residents.vadmin",
-        disableSortBy: true,
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "s-initiated",
-        Header: getLang("staff_initiated"),
-        accessor: "staff.initiated",
-        disableSortBy: true,
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "s-completed",
-        Header: getLang("staff_completed"),
-        accessor: "staff.completed",
         disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: numberColStyle,
@@ -147,8 +115,8 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   )
 
   const handleRowClick = React.useCallback((row) => {
-    const { state, noNavigate } = row.original
-    state && !noNavigate && navigate(`states/${getSlug(state)}`)
+    const { jurisdiction, isState } = row.original
+    jurisdiction && isState && navigate(`states/${getSlug(jurisdiction)}`)
   }, [])
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
