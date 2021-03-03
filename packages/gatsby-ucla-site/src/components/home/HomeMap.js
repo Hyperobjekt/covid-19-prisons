@@ -167,6 +167,9 @@ const HomeMap = ({
     setSelected(geo)
     navigate(`states/${getSlug(geo.properties.name)}`)
   }
+
+  // MetricSelection includes region name in immigration map
+  const [ metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4]
   return (
     <Block
       type="fullWidth"
@@ -176,15 +179,18 @@ const HomeMap = ({
     >
       <ResponsiveContainer className={classes.controls}>
         <Grid container spacing={1} className={classes.detailContainer}>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={metricSelectCols}>
             <Stack className={classes.textContainer} spacing={0.5}>
-              <MetricSelectionTitle title={title} />
+              <MetricSelectionTitle 
+                title={title}
+                isImmigration={isImmigration}
+              />
               <Typography className={classes.mapDescription} variant="body2">
                 {getLang("map", metric)}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={legendCols}>
             <MapLegend data={data} className={classes.legend} />
           </Grid>
           <Grid item xs={12} md={4} className={classes.notesXlContainer}>

@@ -195,7 +195,7 @@ const parseVaccine = (vaccine = {}) => {
   }
 
   const nonStateMap = {
-    federal:true,
+    federal: true,
     ice: true,
   }
 

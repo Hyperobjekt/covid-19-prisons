@@ -14,6 +14,8 @@ export default function useVaccineData() {
             id
             jurisdiction
             isState
+            isFederal
+            isIce
             residents {
               vadmin
             }
@@ -35,7 +37,7 @@ export default function useVaccineData() {
     }
     const filtered = nodes.filter((n) => {
       if (!n.residents.vadmin && !n.staff.vadmin) {
-        return
+        return false
       }
       total.residents.vadmin += n.residents.vadmin || 0
       total.staff.vadmin += n.staff.vadmin || 0

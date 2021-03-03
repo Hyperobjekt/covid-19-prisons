@@ -85,6 +85,7 @@ const HomeTable = ({
   classes,
   categories,
   selectedRegion,
+  isImmigration,
   ...props
 }) => {
   // pull active metric from the store, with setter
@@ -198,7 +199,7 @@ const HomeTable = ({
       {...props}
     >
       <ResponsiveContainer>
-        <MetricSelectionTitle title={title} />
+        <MetricSelectionTitle title={title} isImmigration={isImmigration} />
         <Table
           className={classes.table}
           data={data.filter((d) => d.name !== "Statewide")}

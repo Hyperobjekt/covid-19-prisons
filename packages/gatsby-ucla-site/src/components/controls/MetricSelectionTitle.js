@@ -2,7 +2,9 @@ import React from "react"
 import clsx from "clsx"
 import { fade, Typography, withStyles } from "@material-ui/core"
 import MetricSelection from "./MetricSelection"
+import RegionSelection from "../immigration/RegionSelection"
 import { serifTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { useOptionsStore } from "../../common/hooks"
 
 const styles = (theme) => ({
   root: {
@@ -27,6 +29,7 @@ const MetricSelectionTitle = ({
   className,
   title,
   group,
+  isImmigration,
   ...props
 }) => {
   // inject metric selection onto title
@@ -38,6 +41,13 @@ const MetricSelectionTitle = ({
       ? [titleParts[0], <MetricSelection group={group} />, titleParts[1]]
       : [...titleParts, <MetricSelection group={group} />]
 
+  const regionSelected = useOptionsStore((state) => state.iceRegionId)
+  let regionTitleArray = []
+  if (isImmigration) {
+    const region = " region" + (regionSelected ? "" : "s")
+    regionTitleArray = [" in ", <RegionSelection />, region]
+  }
+
   return (
     <Typography
       className={clsx(classes.root, className)}
@@ -45,6 +55,9 @@ const MetricSelectionTitle = ({
       {...props}
     >
       {titleArray.map((t, i) => (
+        <React.Fragment key={i}>{t}</React.Fragment>
+      ))}
+      {regionTitleArray.map((t, i) => (
         <React.Fragment key={i}>{t}</React.Fragment>
       ))}
     </Typography>

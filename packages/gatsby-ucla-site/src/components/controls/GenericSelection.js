@@ -1,5 +1,6 @@
 import { ButtonBase, fade, Menu, MenuItem, withStyles } from "@material-ui/core"
 import React from "react"
+import clsx from "clsx"
 import { getLang } from "../../common/utils/i18n"
 import ArrowDown from "@material-ui/icons/ArrowDropDown"
 const styles = (theme) => ({
@@ -40,7 +41,7 @@ const GenericSelection = ({
   return (
     <>
       <ButtonBase
-        className={classes.button}
+        className={clsx(className, classes.button)}
         aria-controls="option-menu"
         aria-haspopup="true"
         onClick={handleClick}

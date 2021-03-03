@@ -8,7 +8,6 @@ import Intro from "../home/HomeIntro"
 import HomeMap from "../home/HomeMap"
 import Table from "../home/HomeTable"
 import MapTooltip from "../home/HomeMapTooltip"
-import RegionSelection from "./RegionSelection"
 import { makeStyles } from "@material-ui/core"
 import FacilitiesMapTooltip from "../states/visuals/FacilitiesMapTooltip"
 import { useRegionShapeStyles } from "../maps/styles"
@@ -46,10 +45,19 @@ export const query = graphql`
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    [theme.breakpoints.only("md")]: {
+      "& .map-legend": {
+        // metric selection dropdown gets an extra column of width (see HomeMap.js)
+        // so shift left slightly to keep it on the page
+        transform: `translateX(-30px)`,
+      },
+    },
     "& .jurisdiction-toggles .toggle": {
       visibility: "hidden", // display: hidden interferes with gradients...
       "&.toggle-immigration": {
         visibility: "visible",
+        // since it's the only toggle, shift up slightly
+        transform: "translateY(-5px)",
         // display: "inline-flex",
         cursor: "auto",
         "& .checkbox": {
@@ -140,7 +148,6 @@ const ImmigrationTemplate = ({
       </HomeMap>
       <FacilitiesMapTooltip group={"residents"} metric={metric} />
       <MapTooltip isImmigration={true} />
-      <RegionSelection title={content.regionSelection.title} />
       <Table
         isImmigration={true}
         selectedRegion={iceRegionId}

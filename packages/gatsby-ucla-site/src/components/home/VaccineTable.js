@@ -21,11 +21,11 @@ const styles = (theme) => ({
   root: {
     background: theme.palette.background.paper,
   },
-  toggleContainer: {
-    margin: theme.spacing(2, 0, 1, -0.75),
-    [theme.breakpoints.up("md")]: {
-      margin: theme.spacing(0, 0, 0, -0.75),
-    },
+  wrapper: {
+    maxWidth: 860,
+  },
+  body: {
+    margin: theme.spacing(1, 0, 2),
   },
   name: {
     fontSize: theme.typography.pxToRem(14),
@@ -53,8 +53,8 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   // styles for number columns in table
   const numberColStyle = React.useMemo(
     () => ({
-      width: "12.5%",
-      minWidth: 100,
+      width: "33.3%",
+      minWidth: 160,
       textAlign: "right",
     }),
     []
@@ -79,8 +79,8 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           )
         },
         style: {
-          width: "25%",
-          minWidth: 260,
+          width: "33.3%",
+          minWidth: 160,
         },
       },
       {
@@ -127,20 +127,23 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
       <ResponsiveContainer>
-        <Typography variant="h3">{title}</Typography>
-        <Typography
-          variant="body1"
-          dangerouslySetInnerHTML={{ __html: subtitle }}
-        />
-        <Table
-          className={classes.table}
-          data={data}
-          columns={columns}
-          options={options}
-          sortColumn={"jurisdiction"}
-          disableFilter={true}
-          onRowClick={handleRowClick}
-        />
+        <div className={classes.wrapper}>
+          <Typography variant="h3">{title}</Typography>
+          <Typography
+            variant="body1"
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+            className={classes.body}
+          />
+          <Table
+            className={classes.table}
+            data={data}
+            columns={columns}
+            options={options}
+            sortColumn={"jurisdiction"}
+            disableFilter={true}
+            onRowClick={handleRowClick}
+          />
+        </div>
       </ResponsiveContainer>
     </Block>
   )
