@@ -23,20 +23,13 @@ const styles = (theme) => ({
   },
   wrapper: {
     maxWidth: 860,
+    "& h3": {
+      maxWidth: "36rem",
+    },
   },
   body: {
+    maxWidth: "36rem",
     margin: theme.spacing(1, 0, 2),
-  },
-  name: {
-    fontSize: theme.typography.pxToRem(14),
-    fontWeight: 600,
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    maxWidth: 224,
-    [theme.breakpoints.up(1440)]: {
-      maxWidth: 320,
-    },
   },
   table: {},
 })

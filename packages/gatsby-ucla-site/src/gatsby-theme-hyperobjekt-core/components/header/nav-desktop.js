@@ -14,6 +14,14 @@ const styles = (theme) => ({
   listItem: {
     zIndex: 999,
 
+    // fix to keep nav from overflowing with addition of Immigration
+    [theme.breakpoints.up("lg")]: {
+      "& .nav__link": {
+        paddingLeft: ".8rem",
+        paddingRight: ".8rem",
+      },
+    },
+
     "&:hover $subMenu, &:focus-within $subMenu": {
       pointerEvents: "all",
       transform: "translate3d(0, 0, 0)",
