@@ -10,6 +10,7 @@ import CdcLogo from "../../../content/assets/cdc-logo.svg"
 import VitalProjectsFundLogo from "../../../content/assets/vital-projects-fund-logo.svg"
 import ArnoldVenturesLogo from "../../../content/assets/arnold-ventures-logo.svg"
 import MapTooltip from "./HomeMapTooltip"
+import { getLang } from "../../common/utils/i18n"
 
 export const query = graphql`
   query($pathSlug: String!) {
@@ -81,7 +82,7 @@ const HomeTemplate = ({
       <Table title={content.table.title} note={content.table.note} />
       <VaccineTable
         title={content.vaccineTable.title}
-        subtitle={content.vaccineTable.subtitle}
+        subtitle={getLang("vaccine", "subtitle")}
       />
       <Sponsors title={content.sponsors.title} logos={content.sponsors.logos} />
     </Layout>

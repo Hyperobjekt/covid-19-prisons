@@ -12,7 +12,7 @@ import { getLang } from "../../common/utils/i18n"
 
 const alphaStateSort = (a, b) => {
   if (a.original.isState !== b.original.isState) {
-    return a.original.isState ? -1 : 1
+    return a.original.isState ? 1 : -1
   }
   return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1
 }
@@ -115,8 +115,14 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   )
 
   const handleRowClick = React.useCallback((row) => {
-    const { jurisdiction, isState } = row.original
-    jurisdiction && isState && navigate(`states/${getSlug(jurisdiction)}`)
+    const { jurisdiction, isState, isFederal, isIce } = row.original
+    if (jurisdiction && isState) {
+      navigate(`states/${getSlug(jurisdiction)}`)
+    } else if (jurisdiction && isFederal) {
+      navigate(`federal`)
+    } else if (jurisdiction && isIce) {
+      navigate(`immigration`)
+    } 
   }, [])
   return (
     <Block type="fullWidth" className={classes.root} {...props}>

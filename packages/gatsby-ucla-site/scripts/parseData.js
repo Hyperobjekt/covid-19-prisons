@@ -201,7 +201,9 @@ const parseVaccine = (vaccine = {}) => {
 
   result.jurisdiction = jurisMap[source.state.toLowerCase()] || source.state
   result.isState = !nonStateMap[source.state.toLowerCase()]
-
+  result.isIce = source.state.toLowerCase() === "ice"
+  result.isFederal = source.state.toLowerCase() === "federal"
+  
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
     obj[key] = parseInt(source.staff[key])
