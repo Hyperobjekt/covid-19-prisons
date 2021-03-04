@@ -11,9 +11,15 @@ import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
 
 const alphaStateSort = (a, b) => {
+  // Total row goes first
+  if (a.original.isTotal) return 1
+  if (b.original.isTotal) return -1
+
+  // non-state rows (federal, ice) go above states 
   if (a.original.isState !== b.original.isState) {
-    return a.original.isState ? 1 : -1
+    return a.original.isState ? -1 : 1
   }
+
   return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1
 }
 
@@ -22,13 +28,13 @@ const styles = (theme) => ({
     background: theme.palette.background.paper,
   },
   wrapper: {
-    maxWidth: 860,
+    maxWidth: "38rem",
     "& h3": {
-      maxWidth: "36rem",
+      maxWidth: "32rem",
     },
   },
   body: {
-    maxWidth: "36rem",
+    maxWidth: "32rem",
     margin: theme.spacing(1, 0, 2),
   },
   table: {},
@@ -42,16 +48,6 @@ const countFormatter = (value) =>
 const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   // data for table
   const data = useVaccineData()
-
-  // styles for number columns in table
-  const numberColStyle = React.useMemo(
-    () => ({
-      width: "33.3%",
-      minWidth: 160,
-      textAlign: "right",
-    }),
-    []
-  )
 
   // column configuration for the table
   const columns = React.useMemo(
@@ -72,8 +68,8 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           )
         },
         style: {
-          width: "33.3%",
-          minWidth: 160,
+          width: "32%",
+          minWidth: 130,
         },
       },
       {
@@ -82,7 +78,11 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         accessor: "residents.vadmin",
         disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
+        style: {
+          width: "37%",
+          minWidth: 170,
+          textAlign: "right",
+        },
       },
       {
         id: "s-vadmin",
@@ -90,10 +90,14 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         accessor: "staff.vadmin",
         disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
+        style: {
+          width: "31%",
+          minWidth: 160,
+          textAlign: "right",
+        },
       },
     ],
-    [numberColStyle]
+    []
   )
 
   // memoized table options
@@ -115,7 +119,7 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
       navigate(`federal`)
     } else if (jurisdiction && isIce) {
       navigate(`immigration`)
-    } 
+    }
   }, [])
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
