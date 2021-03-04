@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.columnSpacing(1),
     paddingRight: theme.columnSpacing(1),
     marginBottom: theme.spacing(7),
-    "& p, i": {
+    "& *": {
       maxWidth: "700px",
       marginLeft: "auto",
       marginRight: "auto",
