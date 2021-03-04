@@ -31,6 +31,7 @@ export default function useVaccineData() {
   return useMemo(() => {
     const total = {
       isState: false,
+      isTotal: true,
       jurisdiction: getLang("total"),
       residents: { vadmin: 0 },
       staff: { vadmin: 0 },
