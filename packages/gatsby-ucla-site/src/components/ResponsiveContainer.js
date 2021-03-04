@@ -5,7 +5,8 @@ const ResponsiveContainer = (props) => {
   const theme = useTheme()
   const bumpWidth = theme.breakpoints.values["lg"]
   const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`)
-  const maxWidth = isLarge ? "lg" : "md"
+  // fix 154: only set max-width for lg breakpoint (1280px)
+  const maxWidth = isLarge ? "lg" : null
   return <Container maxWidth={maxWidth} {...props} />
 }
 
