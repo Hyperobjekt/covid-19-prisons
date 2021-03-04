@@ -28,7 +28,9 @@ const styles = (theme) => ({
       margin: "auto",
       [theme.breakpoints.up("md")]: {
         margin: "auto auto 0 auto",
-        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(2)})`,
+        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(
+          2
+        )})`,
       },
       [theme.breakpoints.up("lg")]: {
         width: theme.columnSpacing(8),
@@ -68,6 +70,10 @@ const styles = (theme) => ({
     },
   },
   textContainer: {},
+  textContainerGrid: {
+    // otherwise MetricSelectionTitle can be obscured by MapLegend background
+    zIndex: 1,
+  },
   mapTitle: {
     display: "inline",
     // TODO: refactor these styles so they are defined in one place instead of duplicated in home/table.js
@@ -179,9 +185,14 @@ const HomeMap = ({
     >
       <ResponsiveContainer className={classes.controls}>
         <Grid container spacing={1} className={classes.detailContainer}>
-          <Grid item xs={12} md={metricSelectCols}>
+          <Grid
+            item
+            xs={12}
+            md={metricSelectCols}
+            className={classes.textContainerGrid}
+          >
             <Stack className={classes.textContainer} spacing={0.5}>
-              <MetricSelectionTitle 
+              <MetricSelectionTitle
                 title={title}
                 isImmigration={isImmigration}
               />
