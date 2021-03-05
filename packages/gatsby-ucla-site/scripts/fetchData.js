@@ -43,6 +43,54 @@ exports.getVaccines = () => getData(vaccinesCsv, parseVaccine)
  * - how to pull jurisdiction from releases?
  */
 
+const prisonReleases = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=0&format=csv`
+const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1678228533&format=csv`
+
+const releasesMap = {
+  facility: ["Facility", "string", exactMatch],
+  state: ["State", "string", exactMatch],
+  date: ["Date", "string", exactMatch],
+  authority: ["Authorizing Agent", "string", roughMatch],
+  releases: ["Overall Pop. Reduction", "int", roughMatch],
+  population: ["Population Prior", "int", roughMatch],
+  detailParole: ["Parole Tech", "string", roughMatch],
+  detailShort: ["Short Time Left", "string", roughMatch],
+  detailVulnerable: ["Vulnerable Populations", "string", roughMatch],
+  detailOther: ["Other (please explain", "string", roughMatch],
+  capacity: ["Known Capacity", "int", roughMatch],
+  source: ["Perma links", "string", roughMatch],
+}
+const jailReleasesMap = {
+  ...releasesMap,
+  jurisdiction: ["County", "string", exactMatch],
+  detailMinor: ["Minor Offenses", "string", roughMatch],
+  detailBail: ["On Bail with Inability", "string", roughMatch],
+}
+const prisonReleasesMap = {
+  ...releasesMap,
+  jurisdiction: ["State", "string", exactMatch],
+  detailMinor: ["Non-Violent Crimes", "string", roughMatch],
+}
+
+const jailReleaseParser = (row) => parseMap(row, jailReleasesMap)
+const prisonReleaseParser = (row) => parseMap(row, prisonReleasesMap)
+
+// exports.getReleases = () =>
+//   Promise.all([
+//     getData(jailReleases, releaseParser),
+//     getData(prisonReleases, releaseParser),
+//   ])
+exports.getJailReleases = () => getData(jailReleases, jailReleaseParser)
+exports.getPrisonReleases = () => getData(prisonReleases, prisonReleaseParser)
+
+/**
+ * PRISON / JAIL RELEASES
+ *
+ * ISSUES:
+ * - unsure about column to use for "transparency"
+ * - how to pull jurisdiction from releases?
+ */
+
 const prisonReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=845601985&format=csv`
 const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1678228533&format=csv`
 
