@@ -9,8 +9,19 @@ import { getLang } from "../../../common/utils/i18n"
 const projection = geoAlbersUsaTerritories().scale(1070).translate([400, 300])
 
 const NationalMap = memo(
-  ({ children, facilities, metric, group, onSelect, ...props }) => {
+  ({
+    children,
+    facilities,
+    metric,
+    group,
+    onSelect,
+    isImmigration,
+    ...props
+  }) => {
     const shapeClasses = useShapeStyles()
+
+    const style = isImmigration ? {}
+      : { pointerEvents: "none" }
     return (
       <SvgMap projection={projection} {...props}>
         <desc>{getLang("nat_map_title")}</desc>
@@ -21,17 +32,19 @@ const NationalMap = memo(
             label: shapeClasses.shapeLabel,
           }}
           onSelect={onSelect}
-          showLabels
+          showLabels={!isImmigration}
           interactive
-        />
-        <HoverShape className={shapeClasses.shapeHighlight} />
+          />
+        {!isImmigration && (
+          <HoverShape className={shapeClasses.shapeHighlight} />
+        )}
+        {children}
         <FacilitiesMarkerLayer
           facilities={facilities}
           metric={metric}
           group={group}
-          style={{ pointerEvents: "none" }}
+          style={style}
         />
-        {children}
       </SvgMap>
     )
   }

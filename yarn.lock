@@ -1413,10 +1413,10 @@
   resolved "https://registry.yarnpkg.com/@hyperobjekt/react-scrollama/-/react-scrollama-2.2.15.tgz#eac84e220274143fa05c6a0d44752ae4ce9b2cc9"
   integrity sha512-gRyL0FkP6F4lR1n7B/3axBIQapeEop0dD/dsaZAwtihrHHBkLmgSkyWAyTjhukdiSdcADoqBGgBQOkND0WqaPg==
 
-"@hyperobjekt/svg-maps@1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@hyperobjekt/svg-maps/-/svg-maps-1.0.10.tgz#0837a91b5c3750c60ef2e925e50615d77d461861"
-  integrity sha512-bk9LEm9GkMU9TECUWaUHjeTekHYsDdRyG26cdUh+DThNKvpBEVVBNCXw7KUnqvjsfbjvDuRyxR32Tu46CFFmIA==
+"@hyperobjekt/svg-maps@1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@hyperobjekt/svg-maps/-/svg-maps-1.0.11.tgz#4bb74dc3f37f97ce99e373db380fb4818eaec669"
+  integrity sha512-l2nM2Op51TjlO9NtvV9G808EMUzs9agKD2nteN09CcbZpegoG+uX9NVTFRvvk+n487Y9fB3G1eLpFqwXH2Nb0Q==
   dependencies:
     "@hyperobjekt/us-states" "^1.0.4"
     "@material-ui/styles" "^4.10.0"

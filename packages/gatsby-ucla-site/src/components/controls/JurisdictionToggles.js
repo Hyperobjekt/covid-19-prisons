@@ -7,6 +7,7 @@ import Stack from "../Stack"
 import SpikeMarker from "../markers/SpikeMarker"
 import Checkbox from "../controls/Checkbox"
 import DotMarker from "../markers/DotMarker"
+import clsx from "clsx"
 
 const styles = (theme) => ({
   root: {
@@ -62,15 +63,20 @@ const JurisdictionToggles = ({ classes, marker = "spike", ...props }) => {
     setSelectedCategories(newCategories)
   }
   return (
-    <Stack className={classes.root} spacing={0} {...props}>
+    <Stack
+      className={clsx(classes.root, "jurisdiction-toggles")}
+      spacing={0}
+      {...props}
+    >
       {categories.map((c, i) => {
         return (
           <FormControlLabel
+            className={clsx("toggle", "toggle-" + c)}
             key={c}
             value={c}
             control={
               <Checkbox
-                className={classes.checkbox}
+                className={clsx(classes.checkbox, "checkbox")}
                 checked={isSelected(c)}
                 onClick={(e) => handleToggleCategory(c, e)}
               />

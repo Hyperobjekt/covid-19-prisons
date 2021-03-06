@@ -121,9 +121,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
+    wordWrap: "break-word",
     paddingLeft: theme.columnSpacing(1),
     paddingRight: theme.columnSpacing(1),
     marginBottom: theme.spacing(7),
+    "& *": {
+      maxWidth: "700px",
+      marginLeft: "auto",
+      marginRight: "auto",
+      [theme.breakpoints.up("lg")]: {
+        // maxWidth: "900px",
+      },
+    },
     [theme.breakpoints.up("sm")]: {
       paddingLeft: theme.columnSpacing(2),
       paddingRight: theme.columnSpacing(2),
@@ -258,14 +267,26 @@ const Hero = ({ author, date, title, image }) => {
 
 const SocialIcons = (title, path) => {
   const classes = useStyles()
-  const url = "https://uclacovidbehindbars.org/"+path
+  const url = "https://uclacovidbehindbars.org/" + path
 
-  const twitterClick = e => {
-    window.open(`https://twitter.com/share?text=${title}&url=${url}`, '_blank', 'width=550,height=420').focus();
+  const twitterClick = (e) => {
+    window
+      .open(
+        `https://twitter.com/share?text=${title}&url=${url}`,
+        "_blank",
+        "width=550,height=420"
+      )
+      .focus()
   }
-  
-  const facebookClick = e => {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=550,height=420').focus();
+
+  const facebookClick = (e) => {
+    window
+      .open(
+        `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        "_blank",
+        "width=550,height=420"
+      )
+      .focus()
   }
 
   return (
@@ -277,8 +298,12 @@ const SocialIcons = (title, path) => {
         <img alt="share on Facebook" src={FbIcon} />
       </IconButton>
       <IconButton>
-        <a target="_blank" href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`} rel="noreferrer">
-        <EmailIcon />
+        <a
+          target="_blank"
+          href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`}
+          rel="noreferrer"
+        >
+          <EmailIcon />
         </a>
       </IconButton>
     </div>
@@ -326,23 +351,22 @@ const Linked = ({ next, previous }) => {
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx, allFile } = props.data
   const classes = useStyles()
-  const { image, path, title } = mdx.frontmatter
-  // console.log(image)
-  // const file = useBlogImage(image)
-  // console.log("allFile")
-  // console.log(allFile)
+  const { image, path, title, socialImage, socialDescription } = mdx.frontmatter
   const featuredImage =
     image &&
     allFile.nodes.find((n) => {
       const originalName = n?.childImageSharp?.fluid?.originalName
       return originalName === image || image.endsWith("/" + originalName)
     })
-  // console.log("featuredImage")
-  // console.log(featuredImage)
 
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id)
   return (
-    <Layout className={classes.layout}>
+    <Layout
+      className={classes.layout}
+      image={socialImage?.childImageSharp?.resize?.src}
+      description={socialDescription}
+      title={title ? title : null}
+    >
       {Hero(mdx.frontmatter)}
 
       <div className={classes.body}>
@@ -373,6 +397,16 @@ export const query = graphql`
         title
         image
         path
+        socialDescription
+        socialImage {
+          childImageSharp {
+            resize(width: 1200) {
+              src
+              height
+              width
+            }
+          }
+        }
       }
       body
     }

@@ -19,6 +19,7 @@ import DotMarker from "../markers/DotMarker"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import Notes from "../Notes"
 import { formatMetricValue } from "../../common/utils/formatters"
+import clsx from "clsx"
 
 const styles = (theme) => ({
   root: {
@@ -78,7 +79,15 @@ const rateSorter = (a, b, columnId) => {
   return diff < 0 ? -1 : 1
 }
 
-const HomeTable = ({ title, note, classes, ...props }) => {
+const HomeTable = ({
+  title,
+  note,
+  classes,
+  categories,
+  selectedRegion,
+  isImmigration,
+  ...props
+}) => {
   // pull active metric from the store, with setter
   const [metric, setMetric] = useOptionsStore(
     (state) => [state.metric, state.setMetric],
@@ -86,110 +95,78 @@ const HomeTable = ({ title, note, classes, ...props }) => {
   )
 
   // data for table
-  const data = useFacilitiesData()
+  const data = useFacilitiesData(categories, selectedRegion)
 
   // styles for number columns in table
   const numberColStyle = React.useMemo(
     () => ({
-        width: "12.5%",
-        minWidth: 100,
-        textAlign: "right",
-      }), []
-  )
+      width: "12.5%",
+      minWidth: 100,
+      textAlign: "right",
+    }),
 
+    []
+  )
 
   // column configuration for the table
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Facility",
-        accessor: "name",
-        disableSortBy: true,
-        Cell: (prop) => {
-          return (
-            <>
-              <Typography className={classes.name} variant="body1">
-                {prop.value}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <span style={{ marginRight: 8 }}>
-                  {prop.row.original.state}
-                </span>
-                <DotMarker
-                  radius={4}
-                  fill={getColorForJurisdiction(prop.row.original.jurisdiction)}
-                />
-              </Typography>
-            </>
-          )
-        },
-        style: {
-          width: "25%",
-          minWidth: 260,
-        },
+  const columns = React.useMemo(() => {
+    const facilityCol = {
+      Header: "Facility",
+      accessor: "name",
+      disableSortBy: true,
+      Cell: (prop) => {
+        return (
+          <>
+            <Typography className={classes.name} variant="body1">
+              {prop.value}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <span style={{ marginRight: 8 }}>{prop.row.original.state}</span>
+              <DotMarker
+                radius={4}
+                fill={getColorForJurisdiction(prop.row.original.jurisdiction)}
+              />
+            </Typography>
+          </>
+        )
       },
-      {
-        id: "confirmed",
-        Header: getLang("confirmed"),
-        accessor: "residents.confirmed",
+      style: {
+        width: "25%",
+        minWidth: 260,
+      },
+    }
+
+    const colNames = [
+      "confirmed",
+      "confirmed_rate",
+      "active",
+      "active_rate",
+      "deaths",
+      "deaths_rate",
+      "tested",
+      "tested_rate",
+    ]
+
+    const cols = colNames.map((cn) => {
+      const col = {
+        id: cn,
+        Header: getLang(cn),
+        accessor: `residents.${cn}`,
         Cell: (prop) => countFormatter(prop.value),
         style: numberColStyle,
-      },
-      {
-        id: "confirmed_rate",
-        Header: getLang("confirmed_rate"),
-        accessor: "residents.confirmed_rate",
-        sortType: rateSorter,
-        Cell: (prop) => rateFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "active",
-        Header: getLang("active"),
-        accessor: "residents.active",
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "active_rate",
-        Header: getLang("active_rate"),
-        accessor: "residents.active_rate",
-        sortType: rateSorter,
-        Cell: (prop) => rateFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "deaths",
-        Header: getLang("deaths"),
-        accessor: "residents.deaths",
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "deaths_rate",
-        Header: getLang("deaths_rate"),
-        accessor: "residents.deaths_rate",
-        sortType: rateSorter,
-        Cell: (prop) => rateFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "tested",
-        Header: getLang("tested"),
-        accessor: "residents.tested",
-        Cell: (prop) => countFormatter(prop.value),
-        style: numberColStyle,
-      },
-      {
-        id: "tested_rate",
-        Header: getLang("tested_rate"),
-        accessor: "residents.tested_rate",
-        Cell: (prop) => rateFormatter(prop.value),
-        style: numberColStyle,
-      },
-    ],
-    [classes.name, numberColStyle]
-  )
+      }
+
+      const isRate = cn.indexOf("_rate") > 0
+      if (isRate) {
+        col.sortType = rateSorter
+        col.Cell = (prop) => rateFormatter(prop.value)
+      }
+
+      return col
+    })
+
+    return [facilityCol, ...cols]
+  }, [classes.name, numberColStyle])
 
   // memoized table options
   const options = React.useMemo(
@@ -216,9 +193,13 @@ const HomeTable = ({ title, note, classes, ...props }) => {
     state && navigate(`states/${getSlug(state)}`)
   }, [])
   return (
-    <Block type="fullWidth" className={classes.root} {...props}>
+    <Block
+      type="fullWidth"
+      className={clsx(classes.root, "home-table")}
+      {...props}
+    >
       <ResponsiveContainer>
-        <MetricSelectionTitle title={title} />
+        <MetricSelectionTitle title={title} isImmigration={isImmigration} />
         <Table
           className={classes.table}
           data={data.filter((d) => d.name !== "Statewide")}
@@ -234,7 +215,9 @@ const HomeTable = ({ title, note, classes, ...props }) => {
             classes={{ root: classes.toggleContainer }}
           />
         </Table>
-        { note && note.length > 0 && <Notes notes={note} className={classes.notes} />}
+        {note && note.length > 0 && (
+          <Notes notes={note} className={classes.notes} />
+        )}
       </ResponsiveContainer>
     </Block>
   )

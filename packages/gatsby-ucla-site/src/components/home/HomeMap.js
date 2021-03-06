@@ -13,6 +13,7 @@ import { useActiveMetric, useMappableFacilities } from "../../common/hooks"
 import { getLang } from "../../common/utils/i18n"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import { getSlug } from "../../common/utils/selectors"
+
 const styles = (theme) => ({
   root: {
     position: "relative",
@@ -27,7 +28,9 @@ const styles = (theme) => ({
       margin: "auto",
       [theme.breakpoints.up("md")]: {
         margin: "auto auto 0 auto",
-        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(2)})`,
+        height: `calc(100% - ${theme.layout.headerHeight} - ${theme.spacing(
+          2
+        )})`,
       },
       [theme.breakpoints.up("lg")]: {
         width: theme.columnSpacing(8),
@@ -67,6 +70,10 @@ const styles = (theme) => ({
     },
   },
   textContainer: {},
+  textContainerGrid: {
+    // otherwise MetricSelectionTitle can be obscured by MapLegend background
+    zIndex: 1,
+  },
   mapTitle: {
     display: "inline",
     // TODO: refactor these styles so they are defined in one place instead of duplicated in home/table.js
@@ -146,10 +153,20 @@ const styles = (theme) => ({
   },
 })
 
-const HomeMap = ({ classes, title, description, className, ...props }) => {
+const HomeMap = ({
+  classes,
+  title,
+  description = getLang("map", "notes"), // home.js description uses markup
+  className,
+  categories,
+  children,
+  isImmigration,
+  selectedRegion,
+  ...props
+}) => {
   const setSelected = useMapStore((state) => state.setSelected)
   const metric = useActiveMetric()
-  const data = useMappableFacilities()
+  const data = useMappableFacilities(categories, selectedRegion)
 
   // handler for selection
   const handleSelect = (geo) => {
@@ -157,6 +174,8 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
     navigate(`states/${getSlug(geo.properties.name)}`)
   }
 
+  // MetricSelection includes region name in immigration map
+  const [ metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4]
   return (
     <Block
       type="fullWidth"
@@ -166,31 +185,46 @@ const HomeMap = ({ classes, title, description, className, ...props }) => {
     >
       <ResponsiveContainer className={classes.controls}>
         <Grid container spacing={1} className={classes.detailContainer}>
-          <Grid item xs={12} md={8}>
+          <Grid
+            item
+            xs={12}
+            md={metricSelectCols}
+            className={classes.textContainerGrid}
+          >
             <Stack className={classes.textContainer} spacing={0.5}>
-              <MetricSelectionTitle title={title} />
+              <MetricSelectionTitle
+                title={title}
+                isImmigration={isImmigration}
+              />
               <Typography className={classes.mapDescription} variant="body2">
                 {getLang("map", metric)}
               </Typography>
             </Stack>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={legendCols}>
             <MapLegend data={data} className={classes.legend} />
           </Grid>
           <Grid item xs={12} md={4} className={classes.notesXlContainer}>
             <Typography
               variant="body2"
               className={classes.notes}
-              dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
           </Grid>
         </Grid>
       </ResponsiveContainer>
-      <NationalMap facilities={data} metric={metric} onSelect={handleSelect} />
+      <NationalMap
+        facilities={data}
+        metric={metric}
+        onSelect={handleSelect}
+        isImmigration={isImmigration}
+      >
+        {children}
+      </NationalMap>
       <Typography
         variant="body2"
         className={clsx(classes.notes, classes.notesBelow)}
-        dangerouslySetInnerHTML={{ __html: getLang("map", "notes") }}
+        dangerouslySetInnerHTML={{ __html: description }}
       />
     </Block>
   )

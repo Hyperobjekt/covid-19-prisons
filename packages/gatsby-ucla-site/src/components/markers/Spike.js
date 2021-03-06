@@ -25,6 +25,8 @@ export const style = {
 
 const spikePath = (length, width = 7) => {
   if (!length || !width) return `M0,0L0,0L0,0`
+  // for the shorter, narrower spikes proposed
+  // return `M${-width * 0.375},0L0,${-length * 0.75}L${width * 0.375},0`
   return `M${-width / 2},0L0,${-length}L${width / 2},0`
 }
 

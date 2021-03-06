@@ -82,6 +82,7 @@ const Table = ({
   classes,
   className,
   children,
+  disableFilter,
   ...props
 }) => {
   const {
@@ -110,8 +111,8 @@ const Table = ({
 
   useEffect(() => {
     if (sortColumn) {
-      const {id, desc} = sortBy[0]
-      if ((id !== sortColumn) || (desc !== sortDesc)) {
+      const { id, desc } = sortBy[0]
+      if (id !== sortColumn || desc !== sortDesc) {
         toggleSortBy(sortColumn, sortDesc)
       }
     }
@@ -134,14 +135,16 @@ const Table = ({
 
   return (
     <>
-      <TableToolbar
-        className={classes.toolbar}
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        setGlobalFilter={setGlobalFilter}
-        globalFilter={globalFilter}
-      >
-        {children}
-      </TableToolbar>
+      {!disableFilter && (
+        <TableToolbar
+          className={classes.toolbar}
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          setGlobalFilter={setGlobalFilter}
+          globalFilter={globalFilter}
+        >
+          {children}
+        </TableToolbar>
+      )}
       <TableContainer className={clsx(classes.table, className)} {...props}>
         <MaUTable {...getTableProps()}>
           <TableHead>

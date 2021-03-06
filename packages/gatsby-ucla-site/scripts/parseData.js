@@ -116,7 +116,13 @@ const parseFacility = (facility = {}) => {
     "tadmin",
   ]
   const residentRates = ["confirmed", "deaths", "active", "tested"]
-  const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"]
+  const staffKeys = [
+    "confirmed",
+    "deaths",
+    "active",
+    "recovered",
+    "tested",
+  ]
 
   const result = {}
 
@@ -131,6 +137,7 @@ const parseFacility = (facility = {}) => {
   const Longitude = parseFloat(source["longitude"])
   result.coords = [Longitude, Latitude]
 
+  // NOTE should now always be true
   const useAltPopCol = source.population && source.population.feb20
 
   // parse residents data
@@ -147,6 +154,9 @@ const parseFacility = (facility = {}) => {
     }
   }, {})
 
+  // add field office id
+  result.iceFieldOffice = source.ice["field.office"] || null
+
   // add rates
   residentRates.forEach((rateType) => {
     result.residents[rateType + "_rate"] = result.residents.population
@@ -157,6 +167,52 @@ const parseFacility = (facility = {}) => {
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
     obj[key] = parseInt(source.staff[key])
+    return obj
+  }, {})
+
+  return result
+}
+
+/**
+ * Parses a vaccine object
+ * @param {*} vaccine
+ */
+const parseVaccine = (vaccine = {}) => {
+  const source = groupObjectData(vaccine)
+
+  const residentKeys = [
+    "vadmin",
+  ]
+  const staffKeys = [
+    "vadmin",
+  ]
+
+  const result = {}
+
+  const jurisMap = {
+    federal: "Federal Bureau of Prisons",
+    ice: "U.S. Immigration and Customs Enforcement",
+  }
+
+  const nonStateMap = {
+    federal: true,
+    ice: true,
+  }
+
+  result.jurisdiction = jurisMap[source.state.toLowerCase()] || source.state
+  result.isState = !nonStateMap[source.state.toLowerCase()]
+  result.isIce = source.state.toLowerCase() === "ice"
+  result.isFederal = source.state.toLowerCase() === "federal"
+  
+  // parse staff data
+  result.staff = staffKeys.reduce((obj, key) => {
+    obj[key] = parseInt(source.staff[key])
+    return obj
+  }, {})
+
+  // parse residents data
+  result.residents = residentKeys.reduce((obj, key) => {
+    obj[key] = parseInt(source.residents[key])
     return obj
   }, {})
 
@@ -226,6 +282,7 @@ const parseMap = (row, colMap) => {
 
 module.exports = {
   parseFacility,
+  parseVaccine,
   parseMap,
   exactMatch,
   roughMatch,
