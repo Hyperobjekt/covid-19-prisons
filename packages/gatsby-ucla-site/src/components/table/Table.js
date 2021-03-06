@@ -83,6 +83,7 @@ const Table = ({
   className,
   children,
   disableFilter,
+  disableFooter,
   ...props
 }) => {
   const {
@@ -208,29 +209,31 @@ const Table = ({
             })}
           </TableBody>
 
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[
-                  5,
-                  10,
-                  25,
-                  { label: "All", value: data.length },
-                ]}
-                colSpan={columns.length}
-                count={data.length}
-                rowsPerPage={pageSize}
-                page={pageIndex}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
+          {!disableFooter && (
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[
+                    5,
+                    10,
+                    25,
+                    { label: "All", value: data.length },
+                  ]}
+                  colSpan={columns.length}
+                  count={data.length}
+                  rowsPerPage={pageSize}
+                  page={pageIndex}
+                  SelectProps={{
+                    inputProps: { "aria-label": "rows per page" },
+                    native: true,
+                  }}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          )}
         </MaUTable>
       </TableContainer>
     </>

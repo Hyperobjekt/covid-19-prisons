@@ -62,6 +62,31 @@
       }
     },
     {
+      "id": "scorecard",
+      "fullWidth": true,
+      "lang": {
+        "title": "Scorecard",
+        "link": "Scorecard",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor metus sed mattis ac massa sit ut cras. Interdum donec scelerisque nam tristique purus morbi.",
+        "table": {
+          "machine": "Machine Readable",
+          "regularly": "Regularly Updated",
+          "defined": "Clearly Defined",
+          "cases_residents": "Cumulative Cases: Incarcerated People",
+          "deaths_residents": "Cumulative Deaths: Incarcerated People",
+          "active_residents": "Active Cases: Incarcerated People",
+          "tests_residents": "Tests: Incarcerated People",
+          "population_residents": "Total Incarcerated Population",
+          "cases_staff": "Cumulative Cases: Staff",
+          "deaths_staff": "Cumulative Deaths: Staff",
+          "tests_staff": "Tests: Staff"
+        },
+        "notes": {
+          "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor metus sed mattis ac massa sit ut cras. Interdum donec scelerisque nam tristique purus morbi. "
+        }
+      }
+    },
+    {
       "id": "releases",
       "fullWidth": true,
       "lang": {

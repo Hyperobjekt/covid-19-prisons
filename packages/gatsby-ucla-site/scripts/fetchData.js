@@ -13,8 +13,13 @@ const {
 } = require(`./parseData.js`)
 const US_STATES = require("../data/us_states.json")
 
-async function getData(url, parser) {
-  return await fetchCsv(url, parser)
+async function getData(url, parser, options  =  {}) {
+  let data = await fetchCsv(url, parser)
+  // remove descriptive rows following the top identifier row
+  if (options.dropRows) {
+    data = data.slice(options.dropRows)
+  }
+  return data
 }
 
 const dataBranch = process.env.DATA_BRANCH || "master"
@@ -36,52 +41,32 @@ const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/
 exports.getVaccines = () => getData(vaccinesCsv, parseVaccine)
 
 /**
- * PRISON / JAIL RELEASES
- *
- * ISSUES:
- * - unsure about column to use for "transparency"
- * - how to pull jurisdiction from releases?
+ * SCORECARD
+ * sheet has hidden top row with stable, machine-readable names
  */
 
-const prisonReleases = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=0&format=csv`
-const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1678228533&format=csv`
+const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=0&format=csv`
 
-const releasesMap = {
-  facility: ["Facility", "string", exactMatch],
-  state: ["State", "string", exactMatch],
-  date: ["Date", "string", exactMatch],
-  authority: ["Authorizing Agent", "string", roughMatch],
-  releases: ["Overall Pop. Reduction", "int", roughMatch],
-  population: ["Population Prior", "int", roughMatch],
-  detailParole: ["Parole Tech", "string", roughMatch],
-  detailShort: ["Short Time Left", "string", roughMatch],
-  detailVulnerable: ["Vulnerable Populations", "string", roughMatch],
-  detailOther: ["Other (please explain", "string", roughMatch],
-  capacity: ["Known Capacity", "int", roughMatch],
-  source: ["Perma links", "string", roughMatch],
-}
-const jailReleasesMap = {
-  ...releasesMap,
-  jurisdiction: ["County", "string", exactMatch],
-  detailMinor: ["Minor Offenses", "string", roughMatch],
-  detailBail: ["On Bail with Inability", "string", roughMatch],
-}
-const prisonReleasesMap = {
-  ...releasesMap,
-  jurisdiction: ["State", "string", exactMatch],
-  detailMinor: ["Non-Violent Crimes", "string", roughMatch],
+const scorecardMap = {
+  state: ["state", "string", exactMatch],
+  score: ["score", "string", exactMatch],
+  machine: ["machine", "string", exactMatch],
+  regularly: ["regularly", "string", exactMatch],
+  defined: ["defined", "string", exactMatch],
+  cases_residents: ["cases_residents", "string", exactMatch],
+  deaths_residents: ["deaths_residents", "string", exactMatch],
+  active_residents: ["active_residents", "string", exactMatch],
+  tests_residents: ["tests_residents", "string", exactMatch],
+  population_residents: ["population_residents", "string", exactMatch],
+  cases_staff: ["cases_staff", "string", exactMatch],
+  deaths_staff: ["deaths_staff", "string", exactMatch],
+  tests_staff: ["tests_staff", "string", exactMatch],
 }
 
-const jailReleaseParser = (row) => parseMap(row, jailReleasesMap)
-const prisonReleaseParser = (row) => parseMap(row, prisonReleasesMap)
+const scorecardParser = (row) => parseMap(row, scorecardMap)
 
-// exports.getReleases = () =>
-//   Promise.all([
-//     getData(jailReleases, releaseParser),
-//     getData(prisonReleases, releaseParser),
-//   ])
-exports.getJailReleases = () => getData(jailReleases, jailReleaseParser)
-exports.getPrisonReleases = () => getData(prisonReleases, prisonReleaseParser)
+exports.getScorecard = () =>
+  getData(scorecard, scorecardParser, { dropRows: 2 })
 
 /**
  * PRISON / JAIL RELEASES

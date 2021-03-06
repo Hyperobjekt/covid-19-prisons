@@ -17,6 +17,7 @@ import {
   // Grassroots,
   // Immigration,
   // Releases,
+  Scorecard,
   ReleasesTable,
   GrassrootsTable,
   StaffSummary,
@@ -116,6 +117,7 @@ const SECTION_COMPONENTS = {
   // releases: Releases,
   // immigration: Immigration,
   // grassroots: Grassroots,
+  scorecard: Scorecard,
   releases: ReleasesTable,
   grassroots: GrassrootsTable,
 }
@@ -263,6 +265,24 @@ export const query = graphql`
           facilityCount
           granted
           total
+        }
+      }
+    }
+    allScorecard(filter: { state: { eq: $state } }) {
+      edges {
+        node {
+          score
+          machine
+          regularly
+          defined
+          cases_residents
+          deaths_residents
+          active_residents
+          tests_residents
+          population_residents
+          cases_staff
+          deaths_staff
+          tests_staff
         }
       }
     }
