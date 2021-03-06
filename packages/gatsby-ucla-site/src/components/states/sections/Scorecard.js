@@ -10,6 +10,9 @@ import GoodIcon from "../../../../content/assets/score-good.svg"
 import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
+  body: {
+    marginTop: theme.spacing(2),
+  },
   sectionTitle: {
     marginBottom: theme.spacing(2),
   },
@@ -17,7 +20,7 @@ const styles = (theme) => ({
   staffSection: {},
   qualitySection: {},
   section: {
-    marginBottom: theme.spacing(5),
+    marginTop: theme.spacing(5),
     "&$staffSection $table, &$qualitySection $table": {
       maxWidth: 780,
     },
