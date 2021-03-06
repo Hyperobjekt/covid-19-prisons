@@ -1,26 +1,44 @@
 import React from "react"
 import clsx from "clsx"
 import { Table } from "../../table"
-import { Typography, withStyles } from "@material-ui/core"
+import { Grid, Typography, withStyles } from "@material-ui/core"
 import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
 import BadIcon from "../../../../content/assets/score-bad.svg"
 import OkayIcon from "../../../../content/assets/score-okay.svg"
 import GoodIcon from "../../../../content/assets/score-good.svg"
-import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
+import { sansSerifyTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
+  score: {
+    margin: theme.spacing(2, 0),
+    "& $scoreTitle, & $scoreGrade": {
+      ...sansSerifyTypography,
+      display: "inline-block",
+      margin: 0,
+    },
+  },
+  scoreTitle: {
+    lineHeight: 1,
+    fontSize: theme.typography.pxToRem(15),
+    paddingRight: theme.spacing(1),
+  },
+  scoreGrade: {
+    color: theme.palette.secondary.main,
+    fontWeight: 600,
+    fontSize: theme.typography.pxToRem(32),
+  },
   body: {
     marginTop: theme.spacing(2),
   },
   sectionTitle: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   residentSection: {},
   staffSection: {},
   qualitySection: {},
   section: {
-    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
     "&$staffSection $table, &$qualitySection $table": {
       maxWidth: 780,
     },
@@ -150,41 +168,53 @@ const Scorecard = ({ classes, data, lang, ...props }) => {
 
   return (
     <StepWrapper>
-      <div className={classes.headers}>
-        <Typography variant="h3">{lang.title}</Typography>
-        <Typography
-          variant="body1"
-          dangerouslySetInnerHTML={{ __html: lang.body }}
-          className={classes.body}
-        />
-      </div>
-      <ScorecardSection
-        className={classes.residentSection}
-        classes={classes}
-        lang={lang}
-        columnMeta={resReportingColumns}
-        data={scorecardData}
-        title="Resident reporting quality"
-        getDisplayValue={getReportingValue}
-      />
-      <ScorecardSection
-        className={classes.staffSection}
-        classes={classes}
-        lang={lang}
-        columnMeta={staffReportingColumns}
-        data={scorecardData}
-        title="Staff reporting quality"
-        getDisplayValue={getReportingValue}
-      />
-      <ScorecardSection
-        className={classes.qualitySection}
-        classes={classes}
-        lang={lang}
-        columnMeta={qualityColumns}
-        data={scorecardData}
-        title="Data quality"
-        getDisplayValue={getQualityValue}
-      />
+      <Grid container spacing={3}>
+        <Grid item xs={12} lg={3}>
+          <Typography variant="h3">{lang.title}</Typography>
+          <Typography variant="body1" className={classes.score}>
+            <p className={classes.scoreTitle}>
+              Data
+              <br />
+              score
+            </p>
+            <p className={classes.scoreGrade}>{scorecardData.score}</p>
+          </Typography>
+          <Typography
+            variant="body2"
+            dangerouslySetInnerHTML={{ __html: lang.body }}
+            className={classes.body}
+          />
+        </Grid>
+        <Grid item xs={12} lg={9} className={classes.scorecardSections}>
+          <ScorecardSection
+            className={classes.residentSection}
+            classes={classes}
+            lang={lang}
+            columnMeta={resReportingColumns}
+            data={scorecardData}
+            title="Resident reporting quality"
+            getDisplayValue={getReportingValue}
+          />
+          <ScorecardSection
+            className={classes.staffSection}
+            classes={classes}
+            lang={lang}
+            columnMeta={staffReportingColumns}
+            data={scorecardData}
+            title="Staff reporting quality"
+            getDisplayValue={getReportingValue}
+          />
+          <ScorecardSection
+            className={classes.qualitySection}
+            classes={classes}
+            lang={lang}
+            columnMeta={qualityColumns}
+            data={scorecardData}
+            title="Data quality"
+            getDisplayValue={getQualityValue}
+          />
+        </Grid>
+      </Grid>
       <Notes notes={[lang.notes.lorem]}></Notes>
     </StepWrapper>
   )
