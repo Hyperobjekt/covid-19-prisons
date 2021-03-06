@@ -3,7 +3,7 @@ backend:
   repo: Hyperobjekt/covid-19-behind-bars
   branch: production
 
-publish_mode: editorial_workflow  
+publish_mode: editorial_workflow
 
 # FOR LOCAL DEVELOPMENT:
 # ---
@@ -24,7 +24,7 @@ collections:
     extension: mdx
     format: frontmatter
     create: true
-    filter: {field: "pagetype", value: "subsidiary"}
+    filter: { field: "pagetype", value: "subsidiary" }
     folder: "/packages/gatsby-ucla-site/content/pages"
     editor:
       preview: false
@@ -48,7 +48,7 @@ collections:
           widget: hidden,
           required: false,
           default: "subsidiary",
-      }  
+        }
       - { label: "Keywords", name: "keywords", widget: "list", required: false }
       - {
           label: "Social Image",
@@ -66,7 +66,7 @@ collections:
     folder: "/packages/gatsby-ucla-site/content/pages"
     editor:
       preview: false
-    filter: {field: "pagetype", value: "home" }  
+    filter: { field: "pagetype", value: "home" }
     fields:
       - {
           label: "Page Title",
@@ -87,7 +87,7 @@ collections:
           widget: hidden,
           required: false,
           default: "home",
-        }  
+        }
       - { label: "Keywords", name: "keywords", widget: "list", required: false }
       - { label: "Template", name: "template", widget: hidden }
       - { label: "Path", name: "path", widget: hidden }
@@ -124,8 +124,8 @@ collections:
         name: sponsors
         widget: object
         required: false
-        fields: 
-          - {label: Title, name: title, widget: markdown, required: false}    
+        fields:
+          - { label: Title, name: title, widget: markdown, required: false }
           - name: "blog"
   - label: "Blog post"
     folder: "/packages/gatsby-ucla-site/content/pages/blog"
@@ -133,7 +133,7 @@ collections:
     extension: mdx
     format: frontmatter
     create: true
-    
+
     # slug: "blogPost"
     media_folder: ""
     public_folder: ""
@@ -143,21 +143,33 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
       - {
-        label: "Slug",
-        name: "path",
-        widget: "string",
-        default: "blog/",
-        hint: "Sets the link to the post. Must be unique, begin with 'blog/', and be composed only of alphanumeric characters and dashes",
-        required: true,
-        pattern: [
-          "^blog/[a-z0-9]+(?:-[a-z0-9]+)*$",
-          "A slug must begin with 'blog/' can have no spaces or special characters, e.g. 'blog/why-we-built-this'"
-        ]
+          label: "Slug",
+          name: "path",
+          widget: "string",
+          default: "blog/",
+          hint: "Sets the link to the post. Must be unique, begin with 'blog/', and be composed only of alphanumeric characters and dashes",
+          required: true,
+          pattern:
+            [
+              "^blog/[a-z0-9]+(?:-[a-z0-9]+)*$",
+              "A slug must begin with 'blog/' can have no spaces or special characters, e.g. 'blog/why-we-built-this'",
+            ],
         }
-      - { label: "Featured", name: "featured", widget: "boolean", default: false, hint: "Whether to display as the featured post on the blog index page. If more than one post is marked as featured, the most recent one will be used." }
+      - {
+          label: "Featured",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+          hint: "Whether to display as the featured post on the blog index page. If more than one post is marked as featured, the most recent one will be used.",
+        }
       - { label: "Author", name: "author", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Description", name: "description", widget: "string", hint: "Description displayed after post title on blog index page", }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          hint: "Description displayed after post title on blog index page",
+        }
       - {
           label: "Featured Image",
           name: "image",
@@ -166,11 +178,11 @@ collections:
           hint: "Image displayed wider above blog post body",
         }
       - {
-        label: "Social Share Description",
-        name: "socialDescription",
-        widget: "string",
-        required: false,
-        hint: "Description displayed when blog post is shared on social media",
+          label: "Social Share Description",
+          name: "socialDescription",
+          widget: "string",
+          required: false,
+          hint: "Description displayed when blog post is shared on social media",
         }
       - {
           label: "Social Share Image",
@@ -180,9 +192,15 @@ collections:
           hint: "Image displayed when blog post is shared on social media",
         }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Is Post", name: "isBlogPost", widget: "hidden", default: true }
-      - { label: "Template", name: "template", widget: "hidden", default: "blog" }
-
-
-
-   
+      - {
+          label: "Is Post",
+          name: "isBlogPost",
+          widget: "hidden",
+          default: true,
+        }
+      - {
+          label: "Template",
+          name: "template",
+          widget: "hidden",
+          default: "blog",
+        }
