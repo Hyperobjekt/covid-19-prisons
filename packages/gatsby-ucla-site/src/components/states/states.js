@@ -144,6 +144,11 @@ const StateTemplate = ({ pageContext, data }) => {
     ],
     shallow
   )
+  const scorecardData = data.allScorecard?.edges[0]?.node
+  if (!scorecardData) {
+    content.sections = content.sections.filter((s) => s.id !== "scorecard")
+  }
+  
   // set the state name in the store
   setStateName(state)
   // set the data in the store
