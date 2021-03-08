@@ -13,6 +13,8 @@ import InfoIcon from "../../IconWithTooltip"
 const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)
+  const score = data.allScorecard?.edges[0]?.node?.score
+
   // jurisdiction totals for the state
   const summary = getDataByJurisdiction(all)
   const metric = useActiveMetric()
@@ -36,6 +38,7 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
             metric={metric}
             group="staff"
             groupData={summary["staff"]}
+            score={score}
           />
         )}
         {!isStaffMetric && (

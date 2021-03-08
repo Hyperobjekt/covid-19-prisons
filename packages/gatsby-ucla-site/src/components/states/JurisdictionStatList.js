@@ -7,6 +7,7 @@ import { SUMMABLE_JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
+import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
   root: {
@@ -21,6 +22,9 @@ const styles = (theme) => ({
     borderBottom: "1px solid",
     borderBottomColor: theme.palette.divider,
     paddingBottom: theme.spacing(2),
+    "&.first": {
+      marginTop: 0,
+    },
   },
   jurisdictionLabel: {
     width: "5em",
@@ -28,8 +32,25 @@ const styles = (theme) => ({
     marginRight: theme.spacing(3),
     color: theme.palette.text.secondary,
   },
+  tableHeader: {
+    width: "10em",
+    color: theme.palette.text.secondary,
+    margin: 0,
+    padding: theme.spacing(0, 1, 0, 0),
+  },
   stat: {
     width: "10em",
+    marginTop: "auto",
+    marginBottom: "auto",
+  },
+  scoreColumn: {
+    flexBasis: "3em",
+    flexGrow: 0,
+    "&$stat": {
+      fontWeight: 700,
+      ...sansSerifyTypography,
+      fontSize: theme.typography.pxToRem(16),
+    },
   },
 })
 
@@ -50,6 +71,7 @@ const JurisdictionStatList = ({
   group,
   groupData,
   isFederal,
+  score,
 }) => {
   const baseMetric = metric.split("_")[0]
   const getGroupData = (jurisdiction, metric, isRate) => {
@@ -66,10 +88,35 @@ const JurisdictionStatList = ({
 
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
-      {jurisdictions.map((jurisdiction) => (
+      <Stack
+        className={classes.tableHeaders}
+        horizontal
+        align="flex-start"
+        spacing={2}
+      >
+        <Typography className={classes.jurisdictionLabel}>{" "}</Typography>
+        <Typography className={classes.tableHeader} variant="body2">
+          {getLang(baseMetric, "label")}
+        </Typography>
+        {groupHasRates(group) && (
+          <Typography className={classes.tableHeader} variant="body2">
+            {getLang(baseMetric, "rate")}
+          </Typography>
+        )}
+        {score && (
+          <Typography
+            className={clsx(classes.tableHeader, classes.scoreColumn)}
+            variant="body2"
+          >
+            {getLang("data_score")}
+          </Typography>
+        )}
+      </Stack>
+
+      {jurisdictions.map((jurisdiction, idx) => (
         <Stack
           key={jurisdiction}
-          className={classes.jurisdictionContainer}
+          className={clsx(classes.jurisdictionContainer, { first: !idx })}
           horizontal
           align="flex-start"
           spacing={2}
@@ -91,6 +138,14 @@ const JurisdictionStatList = ({
               secondary={!isRateSelected}
               format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>
+          )}
+          {score && (
+            <Typography
+              className={clsx(classes.stat, classes.scoreColumn)}
+              type="body1"
+            >
+              {jurisdiction === "state" && score}
+            </Typography>
           )}
         </Stack>
       ))}
