@@ -24,6 +24,7 @@ import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
   table: {
+    maxHeight: `calc(100vh - 2*${theme.layout.headerHeight} - 1rem)`,
     "& .MuiTableCell-root": {
       ...sansSerifyTypography,
     },
@@ -34,7 +35,8 @@ const styles = (theme) => ({
       ...sansSerifyTypography,
     },
     "& .MuiTableCell-head": {
-      position: "relative",
+      // interferes with sticky header
+      // position: "relative",
       ...sansSerifyTypography,
       fontWeight: 700,
       lineHeight: 1.2,
@@ -147,7 +149,7 @@ const Table = ({
         </TableToolbar>
       )}
       <TableContainer className={clsx(classes.table, className)} {...props}>
-        <MaUTable {...getTableProps()}>
+        <MaUTable {...getTableProps()} stickyHeader={true}>
           <TableHead>
             {headerGroups.map((headerGroup) => {
               return (
