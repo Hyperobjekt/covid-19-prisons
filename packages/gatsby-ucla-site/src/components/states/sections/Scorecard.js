@@ -134,7 +134,7 @@ const ScorecardSection = ({
 }) => {
   const columns = React.useMemo(() => {
     return columnMeta.map((c) => ({
-      Header: console.log(lang.table[c.id]) || lang.table[c.id],
+      Header: lang.table[c.id],
       accessor: c.id,
       disableSortBy: true,
       Cell: (prop) => (
@@ -164,7 +164,10 @@ const ScorecardSection = ({
 }
 
 const Scorecard = ({ classes, data, lang, ...props }) => {
-  const scorecardData = data.allScorecard?.edges[0]?.node
+
+  
+  const scorecardData = data.allScorecard?.edges[0]?.node || {}
+  if (!scorecardData) return null
 
   return (
     <StepWrapper>
