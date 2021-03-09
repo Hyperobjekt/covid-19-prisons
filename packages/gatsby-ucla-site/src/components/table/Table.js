@@ -37,6 +37,8 @@ const styles = (theme) => ({
     "& .MuiTableCell-head": {
       // interferes with sticky header
       // position: "relative",
+      // don't stick for horizontal scroll
+      left: "unset",
       ...sansSerifyTypography,
       fontWeight: 700,
       lineHeight: 1.2,
