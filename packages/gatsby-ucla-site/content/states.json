@@ -68,18 +68,33 @@
         "title": "Scorecard",
         "link": "Scorecard",
         "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor metus sed mattis ac massa sit ut cras. Interdum donec scelerisque nam tristique purus morbi.",
-        "table": {
+        "section": {
+          "resident_reporting": "Data reporting for incarcerated people",
+          "staff_reporting": "Data reporting for staff",
+          "data_quality": "Data quality"
+        },
+        "table_header": {
           "machine": "Machine Readable",
           "regularly": "Regularly Updated",
           "defined": "Clearly Defined",
-          "cases_residents": "Cumulative Cases: Incarcerated People",
-          "deaths_residents": "Cumulative Deaths: Incarcerated People",
-          "active_residents": "Active Cases: Incarcerated People",
-          "tests_residents": "Tests: Incarcerated People",
-          "population_residents": "Total Incarcerated Population",
-          "cases_staff": "Cumulative Cases: Staff",
-          "deaths_staff": "Cumulative Deaths: Staff",
-          "tests_staff": "Tests: Staff"
+          "cases_residents": "Cumulative Cases",
+          "deaths_residents": "Cumulative Deaths",
+          "active_residents": "Active Cases",
+          "tests_residents": "Tests",
+          "population_residents": "Total Population",
+          "cases_staff": "Cumulative Cases",
+          "deaths_staff": "Cumulative Deaths",
+          "tests_staff": "Tests"
+        },
+        "table_value": {
+          "yes": "Yes",
+          "no": "No",
+          "none": "None",
+          "none_alt": "not reported",
+          "statewide": "Statewide",
+          "statewide_alt": "reported statewide",
+          "facility_level": "Facility-level",
+          "facility_level_alt": "reported at the facility level"
         },
         "notes": {
           "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor metus sed mattis ac massa sit ut cras. Interdum donec scelerisque nam tristique purus morbi. "

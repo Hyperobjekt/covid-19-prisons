@@ -10,6 +10,9 @@ import GoodIcon from "../../../../content/assets/score-good.svg"
 import { sansSerifyTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
+  title: {
+    fontSize: theme.typography.pxToRem(26),
+  },
   score: {
     margin: theme.spacing(2, 0),
     "& $scoreTitle, & $scoreGrade": {
@@ -20,7 +23,7 @@ const styles = (theme) => ({
   },
   scoreTitle: {
     lineHeight: 1,
-    fontSize: theme.typography.pxToRem(15),
+    fontSize: theme.typography.pxToRem(13),
     paddingRight: theme.spacing(1),
   },
   scoreGrade: {
@@ -30,9 +33,11 @@ const styles = (theme) => ({
   },
   body: {
     marginTop: theme.spacing(2),
+    fontSize: theme.typography.pxToRem(14),
   },
   sectionTitle: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    fontSize: theme.typography.pxToRem(23),
   },
   residentSection: {},
   staffSection: {},
@@ -55,22 +60,27 @@ const styles = (theme) => ({
     },
   },
   table: {
-    "& .MuiTableCell-body": {
-      border: "none",
+    "& .MuiTableCell-root": {
+      padding: theme.spacing(2, 1, 2, 0),
+      fontSize: theme.typography.pxToRem(13),
+      background: "unset !important",
+      "&.MuiTableCell-body": {
+        border: "none",
+      },
     },
   },
 })
 
-const getQualityValue = (value) => {
-  let alt = "no"
+const getQualityValue = (value, lang) => {
+  let alt = lang.table_value.no
   let icon = BadIcon
-  let text = "No"
+  let text = lang.table_value.no
 
   const val = value && value.toLowerCase()
   if (val === "yes") {
-    alt = "yes"
+    alt = lang.table_value.yes
     icon = GoodIcon
-    text = "Yes"
+    text = lang.table_value.yes
   }
   return (
     <>
@@ -80,20 +90,20 @@ const getQualityValue = (value) => {
   )
 }
 
-const getReportingValue = (value) => {
-  let alt = "not reported"
+const getReportingValue = (value, lang) => {
+  let alt = lang.table_value.none_alt
   let icon = BadIcon
-  let text = "None"
+  let text = lang.table_value.none
 
   const val = value && value.toLowerCase()
   if (val === "facility-level") {
-    alt = "reported at the facility level"
+    alt = lang.table_value.facility_level_alt
     icon = GoodIcon
-    text = "Facility-level"
+    text = lang.table_value.facility_level
   } else if (val === "statewide") {
-    alt = "reported statewide"
+    alt = lang.table_value.statewide_alt
     icon = OkayIcon
-    text = "Statewide"
+    text = lang.table_value.statewide
   }
   return (
     <>
@@ -134,14 +144,16 @@ const ScorecardSection = ({
 }) => {
   const columns = React.useMemo(() => {
     return columnMeta.map((c) => ({
-      Header: lang.table[c.id],
+      Header: lang.table_header[c.id],
       accessor: c.id,
       disableSortBy: true,
       Cell: (prop) => (
-        <span className={classes.cellValue}>{getDisplayValue(prop.value)}</span>
+        <span className={classes.cellValue}>
+          {getDisplayValue(prop.value, lang)}
+        </span>
       ),
       style: {
-        minWidth: 140,
+        minWidth: 116,
         width: `${100 / columnMeta.length}%`,
       },
     }))
@@ -173,7 +185,9 @@ const Scorecard = ({ classes, data, lang, ...props }) => {
     <StepWrapper>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={3}>
-          <Typography variant="h3">{lang.title}</Typography>
+          <Typography variant="h3" className={classes.title}>
+            {lang.title}
+          </Typography>
           <Typography variant="body1" className={classes.score}>
             <p className={classes.scoreTitle}>
               Data
@@ -195,7 +209,7 @@ const Scorecard = ({ classes, data, lang, ...props }) => {
             lang={lang}
             columnMeta={resReportingColumns}
             data={scorecardData}
-            title="Resident reporting quality"
+            title={lang.section.resident_reporting}
             getDisplayValue={getReportingValue}
           />
           <ScorecardSection
@@ -204,7 +218,7 @@ const Scorecard = ({ classes, data, lang, ...props }) => {
             lang={lang}
             columnMeta={staffReportingColumns}
             data={scorecardData}
-            title="Staff reporting quality"
+            title={lang.section.staff_reporting}
             getDisplayValue={getReportingValue}
           />
           <ScorecardSection
@@ -213,7 +227,7 @@ const Scorecard = ({ classes, data, lang, ...props }) => {
             lang={lang}
             columnMeta={qualityColumns}
             data={scorecardData}
-            title="Data quality"
+            title={lang.section.data_quality}
             getDisplayValue={getQualityValue}
           />
         </Grid>
