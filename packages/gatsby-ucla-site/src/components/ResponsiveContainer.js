@@ -1,13 +1,15 @@
 import React from "react"
-import { Container, useMediaQuery, useTheme } from "@material-ui/core"
+import { Container, withStyles } from "@material-ui/core"
 
-const ResponsiveContainer = (props) => {
-  const theme = useTheme()
-  const bumpWidth = theme.breakpoints.values["lg"]
-  const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`)
-  // fix 154: only set max-width for lg breakpoint (1280px)
-  const maxWidth = isLarge ? "lg" : null
-  return <Container maxWidth={maxWidth} {...props} />
+const styles = (theme) => ({
+  root: {
+    // fix 154: only set max-width for xxl
+    maxWidth: 1400,
+  },
+})
+
+const ResponsiveContainer = ({ classes, ...props }) => {
+  return <Container classes={classes} {...props} />
 }
 
-export default ResponsiveContainer
+export default withStyles(styles)(ResponsiveContainer)
