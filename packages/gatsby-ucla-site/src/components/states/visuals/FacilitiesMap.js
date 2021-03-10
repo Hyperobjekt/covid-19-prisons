@@ -21,7 +21,7 @@ const styles = (theme) => ({
       flexDirection: "row",
       position: "absolute",
       bottom: theme.spacing(3),
-      left: 0,
+      left: theme.spacing(1),
       right: 0,
     },
   },

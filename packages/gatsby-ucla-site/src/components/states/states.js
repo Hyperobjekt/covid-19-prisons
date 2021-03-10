@@ -55,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       height: `calc(100vh - ${theme.layout.headerHeight} - 6rem)`,
       width: `calc(100% - 26.25rem)`,
-      margin: 0,
+      // shift up so legend doesn't start off screen
+      margin: theme.spacing(-2, 0, 0, 0),
     },
     // make some space for the legend
     "& .rsm-svg": {
