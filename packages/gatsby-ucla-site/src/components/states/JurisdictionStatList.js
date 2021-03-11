@@ -97,7 +97,7 @@ const JurisdictionStatList = ({
         align="flex-start"
         spacing={2}
       >
-        <Typography className={classes.jurisdictionLabel}>{" "}</Typography>
+        <Typography className={classes.jurisdictionLabel}> </Typography>
         <Typography className={classes.tableHeader} variant="body2">
           {getLang(baseMetric, "label")}
         </Typography>
@@ -147,9 +147,7 @@ const JurisdictionStatList = ({
               className={clsx(classes.stat, classes.scoreColumn)}
               type="body1"
             >
-              <Link offset={800} to="#scorecard">
-                {jurisdiction === "state" && score}
-              </Link>
+              <Link to="#scorecard">{jurisdiction === "state" && score}</Link>
             </Typography>
           )}
         </Stack>
