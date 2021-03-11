@@ -22,7 +22,7 @@ const useSelectStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(3),
     "&:before": { display: "none" },
     "& $select": {
-      fontSize: theme.typography.pxToRem(13),
+      fontSize: theme.typography.pxToRem(16),
     },
     "& .MuiNativeSelect-icon": {
       top: `calc(50% - 10px)`,
