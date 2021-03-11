@@ -25,6 +25,13 @@ const styles = (theme) => ({
   },
 })
 
+const percentageSort = (a, b) => {
+  if (!a.original.proportion) return -1
+  if (!b.original.proportion) return 1
+
+  return a.original.proportion > b.original.proportion ? 1 : -1
+}
+
 const ReleasesTable = ({
   classes,
   data,
@@ -37,7 +44,7 @@ const ReleasesTable = ({
         Header: lang.table.jurisdiction,
         accessor: "jurisdiction",
         Cell: (prop) => prop.value,
-        style: { minWidth: "50%" },
+        // style: { minWidth: "50%" },
       },
       {
         Header: lang.table.facility,
@@ -81,6 +88,7 @@ const ReleasesTable = ({
         style: {
           textAlign: "right",
         },
+        sortType: percentageSort,
       },
       {
         Header: lang.table.capacity,
@@ -102,11 +110,7 @@ const ReleasesTable = ({
           if (!value) return " "
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
           return (
-            <a
-              title={value}
-              href={value}
-              target="__blank"
-            >
+            <a title={value} href={value} target="__blank">
               <LinkIcon />
             </a>
           )
