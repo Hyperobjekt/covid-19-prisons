@@ -8,6 +8,7 @@ import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
 import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { Link } from "gatsby-theme-material-ui"
 
 const styles = (theme) => ({
   root: {
@@ -46,10 +47,12 @@ const styles = (theme) => ({
   scoreColumn: {
     flexBasis: "3em",
     flexGrow: 0,
-    "&$stat": {
+    "&$stat a": {
       fontWeight: 700,
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(16),
+      color: `${theme.palette.text.primary} !important`,
+      textDecorationColor: theme.palette.secondary.main,
     },
   },
 })
@@ -144,7 +147,9 @@ const JurisdictionStatList = ({
               className={clsx(classes.stat, classes.scoreColumn)}
               type="body1"
             >
-              {jurisdiction === "state" && score}
+              <Link offset={800} to="#scorecard">
+                {jurisdiction === "state" && score}
+              </Link>
             </Typography>
           )}
         </Stack>
