@@ -1,0 +1,51 @@
+---
+title: "Missing the Mark: Introducing our Carceral Agency Scorecard"
+path: blog/scorecard
+featured: false
+author: Poornima Rajeshwar, Erika Tyagi, and Liz DeWolf
+date: 2021-03-12T15:55:46.579Z
+description: jkljk
+isBlogPost: true
+template: blog
+---
+The UCLA Law COVID-19 Behind Bars Data Project has been tracking the coronavirus pandemic in prisons, jails, and other detention facilities across the country since March 2020. Several times per week, our team of data scientists systematically collects self-reported data on the number of COVID-19 cases, deaths, and tests performed (among other variables) from 50 state correctional agencies, the District of Columbia, the Federal Bureau of Prisons, U.S. Immigration and Customs Enforcement, and several county jail systems.
+
+Our data come directly from official agency websites, but the quality of these dashboards and the frequency with which they are updated are widely variable. Carceral agencies have long been opaque. They resist basic transparency, and federal and state reporting mandates — to the extent they exist — are poorly enforced. Data is hard to access, infrequently collected, and released only after long delays. Unfortunately, [these patterns have continued](https://uclacovidbehindbars.org/blog/data-reporting) during the pandemic.
+
+Inconsistencies in data reporting practices across agencies — including what variables are reported and how — make our efforts to collect and standardize COVID-19 data in the carceral context extremely challenging. Yet there is an urgent national need for the data we seek. Carceral facilities are [hotspots for viral spread](https://jamanetwork.com/journals/jama/fullarticle/2768249) and people living inside are among the most vulnerable to infection and death. Tracking the virus in prisons, jails, and detention centers across the country is necessary to inform critical public health interventions like [decarceration and vaccination](https://www.nejm.org/doi/full/10.1056/NEJMp2100609). 
+
+Some of these inconsistencies produce gaps in our data. Certain agencies simply do not report key variables, such as cumulative COVID-19 cases or deaths. Others fail to report data on a regular basis. 
+
+Agencies also report data in formats that are hard to access or analyze. In some instances, they post updates in images or PDFs that are difficult for our web scrapers to process. As a result, we are sometimes forced to resort to painstaking manual data collection. In other cases, agencies do not clearly define the variables they report, and we have to make educated guesses as to how to interpret the data. In several instances, agencies have unaccountably altered the form in which the data is posted, necessitating the building of new scrapers in short order. 
+
+To demonstrate these inconsistencies in data reporting and quality, we have created a scorecard to assess each of the 53 major state and federal agencies according to a number of metrics related to what COVID-19 data they report (our data reporting metrics) and how they report this data (our data quality metrics). 
+
+Importantly, the scores we have assigned each agency do not reflect our judgment on how each has managed and responded to COVID-19 outbreaks, nor on how reliably we believe the reported data correspond to true facts on the ground. They reflect only our judgments on how comprehensive the data they report are and on how efficiently they report those data. 
+
+We assigned our first round of scores on March 17, 2021, and plan to update the scorecard on a monthly basis.
+
+##### **Scorecard Metrics**
+
+**Data Reporting**
+
+Our metrics for data reporting are tied to the eight key variables we aim to collect from each jurisdiction. Out of these, five relate to incarcerated people and three concern correctional staff. No agency, with the exception of West Virginia Division of Corrections and Rehabilitation, reports all eight. [We have previously outlined](https://uclacovidbehindbars.org/blog/data-reporting) why, at a minimum, all correctional agencies should report COVID-19 cases, deaths, and tests for incarcerated people and staff, and also explained why the reporting of real-time facility-level population data is essential. Knowing how many people are incarcerated at each facility is critical to put total cases, deaths, and tests in context. 
+
+To assign scores for data reporting, we first assessed whether an agency reports each variable at all, and then whether it reports the variable in statewide aggregates or at the facility level. The scores allocated to these variables ranged from 0-2: 0 points if the variable is not reported, 1 point if the agency only reports statewide aggregates, and 2 points if the agency provides facility-level data for that variable. 
+
+\[table 1]
+
+A note on vaccine data: An important variable that we did not include in our scorecard, [but which we do collect where reported](https://uclacovidbehindbars.org/blog/vaccine-dashboard-data), is the number of incarcerated people and staff who have been vaccinated. A number of jurisdictions have not yet initiated vaccinations in their facilities, and we have therefore decided to delay assessing agencies for this metric until a critical mass of departments initiate vaccination. 
+
+**Data Quality**
+
+The data quality section of the scorecard consists of four metrics related to the manner in which agencies report the eight variables mentioned above. We assessed agencies on whether or not they clearly define the variables they report, whether they report data on a regular basis (i.e., at least weekly), whether they display any historical trends with their data, and whether their data are presented in a format that can be easily read by computer software. Although machine-readability may only be important to a particular set of data users, it is a critical feature of functional dashboards that enable researchers to collect and compare data efficiently. 
+
+Each data quality metric was assessed on a binary metric: 2 points were awarded for ‘Yes’ and 0 points for ‘No’. We awarded 2 points for ‘Yes’ rather than 1 so that the data quality metrics were weighted equally to the data reporting metrics.
+
+**\[table 2]**
+
+There are several nuanced problems with data quality that were not captured by the above metrics. For example, we recently observed [unexplained fluctuations](https://www.post-gazette.com/news/crime-courts/2021/02/01/pennsylvania-corrections-prisons-significant-flaws-coronavirus-data-health-prisoners-tests/stories/202102010067) in the total number of COVID-19 tests and deaths reported by the Pennsylvania Department of Corrections. In response to inquiries about the inconsistencies, the agency took its dashboard offline in late January to make adjustments and has not yet reinstated it. The PA DOC lost points for the data it is currently missing, but we did not alter grades for changes in reporting. 
+
+A different but related issue exists with the data reported by the correctional departments in Florida, Arkansas, and Wyoming — over the course of the pandemic, the agencies have gradually and inexplicably reduced the granularity of data included on their dashboards, becoming less transparent over time. Again, the DOCs lost points on our scorecard for not reporting key variables, but we did not alter grades for changes in transparency.
+
+Where such issues exist, raising specific concerns about data transparency, we have noted and briefly explained each issue that we have observed on each state’s page. While not comprehensive, these notes provide important context about agencies’ reporting practices.
