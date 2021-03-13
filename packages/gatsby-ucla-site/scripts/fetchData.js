@@ -53,6 +53,7 @@ const scorecardMap = {
   machine: ["machine", "string", exactMatch],
   regularly: ["regularly", "string", exactMatch],
   defined: ["defined", "string", exactMatch],
+  history: ["history", "string", exactMatch],
   cases_residents: ["cases_residents", "string", exactMatch],
   deaths_residents: ["deaths_residents", "string", exactMatch],
   active_residents: ["active_residents", "string", exactMatch],

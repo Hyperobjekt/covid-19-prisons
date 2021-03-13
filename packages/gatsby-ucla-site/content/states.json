@@ -65,9 +65,16 @@
       "id": "scorecard",
       "fullWidth": true,
       "lang": {
-        "title": "Scorecard",
+        "title": "Data Reporting & Quality Scorecard",
         "link": "Scorecard",
-        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor metus sed mattis ac massa sit ut cras. Interdum donec scelerisque nam tristique purus morbi.",
+        "description": {
+          "text": "This scorecard assesses data reporting and quality for the state department of corrections in ${state}. ${link} to read more about our scoring methodology and to see how this jurisdiction compares to other state and federal systems.",
+          "link_text": "Click here",
+          "link_url": "https://uclacovidbehindbars.org/blog/BLOG-POST"
+        },
+        "score_title": ["Data Reporting", "& Quality Grade"],
+        "date_explainer": "Scores assessed as of ${date}. Scores will be reevaluated on a quarterly basis.",
+        "asterisk_explainer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed massa imperdiet ac, magna tortor sapien, velit.",
         "section": {
           "resident_reporting": "Data reporting for incarcerated people",
           "staff_reporting": "Data reporting for staff",
@@ -77,6 +84,7 @@
           "machine": "Machine Readable",
           "regularly": "Regularly Updated",
           "defined": "Clearly Defined",
+          "history": "Contextualized Historically",
           "cases_residents": "Cumulative Cases",
           "deaths_residents": "Cumulative Deaths",
           "active_residents": "Active Cases",
@@ -91,13 +99,10 @@
           "no": "No",
           "none": "None",
           "none_alt": "not reported",
-          "statewide": "Statewide",
-          "statewide_alt": "reported statewide",
-          "facility_level": "Facility-level",
+          "statewide": "Systemwide only",
+          "statewide_alt": "reported systemwide",
+          "facility_level": "By facility",
           "facility_level_alt": "reported at the facility level"
-        },
-        "notes": {
-          "lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tortor metus sed mattis ac massa sit ut cras. Interdum donec scelerisque nam tristique purus morbi. "
         }
       }
     },

@@ -149,7 +149,7 @@ const StateTemplate = ({ pageContext, data }) => {
   if (!scorecardData) {
     content.sections = content.sections.filter((s) => s.id !== "scorecard")
   }
-  
+
   // set the state name in the store
   setStateName(state)
   // set the data in the store
@@ -172,7 +172,7 @@ const StateTemplate = ({ pageContext, data }) => {
 
   const scrollSections = content.sections.filter((s) => !s.fullWidth)
   const fullWidthSections = content.sections.filter((s) => s.fullWidth)
-  
+
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
@@ -216,10 +216,7 @@ const StateTemplate = ({ pageContext, data }) => {
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
-                    <Component
-                      data={data}
-                      {...section}
-                    />
+                    <Component data={data} state={state} {...section} />
                   </div>
                 </Step>
               )
@@ -280,6 +277,7 @@ export const query = graphql`
           score
           machine
           regularly
+          history
           defined
           cases_residents
           deaths_residents
@@ -353,9 +351,9 @@ export const query = graphql`
   }
 `
 
-/* 
+/*
  * Unused sections
- 
+
   allImmigrationCases(filter: { state: { eq: $state } }) {
     edges {
       node {
