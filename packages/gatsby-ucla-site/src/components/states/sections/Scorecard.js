@@ -21,27 +21,24 @@ const styles = (theme) => ({
     },
   },
   score: {
-    margin: theme.spacing(2, 0),
     "& $scoreTitle, & $scoreGrade": {
       ...sansSerifyTypography,
       display: "inline-block",
-      margin: 0,
-    },
-
-    [theme.breakpoints.up("lg")]: {
-      margin: theme.spacing(4, 0),
-      "& $scoreTitle, & $scoreGrade": {
-        paddingTop: theme.spacing(4),
-      },
     },
   },
   scoreTitle: {
-    paddingTop: theme.spacing(2),
-    borderTop: "2px dotted #92926C",
     lineHeight: 1,
     fontSize: theme.typography.pxToRem(13),
+    paddingTop: theme.spacing(2),
+    borderTop: "2px dotted #92926C",
+    margin: theme.spacing(2, 0),
+    [theme.breakpoints.up("lg")]: {
+      margin: theme.spacing(3, 0),
+      paddingTop: theme.spacing(3),
+    },
   },
   scoreGrade: {
+    margin: 0,
     color: theme.palette.secondary.main,
     fontWeight: 600,
     fontSize: theme.typography.pxToRem(32),
@@ -57,7 +54,6 @@ const styles = (theme) => ({
     display: "inline-block",
   },
   body: {
-    marginTop: theme.spacing(2),
     fontSize: theme.typography.pxToRem(14),
   },
   dateExplainer: {
@@ -66,10 +62,13 @@ const styles = (theme) => ({
   },
   asteriskExplainer: {
     marginTop: theme.spacing(2),
-    fontSize: theme.typography.pxToRem(11),
     display: "flex",
+    "& p": {
+      fontSize: theme.typography.pxToRem(11),
+    },
     "& $asterisk": {
       marginRight: theme.spacing(1),
+      transform: "translateY(-.25rem)",
     },
   },
   sectionTitle: {
@@ -223,7 +222,6 @@ const Scorecard = ({ classes, data, state, lang, ...props }) => {
   const date = "LAST_UPDATED"
 
   const asteriskText = lang.asterisk_notes[state.toLowerCase()]
-
   const asterisk = <span className={classes.asterisk}>*</span>
 
   return (
@@ -251,9 +249,13 @@ const Scorecard = ({ classes, data, state, lang, ...props }) => {
               __html: lang.description.replace("${state}", state),
             }}
           />
-          <Typography variant="body2" className={classes.dateExplainer}>
-            {lang.date_explainer.replace("${date}", date)}
-          </Typography>
+          <Typography
+            variant="body2"
+            className={classes.dateExplainer}
+            dangerouslySetInnerHTML={{
+              __html: lang.date_explainer.replace("${date}", date),
+            }}
+          />
           {asteriskText && (
             <span className={classes.asteriskExplainer}>
               {asterisk}
