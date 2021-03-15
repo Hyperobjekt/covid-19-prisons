@@ -2,8 +2,6 @@ import React from "react"
 import clsx from "clsx"
 import { Table } from "../../table"
 import { Grid, Typography, withStyles } from "@material-ui/core"
-import { Link } from "gatsby-theme-material-ui"
-import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
 import BadIcon from "../../../../content/assets/score-bad.svg"
 import OkayIcon from "../../../../content/assets/score-okay.svg"
@@ -55,7 +53,7 @@ const styles = (theme) => ({
   asterisk: {
     fontWeight: 400,
     color: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(20),
+    fontSize: theme.typography.pxToRem(22),
     display: "inline-block",
   },
   body: {
@@ -223,17 +221,11 @@ const Scorecard = ({ classes, data, state, lang, ...props }) => {
 
   // TODO
   const date = "LAST_UPDATED"
-  const asterisked = true
+
+  const asteriskText = lang.asterisk_notes[state.toLowerCase()]
 
   const asterisk = <span className={classes.asterisk}>*</span>
 
-  const { link_text, link_url, text: description } = lang.description
-  const blogLink = <Link to={link_url}>{link_text}</Link>
-  const descriptionArray = description
-    
-    .replace("${state}", state)
-    
-    .split("${link}")
   return (
     <StepWrapper>
       <Grid container spacing={3}>
@@ -249,22 +241,29 @@ const Scorecard = ({ classes, data, state, lang, ...props }) => {
             </p>
             <p className={classes.scoreGrade}>
               {scorecardData.score}
-              {asterisked && asterisk}
+              {asteriskText && asterisk}
             </p>
           </Typography>
-          <Typography variant="body1" className={classes.body}>
-            {descriptionArray[0]}
-            {blogLink}
-            {descriptionArray[1]}
-          </Typography>
+          <Typography
+            variant="body1"
+            className={classes.body}
+            dangerouslySetInnerHTML={{
+              __html: lang.description.replace("${state}", state),
+            }}
+          />
           <Typography variant="body2" className={classes.dateExplainer}>
             {lang.date_explainer.replace("${date}", date)}
           </Typography>
-          {asterisked && (
-            <Typography variant="body2" className={classes.asteriskExplainer}>
+          {asteriskText && (
+            <span className={classes.asteriskExplainer}>
               {asterisk}
-              <span>{lang.asterisk_explainer}</span>
-            </Typography>
+              <Typography
+                variant="body2"
+                dangerouslySetInnerHTML={{
+                  __html: asteriskText,
+                }}
+              />
+            </span>
           )}
         </Grid>
         <Grid item xs={12} lg={9} className={classes.scorecardSections}>

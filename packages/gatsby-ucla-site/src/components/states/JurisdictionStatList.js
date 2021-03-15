@@ -49,6 +49,7 @@ const styles = (theme) => ({
   scoreColumn: {
     flexBasis: "3em",
     flexGrow: 0,
+    marginLeft: 0,
     "&$stat a": {
       display: "flex",
       fontWeight: 700,
@@ -58,7 +59,9 @@ const styles = (theme) => ({
       textDecorationColor: theme.palette.secondary.main,
 
       "& .MuiSvgIcon-root": {
-        fontSize: theme.typography.pxToRem(20),
+        fontSize: theme.typography.pxToRem(16),
+        marginTop: "auto",
+        marginBottom: "auto",
       },
     },
   },
