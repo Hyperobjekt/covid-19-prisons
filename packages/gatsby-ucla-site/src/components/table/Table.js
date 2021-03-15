@@ -24,20 +24,20 @@ import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
   table: {
+    // at wide enough screen, allow sticky header
+    // [theme.breakpoints.up("lg")]: {
+    //   overflow: "visible",
+    //   "& .MuiTableCell-head": {
+    //     background: theme.palette.background.default,
+    //     zIndex: 1,
+    //     position: "sticky !important",
+    //     top: `calc(2*${theme.layout.headerHeight} - .5rem)`,
+    //     [theme.breakpoints.up("lg")]: {
+    //       top: `calc(2*${theme.layout.headerHeight} - 1rem)`,
+    //     },
+    //   },
+    // },
 
-    [theme.breakpoints.up("md")]: {
-      overflow: "visible",
-      "& .MuiTableCell-head": {
-        background: theme.palette.background.default,
-        zIndex: 1,
-        position: "sticky !important",
-        top: `calc(2*${theme.layout.headerHeight} - .5rem)`,
-        [theme.breakpoints.up("lg")]: {
-          top: `calc(2*${theme.layout.headerHeight} - 1rem)`,
-        },
-      },
-    },
-    
     "& .MuiTableCell-root": {
       ...sansSerifyTypography,
     },
