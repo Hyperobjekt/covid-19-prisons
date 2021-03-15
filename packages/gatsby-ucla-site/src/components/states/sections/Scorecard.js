@@ -108,7 +108,7 @@ const styles = (theme) => ({
   },
 })
 
-const getQualityValue = (value, lang) => {
+const getQualityValue = React.useCallback((value, lang) => {
   let alt = lang.table_value.no
   let icon = BadIcon
   let text = lang.table_value.no
@@ -125,9 +125,9 @@ const getQualityValue = (value, lang) => {
       <p>{text}</p>
     </>
   )
-}
+}, [])
 
-const getReportingValue = (value, lang) => {
+const getReportingValue = React.useCallback((value, lang) => {
   let alt = lang.table_value.none_alt
   let icon = BadIcon
   let text = lang.table_value.none
@@ -148,7 +148,7 @@ const getReportingValue = (value, lang) => {
       <p>{text}</p>
     </>
   )
-}
+}, [])
 
 const qualityColumns = [
   { id: "machine" },
@@ -196,7 +196,7 @@ const ScorecardSection = ({
         width: `${100 / columnMeta.length}%`,
       },
     }))
-  })
+  }, [getDisplayValue, classes, columnMeta, lang])
 
   return (
     <div className={clsx(className, classes.section)}>
@@ -232,28 +232,32 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             {lang.title}
           </Typography>
           <Typography variant="body1" className={classes.score}>
-            <p className={classes.scoreTitle}>
+            <span className={classes.scoreTitle}>
               {lang.score_title[0]}
               <br />
               {lang.score_title[1]}
-            </p>
-            <p className={classes.scoreGrade}>
+            </span>
+            <span className={classes.scoreGrade}>
               {scorecardData.score}
               {asteriskText && asterisk}
-            </p>
+            </span>
           </Typography>
           <Typography
             variant="body1"
             className={classes.body}
             dangerouslySetInnerHTML={{
+                /* eslint-disable no-template-curly-in-string */
               __html: lang.description.replace("${state}", state),
+                /* eslint-enable no-template-curly-in-string */
             }}
           />
           <Typography
             variant="body2"
             className={classes.dateExplainer}
             dangerouslySetInnerHTML={{
-              __html: lang.date_explainer.replace("${date}", date),
+              /* eslint-disable no-template-curly-in-string */
+              __html: lang.date_note.replace("${date}", date),
+              /* eslint-enable no-template-curly-in-string */
             }}
           />
           {asteriskText && (

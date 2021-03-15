@@ -46,13 +46,12 @@
     },
     {
       "id": "scorecard",
-      "fullWidth": true,
       "lang": {
         "title": "Data Reporting & Quality Scorecard",
         "link": "Scorecard",
         "description": "This scorecard assesses data reporting and quality for the Federal Bureau of Prisons. <a href='https://uclacovidbehindbars.org/blog/BLOG-POST'>Click here</a> to read more about our scoring methodology and to see how this jurisdiction compares to other state and federal systems.",
         "score_title": ["Data Reporting", "& Quality Grade"],
-        "date_explainer": "Scores assessed as of ${date}. Scores will be reevaluated on a monthly basis.",
+        "date_note": "Scores assessed as of ${date}. Scores will be reevaluated on a monthly basis.",
         "asterisk_notes": {
           "federal": ""
         },

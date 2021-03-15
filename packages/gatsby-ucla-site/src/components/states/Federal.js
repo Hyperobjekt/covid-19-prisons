@@ -66,19 +66,15 @@ const useStyles = makeStyles((theme) => ({
     "& .embedded-stats": {
       padding: theme.spacing(3, 2),
     },
-    // allow width for 
+    // break out of maxWidth to give space for full-width layout
     [theme.breakpoints.up("lg")]: {
       "& #scorecard": {
         marginLeft: "-7rem",
         marginRight: "-7rem",
       },
-    }
+    },
   },
 }))
-
-/* eslint-disable no-template-curly-in-string */
-
-/* eslint-enable no-template-curly-in-string */
 
 const SECTION_COMPONENTS = {
   residents: ResidentsSummary,
