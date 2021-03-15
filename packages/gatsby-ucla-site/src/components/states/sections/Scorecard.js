@@ -214,8 +214,8 @@ const ScorecardSection = ({
   )
 }
 
-const Scorecard = ({ classes, data, state, lang, ...props }) => {
-  const scorecardData = data.stateScorecard?.nodes[0]
+const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
+  const scorecardData = data.scorecard?.nodes[0]
   if (!scorecardData) return null
 
   // TODO

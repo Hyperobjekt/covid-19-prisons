@@ -145,7 +145,7 @@ const StateTemplate = ({ pageContext, data }) => {
     ],
     shallow
   )
-  const scorecardData = data.stateScorecard?.nodes[0]
+  const scorecardData = data.scorecard?.nodes[0]
 
   if (!scorecardData) {
     content.sections = content.sections.filter((s) => s.id !== "scorecard")
@@ -272,7 +272,7 @@ export const query = graphql`
         }
       }
     }
-    stateScorecard: allScorecard(filter: { state: { eq: $state } }) {
+    scorecard: allScorecard(filter: { state: { eq: $state } }) {
       nodes {
         score
         machine

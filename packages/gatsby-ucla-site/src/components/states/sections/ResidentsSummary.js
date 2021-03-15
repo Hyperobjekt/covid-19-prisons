@@ -21,7 +21,7 @@ const ResidentsSummary = ({
 }) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)
-  const stateScore = data.stateScorecard?.nodes[0]?.score
+  const stateScore = data.scorecard?.nodes[0]?.score
   const fedScore = data.fedScorecard?.nodes[0]?.score
   const iceScore = data.iceScorecard?.nodes[0]?.score
 
