@@ -21,7 +21,9 @@ const ResidentsSummary = ({
 }) => {
   // data for all facilities in the state
   const all = data.allFacilities.edges.map((d) => d.node)
-  const score = data.allScorecard?.edges[0]?.node?.score
+  const stateScore = data.stateScorecard?.nodes[0]?.score
+  const fedScore = data.fedScorecard?.nodes[0]?.score
+  const iceScore = data.iceScorecard?.nodes[0]?.score
 
   // jurisdiction totals for the state
   const summary = getDataByJurisdiction(all)
@@ -47,7 +49,9 @@ const ResidentsSummary = ({
           metric={metric}
           group="residents"
           groupData={summary["residents"]}
-          score={score}
+          stateScore={stateScore}
+          iceScore={iceScore}
+          fedScore={fedScore}
         />
         {notes.length > 0 && <InfoIcon id="residents" notes={notes}></InfoIcon>}
       </StepWrapper>

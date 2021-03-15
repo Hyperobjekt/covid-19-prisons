@@ -9,6 +9,8 @@ import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
 import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 import { Link } from "gatsby-theme-material-ui"
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward"
+import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 
 const styles = (theme) => ({
   root: {
@@ -48,11 +50,16 @@ const styles = (theme) => ({
     flexBasis: "3em",
     flexGrow: 0,
     "&$stat a": {
+      display: "flex",
       fontWeight: 700,
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(16),
       color: `${theme.palette.text.primary} !important`,
       textDecorationColor: theme.palette.secondary.main,
+
+      "& .MuiSvgIcon-root": {
+        fontSize: theme.typography.pxToRem(20),
+      },
     },
   },
 })
@@ -74,7 +81,9 @@ const JurisdictionStatList = ({
   group,
   groupData,
   isFederal,
-  score,
+  stateScore,
+  fedScore,
+  iceScore,
 }) => {
   const baseMetric = metric.split("_")[0]
   const getGroupData = (jurisdiction, metric, isRate) => {
@@ -88,6 +97,28 @@ const JurisdictionStatList = ({
 
   const isRateSelected = metric.split("_").pop() === "rate"
   const jurisdictions = isFederal ? ["federal"] : SUMMABLE_JURISDICTIONS
+
+  const scoreExists = stateScore || iceScore || fedScore
+  const scoreMap = {
+    state: (
+      <Link to="#scorecard">
+        {stateScore}
+        <ArrowDownwardIcon />
+      </Link>
+    ),
+    immigration: (
+      <Link to="/immigration">
+        {iceScore}
+        <ChevronRightIcon />      
+      </Link>
+    ),
+    federal: (
+      <Link to="/federal">
+        {fedScore}
+        <ChevronRightIcon />
+      </Link>
+    ),
+  }
 
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
@@ -106,7 +137,7 @@ const JurisdictionStatList = ({
             {getLang(baseMetric, "rate")}
           </Typography>
         )}
-        {score && (
+        {scoreExists && (
           <Typography
             className={clsx(classes.tableHeader, classes.scoreColumn)}
             variant="body2"
@@ -142,12 +173,12 @@ const JurisdictionStatList = ({
               format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>
           )}
-          {score && (
+          {scoreExists && (
             <Typography
               className={clsx(classes.stat, classes.scoreColumn)}
               type="body1"
             >
-              <Link to="#scorecard">{jurisdiction === "state" && score}</Link>
+              {scoreMap[jurisdiction]}
             </Typography>
           )}
         </Stack>

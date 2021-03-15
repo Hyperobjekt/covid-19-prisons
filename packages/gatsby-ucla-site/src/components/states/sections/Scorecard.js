@@ -218,7 +218,7 @@ const ScorecardSection = ({
 }
 
 const Scorecard = ({ classes, data, state, lang, ...props }) => {
-  const scorecardData = data.allScorecard?.edges[0]?.node || {}
+  const scorecardData = data.stateScorecard?.nodes[0]
   if (!scorecardData) return null
 
   // TODO

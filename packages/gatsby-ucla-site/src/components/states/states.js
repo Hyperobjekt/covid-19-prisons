@@ -145,7 +145,8 @@ const StateTemplate = ({ pageContext, data }) => {
     ],
     shallow
   )
-  const scorecardData = data.allScorecard?.edges[0]?.node
+  const scorecardData = data.stateScorecard?.nodes[0]
+
   if (!scorecardData) {
     content.sections = content.sections.filter((s) => s.id !== "scorecard")
   }
@@ -271,23 +272,31 @@ export const query = graphql`
         }
       }
     }
-    allScorecard(filter: { state: { eq: $state } }) {
-      edges {
-        node {
-          score
-          machine
-          regularly
-          history
-          defined
-          cases_residents
-          deaths_residents
-          active_residents
-          tests_residents
-          population_residents
-          cases_staff
-          deaths_staff
-          tests_staff
-        }
+    stateScorecard: allScorecard(filter: { state: { eq: $state } }) {
+      nodes {
+        score
+        machine
+        regularly
+        history
+        defined
+        cases_residents
+        deaths_residents
+        active_residents
+        tests_residents
+        population_residents
+        cases_staff
+        deaths_staff
+        tests_staff
+      }
+    }
+    fedScorecard: allScorecard(filter: { state: { eq: "Federal (BOP)" } }) {
+      nodes {
+        score
+      }
+    }
+    iceScorecard: allScorecard(filter: { state: { eq: "Immigration (ICE)" } }) {
+      nodes {
+        score
       }
     }
     allGrassroots(filter: { state: { eq: $state } }) {
