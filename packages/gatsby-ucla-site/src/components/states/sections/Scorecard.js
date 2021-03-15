@@ -27,7 +27,7 @@ const styles = (theme) => ({
     },
   },
   scoreTitle: {
-    lineHeight: 1,
+    lineHeight: 1.2,
     fontSize: theme.typography.pxToRem(13),
     paddingTop: theme.spacing(2),
     borderTop: "2px dotted #92926C",
@@ -80,8 +80,13 @@ const styles = (theme) => ({
   qualitySection: {},
   section: {
     marginBottom: theme.spacing(5),
-    "&$residentSection $table": {
-      maxWidth: MAX_COL_WIDTH * 5,
+    "&$residentSection": {
+      "& $table": {
+        maxWidth: MAX_COL_WIDTH * 5,
+      },
+      [theme.breakpoints.down("md")]: {
+        marginTop: theme.spacing(5),
+      },
     },
     "&$staffSection $table": {
       maxWidth: MAX_COL_WIDTH * 3,
@@ -108,7 +113,7 @@ const styles = (theme) => ({
   },
 })
 
-const getQualityValue = React.useCallback((value, lang) => {
+const getQualityValue = (value, lang) => {
   let alt = lang.table_value.no
   let icon = BadIcon
   let text = lang.table_value.no
@@ -125,9 +130,9 @@ const getQualityValue = React.useCallback((value, lang) => {
       <p>{text}</p>
     </>
   )
-}, [])
+}
 
-const getReportingValue = React.useCallback((value, lang) => {
+const getReportingValue = (value, lang) => {
   let alt = lang.table_value.none_alt
   let icon = BadIcon
   let text = lang.table_value.none
@@ -148,7 +153,7 @@ const getReportingValue = React.useCallback((value, lang) => {
       <p>{text}</p>
     </>
   )
-}, [])
+}
 
 const qualityColumns = [
   { id: "machine" },
@@ -226,7 +231,7 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
 
   return (
     <StepWrapper>
-      <Grid container spacing={3}>
+      <Grid container spacing={0}>
         <Grid item xs={12} lg={3} className={classes.info}>
           <Typography variant="h3" className={classes.title}>
             {lang.title}
@@ -246,9 +251,9 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             variant="body1"
             className={classes.body}
             dangerouslySetInnerHTML={{
-                /* eslint-disable no-template-curly-in-string */
+              /* eslint-disable no-template-curly-in-string */
               __html: lang.description.replace("${state}", state),
-                /* eslint-enable no-template-curly-in-string */
+              /* eslint-enable no-template-curly-in-string */
             }}
           />
           <Typography
@@ -272,7 +277,8 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             </span>
           )}
         </Grid>
-        <Grid item xs={12} lg={9} className={classes.scorecardSections}>
+        <Grid item xs={12} lg={1}></Grid>
+        <Grid item xs={12} lg={8} className={classes.scorecardSections}>
           <ScorecardSection
             className={classes.residentSection}
             classes={classes}
