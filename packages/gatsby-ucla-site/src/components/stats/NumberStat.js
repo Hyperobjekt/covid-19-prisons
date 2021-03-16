@@ -69,8 +69,8 @@ const NumberStat = ({
       </Typography>
       {label && (
         <Typography className={classes.label} variant="body2">
-            {label}
-          </Typography>
+          {label}
+        </Typography>
       )}
       {children}
     </Stack>

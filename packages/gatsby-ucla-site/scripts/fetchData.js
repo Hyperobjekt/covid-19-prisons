@@ -49,6 +49,7 @@ const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcY
 
 const scorecardMap = {
   state: ["state", "string", exactMatch],
+  date: ["date", "string", exactMatch],
   score: ["score", "string", exactMatch],
   machine: ["machine", "string", exactMatch],
   regularly: ["regularly", "string", exactMatch],

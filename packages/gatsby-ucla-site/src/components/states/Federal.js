@@ -233,6 +233,7 @@ export const query = graphql`
     scorecard: allScorecard(filter: { state: { eq: "Federal (BOP)" } }) {
       nodes {
         score
+        date
         machine
         regularly
         history

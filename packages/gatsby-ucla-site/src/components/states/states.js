@@ -281,6 +281,7 @@ export const query = graphql`
     scorecard: allScorecard(filter: { state: { eq: $state } }) {
       nodes {
         score
+        date
         machine
         regularly
         history

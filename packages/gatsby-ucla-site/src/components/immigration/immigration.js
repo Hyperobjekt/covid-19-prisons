@@ -46,6 +46,7 @@ export const query = graphql`
     scorecard: allScorecard(filter: { state: { eq: "Immigration (ICE)" } }) {
       nodes {
         score
+        date
         machine
         regularly
         history

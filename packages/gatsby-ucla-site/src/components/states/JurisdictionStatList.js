@@ -103,12 +103,13 @@ const JurisdictionStatList = ({
 
   const scoreExists = stateScore || iceScore || fedScore
   const scoreMap = {
-    state: (
+    state: stateScore && (
       <Link to="#scorecard">
         {stateScore}
         <ArrowDownwardIcon />
       </Link>
     ),
+    // enable with Immigration page
     // immigration: (
     //   <Link to="/immigration#scorecard">
     //     {iceScore}

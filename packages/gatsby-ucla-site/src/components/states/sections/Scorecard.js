@@ -287,9 +287,6 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
   const scorecardData = data.scorecard?.nodes[0]
   if (!scorecardData) return null
 
-  // TODO
-  const date = "LAST_UPDATED"
-
   const asteriskText = lang.asterisk_notes[state.toLowerCase()]
   const asterisk = <span className={classes.asterisk}>*</span>
 
@@ -325,7 +322,7 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             className={classes.dateExplainer}
             dangerouslySetInnerHTML={{
               /* eslint-disable no-template-curly-in-string */
-              __html: lang.date_note.replace("${date}", date),
+              __html: lang.date_note.replace("${date}", scorecardData.date),
               /* eslint-enable no-template-curly-in-string */
             }}
           />
