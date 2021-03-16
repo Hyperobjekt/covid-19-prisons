@@ -5,6 +5,9 @@ import useStatesStore from "../useStatesStore"
 import NumberStat from "../../stats/NumberStat"
 import shallow from "zustand/shallow"
 
+// COMPONENT OUTDATED.
+// Filings uses inline table stats
+
 const styles = (theme) => ({
   container: {
     maxWidth: "22rem",

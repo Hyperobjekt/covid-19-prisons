@@ -23,10 +23,16 @@ export const styles = (theme) => ({
     fontWeight: 700,
     lineHeight: 1,
   },
+  label: {
+    color: theme.palette.text.secondary,
+    lineHeight: 1.25,
+    marginTop: theme.spacing(0.5),
+  },
   unavailable: {
     "& $number": {
       fontSize: theme.typography.pxToRem(16),
       color: "rgba(0,0,0,0.3)",
+      marginBottom: 4,
     },
   },
 })
@@ -35,6 +41,7 @@ const NumberStat = ({
   classes,
   className,
   value,
+  label,
   format = ",d",
   secondary,
   children,
@@ -60,6 +67,11 @@ const NumberStat = ({
       >
         {isValid ? formatter(value) : getLang("unavailable")}
       </Typography>
+      {label && (
+        <Typography className={classes.label} variant="body2">
+            {label}
+          </Typography>
+      )}
       {children}
     </Stack>
   )
@@ -69,6 +81,7 @@ NumberStat.propTypes = {
   classes: PropTypes.object,
   className: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  label: PropTypes.string,
   secondary: PropTypes.bool,
 }
 

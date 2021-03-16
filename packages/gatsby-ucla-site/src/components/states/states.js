@@ -108,6 +108,11 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingBottom: theme.spacing(4),
   },
+
+  "& .embedded-stats": {
+    background: "red",
+    padding: theme.spacing(3, 2),
+  },
 }))
 
 const SECTION_COMPONENTS = {
@@ -214,10 +219,11 @@ const StateTemplate = ({ pageContext, data }) => {
           >
             {fullWidthSections.map((section, index) => {
               const Component = SECTION_COMPONENTS[section.id]
+              const { fullWidth, ...sectionData } = section
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
-                    <Component data={data} state={state} {...section} />
+                    <Component data={data} state={state} {...sectionData} />
                   </div>
                 </Step>
               )

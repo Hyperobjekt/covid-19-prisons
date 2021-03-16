@@ -170,13 +170,11 @@ const JurisdictionStatList = ({
             className={classes.stat}
             value={getGroupData(jurisdiction, baseMetric)}
             secondary={isRateSelected}
-            label={getLang(baseMetric, "label")}
           ></NumberStat>
           {groupHasRates(group) && (
             <NumberStat
               className={classes.stat}
               value={getGroupData(jurisdiction, baseMetric, true)}
-              label={getLang(baseMetric, "rate")}
               secondary={!isRateSelected}
               format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>

@@ -7,26 +7,21 @@ import StepWrapper from "./../StepWrapper"
 
 const Filings = ({ id, lang, data, isFederal, ...props }) => {
   const content = useStatesStore((state) => state.content, shallow)
-  let federalStat = null
-  if (isFederal) {
-    const filingsData = data.allFilings?.edges[0]?.node
-    const labels = content.sections.find((s) => s.id === "filings").lang.visual
-    federalStat = (
-      <Grid className="embedded-stats" container spacing={4}>
-        {Object.keys(filingsData).map((key) => (
-          <Grid key={key} item xs={6}>
-            <NumberStat value={filingsData[key]} label={labels[key]} />
-          </Grid>
-        ))}
-      </Grid>
-    )
-  }
+
+  const filingsData = data.allFilings?.edges[0]?.node
+  const labels = content.sections.find((s) => s.id === "filings").lang.visual
 
   return (
     <div {...props}>
       <StepWrapper>
         <Typography variant="h3">{lang.title}</Typography>
-        {federalStat}
+        <Grid className="embedded-stats" container spacing={4}>
+          {Object.keys(filingsData).map((key) => (
+            <Grid key={key} item xs={6}>
+              <NumberStat value={filingsData[key]} label={labels[key]} />
+            </Grid>
+          ))}
+        </Grid>
         {lang.body && (
           <Typography
             variant="body1"
