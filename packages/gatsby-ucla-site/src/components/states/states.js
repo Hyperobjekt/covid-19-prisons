@@ -110,7 +110,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   "& .embedded-stats": {
-    background: "red",
     padding: theme.spacing(3, 2),
   },
 }))
