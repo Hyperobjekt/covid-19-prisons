@@ -125,14 +125,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.columnSpacing(1),
     paddingRight: theme.columnSpacing(1),
     marginBottom: theme.spacing(7),
-    "& *": {
-      maxWidth: "700px",
-      marginLeft: "auto",
-      marginRight: "auto",
-      [theme.breakpoints.up("lg")]: {
-        // maxWidth: "900px",
-      },
-    },
+    // "& *": {
+    //   maxWidth: "700px",
+    //   marginLeft: "auto",
+    //   marginRight: "auto",
+    //   [theme.breakpoints.up("lg")]: {
+    //     // maxWidth: "900px",
+    //   },
+    // },
     [theme.breakpoints.up("sm")]: {
       paddingLeft: theme.columnSpacing(2),
       paddingRight: theme.columnSpacing(2),
