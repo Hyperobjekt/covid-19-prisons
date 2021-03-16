@@ -26,7 +26,7 @@ export const styles = (theme) => ({
  */
 const StepWrapper = ({ classes, className, children, ...props }) => {
   return (
-    <Stack className={clsx(classes.root, className)} {...props}>
+    <Stack className={clsx(classes.root, className, "step-wrapper")} {...props}>
       {children}
     </Stack>
   )

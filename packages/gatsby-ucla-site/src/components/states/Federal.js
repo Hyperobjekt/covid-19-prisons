@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   step: {
     display: "flex",
     //minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
-    justifyContent: "center",
     padding: theme.spacing(3, 0),
   },
   first: {
@@ -60,17 +59,25 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     // DEPARTURES FROM STATES PAGES
     marginTop: `calc(${theme.layout.headerHeight} + 24px)`,
-    // to center single column
-    maxWidth: "42rem",
-    margin: "auto",
+
     "& .embedded-stats": {
       padding: theme.spacing(3, 2),
+    },
+
+    // mobile/tablet cards take full width
+    "& .step-wrapper": {
+      width: "100%",
+    },
+    [theme.breakpoints.up("md")]: {
+      "& .step-wrapper": {
+        width: "unset",
+      },
+      maxWidth: "42rem",
     },
     // break out of maxWidth to give space for full-width layout
     [theme.breakpoints.up("lg")]: {
       "& #scorecard": {
-        marginLeft: "-7rem",
-        marginRight: "-7rem",
+        marginRight: "-14rem",
       },
     },
   },

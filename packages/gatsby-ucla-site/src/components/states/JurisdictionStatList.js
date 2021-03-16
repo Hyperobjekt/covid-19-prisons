@@ -109,13 +109,18 @@ const JurisdictionStatList = ({
         <ArrowDownwardIcon />
       </Link>
     ),
-    immigration: (
-      <Link to="/immigration#scorecard">
-        {iceScore}
-        <ChevronRightIcon />      
+    // immigration: (
+    //   <Link to="/immigration#scorecard">
+    //     {iceScore}
+    //     <ChevronRightIcon />
+    //   </Link>
+    // ),
+    federal: isFederal ? (
+      <Link to="#scorecard">
+        {stateScore}
+        <ArrowDownwardIcon />
       </Link>
-    ),
-    federal: (
+    ) : (
       <Link to="/federal#scorecard">
         {fedScore}
         <ChevronRightIcon />
