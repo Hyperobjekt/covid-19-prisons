@@ -1,7 +1,13 @@
 import React from "react"
 import clsx from "clsx"
 import { Table } from "../../table"
-import { Grid, Typography, withStyles } from "@material-ui/core"
+import {
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  withStyles,
+} from "@material-ui/core"
 import StepWrapper from "../StepWrapper"
 import BadIcon from "../../../../content/assets/score-bad.svg"
 import OkayIcon from "../../../../content/assets/score-okay.svg"
@@ -98,17 +104,53 @@ const styles = (theme) => ({
   cellValue: {
     display: "flex",
     "& p": {
-      margin: theme.spacing(0.4, 0, 0, 1),
+      margin: theme.spacing(0.4, 0, 0, 0.2),
+      [theme.breakpoints.up("md")]: {
+        marginLeft: theme.spacing(1),
+      },
+    },
+    "& img": {
+      transform: "scale(.6)",
+      [theme.breakpoints.up("sm")]: {
+        transform: "scale(.8)",
+      },
+      [theme.breakpoints.up("md")]: {
+        transform: "scale(1)",
+      },
     },
   },
   table: {
+    "& .MuiTableBody-root .MuiTableRow-root:hover": {
+      background: "unset !important",
+    },
     "& .MuiTableCell-root": {
       padding: theme.spacing(2, 1, 2, 0),
       fontSize: theme.typography.pxToRem(13),
-      background: "unset !important",
       "&.MuiTableCell-body": {
         border: "none",
       },
+    },
+  },
+  pivotedTable: {
+    fontSize: theme.typography.pxToRem(13),
+    "& th, & td": {
+      paddingBottom: theme.spacing(0.5),
+    },
+    "& th": {
+      textAlign: "start",
+      paddingRight: theme.spacing(1),
+      width: "8rem",
+      [theme.breakpoints.up(420)]: {
+        width: "11rem",
+      },
+    },
+    "& td": {
+      // "& img": {
+      //   transform: "scale(.6)",
+      // },
+      // "& p": {
+      //   marginLeft: ".1rem",
+      // },
     },
   },
 })
@@ -196,25 +238,47 @@ const ScorecardSection = ({
         </span>
       ),
       style: {
-        minWidth: MIN_COL_WIDTH,
+        // minWidth: MIN_COL_WIDTH,
         // maxWidth: MAX_COL_WIDTH,
+        // equal width columns
         width: `${100 / columnMeta.length}%`,
       },
     }))
   }, [getDisplayValue, classes, columnMeta, lang])
+
+  const table = (
+    <Table
+      className={classes.table}
+      columns={columns}
+      data={[data]}
+      disableFilter={true}
+      disableFooter={true}
+    />
+  )
+
+  const pivotedTable = (
+    <table className={classes.pivotedTable}>
+      {columnMeta.map((c) => (
+        <tr>
+          <th>{lang.table_header[c.id]}</th>
+          <td className={classes.cellValue}>
+            {getDisplayValue(data[c.id], lang)}
+          </td>
+        </tr>
+      ))}
+    </table>
+  )
+
+  const theme = useTheme()
+  const bumpWidth = theme.breakpoints.values["sm"]
+  const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`)
 
   return (
     <div className={clsx(className, classes.section)}>
       <Typography className={classes.sectionTitle} variant="h5">
         {title}
       </Typography>
-      <Table
-        className={classes.table}
-        columns={columns}
-        data={[data]}
-        disableFilter={true}
-        disableFooter={true}
-      />
+      {isLarge ? table : pivotedTable}
     </div>
   )
 }
