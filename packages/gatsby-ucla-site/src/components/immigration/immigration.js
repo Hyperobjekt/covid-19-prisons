@@ -1,17 +1,20 @@
 import React from "react"
 import shallow from "zustand/shallow"
 import { graphql } from "gatsby"
-import { Layout } from "gatsby-theme-hyperobjekt-core"
+import { Block, Layout } from "gatsby-theme-hyperobjekt-core"
 import { GeoJsonLayer } from "@hyperobjekt/svg-maps"
 import IceShapes from "../../common/data/full_ice_topo.json"
 import Intro from "../home/HomeIntro"
 import HomeMap from "../home/HomeMap"
 import Table from "../home/HomeTable"
+import { Scorecard } from "../states/sections"
 import MapTooltip from "../home/HomeMapTooltip"
 import { makeStyles } from "@material-ui/core"
 import FacilitiesMapTooltip from "../states/visuals/FacilitiesMapTooltip"
 import { useRegionShapeStyles } from "../maps/styles"
 import { useActiveMetric, useOptionsStore } from "../../common/hooks"
+import sectionContent from "../../../content/immigration.json"
+import ResponsiveContainer from "../ResponsiveContainer"
 
 export const query = graphql`
   query($pathSlug: String!) {
@@ -39,6 +42,24 @@ export const query = graphql`
         }
       }
       body
+    }
+    scorecard: allScorecard(filter: { state: { eq: "Immigration (ICE)" } }) {
+      nodes {
+        score
+        date
+        machine
+        regularly
+        history
+        defined
+        cases_residents
+        deaths_residents
+        active_residents
+        tests_residents
+        population_residents
+        cases_staff
+        deaths_staff
+        tests_staff
+      }
     }
   }
 `
@@ -76,14 +97,14 @@ const useStyles = makeStyles((theme) => ({
 
 const ImmigrationTemplate = ({
   pageContext,
-  data: { mdx },
+  data,
   classes,
   className,
   ...props
 }) => {
-  const content = mdx.frontmatter
+  const content = data.mdx.frontmatter
   const muiClasses = useStyles()
-  
+
   const [iceRegionId, setIceRegionId] = useOptionsStore(
     (state) => [state.iceRegionId, state.setIceRegionId],
     shallow
@@ -155,6 +176,15 @@ const ImmigrationTemplate = ({
         title={content.table.title}
         note={content.table.note}
       />
+      <Block type="fullWidth">
+        <ResponsiveContainer>
+          <Scorecard
+            state="immigration"
+            data={data}
+            lang={sectionContent.scorecard.lang}
+          />
+        </ResponsiveContainer>
+      </Block>
     </Layout>
   )
 }

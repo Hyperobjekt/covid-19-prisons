@@ -3,7 +3,7 @@ import clsx from "clsx"
 import useStatesStore from "./useStatesStore"
 import {
   FacilitiesMap,
-  FilingsVisual,
+  // FilingsVisual,
   // GrassrootsVisual,
   // ImmigrationVisual,
   // ReleasesVisual,
@@ -46,17 +46,17 @@ const Visual = ({ classes, className, ...props }) => {
   const currentStep = useStatesStore((state) => state.currentStep)
   const isMapVisible =
     ["residents", "staff", "facilities"].indexOf(currentStep) > -1
-  const isVisible = (step) => currentStep === step
+  // const isVisible = (step) => currentStep === step
 
   // springs for transitioning opacity
   const mapOpacity = useSpring({
     opacity: isMapVisible ? 1 : 0,
     zIndex: isMapVisible ? 2000 : -1,
   })
-  const filingsOpacity = useSpring({
-    opacity: isVisible("filings") ? 1 : 0,
-    zIndex: isVisible("filings") ? 2000 : -1,
-  })
+  // const filingsOpacity = useSpring({
+  //   opacity: isVisible("filings") ? 1 : 0,
+  //   zIndex: isVisible("filings") ? 2000 : -1,
+  // })
   // const releasesOpacity = useSpring({
   //   opacity: isVisible("releases") ? 1 : 0,
   //   zIndex: isVisible("releases") ? 2000 : -1,
@@ -76,7 +76,7 @@ const Visual = ({ classes, className, ...props }) => {
         className={clsx(classes.visual, classes.mapVisual)}
         style={mapOpacity}
       />
-      <FilingsVisual className={classes.visual} style={filingsOpacity} />
+      {/* <FilingsVisual className={classes.visual} style={filingsOpacity} /> */}
       {/* <ReleasesVisual className={classes.visual} style={releasesOpacity} /> */}
       {/* <ImmigrationVisual
         className={classes.visual}

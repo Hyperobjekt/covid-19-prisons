@@ -17,6 +17,7 @@ import {
   // Grassroots,
   // Immigration,
   // Releases,
+  Scorecard,
   ReleasesTable,
   GrassrootsTable,
   StaffSummary,
@@ -54,7 +55,8 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "auto",
       height: `calc(100vh - ${theme.layout.headerHeight} - 6rem)`,
       width: `calc(100% - 26.25rem)`,
-      margin: 0,
+      // shift up so legend doesn't start off screen
+      margin: theme.spacing(-2, 0, 0, 0),
     },
     // make some space for the legend
     "& .rsm-svg": {
@@ -89,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
-
     position: "relative",
     maxWidth: "26.25rem",
     marginLeft: `auto`,
@@ -100,11 +101,26 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: "3rem",
     },
   },
+  bottomSections: {
+    // cut padding to add some space on small devices
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  },
   fullWidthContent: {
     [theme.breakpoints.down("sm")]: {
       paddingTop: "50vh",
     },
     paddingBottom: theme.spacing(4),
+
+    "& .embedded-stats": {
+      padding: theme.spacing(3, 2),
+    },
+    "& .empty-embedded-stats": {
+      padding: theme.spacing(3, 2),
+      textAlign: "center",
+    },
   },
 }))
 
@@ -116,6 +132,7 @@ const SECTION_COMPONENTS = {
   // releases: Releases,
   // immigration: Immigration,
   // grassroots: Grassroots,
+  scorecard: Scorecard,
   releases: ReleasesTable,
   grassroots: GrassrootsTable,
 }
@@ -142,6 +159,12 @@ const StateTemplate = ({ pageContext, data }) => {
     ],
     shallow
   )
+  const scorecardData = data.scorecard?.nodes[0]
+
+  if (!scorecardData) {
+    content.sections = content.sections.filter((s) => s.id !== "scorecard")
+  }
+
   // set the state name in the store
   setStateName(state)
   // set the data in the store
@@ -164,7 +187,7 @@ const StateTemplate = ({ pageContext, data }) => {
 
   const scrollSections = content.sections.filter((s) => !s.fullWidth)
   const fullWidthSections = content.sections.filter((s) => s.fullWidth)
-  
+
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
@@ -197,7 +220,7 @@ const StateTemplate = ({ pageContext, data }) => {
           </Scrollama>
         </div>
       </ResponsiveContainer>
-      <ResponsiveContainer>
+      <ResponsiveContainer className={classes.bottomSections}>
         <div className={classes.fullWidthContent}>
           <Scrollama
             onStepEnter={handleStepEnter}
@@ -205,13 +228,11 @@ const StateTemplate = ({ pageContext, data }) => {
           >
             {fullWidthSections.map((section, index) => {
               const Component = SECTION_COMPONENTS[section.id]
+              const { fullWidth, ...sectionData } = section
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
-                    <Component
-                      data={data}
-                      {...section}
-                    />
+                    <Component data={data} state={state} {...sectionData} />
                   </div>
                 </Step>
               )
@@ -264,6 +285,34 @@ export const query = graphql`
           granted
           total
         }
+      }
+    }
+    scorecard: allScorecard(filter: { state: { eq: $state } }) {
+      nodes {
+        score
+        date
+        machine
+        regularly
+        history
+        defined
+        cases_residents
+        deaths_residents
+        active_residents
+        tests_residents
+        population_residents
+        cases_staff
+        deaths_staff
+        tests_staff
+      }
+    }
+    fedScorecard: allScorecard(filter: { state: { eq: "Federal (BOP)" } }) {
+      nodes {
+        score
+      }
+    }
+    iceScorecard: allScorecard(filter: { state: { eq: "Immigration (ICE)" } }) {
+      nodes {
+        score
       }
     }
     allGrassroots(filter: { state: { eq: $state } }) {
@@ -327,9 +376,9 @@ export const query = graphql`
   }
 `
 
-/* 
+/*
  * Unused sections
- 
+
   allImmigrationCases(filter: { state: { eq: $state } }) {
     edges {
       node {

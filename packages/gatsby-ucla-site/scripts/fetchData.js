@@ -13,8 +13,13 @@ const {
 } = require(`./parseData.js`)
 const US_STATES = require("../data/us_states.json")
 
-async function getData(url, parser) {
-  return await fetchCsv(url, parser)
+async function getData(url, parser, options  =  {}) {
+  let data = await fetchCsv(url, parser)
+  // remove descriptive rows following the top identifier row
+  if (options.dropRows) {
+    data = data.slice(options.dropRows)
+  }
+  return data
 }
 
 const dataBranch = process.env.DATA_BRANCH || "master"
@@ -34,6 +39,36 @@ exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
 const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`
 
 exports.getVaccines = () => getData(vaccinesCsv, parseVaccine)
+
+/**
+ * SCORECARD
+ * sheet has hidden top row with stable, machine-readable names
+ */
+
+const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=0&format=csv`
+
+const scorecardMap = {
+  state: ["state", "string", exactMatch],
+  date: ["date", "string", exactMatch],
+  score: ["score", "string", exactMatch],
+  machine: ["machine", "string", exactMatch],
+  regularly: ["regularly", "string", exactMatch],
+  defined: ["defined", "string", exactMatch],
+  history: ["history", "string", exactMatch],
+  cases_residents: ["cases_residents", "string", exactMatch],
+  deaths_residents: ["deaths_residents", "string", exactMatch],
+  active_residents: ["active_residents", "string", exactMatch],
+  tests_residents: ["tests_residents", "string", exactMatch],
+  population_residents: ["population_residents", "string", exactMatch],
+  cases_staff: ["cases_staff", "string", exactMatch],
+  deaths_staff: ["deaths_staff", "string", exactMatch],
+  tests_staff: ["tests_staff", "string", exactMatch],
+}
+
+const scorecardParser = (row) => parseMap(row, scorecardMap)
+
+exports.getScorecard = () =>
+  getData(scorecard, scorecardParser, { dropRows: 2 })
 
 /**
  * PRISON / JAIL RELEASES

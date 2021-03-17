@@ -21,10 +21,20 @@ const styles = (theme) => ({
   },
   name: {},
   table: {
-    margin: theme.spacing(0, -3),
-    width: `calc(100% + ${theme.spacing(6)})`,
     "& .MuiTablePagination-input, & .MuiTablePagination-spacer + .MuiTablePagination-caption": {
       display: "none",
+    },
+
+    // take up entire width of "card"
+    margin: theme.spacing(0, -3),
+    width: `calc(100% + ${theme.spacing(6)})`,
+    [theme.breakpoints.up("md")]: {
+      margin: 0,
+      width: "100%",
+      "& tr .MuiTableCell-root:first-child,": {
+        // so left side aligns with other elements
+        paddingLeft: 0,
+      },
     },
   },
 })

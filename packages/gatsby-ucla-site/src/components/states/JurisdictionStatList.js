@@ -7,6 +7,10 @@ import { SUMMABLE_JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
+import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { Link } from "gatsby-theme-material-ui"
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward"
+import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 
 const styles = (theme) => ({
   root: {
@@ -21,6 +25,9 @@ const styles = (theme) => ({
     borderBottom: "1px solid",
     borderBottomColor: theme.palette.divider,
     paddingBottom: theme.spacing(2),
+    "&.first": {
+      marginTop: 0,
+    },
   },
   jurisdictionLabel: {
     width: "5em",
@@ -28,8 +35,41 @@ const styles = (theme) => ({
     marginRight: theme.spacing(3),
     color: theme.palette.text.secondary,
   },
+  tableHeader: {
+    width: "10em",
+    color: theme.palette.text.secondary,
+    margin: 0,
+    padding: theme.spacing(0, 1, 0, 0),
+  },
   stat: {
     width: "10em",
+    marginTop: "auto",
+    marginBottom: "auto",
+  },
+  scoreColumn: {
+    flexBasis: "3em",
+    flexGrow: 0,
+    marginLeft: 0,
+    "&$stat a": {
+      display: "flex",
+      fontWeight: 700,
+      ...sansSerifyTypography,
+      fontSize: theme.typography.pxToRem(16),
+      color: `${theme.palette.text.primary} !important`,
+      textDecorationColor: theme.palette.secondary.main,
+
+      "& .MuiSvgIcon-root": {
+        fontSize: theme.typography.pxToRem(16),
+        marginTop: "auto",
+        marginBottom: "auto",
+      },
+    },
+  },
+  iceScore: {
+    fontWeight: 700,
+    fontSize: theme.typography.pxToRem(16),
+    color: `${theme.palette.text.primary} !important`,
+    ...sansSerifyTypography,
   },
 })
 
@@ -50,6 +90,9 @@ const JurisdictionStatList = ({
   group,
   groupData,
   isFederal,
+  stateScore,
+  fedScore,
+  iceScore,
 }) => {
   const baseMetric = metric.split("_")[0]
   const getGroupData = (jurisdiction, metric, isRate) => {
@@ -64,12 +107,68 @@ const JurisdictionStatList = ({
   const isRateSelected = metric.split("_").pop() === "rate"
   const jurisdictions = isFederal ? ["federal"] : SUMMABLE_JURISDICTIONS
 
+  const scoreExists = stateScore || iceScore || fedScore
+  const scoreMap = {
+    state: stateScore && (
+      <Link to="#scorecard">
+        {stateScore}
+        <ArrowDownwardIcon />
+      </Link>
+    ),
+    immigration: (
+      // enable with Immigration page
+      //   <a href="/immigration#scorecard">
+      //     {iceScore}
+      //     <ChevronRightIcon />
+      //   </a>
+      <span className={classes.iceScore}>
+        {iceScore}
+      </span>
+    ),
+    federal: isFederal ? (
+      <Link to="#scorecard">
+        {stateScore}
+        <ArrowDownwardIcon />
+      </Link>
+    ) : (
+      <Link to="/federal#scorecard">
+        {fedScore}
+        <ChevronRightIcon />
+      </Link>
+    ),
+  }
+
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
-      {jurisdictions.map((jurisdiction) => (
+      <Stack
+        className={classes.tableHeaders}
+        horizontal
+        align="flex-start"
+        spacing={2}
+      >
+        <Typography className={classes.jurisdictionLabel}> </Typography>
+        <Typography className={classes.tableHeader} variant="body2">
+          {getLang(baseMetric, "label")}
+        </Typography>
+        {groupHasRates(group) && (
+          <Typography className={classes.tableHeader} variant="body2">
+            {getLang(baseMetric, "rate")}
+          </Typography>
+        )}
+        {scoreExists && (
+          <Typography
+            className={clsx(classes.tableHeader, classes.scoreColumn)}
+            variant="body2"
+          >
+            {getLang("data_score")}
+          </Typography>
+        )}
+      </Stack>
+
+      {jurisdictions.map((jurisdiction, idx) => (
         <Stack
           key={jurisdiction}
-          className={classes.jurisdictionContainer}
+          className={clsx(classes.jurisdictionContainer, { first: !idx })}
           horizontal
           align="flex-start"
           spacing={2}
@@ -81,16 +180,22 @@ const JurisdictionStatList = ({
             className={classes.stat}
             value={getGroupData(jurisdiction, baseMetric)}
             secondary={isRateSelected}
-            label={getLang(baseMetric, "label")}
           ></NumberStat>
           {groupHasRates(group) && (
             <NumberStat
               className={classes.stat}
               value={getGroupData(jurisdiction, baseMetric, true)}
-              label={getLang(baseMetric, "rate")}
               secondary={!isRateSelected}
               format={(n) => formatMetricValue(n, getKey(baseMetric, "rate"))} // d3Format expects decimal
             ></NumberStat>
+          )}
+          {scoreExists && (
+            <Typography
+              className={clsx(classes.stat, classes.scoreColumn)}
+              type="body1"
+            >
+              {scoreMap[jurisdiction]}
+            </Typography>
           )}
         </Stack>
       ))}
