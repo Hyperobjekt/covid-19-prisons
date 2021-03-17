@@ -1,3 +1,5 @@
+const path = require("path")
+
 const {
   getFacilities,
   getVaccines,
@@ -13,6 +15,17 @@ const {
   getResources,
 } = require(`./scripts/fetchData.js`)
 const { validStatePages, slugify } = require(`./scripts/utils.js`)
+
+/**
+ * Add `src` to resolve path so we can resolve local components
+ */
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, "src"), "node_modules"],
+    },
+  })
+}
 
 /**
  * Creates a data node from the data fetcher
