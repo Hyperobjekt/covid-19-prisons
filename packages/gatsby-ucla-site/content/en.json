@@ -25,7 +25,7 @@
   "map_deaths_rate": "Each spike represents the % of incarcerated people that have died due to COVID-19 in a facility",
   "map_active": "Each spike represents the number incarcerated people that currently have COVID-19 in a facility",
   "map_active_rate": "Each spike represents the % of incarcerated people that currently have COVID-19 in a facility",
-  "map_notes": "<span>This map displays reported COVID-19 cases and related deaths of people incarcerated in carceral facilities across the US. Click on a state to access more data.</span> <br><span>Rates and active cases are not available for all facilities.  <a href='/methods#which-prisons-and-jails-are-reporting-facility-level-data'>Learn why.</a></span>",
+  "map_notes": "<span>This map displays reported COVID-19 cases and related deaths of people incarcerated in carceral facilities across the US. Click on a state to access more data.</span> <br><span>Rates and active cases are not available for all facilities.  <a href='/methods#which-jurisdictions-are-reporting-facility-level-data'>Learn why.</a></span>",
   "map_tested": "Each spike represents the number of incarcerated people that have been tested for COVID-19 within a facility",
   "map_tested_rate": "Each spike represents the % of incarcerated people that have been tested for COVID-19 within a facility",
   "state": "State Facilities",

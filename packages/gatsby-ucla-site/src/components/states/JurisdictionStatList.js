@@ -65,6 +65,12 @@ const styles = (theme) => ({
       },
     },
   },
+  iceScore: {
+    fontWeight: 700,
+    fontSize: theme.typography.pxToRem(16),
+    color: `${theme.palette.text.primary} !important`,
+    ...sansSerifyTypography,
+  },
 })
 
 const getKey = (...args) => args.join("_")
@@ -109,13 +115,16 @@ const JurisdictionStatList = ({
         <ArrowDownwardIcon />
       </Link>
     ),
-    // enable with Immigration page
-    // immigration: (
-    //   <Link to="/immigration#scorecard">
-    //     {iceScore}
-    //     <ChevronRightIcon />
-    //   </Link>
-    // ),
+    immigration: (
+      // enable with Immigration page
+      //   <a href="/immigration#scorecard">
+      //     {iceScore}
+      //     <ChevronRightIcon />
+      //   </a>
+      <span className={classes.iceScore}>
+        {iceScore}
+      </span>
+    ),
     federal: isFederal ? (
       <Link to="#scorecard">
         {stateScore}
