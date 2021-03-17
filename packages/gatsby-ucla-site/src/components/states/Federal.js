@@ -72,13 +72,18 @@ const useStyles = makeStyles((theme) => ({
       "& .step-wrapper": {
         width: "unset",
       },
-      maxWidth: "42rem",
+      maxWidth: "44rem",
     },
     // break out of maxWidth to give space for full-width layout
     [theme.breakpoints.up("lg")]: {
       "& #scorecard": {
         marginRight: "-14rem",
       },
+    },
+    // HACK: filings overrides, need to restyle this page but this is here for now
+    "& .filings": {
+      width: `54rem`,
+      "& .MuiBox-root .MuiBox-root": { marginLeft: `2rem`, transform: "none" },
     },
   },
 }))

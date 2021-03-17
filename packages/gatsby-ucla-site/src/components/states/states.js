@@ -91,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     marginTop: `calc(-100vh + ${theme.layout.headerHeight} + 56px)`,
-
     position: "relative",
     maxWidth: "26.25rem",
     marginLeft: `auto`,
@@ -102,12 +101,19 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: "3rem",
     },
   },
+  bottomSections: {
+    // cut padding to add some space on small devices
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  },
   fullWidthContent: {
     [theme.breakpoints.down("sm")]: {
       paddingTop: "50vh",
     },
     paddingBottom: theme.spacing(4),
-    
+
     "& .embedded-stats": {
       padding: theme.spacing(3, 2),
     },
@@ -214,7 +220,7 @@ const StateTemplate = ({ pageContext, data }) => {
           </Scrollama>
         </div>
       </ResponsiveContainer>
-      <ResponsiveContainer>
+      <ResponsiveContainer className={classes.bottomSections}>
         <div className={classes.fullWidthContent}>
           <Scrollama
             onStepEnter={handleStepEnter}
