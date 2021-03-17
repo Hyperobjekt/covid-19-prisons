@@ -15,13 +15,19 @@ const Filings = ({ id, lang, data, isFederal, ...props }) => {
     <div {...props}>
       <StepWrapper>
         <Typography variant="h3">{lang.title}</Typography>
-        <Grid className="embedded-stats" container spacing={4}>
-          {Object.keys(filingsData).map((key) => (
-            <Grid key={key} item xs={6}>
-              <NumberStat value={filingsData[key]} label={labels[key]} />
-            </Grid>
-          ))}
-        </Grid>
+        {filingsData ? (
+          <Grid className="embedded-stats" container spacing={4}>
+            {Object.keys(filingsData).map((key) => (
+              <Grid key={key} item xs={6}>
+                <NumberStat value={filingsData[key]} label={labels[key]} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Typography className="empty-embedded-stats" variant="body1">
+            {labels.unavailable}
+          </Typography>
+        )}
         {lang.body && (
           <Typography
             variant="body1"

@@ -14,7 +14,7 @@ import OkayIcon from "../../../../content/assets/score-okay.svg"
 import GoodIcon from "../../../../content/assets/score-good.svg"
 import { sansSerifyTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
-const MIN_COL_WIDTH = 116
+// const MIN_COL_WIDTH = 116
 const MAX_COL_WIDTH = 230
 
 const styles = (theme) => ({

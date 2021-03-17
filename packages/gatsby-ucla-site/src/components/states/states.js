@@ -107,10 +107,14 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: "50vh",
     },
     paddingBottom: theme.spacing(4),
-  },
-
-  "& .embedded-stats": {
-    padding: theme.spacing(3, 2),
+    
+    "& .embedded-stats": {
+      padding: theme.spacing(3, 2),
+    },
+    "& .empty-embedded-stats": {
+      padding: theme.spacing(3, 2),
+      textAlign: "center",
+    },
   },
 }))
 
