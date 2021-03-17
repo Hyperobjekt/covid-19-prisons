@@ -1,4 +1,5 @@
 import React from "react"
+import clsx from "clsx"
 import { navigate } from "gatsby"
 import { Table } from "../table"
 import { format } from "d3-format"
@@ -37,7 +38,17 @@ const styles = (theme) => ({
     maxWidth: "32rem",
     margin: theme.spacing(1, 0, 2),
   },
-  table: {},
+  clickable: {},
+  table: {
+    "& tr:hover $clickable": {
+      textDecoration: "underline",
+      textDecorationThickness: "1px",
+      cursor: "pointer",
+      "&:hover": {
+        textDecorationColor: theme.palette.secondary.main,
+      },
+    },
+  },
 })
 
 const intFormatter = format(",d")
@@ -48,6 +59,19 @@ const countFormatter = (value) =>
 const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   // data for table
   const data = useVaccineData()
+
+  const handleRowClick = React.useCallback(
+    ({ jurisdiction, isState, isFederal, isIce }) => {
+      if (jurisdiction && isState) {
+        navigate(`states/${getSlug(jurisdiction)}`)
+      } else if (jurisdiction && isFederal) {
+        navigate(`federal`)
+      } else if (jurisdiction && isIce) {
+        navigate(`immigration`)
+      }
+    },
+    []
+  )
 
   // column configuration for the table
   const columns = React.useMemo(
@@ -61,7 +85,13 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         Cell: (prop) => {
           return (
             <Typography variant="body2" color="textSecondary">
-              <span style={{ marginRight: 8 }}>
+              <span
+                onClick={handleRowClick.bind(this, prop.row.original)}
+                className={clsx({
+                  [classes.clickable]: !prop.row.original.isTotal,
+                })}
+                style={{ marginRight: 8 }}
+              >
                 {prop.row.original.jurisdiction}
               </span>
             </Typography>
@@ -110,17 +140,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
     }),
     []
   )
-
-  const handleRowClick = React.useCallback((row) => {
-    const { jurisdiction, isState, isFederal, isIce } = row.original
-    if (jurisdiction && isState) {
-      navigate(`states/${getSlug(jurisdiction)}`)
-    } else if (jurisdiction && isFederal) {
-      navigate(`federal`)
-    } else if (jurisdiction && isIce) {
-      navigate(`immigration`)
-    }
-  }, [])
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
       <ResponsiveContainer>
@@ -138,7 +157,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
             options={options}
             sortColumn={"jurisdiction"}
             disableFilter={true}
-            onRowClick={handleRowClick}
           />
         </div>
       </ResponsiveContainer>
