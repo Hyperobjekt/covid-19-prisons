@@ -9,12 +9,14 @@ import {
   Facilities,
   Filings,
   Releases,
+  Scorecard,
   StaffSummary,
 } from "./sections"
 import useStatesStore from "./useStatesStore"
 import shallow from "zustand/shallow"
 import SectionNavigation from "../SectionNavigation"
 import ResponsiveContainer from "../ResponsiveContainer"
+import content from "../../../content/federal.json"
 
 const useStyles = makeStyles((theme) => ({
   block: {
@@ -46,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   step: {
     display: "flex",
     //minHeight: `calc(100vh - ${theme.layout.headerHeight})`,
-    justifyContent: "center",
     padding: theme.spacing(3, 0),
   },
   first: {
@@ -58,114 +59,40 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     // DEPARTURES FROM STATES PAGES
     marginTop: `calc(${theme.layout.headerHeight} + 24px)`,
-    // to center single column
-    maxWidth: "42rem",
-    margin: "auto",
+
     "& .embedded-stats": {
       padding: theme.spacing(3, 2),
     },
+
+    // mobile/tablet cards take full width
+    "& .step-wrapper": {
+      width: "100%",
+    },
+    [theme.breakpoints.up("md")]: {
+      "& .step-wrapper": {
+        width: "unset",
+      },
+      maxWidth: "44rem",
+    },
+    // break out of maxWidth to give space for full-width layout
+    [theme.breakpoints.up("lg")]: {
+      "& #scorecard": {
+        marginRight: "-14rem",
+      },
+    },
+    // HACK: filings overrides, need to restyle this page but this is here for now
+    "& .filings": {
+      width: `54rem`,
+      "& .MuiBox-root .MuiBox-root": { marginLeft: `2rem`, transform: "none" },
+    },
   },
 }))
-
-/* eslint-disable no-template-curly-in-string */
-const content = {
-  mapDescription: "Spikes represent the ${metric} in a facility for ${group}",
-  sections: [
-    {
-      id: "residents",
-      lang: {
-        title: "Nationwide ${metric} among incarcerated people",
-        link: "Incarcerated People",
-        notes: {
-          // TODO: prune
-          confirmed:
-            "True case counts are likely higher and may be significantly higher than reported.",
-          confirmed_rate:
-            "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
-          active:
-            "True case counts are likely higher and may be significantly higher than reported.",
-          active_rate:
-            "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
-          deaths:
-            "True mortality counts are likely higher and may be significantly higher than reported.",
-          deaths_rate:
-            "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach. ",
-          tested:
-            "Some agencies report the number of persons tested, while others report the number of tests administered. We record whichever number is available.",
-          tested_rate:
-            "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
-        },
-      },
-    },
-    {
-      id: "staff",
-      lang: {
-        title: "Nationwide ${metric} among staff",
-        link: "Staff",
-        unavailable: "${metric} is not available for staff.",
-        notes: {
-          active:
-            "True case counts are likely higher and may be significantly higher than reported",
-          active_rate:
-            "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
-          confirmed:
-            "True case counts are likely higher and may be significantly higher than reported",
-          confirmed_rate:
-            "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
-          deaths:
-            "True case counts are likely higher and may be significantly higher than reported",
-          deaths_rate:
-            "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
-          tests: "",
-          tests_rate:
-            "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
-        },
-      },
-    },
-    {
-      id: "facilities",
-      lang: {
-        title: "Facilities by ${metric}",
-        link: "Facilities",
-        body: "",
-      },
-    },
-    {
-      id: "filings",
-      lang: {
-        title: "Legal Filings and Court Orders Related to COVID-19",
-        link: "Filings & Court Orders",
-        body:
-          "Our project collaborates with Bronx Defenders, Columbia Law School’s Center for Institutional and Social Change, and Zealous to collect legal documents from around the country related to COVID-19 and incarceration. Together, we then organize and code them into the jointly managed <a href='https://healthisjustice.org/litigation-hub/login' rel='noreferrer' target='_blank'>Health is Justice litigation hub</a> for public defenders, litigators, and other advocates. The majority of the legal documents in the Health is Justice litigation hub are federal court opinions, but we are expanding to state legal filings, declarations, and exhibits.<br /><br />In addition to the Health is Justice litigation hub, our project also manages additional data self-reported by advocates regarding COVID-19-related legal filings involving <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1832796231' rel='noreferrer' target='_blank'>incarcerated youth</a> and <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=22612814' rel='noreferrer' target='_blank'>individuals in immigration detention</a>.<br /><br />In addition to the Health is Justice litigation hub, our project also manages additional data self-reported by advocates regarding COVID-19-related legal filings involving <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1832796231' rel='noreferrer' target='_blank'>incarcerated youth</a> and <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=22612814' rel='noreferrer' target='_blank'>individuals in immigration detention</a>.<br><br>For more COVID-19-related legal filings, please visit the University of Michigan Law School’s <a href='https://clearinghouse.net/results.php?searchSpecialCollection=62'>Civil Rights Litigation Clearinghouse, COVID-19 Special Collection</a>.",
-        visual: {
-          courtCount: "number of courts",
-          granted: "compassionate releases granted",
-          facilityCount: "number of facilities",
-          total: "filings coded by our team",
-          unavailable: "No filings data available.",
-        },
-      },
-    },
-    {
-      id: "releases",
-      lang: {
-        title: "Federal Prison Releases Related to COVID-19",
-        link: "Releases",
-        body:
-          "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic. For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). You can find our full prison releases dataset <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985'>here</a> and jail releases dataset <a href'https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533'>here</a>.<br><br><br>",
-        visual: {
-          prisonCount: "prison release efforts",
-        },
-      },
-    },
-  ],
-}
-/* eslint-enable no-template-curly-in-string */
 
 const SECTION_COMPONENTS = {
   residents: ResidentsSummary,
   staff: StaffSummary,
   facilities: Facilities,
+  scorecard: Scorecard,
   filings: Filings,
   releases: Releases,
 }
@@ -306,6 +233,24 @@ export const query = graphql`
           granted
           total
         }
+      }
+    }
+    scorecard: allScorecard(filter: { state: { eq: "Federal (BOP)" } }) {
+      nodes {
+        score
+        date
+        machine
+        regularly
+        history
+        defined
+        cases_residents
+        deaths_residents
+        active_residents
+        tests_residents
+        population_residents
+        cases_staff
+        deaths_staff
+        tests_staff
       }
     }
   }

@@ -24,6 +24,20 @@ import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({
   table: {
+    // at wide enough screen, allow sticky header
+    // [theme.breakpoints.up("lg")]: {
+    //   overflow: "visible",
+    //   "& .MuiTableCell-head": {
+    //     background: theme.palette.background.default,
+    //     zIndex: 1,
+    //     position: "sticky !important",
+    //     top: `calc(2*${theme.layout.headerHeight} - .5rem)`,
+    //     [theme.breakpoints.up("lg")]: {
+    //       top: `calc(2*${theme.layout.headerHeight} - 1rem)`,
+    //     },
+    //   },
+    // },
+
     "& .MuiTableCell-root": {
       ...sansSerifyTypography,
     },
@@ -83,6 +97,7 @@ const Table = ({
   className,
   children,
   disableFilter,
+  disableFooter,
   ...props
 }) => {
   const {
@@ -208,29 +223,31 @@ const Table = ({
             })}
           </TableBody>
 
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[
-                  5,
-                  10,
-                  25,
-                  { label: "All", value: data.length },
-                ]}
-                colSpan={columns.length}
-                count={data.length}
-                rowsPerPage={pageSize}
-                page={pageIndex}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows per page" },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
+          {!disableFooter && (
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[
+                    5,
+                    10,
+                    25,
+                    { label: "All", value: data.length },
+                  ]}
+                  colSpan={columns.length}
+                  count={data.length}
+                  rowsPerPage={pageSize}
+                  page={pageIndex}
+                  SelectProps={{
+                    inputProps: { "aria-label": "rows per page" },
+                    native: true,
+                  }}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          )}
         </MaUTable>
       </TableContainer>
     </>

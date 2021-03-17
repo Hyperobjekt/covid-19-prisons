@@ -182,6 +182,7 @@ const HomeTable = ({
   // handler for when table headers are clicked
   const handleSortChange = React.useCallback(
     (sortBy) => {
+      if (sortBy === "name") return
       const newMetric = sortBy
       metric !== newMetric && setMetric(newMetric)
     },

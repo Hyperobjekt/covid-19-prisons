@@ -57,7 +57,6 @@ const DefaultTable = ({ initialSortCol, columns, ...props }) => {
       onSort={handleSortChange}
       onChangePage={changePageHandler}
       onChangeRowsPerPage={changeRowsPerPageHandler}
-      // data={extractedData}
       {...props}
     ></Table>
   )

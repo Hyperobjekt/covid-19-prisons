@@ -83,7 +83,7 @@
 // }) => {
 //   const content = mdx.frontmatter
 //   const muiClasses = useStyles()
-  
+
 //   const [iceRegionId, setIceRegionId] = useOptionsStore(
 //     (state) => [state.iceRegionId, state.setIceRegionId],
 //     shallow

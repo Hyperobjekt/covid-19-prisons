@@ -67,9 +67,11 @@ const NumberStat = ({
       >
         {isValid ? formatter(value) : getLang("unavailable")}
       </Typography>
-      <Typography className={classes.label} variant="body2">
-        {label}
-      </Typography>
+      {label && (
+        <Typography className={classes.label} variant="body2">
+          {label}
+        </Typography>
+      )}
       {children}
     </Stack>
   )
