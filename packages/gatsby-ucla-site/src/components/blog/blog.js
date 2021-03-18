@@ -28,6 +28,71 @@ const useStyles = makeStyles((theme) => ({
     "& header": {
       // background: theme.palette.background.alt3,
     },
+    // SCORECARD TABLE STYLES
+    "& .scorecard-table": {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      marginLeft: theme.columnSpacing(-1),
+      marginRight: theme.columnSpacing(-1),
+      width: `calc(100% + ${theme.columnSpacing(2)})`,
+      maxWidth: "100vw",
+      position: "relative",
+      [theme.breakpoints.down("xs")]: {
+        overflow: "auto",
+      },
+      [theme.breakpoints.up("md")]: {
+        marginLeft: theme.columnSpacing(-0.5),
+        marginRight: theme.columnSpacing(-0.5),
+        width: `calc(100% + ${theme.columnSpacing(1)})`,
+      },
+    },
+    "& .scorecard-table .MuiTable-root": {
+      position: "relative",
+    },
+    "& .MuiTableCell-head:nth-child(5), & .MuiTableCell-body:nth-child(2)": {
+      minWidth: 100,
+    },
+    "& .MuiTableCell-head": {
+      position: "sticky",
+      top: 56,
+      background: "#fff",
+      fontWeight: 700,
+      lineHeight: 1.333,
+      verticalAlign: "bottom",
+      textAlign: "center",
+      zIndex: 999,
+      borderBottom: `none`,
+      boxShadow: `0 2px 0 ${theme.palette.text.primary}`,
+    },
+    "& .MuiTableCell-head:first-child": {
+      textAlign: "left",
+    },
+    "& .MuiTableCell-head span": {
+      display: "block",
+      fontWeight: 500,
+      color: theme.palette.text.secondary,
+    },
+    "& .MuiTableCell-body": {
+      textAlign: "center",
+    },
+    "& .MuiTableCell-body:first-child": {
+      textAlign: "left",
+    },
+    "& .MuiTableCell-body:nth-child(2) span:first-child": {
+      fontWeight: 700,
+      marginRight: 4,
+      fontSize: theme.typography.pxToRem(16),
+    },
+    "& .MuiTableCell-body span + span": {
+      display: "block",
+      margin: "auto",
+      fontWeight: 500,
+      color: theme.palette.text.secondary,
+    },
+    "& .MuiTableRow-root:nth-child(2) .MuiTableCell-body": {
+      borderBottom: `1px solid ${theme.palette.text.primary}`,
+    },
+    // END SCORECARD TABLE STYLES
   },
   hero: {
     background: theme.palette.background.alt3,
