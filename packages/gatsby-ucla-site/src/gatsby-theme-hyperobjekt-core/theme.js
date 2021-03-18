@@ -188,6 +188,16 @@ const CovidTheme = () => {
           ...sansSerifyTypography,
         },
       },
+      MuiTooltip: {
+        tooltip: {
+          backgroundColor: fade(theme.palette.text.primary, 0.9),
+          padding: theme.spacing(2),
+          borderRadius: 4,
+        },
+        arrow: {
+          color: fade(theme.palette.text.primary, 0.9),
+        },
+      },
       MuiButton: {
         root: {
           ...sansSerifyTypography,
@@ -323,11 +333,11 @@ const CovidTheme = () => {
           },
           // add columns to Project Team page
           "& > .columns2": {
-            display: 'flex',
-            flexDirection: 'row',
+            display: "flex",
+            flexDirection: "row",
             paddingBottom: 56,
-            [theme.breakpoints.down('xs')]: {
-              display: 'block',
+            [theme.breakpoints.down("xs")]: {
+              display: "block",
             },
           },
           "& > .columns2 .columnChild": {

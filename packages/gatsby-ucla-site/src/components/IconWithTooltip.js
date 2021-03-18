@@ -1,35 +1,35 @@
 import React from "react"
 import PropTypes from "prop-types"
-import ReactTooltip from "react-tooltip"
 import InfoIcon from "../../content/assets/info-icon.svg"
-import CloseIcon from "../../content/assets/close-icon.svg"
-import { makeStyles } from "@material-ui/core"
+import {
+  Box,
+  Button,
+  ButtonBase,
+  makeStyles,
+  Tooltip,
+  Typography,
+} from "@material-ui/core"
+import { sansSerifyTypography } from "../gatsby-theme-hyperobjekt-core/theme"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
   iconWrapper: {
-    marginLeft: "auto",
-    marginRight: "auto",
     marginTop: theme.spacing(1),
-    color: theme.palette.text.secondary + " !important",
-    textDecoration: "none !important",
+    color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(14),
-    display: "block",
-    lineHeight: "30px",
-    background: "none",
-    border: "none",
+    padding: theme.spacing(1),
     "& img": {
+      marginTop: -1,
       paddingRight: theme.spacing(1),
-      verticalAlign: "middle",
     },
     "&:hover": {
       "& img": {
         transform: "scale(1.1)",
         filter: "brightness(.98)",
       },
-      color: "#353510 !important",
+      color: "#353510",
     },
   },
   close: {
@@ -40,27 +40,20 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  tooltip: {
-    zIndex: "2000 !important",
-    padding: theme.spacing(3) + " !important",
-    maxWidth: "80vw",
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: "400px",
-    },
-    [theme.breakpoints.up("lg")]: {
-      maxWidth: "450px",
-    },
-  },
+  tooltip: {},
   title: {
+    ...sansSerifyTypography,
     display: "block",
-    fontSize: theme.typography.pxToRem(16),
+    fontSize: theme.typography.pxToRem(14),
+    fontWeight: 700,
     marginTop: 0,
     paddingBottom: theme.spacing(1),
     borderBottom: "dotted white 1px",
     marginBottom: theme.spacing(1),
   },
   note: {
-    fontSize: theme.typography.pxToRem(14),
+    ...sansSerifyTypography,
+    fontSize: theme.typography.pxToRem(12),
     "&:last-of-type": {
       marginBottom: 0,
     },
@@ -76,30 +69,34 @@ const IconWithTooltip = ({
 }) => {
   const classes = useStyles()
 
-  const id = "icon-tooltip-" + idSuffix
+  const tooltipContent = (
+    <Box className={classes.tooltip}>
+      {title && (
+        <Typography variant="body1" className={classes.title}>
+          {title}
+        </Typography>
+      )}
+      {notes.map((note) => (
+        <Typography
+          variant="body1"
+          paragraph
+          className={classes.note}
+          key={note}
+        >
+          {note}
+        </Typography>
+      ))}
+    </Box>
+  )
+
   return (
     <div className={classes.root}>
-      <button className={classes.iconWrapper} data-tip data-for={id}>
-        <img alt="info" src={InfoIcon} />
-        {iconText}
-      </button>
-
-      <ReactTooltip
-        className={classes.tooltip}
-        place="top"
-        id={id}
-        effect="solid"
-        arrowColor="transparent"
-      >
-        {title && <h4 className={classes.title}>{title}</h4>}
-        {/* {children} */}
-        <img alt="close" className={classes.close} src={CloseIcon} />
-        {notes.map((note) => (
-          <p className={classes.note} key={note}>
-            {note}
-          </p>
-        ))}
-      </ReactTooltip>
+      <Tooltip title={tooltipContent} arrow>
+        <ButtonBase className={classes.iconWrapper}>
+          <img alt="info" src={InfoIcon} />
+          {iconText}
+        </ButtonBase>
+      </Tooltip>
     </div>
   )
 }
