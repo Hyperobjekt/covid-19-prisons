@@ -44,8 +44,10 @@ const MetricSelectionTitle = ({
   const regionSelected = useOptionsStore((state) => state.iceRegionId)
   let regionTitleArray = []
   if (isImmigration) {
-    const region = " region" + (regionSelected ? "" : "s")
-    regionTitleArray = [" in ", <RegionSelection />, region]
+    const regionText = " Field Office region" + (regionSelected ? "" : "s")
+    const inText = " in " + (regionSelected ? "the " : "")
+
+    regionTitleArray = [inText, <RegionSelection />, regionText]
   }
 
   return (

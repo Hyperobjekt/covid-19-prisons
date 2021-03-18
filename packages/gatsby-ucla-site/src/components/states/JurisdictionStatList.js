@@ -8,7 +8,7 @@ import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
 import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
-import { Link } from "gatsby-theme-material-ui"
+import { AnchorLink } from "gatsby-plugin-anchor-links"
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 
@@ -56,7 +56,7 @@ const styles = (theme) => ({
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(16),
       color: `${theme.palette.text.primary} !important`,
-      textDecorationColor: theme.palette.secondary.main,
+      textDecorationColor: `${theme.palette.secondary.main} !important`,
 
       "& .MuiSvgIcon-root": {
         fontSize: theme.typography.pxToRem(16),
@@ -64,12 +64,6 @@ const styles = (theme) => ({
         marginBottom: "auto",
       },
     },
-  },
-  iceScore: {
-    fontWeight: 700,
-    fontSize: theme.typography.pxToRem(16),
-    color: `${theme.palette.text.primary} !important`,
-    ...sansSerifyTypography,
   },
 })
 
@@ -110,31 +104,27 @@ const JurisdictionStatList = ({
   const scoreExists = stateScore || iceScore || fedScore
   const scoreMap = {
     state: stateScore && (
-      <Link to="#scorecard">
+      <AnchorLink to="#scorecard">
         {stateScore}
         <ArrowDownwardIcon />
-      </Link>
+      </AnchorLink>
     ),
     immigration: (
-      // enable with Immigration page
-      //   <a href="/immigration#scorecard">
-      //     {iceScore}
-      //     <ChevronRightIcon />
-      //   </a>
-      <span className={classes.iceScore}>
+      <AnchorLink to="/immigration#scorecard">
         {iceScore}
-      </span>
+        <ChevronRightIcon />
+      </AnchorLink>
     ),
     federal: isFederal ? (
-      <Link to="#scorecard">
+      <AnchorLink to="#scorecard">
         {stateScore}
         <ArrowDownwardIcon />
-      </Link>
+      </AnchorLink>
     ) : (
-      <Link to="/federal#scorecard">
+      <AnchorLink to="/federal#scorecard">
         {fedScore}
         <ChevronRightIcon />
-      </Link>
+      </AnchorLink>
     ),
   }
 

@@ -4,9 +4,9 @@ import Tooltip from "../Tooltip"
 
 const MapTooltip = ({isImmigration}) => {
   const hovered = useMapStore((state) => state.hovered)
-  const text = isImmigration ? 
-    hovered && `${hovered.properties.name} field office region` :
-    hovered && `Click for ${hovered.properties.name} facility data`
+  const text = isImmigration
+    ? hovered && `${hovered.properties.name} Field Office region`
+    : hovered && `Click for ${hovered.properties.name} facility data`
   return <Tooltip>{text}</Tooltip>
 }
 

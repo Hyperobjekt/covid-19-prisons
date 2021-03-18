@@ -19,7 +19,7 @@ const RegionSelection = ({ classes, className, group, title, ...props }) => {
   )
 
   const regionNames = Object.values(IceRegions)
-  const unfiltered = "All"
+  const unfiltered = "all"
   regionNames.unshift(unfiltered)
   
   let selectedOption = IceRegions[iceRegionId] || unfiltered
