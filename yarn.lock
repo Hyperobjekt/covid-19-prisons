@@ -1413,7 +1413,7 @@
   resolved "https://registry.yarnpkg.com/@hyperobjekt/react-scrollama/-/react-scrollama-2.2.15.tgz#eac84e220274143fa05c6a0d44752ae4ce9b2cc9"
   integrity sha512-gRyL0FkP6F4lR1n7B/3axBIQapeEop0dD/dsaZAwtihrHHBkLmgSkyWAyTjhukdiSdcADoqBGgBQOkND0WqaPg==
 
-"@hyperobjekt/svg-maps@1.0.11":
+"@hyperobjekt/svg-maps@^1.0.11":
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/@hyperobjekt/svg-maps/-/svg-maps-1.0.11.tgz#4bb74dc3f37f97ce99e373db380fb4818eaec669"
   integrity sha512-l2nM2Op51TjlO9NtvV9G808EMUzs9agKD2nteN09CcbZpegoG+uX9NVTFRvvk+n487Y9fB3G1eLpFqwXH2Nb0Q==
@@ -7781,6 +7781,13 @@ gatsby-page-utils@^0.2.29:
     glob "^7.1.6"
     lodash "^4.17.20"
     micromatch "^4.0.2"
+
+gatsby-plugin-anchor-links@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-anchor-links/-/gatsby-plugin-anchor-links-1.2.1.tgz#c82ff8fdeda4b3f2ca036cec469f7c42da3b2897"
+  integrity sha512-BIhhljCxIUVluMltlCq5sKvVN9PfwqoUNaTjyPZUhtEu5JhEiK89HPNustSkjSLhnQmcYveS36TpjWK/rUnvhg==
+  dependencies:
+    scroll-to-element "^2.0.3"
 
 gatsby-plugin-catch-links@^2.3.15:
   version "2.3.15"
@@ -15846,6 +15853,13 @@ schema-utils@^3.0.0:
     "@types/json-schema" "^7.0.6"
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
+
+scroll-to-element@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/scroll-to-element/-/scroll-to-element-2.0.3.tgz#99b404fc6a09fe73f3c062cd5b8a14efb6404e4d"
+  integrity sha512-5herPcm9jMfQgRwu94lH5mei+2YhipR4RQ2nAvnBxJb2tG+P7O0ctOKAaAZBXbBejnn+MImh3wrAUA5EcLnjEQ==
+  dependencies:
+    raf "^3.4.0"
 
 section-matter@^1.0.0:
   version "1.0.0"

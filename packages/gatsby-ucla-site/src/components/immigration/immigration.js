@@ -176,7 +176,7 @@ const ImmigrationTemplate = ({
         title={content.table.title}
         note={content.table.note}
       />
-      <Block type="fullWidth">
+      <Block id="scorecard" type="fullWidth">
         <ResponsiveContainer>
           <Scorecard
             state="immigration"
