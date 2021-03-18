@@ -6,16 +6,23 @@ import CloseIcon from "../../content/assets/close-icon.svg"
 import { makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
   iconWrapper: {
-    marginTop: theme.spacing(2),
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: theme.spacing(1),
     color: theme.palette.text.secondary + " !important",
     textDecoration: "none !important",
     fontSize: theme.typography.pxToRem(14),
-    display: "inline-flex",
+    display: "block",
     lineHeight: "30px",
-    // cursor: "pointer",
+    background: "none",
+    border: "none",
     "& img": {
       paddingRight: theme.spacing(1),
+      verticalAlign: "middle",
     },
     "&:hover": {
       "& img": {
@@ -36,7 +43,10 @@ const useStyles = makeStyles((theme) => ({
   tooltip: {
     zIndex: "2000 !important",
     padding: theme.spacing(3) + " !important",
-    maxWidth: "400px",
+    maxWidth: "80vw",
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: "400px",
+    },
     [theme.breakpoints.up("lg")]: {
       maxWidth: "450px",
     },
@@ -68,11 +78,11 @@ const IconWithTooltip = ({
 
   const id = "icon-tooltip-" + idSuffix
   return (
-    <>
-      <a className={classes.iconWrapper} data-tip data-for={id}>
+    <div className={classes.root}>
+      <button className={classes.iconWrapper} data-tip data-for={id}>
         <img alt="info" src={InfoIcon} />
         {iconText}
-      </a>
+      </button>
 
       <ReactTooltip
         className={classes.tooltip}
@@ -90,7 +100,7 @@ const IconWithTooltip = ({
           </p>
         ))}
       </ReactTooltip>
-    </>
+    </div>
   )
 }
 
