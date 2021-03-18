@@ -90,7 +90,7 @@ const styles = (theme) => ({
       top: "-0.15rem",
     },
   },
-  mapDescription: {
+  mapNotes: {
     maxWidth: "20rem",
     [theme.breakpoints.up("lg")]: {
       marginTop: theme.spacing(3),
@@ -156,7 +156,6 @@ const styles = (theme) => ({
 const HomeMap = ({
   classes,
   title,
-  description = getLang("map", "notes"), // home.js description uses markup
   className,
   categories,
   children,
@@ -175,7 +174,9 @@ const HomeMap = ({
   }
 
   // MetricSelection includes region name in immigration map
-  const [ metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4]
+  const [metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4]
+
+  const notes = getLang("map", "notes", isImmigration && "immigration")
   return (
     <Block
       type="fullWidth"
@@ -189,6 +190,7 @@ const HomeMap = ({
             item
             xs={12}
             md={metricSelectCols}
+            lg={12}
             className={classes.textContainerGrid}
           >
             <Stack className={classes.textContainer} spacing={0.5}>
@@ -196,8 +198,8 @@ const HomeMap = ({
                 title={title}
                 isImmigration={isImmigration}
               />
-              <Typography className={classes.mapDescription} variant="body2">
-                {getLang("map", metric)}
+              <Typography className={classes.mapNotes} variant="body2">
+                {getLang("map", metric, isImmigration && "immigration")}
               </Typography>
             </Stack>
           </Grid>
@@ -208,7 +210,7 @@ const HomeMap = ({
             <Typography
               variant="body2"
               className={classes.notes}
-              dangerouslySetInnerHTML={{ __html: description }}
+              dangerouslySetInnerHTML={{ __html: notes }}
             />
           </Grid>
         </Grid>
@@ -224,7 +226,7 @@ const HomeMap = ({
       <Typography
         variant="body2"
         className={clsx(classes.notes, classes.notesBelow)}
-        dangerouslySetInnerHTML={{ __html: description }}
+        dangerouslySetInnerHTML={{ __html: notes }}
       />
     </Block>
   )
