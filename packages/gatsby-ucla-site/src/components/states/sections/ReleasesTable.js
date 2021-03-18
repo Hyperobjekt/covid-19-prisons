@@ -23,14 +23,10 @@ const styles = (theme) => ({
   body: {
     margin: theme.spacing(1, 0),
   },
+  notes: {
+    listStyle: "none",
+  },
 })
-
-const percentageSort = (a, b) => {
-  if (!a.original.proportion) return -1
-  if (!b.original.proportion) return 1
-
-  return a.original.proportion > b.original.proportion ? 1 : -1
-}
 
 const ReleasesTable = ({
   classes,
@@ -81,16 +77,6 @@ const ReleasesTable = ({
         },
       },
       {
-        Header: lang.table.proportion,
-        accessor: "proportion",
-        Cell: ({ value }) =>
-          Number.isFinite(value) ? METRIC_FORMATTERS.active_rate(value) : " ",
-        style: {
-          textAlign: "right",
-        },
-        sortType: percentageSort,
-      },
-      {
         Header: lang.table.capacity,
         accessor: "capacity",
         Cell: (prop) => prop.value,
@@ -125,7 +111,6 @@ const ReleasesTable = ({
       lang.table.facility,
       lang.table.jurisdiction,
       lang.table.population,
-      lang.table.proportion,
       lang.table.releases,
       lang.table.source,
     ]
@@ -144,9 +129,6 @@ const ReleasesTable = ({
       })
       node.details = details.join(", ")
 
-      if (node.population && node.releases) {
-        node.proportion = node.releases / node.population
-      }
       return node
     })
   }
@@ -169,7 +151,7 @@ const ReleasesTable = ({
         data={extractedData}
         {...props}
       ></DefaultTable>
-      <Notes notes={[lang.notes.sourcing]}></Notes>
+      <Notes notes={lang.notes} className={classes.notes}></Notes>
     </StepWrapper>
   )
 }

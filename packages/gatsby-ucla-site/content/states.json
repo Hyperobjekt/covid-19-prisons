@@ -118,13 +118,13 @@
         "body": "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic.",
         "table": {
           "jurisdiction": "Jurisdiction",
-          "facility": "Facility",
-          "date": "Date release was issued",
-          "authority": "Authorizing agent",
-          "releases": "Total Number of Releases",
-          "population": "Population prior to releases",
+          "facility": "Facility/facilities",
+          "authority": "Authorizing agent(s)",
+          "date": "Date*",
+          "releases": "Overall population reduction/total number of releases**",
+          "population": "Population prior to releases***",
           "proportion": "Releases as percentage of population",
-          "capacity": "Known capacity",
+          "capacity": "Known facility capacity****",
           "details": "Release details",
           "detailTypeMap": {
             "detailParole": "Parole/probation violation",
@@ -136,9 +136,13 @@
           },
           "source": "Source"
         },
-        "notes": {
-          "sourcing": "For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). You can find our full prison releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985\">here</a> and jail releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533\">here</a>.<br><br><br>"
-        }
+        "notes": [
+          "For the most part, we only include release efforts where the data source includes some sort of programmatic description of who is being released (e.g., people with technical violations of parole, people charged with non-violent crimes, etc.). You can find our full prison releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=845601985\">here</a> and jail releases dataset <a href=\"https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533\">here</a>.",
+          "*date of releases, if available. Otherwise, date on which releases first were reported.",
+          "**total number of releases reported when available. Otherwise, the change in population to which the releases contributed is reported.",
+          "***last reported inmate population before releases were realized",
+          "****capacity is often determined differently across jurisdictions and some facilities often report more than one capacity number. In these cases, we report the higher of the figures available."
+        ]
       }
     },
     {
