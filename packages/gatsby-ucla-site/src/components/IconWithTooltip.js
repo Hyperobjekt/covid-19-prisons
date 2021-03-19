@@ -32,14 +32,6 @@ const useStyles = makeStyles((theme) => ({
       color: "#353510",
     },
   },
-  close: {
-    position: "absolute",
-    right: "1.2rem",
-    top: "1.2rem",
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
-  },
   tooltip: {},
   title: {
     ...sansSerifyTypography,
