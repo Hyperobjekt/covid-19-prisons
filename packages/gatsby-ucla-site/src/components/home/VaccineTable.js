@@ -1,6 +1,4 @@
 import React from "react"
-import clsx from "clsx"
-import { navigate } from "gatsby"
 import { Table } from "../table"
 import { format } from "d3-format"
 import { Typography, withStyles } from "@material-ui/core"
@@ -10,6 +8,7 @@ import { Block } from "gatsby-theme-hyperobjekt-core"
 import ResponsiveContainer from "../ResponsiveContainer"
 import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
+import { Link } from "gatsby-theme-material-ui"
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -38,9 +37,14 @@ const styles = (theme) => ({
     maxWidth: "32rem",
     margin: theme.spacing(1, 0, 2),
   },
-  clickable: {},
+  jurisdictionLink: {
+    "&.MuiLink-root.MuiTypography-root": {
+      color: theme.palette.text.secondary,
+      marginRight: theme.spacing(1),
+    },
+  },
   table: {
-    "& tr:hover $clickable": {
+    "& tr:hover $jurisdictionLink": {
       textDecoration: "underline",
       textDecorationThickness: "1px",
       cursor: "pointer",
@@ -60,19 +64,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   // data for table
   const data = useVaccineData()
 
-  const handleRowClick = React.useCallback(
-    ({ jurisdiction, isState, isFederal, isIce }) => {
-      if (jurisdiction && isState) {
-        navigate(`states/${getSlug(jurisdiction)}`)
-      } else if (jurisdiction && isFederal) {
-        navigate(`federal`)
-      } else if (jurisdiction && isIce) {
-        navigate(`immigration`)
-      }
-    },
-    []
-  )
-
   // column configuration for the table
   const columns = React.useMemo(
     () => [
@@ -83,17 +74,25 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         disableSortBy: true,
         sortType: alphaStateSort,
         Cell: (prop) => {
+          const { jurisdiction, isState, isFederal, isIce } = prop.row.original
+          let slug = null
+          if (jurisdiction && isState) {
+            slug = `/states/${getSlug(jurisdiction)}`
+          } else if (isFederal) {
+            slug = `/federal`
+          } else if (isIce) {
+            slug = `/immigration`
+          }
+          const jurisdictionElement = slug ? (
+            <Link to={slug} className={classes.jurisdictionLink}>
+              {jurisdiction}
+            </Link>
+          ) : (
+            jurisdiction
+          )
           return (
             <Typography variant="body2" color="textSecondary">
-              <span
-                onClick={handleRowClick.bind(this, prop.row.original)}
-                className={clsx({
-                  [classes.clickable]: !prop.row.original.isTotal,
-                })}
-                style={{ marginRight: 8 }}
-              >
-                {prop.row.original.jurisdiction}
-              </span>
+              {jurisdictionElement}
             </Typography>
           )
         },

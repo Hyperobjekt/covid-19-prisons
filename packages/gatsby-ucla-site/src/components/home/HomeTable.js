@@ -20,6 +20,7 @@ import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import Notes from "../Notes"
 import { formatMetricValue } from "../../common/utils/formatters"
 import clsx from "clsx"
+import { Link } from "gatsby-theme-material-ui"
 
 const styles = (theme) => ({
   root: {
@@ -42,7 +43,12 @@ const styles = (theme) => ({
       maxWidth: 320,
     },
   },
-  state: {},
+  state: {
+    "&.MuiLink-root.MuiTypography-root": {
+      color: theme.palette.text.secondary,
+      marginRight: theme.spacing(1),
+    },
+  },
   table: {
     "& tr:hover $state": {
       textDecoration: "underline",
@@ -117,10 +123,6 @@ const HomeTable = ({
     []
   )
 
-  const handleRowClick = React.useCallback((state) => {
-    state && navigate(`states/${getSlug(state)}`)
-  }, [])
-
   // column configuration for the table
   const columns = React.useMemo(() => {
     const facilityCol = {
@@ -135,13 +137,12 @@ const HomeTable = ({
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              <span
+              <Link
+                to={`/states/${state}`}
                 className={classes.state}
-                onClick={handleRowClick.bind(null, state)}
-                style={{ marginRight: 8 }}
               >
                 {state}
-              </span>
+              </Link>
               <DotMarker
                 radius={4}
                 fill={getColorForJurisdiction(jurisdiction)}
