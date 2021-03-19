@@ -20,6 +20,7 @@ import MetricSelectionTitle from "../controls/MetricSelectionTitle"
 import Notes from "../Notes"
 import { formatMetricValue } from "../../common/utils/formatters"
 import clsx from "clsx"
+import { Link } from "gatsby-theme-material-ui"
 
 const styles = (theme) => ({
   root: {
@@ -42,7 +43,22 @@ const styles = (theme) => ({
       maxWidth: 320,
     },
   },
-  table: {},
+  state: {
+    "&.MuiLink-root.MuiTypography-root": {
+      color: theme.palette.text.secondary,
+      marginRight: theme.spacing(1),
+    },
+  },
+  table: {
+    "& tr:hover $state": {
+      textDecoration: "underline",
+      textDecorationThickness: "1px",
+      cursor: "pointer",
+      "&:hover": {
+        textDecorationColor: theme.palette.secondary.main,
+      },
+    },
+  },
   notes: {
     listStyle: "none",
     margin: theme.spacing(2, "auto"),
@@ -55,11 +71,10 @@ const styles = (theme) => ({
       justifyContent: "space-around",
       maxWidth: "none",
       "& li + li": {
-        marginTop: 0
-      }
+        marginTop: 0,
+      },
     },
-    
-  }
+  },
 })
 
 const intFormatter = format(",d")
@@ -115,16 +130,22 @@ const HomeTable = ({
       accessor: "name",
       disableSortBy: true,
       Cell: (prop) => {
+        const { state, jurisdiction } = prop.row.original
         return (
           <>
             <Typography className={classes.name} variant="body1">
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              <span style={{ marginRight: 8 }}>{prop.row.original.state}</span>
+              <Link
+                to={`/states/${state}`}
+                className={classes.state}
+              >
+                {state}
+              </Link>
               <DotMarker
                 radius={4}
-                fill={getColorForJurisdiction(prop.row.original.jurisdiction)}
+                fill={getColorForJurisdiction(jurisdiction)}
               />
             </Typography>
           </>
@@ -188,11 +209,6 @@ const HomeTable = ({
     },
     [metric, setMetric]
   )
-
-  const handleRowClick = React.useCallback((row) => {
-    const state = row.original.state
-    state && navigate(`states/${getSlug(state)}`)
-  }, [])
   return (
     <Block
       type="fullWidth"
@@ -208,7 +224,6 @@ const HomeTable = ({
           options={options}
           sortColumn={metric}
           onSort={handleSortChange}
-          onRowClick={handleRowClick}
         >
           <JurisdictionToggles
             marker="dot"

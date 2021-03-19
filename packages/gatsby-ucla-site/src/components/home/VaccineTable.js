@@ -1,5 +1,4 @@
 import React from "react"
-import { navigate } from "gatsby"
 import { Table } from "../table"
 import { format } from "d3-format"
 import { Typography, withStyles } from "@material-ui/core"
@@ -9,6 +8,7 @@ import { Block } from "gatsby-theme-hyperobjekt-core"
 import ResponsiveContainer from "../ResponsiveContainer"
 import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
+import { Link } from "gatsby-theme-material-ui"
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -37,7 +37,21 @@ const styles = (theme) => ({
     maxWidth: "32rem",
     margin: theme.spacing(1, 0, 2),
   },
-  table: {},
+  jurisdictionLink: {
+    "&.MuiLink-root.MuiTypography-root": {
+      color: theme.palette.text.secondary,
+    },
+  },
+  table: {
+    "& tr:hover $jurisdictionLink": {
+      textDecoration: "underline",
+      textDecorationThickness: "1px",
+      cursor: "pointer",
+      "&:hover": {
+        textDecorationColor: theme.palette.secondary.main,
+      },
+    },
+  },
 })
 
 const intFormatter = format(",d")
@@ -59,11 +73,25 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         disableSortBy: true,
         sortType: alphaStateSort,
         Cell: (prop) => {
+          const { jurisdiction, isState, isFederal, isIce } = prop.row.original
+          let slug = null
+          if (jurisdiction && isState) {
+            slug = `/states/${getSlug(jurisdiction)}`
+          } else if (isFederal) {
+            slug = `/federal`
+          } else if (isIce) {
+            slug = `/immigration`
+          }
+          const jurisdictionElement = slug ? (
+            <Link to={slug} className={classes.jurisdictionLink}>
+              {jurisdiction}
+            </Link>
+          ) : (
+            jurisdiction
+          )
           return (
             <Typography variant="body2" color="textSecondary">
-              <span style={{ marginRight: 8 }}>
-                {prop.row.original.jurisdiction}
-              </span>
+              {jurisdictionElement}
             </Typography>
           )
         },
@@ -110,17 +138,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
     }),
     []
   )
-
-  const handleRowClick = React.useCallback((row) => {
-    const { jurisdiction, isState, isFederal, isIce } = row.original
-    if (jurisdiction && isState) {
-      navigate(`states/${getSlug(jurisdiction)}`)
-    } else if (jurisdiction && isFederal) {
-      navigate(`federal`)
-    } else if (jurisdiction && isIce) {
-      navigate(`immigration`)
-    }
-  }, [])
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
       <ResponsiveContainer>
@@ -138,7 +155,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
             options={options}
             sortColumn={"jurisdiction"}
             disableFilter={true}
-            onRowClick={handleRowClick}
           />
         </div>
       </ResponsiveContainer>
