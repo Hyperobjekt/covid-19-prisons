@@ -91,7 +91,7 @@ const IconWithTooltip = ({
 
   return (
     <div className={classes.root}>
-      <Tooltip title={tooltipContent} arrow>
+      <Tooltip title={tooltipContent} enterTouchDelay={1}>
         <ButtonBase className={classes.iconWrapper}>
           <img alt="info" src={InfoIcon} />
           {iconText}
