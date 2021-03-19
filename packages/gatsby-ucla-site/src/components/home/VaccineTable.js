@@ -40,7 +40,6 @@ const styles = (theme) => ({
   jurisdictionLink: {
     "&.MuiLink-root.MuiTypography-root": {
       color: theme.palette.text.secondary,
-      marginRight: theme.spacing(1),
     },
   },
   table: {
