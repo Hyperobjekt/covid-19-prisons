@@ -258,14 +258,16 @@ const ScorecardSection = ({
 
   const pivotedTable = (
     <table className={classes.pivotedTable}>
-      {columnMeta.map((c) => (
-        <tr>
-          <th>{lang.table_header[c.id]}</th>
-          <td className={classes.cellValue}>
-            {getDisplayValue(data[c.id], lang)}
-          </td>
-        </tr>
-      ))}
+      <tbody>
+        {columnMeta.map((c) => (
+          <tr key={c.id}>
+            <th>{lang.table_header[c.id]}</th>
+            <td className={classes.cellValue}>
+              {getDisplayValue(data[c.id], lang)}
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   )
 
