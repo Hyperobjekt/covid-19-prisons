@@ -10,6 +10,7 @@ import { getDataMetricSelector } from "../../common/utils"
 import { formatMetricValue } from "../../common/utils/formatters"
 import JurisdictionToggles from "../controls/JurisdictionToggles"
 import useStatesStore from "../states/useStatesStore"
+import { getLang } from "../../common/utils/i18n"
 
 const styles = (theme) => ({
   root: {
@@ -45,6 +46,11 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
   })()
   const accessor = getDataMetricSelector(metric, legendGroup)
   const dataExtent = extent(data, accessor)
+  const noValuesMapped = !dataExtent[1]
+  // check if there is only a single non-zero value
+  const singleValueMapped = data.every(
+    (d) => !accessor(d) || accessor(d) === dataExtent[1]
+  )
 
   const isRate = metric.indexOf("_rate") > -1
   const formatId = isRate ? "rate_legend" : "count_legend"
@@ -66,39 +72,51 @@ const SpikeLegend = ({ data, sizeRange = [1, 60] }) => {
   )
   return (
     <Stack horizontal spacing={1} align="bottom">
-      <Stack align="center" spacing={0.5}>
-        <SpikeMarker
-          height={sizeRange[0]}
-          width={7}
-          stroke={categoryColors[4]}
-          fill={categoryGradients[4]}
-        />
-        <Typography className={classes.label} variant="body2">
-          {spikeLabels[0]}
+      {noValuesMapped ? (
+        <Typography variant="body2">
+          {getLang("empty_legend_message")}
         </Typography>
-      </Stack>
-      <Stack align="center" spacing={0.5}>
-        <SpikeMarker
-          height={sizeRange[1] / 2}
-          width={7}
-          stroke={categoryColors[4]}
-          fill={categoryGradients[4]}
-        />
-        <Typography className={classes.label} variant="body2">
-          {spikeLabels[1]}
-        </Typography>
-      </Stack>
-      <Stack align="center" spacing={0.5}>
-        <SpikeMarker
-          height={sizeRange[1]}
-          width={7}
-          stroke={categoryColors[4]}
-          fill={categoryGradients[4]}
-        />
-        <Typography className={classes.label} variant="body2">
-          {spikeLabels[2]}
-        </Typography>
-      </Stack>
+      ) : (
+        <>
+          {!singleValueMapped && (
+            <Stack align="center" spacing={0.5}>
+              <SpikeMarker
+                height={sizeRange[0]}
+                width={7}
+                stroke={categoryColors[4]}
+                fill={categoryGradients[4]}
+              />
+              <Typography className={classes.label} variant="body2">
+                {spikeLabels[0]}
+              </Typography>
+            </Stack>
+          )}
+          {!singleValueMapped && (
+            <Stack align="center" spacing={0.5}>
+              <SpikeMarker
+                height={sizeRange[1] / 2}
+                width={7}
+                stroke={categoryColors[4]}
+                fill={categoryGradients[4]}
+              />
+              <Typography className={classes.label} variant="body2">
+                {spikeLabels[1]}
+              </Typography>
+            </Stack>
+          )}
+          <Stack align="center" spacing={0.5}>
+            <SpikeMarker
+              height={sizeRange[1]}
+              width={7}
+              stroke={categoryColors[4]}
+              fill={categoryGradients[4]}
+            />
+            <Typography className={classes.label} variant="body2">
+              {spikeLabels[2]}
+            </Typography>
+          </Stack>
+        </>
+      )}
     </Stack>
   )
 }
