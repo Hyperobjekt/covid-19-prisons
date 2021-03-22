@@ -36,10 +36,13 @@ const MetricSelectionTitle = ({
   /* eslint-disable no-template-curly-in-string */
   const titleParts = title.split("${metric}")
   /* eslint-enable no-template-curly-in-string */
+  const metricSelection = (
+    <MetricSelection group={group} isImmigration={isImmigration} />
+  )
   const titleArray =
     titleParts.length === 2
-      ? [titleParts[0], <MetricSelection group={group} />, titleParts[1]]
-      : [...titleParts, <MetricSelection group={group} />]
+      ? [titleParts[0], metricSelection, titleParts[1]]
+      : [...titleParts, metricSelection]
 
   const regionSelected = useOptionsStore((state) => state.iceRegionId)
   let regionTitleArray = []
