@@ -125,7 +125,7 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         },
       },
     ],
-    []
+    [classes.jurisdictionLink]
   )
 
   // memoized table options

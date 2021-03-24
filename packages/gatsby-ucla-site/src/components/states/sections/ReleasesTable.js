@@ -4,7 +4,6 @@ import { Typography, withStyles } from "@material-ui/core"
 import LinkIcon from "@material-ui/icons/Link"
 import Notes from "../../Notes"
 import StepWrapper from "../StepWrapper"
-import { METRIC_FORMATTERS } from "../../../common/constants"
 import { titleTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
 
 const styles = (theme) => ({

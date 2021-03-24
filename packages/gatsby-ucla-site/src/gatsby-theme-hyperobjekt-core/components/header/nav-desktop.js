@@ -27,7 +27,7 @@ const styles = (theme) => ({
       transform: "translate3d(0, 0, 0)",
       opacity: 1,
     },
-    "&:first-child::before": {
+    "&:nth-child(2)::before": {
       content: "''",
       display: "block",
       position: "absolute",

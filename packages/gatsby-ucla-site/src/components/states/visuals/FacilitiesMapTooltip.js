@@ -1,4 +1,3 @@
-// import useMapStore from "@hyperobjekt/svg-maps/lib/hooks/useMapStore"
 import React from "react"
 import useStatesStore from "../useStatesStore"
 import { getLang } from "../../../common/utils/i18n"
@@ -42,6 +41,7 @@ const FacilitiesMapTooltip = ({
   classes,
   group,
   metric: activeMetric,
+  isImmigration,
   ...props
 }) => {
   const hoveredMarker = useStatesStore((state) => state.hoveredMarker)
@@ -78,7 +78,7 @@ const FacilitiesMapTooltip = ({
       </tr>
     )
   })
-  
+
   return (
     <Tooltip>
       <span className={clsx("intitution-name", classes.institution)}>
@@ -86,7 +86,11 @@ const FacilitiesMapTooltip = ({
       </span>
       <span className={classes.state}>
         <span>{hoveredMarker.state}</span>
-        {group && <span className={classes.group}>({getLang(group)})</span>}
+        {group && (
+          <span className={classes.group}>
+            ({getLang(group, isImmigration && "immigration")})
+          </span>
+        )}
       </span>
       <table className={classes.stats}>
         <tbody>{stats}</tbody>
