@@ -161,6 +161,11 @@
       ]
     },
     {
+      "name": "ICE Data",
+      "link": "/ice",
+      "type": "internal"
+    },
+    {
       "name": "About",
       "link": "/about",
       "type": "internal"
@@ -168,11 +173,6 @@
     {
       "name": "Blog",
       "link": "/blog",
-      "type": "internal"
-    },
-    {
-      "name": "Immigration",
-      "link": "/immigration",
       "type": "internal"
     },
     {

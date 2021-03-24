@@ -1,5 +1,4 @@
 import React from "react"
-import { navigate } from "gatsby"
 import { Table } from "../table"
 import { format } from "d3-format"
 import { Typography, withStyles } from "@material-ui/core"
@@ -9,7 +8,6 @@ import { Block } from "gatsby-theme-hyperobjekt-core"
 import ResponsiveContainer from "../ResponsiveContainer"
 import {
   getColorForJurisdiction,
-  getSlug,
   isNumber,
 } from "../../common/utils/selectors"
 import shallow from "zustand/shallow"
@@ -196,7 +194,7 @@ const HomeTable = ({
     })
 
     return [facilityCol, ...cols]
-  }, [classes.name, numberColStyle])
+  }, [classes.name, classes.state, isImmigration, numberColStyle])
 
   // memoized table options
   const options = React.useMemo(
