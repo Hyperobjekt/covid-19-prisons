@@ -27,6 +27,14 @@ export const METRICS = {
     "active_rate",
     "tested_rate",
   ],
+  immigration: [
+    "confirmed",
+    "deaths",
+    "active",
+    "confirmed_rate",
+    "deaths_rate",
+    "active_rate",
+  ],
   staff: ["confirmed", "deaths", "active", "tested"],
 }
 

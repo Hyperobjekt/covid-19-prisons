@@ -157,27 +157,36 @@ const HomeTable = ({
       },
     }
 
-    const colNames = [
-      "confirmed",
-      "confirmed_rate",
-      "active",
-      "active_rate",
-      "deaths",
-      "deaths_rate",
-      "tested",
-      "tested_rate",
-    ]
+    const colMetrics = isImmigration
+      ? [
+          "confirmed",
+          "confirmed_rate",
+          "active",
+          "active_rate",
+          "deaths",
+          "deaths_rate",
+        ]
+      : [
+          "confirmed",
+          "confirmed_rate",
+          "active",
+          "active_rate",
+          "deaths",
+          "deaths_rate",
+          "tested",
+          "tested_rate",
+        ]
 
-    const cols = colNames.map((cn) => {
+    const cols = colMetrics.map((colMetric) => {
       const col = {
-        id: cn,
-        Header: getLang(cn),
-        accessor: `residents.${cn}`,
+        id: colMetric,
+        Header: getLang(colMetric),
+        accessor: `residents.${colMetric}`,
         Cell: (prop) => countFormatter(prop.value),
         style: numberColStyle,
       }
 
-      const isRate = cn.indexOf("_rate") > 0
+      const isRate = colMetric.indexOf("_rate") > 0
       if (isRate) {
         col.sortType = rateSorter
         col.Cell = (prop) => rateFormatter(prop.value)
