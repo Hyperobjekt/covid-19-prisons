@@ -8,18 +8,29 @@ import { sansSerifyTypography } from "../../theme"
 const cols = 6
 
 const styles = (theme) => ({
+  root: {
+    // Explore Data submenu
+    "& .nav__list-item:first-child $subMenu": {
+      position: "fixed",
+      top: `calc(${theme.layout.headerHeight} - 2px)`,
+      width: "100%",
+      height: theme.typography.pxToRem(264),
+      "& .SubMenu-list": {
+        columnCount: cols,
+      },
+    },
+  },
   list: {
     display: "flex",
   },
   listItem: {
     zIndex: 999,
 
-    // fix to keep nav from overflowing with addition of Immigration
-    [theme.breakpoints.up("lg")]: {
-      "& .nav__link": {
-        paddingLeft: ".8rem",
-        paddingRight: ".8rem",
-      },
+    "& .MuiSvgIcon-root": {
+      transition: `transform 400ms ${theme.transitions.easing.easeInOut}, fill 200ms ${theme.transitions.easing.easeInOut} 0ms`,
+    },
+    "&:hover .MuiSvgIcon-root": {
+      transform: "rotateX(180deg)",
     },
 
     "&:hover $subMenu, &:focus-within $subMenu": {
@@ -27,27 +38,16 @@ const styles = (theme) => ({
       transform: "translate3d(0, 0, 0)",
       opacity: 1,
     },
-    "&:nth-child(2)::before": {
-      content: "''",
-      display: "block",
-      position: "absolute",
-      right: 0,
-      top: 0,
-      bottom: 0,
-      width: 1,
-      height: theme.spacing(3),
-      margin: "auto",
-      background: "#ccc",
-    },
   },
   link: {
     fontSize: theme.typography.pxToRem(14),
   },
   subMenu: {
-    position: "fixed",
-    top: `calc(${theme.layout.headerHeight} - 9px)`,
-    left: 0,
-    width: "100%",
+    position: "absolute",
+    top: `calc(${theme.layout.headerHeight} - .5rem)`,
+    right: 0,
+    // left: "calc(-108px + 50%)", // to center
+    width: "12rem",
     marginLeft: 0,
     transform: `translate3d(0, -10%, 0)`,
     pointerEvents: "none",
@@ -56,28 +56,14 @@ const styles = (theme) => ({
     transition: `transform 400ms ${theme.transitions.easing.easeInOut}, opacity 400ms ${theme.transitions.easing.easeInOut}`,
     opacity: 0,
     display: "block",
-    height: theme.typography.pxToRem(264),
+    // height: theme.typography.pxToRem(264),
     padding: theme.spacing(4, 0),
     boxShadow: theme.shadows[1],
     "& .SubMenu-list": {
-      columnCount: cols,
       padding: 0,
     },
     "& .SubMenu-listItem": {
       display: "inline-block",
-    },
-    "& .SubMenu-listItem:last-child": {
-      marginTop: theme.spacing(2),
-      position: "relative",
-    },
-    "& .SubMenu-listItem:last-child:before": {
-      content: '""',
-      display: "block",
-      background: theme.palette.text.secondary,
-      position: "absolute",
-      height: "2px",
-      width: "3rem",
-      top: "-0.5rem",
     },
     "& .SubMenu-link": {
       padding: 0,
@@ -86,7 +72,7 @@ const styles = (theme) => ({
       fontSize: theme.typography.pxToRem(14),
     },
     "& .SubMenu-link.active": {
-      fontWeight: "bold",
+      color: theme.palette.secondary.main,
     },
   },
 })
@@ -95,7 +81,7 @@ const Nav = ({ links, ...props }) => {
   const breadcrumb = useBreadcrumb()
   // replace State & Federal link with state name if currently on a state page
   const modLinks =
-    breadcrumb.length === 2
+    breadcrumb.length === 2 && breadcrumb[0].link === "#"
       ? links.map((l) =>
           l.link === "#" ? { ...l, name: breadcrumb[1].name } : l
         )

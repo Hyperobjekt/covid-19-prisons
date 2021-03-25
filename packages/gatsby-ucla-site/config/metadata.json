@@ -16,10 +16,18 @@
       "location": "footer"
     },
     {
-      "name": "State & Federal Data",
+      "name": "Explore Data",
       "link": "#",
       "type": "internal",
       "location": "header",
+      "subBar": [
+        { "name": "Federal", "link": "/federal", "type": "internal" },
+        {
+          "name": "ICE Data",
+          "link": "/ice",
+          "type": "internal"
+        }
+      ],
       "subMenu": [
         { "name": "Alaska", "link": "/states/alaska", "type": "internal" },
         { "name": "Alabama", "link": "/states/alabama", "type": "internal" },
@@ -156,44 +164,54 @@
           "link": "/states/wisconsin",
           "type": "internal"
         },
-        { "name": "Wyoming", "link": "/states/wyoming", "type": "internal" },
-        { "name": "Federal", "link": "/federal", "type": "internal" }
+        { "name": "Wyoming", "link": "/states/wyoming", "type": "internal" }
       ]
-    },
-    {
-      "name": "ICE Data",
-      "link": "/ice",
-      "type": "internal"
     },
     {
       "name": "About",
       "link": "/about",
-      "type": "internal"
+      "type": "internal",
+      "location": "header",
+      "subMenu": [
+        {
+          "name": "About the project",
+          "link": "/about",
+          "type": "internal"
+        },
+        {
+          "name": "Methods & FAQ",
+          "link": "/methods",
+          "type": "internal"
+        },
+        {
+          "name": "Media & Publications",
+          "link": "/media",
+          "type": "internal"
+        },
+        {
+          "name": "Resources",
+          "link": "/resources",
+          "type": "internal"
+        },
+        {
+          "name": "Contact",
+          "link": "/contact",
+          "type": "internal"
+        }
+      ]
     },
     {
-      "name": "Blog",
+      "name": "Updates",
       "link": "/blog",
-      "type": "internal"
-    },
-    {
-      "name": "Media & Publications",
-      "link": "/media",
-      "type": "internal"
-    },
-    {
-      "name": "Resources",
-      "link": "/resources",
-      "type": "internal"
-    },
-    {
-      "name": "Methods & FAQ",
-      "link": "/methods",
-      "type": "internal"
-    },
-    {
-      "name": "Contact",
-      "link": "/contact",
-      "type": "internal"
+      "type": "internal",
+      "location": "header",
+      "subMenu": [
+        {
+          "name": "Blog",
+          "link": "/blog",
+          "type": "internal"
+        }
+      ]
     }
   ],
   "socialLinks": [
