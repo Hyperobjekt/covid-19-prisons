@@ -110,7 +110,7 @@ const JurisdictionStatList = ({
       </AnchorLink>
     ),
     immigration: (
-      <AnchorLink to="/immigration#scorecard">
+      <AnchorLink to="/ice#scorecard">
         {iceScore}
         <ChevronRightIcon />
       </AnchorLink>
