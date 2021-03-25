@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
       minWidth: 100,
     },
     "& .MuiTableCell-head": {
-      
       background: "#fff",
       fontWeight: 700,
       lineHeight: 1.333,
@@ -65,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.up("sm")]: {
         position: "sticky",
         top: 56,
-      }
+      },
     },
     "& .MuiTableCell-head:first-child": {
       textAlign: "left",
@@ -245,6 +244,20 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 3),
       },
     },
+
+    "& .continuousColumn": {
+      [theme.breakpoints.up("sm")]: {
+        columnCount: 2,
+        columnGap: theme.spacing(3),
+      },
+      
+      "& p": {
+        [theme.breakpoints.only("sm")]: {
+          fontSize: theme.typography.pxToRem(16),
+        },
+      },
+    },
+
   },
   featuredImage: {
     [theme.breakpoints.up("sm")]: {
