@@ -167,7 +167,11 @@ const ImmigrationTemplate = ({
           labelSelector={labelSelector}
         />
       </HomeMap>
-      <FacilitiesMapTooltip group={"residents"} metric={metric} />
+      <FacilitiesMapTooltip
+        group={"residents"}
+        metric={metric}
+        isImmigration={true}
+      />
       <MapTooltip isImmigration={true} />
       <Table
         isImmigration={true}

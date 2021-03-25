@@ -27,7 +27,12 @@ const styles = (theme) => ({
       transform: "translate3d(0, 0, 0)",
       opacity: 1,
     },
-    "&:first-child::before": {
+    // drop padding a bit on the first item with the arrow
+    "&:nth-child(1) a": {
+      paddingRight: theme.spacing(0)
+    },
+    // divider between data and other links
+    "&:nth-child(2)::before": {
       content: "''",
       display: "block",
       position: "absolute",

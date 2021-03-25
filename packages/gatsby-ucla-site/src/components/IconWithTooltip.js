@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import InfoIcon from "../../content/assets/info-icon.svg"
 import {
   Box,
-  Button,
   ButtonBase,
   makeStyles,
   Tooltip,
