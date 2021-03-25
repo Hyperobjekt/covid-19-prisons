@@ -53,8 +53,7 @@ const useStyles = makeStyles((theme) => ({
       minWidth: 100,
     },
     "& .MuiTableCell-head": {
-      position: "sticky",
-      top: 56,
+      
       background: "#fff",
       fontWeight: 700,
       lineHeight: 1.333,
@@ -63,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
       zIndex: 999,
       borderBottom: `none`,
       boxShadow: `0 2px 0 ${theme.palette.text.primary}`,
+      [theme.breakpoints.up("sm")]: {
+        position: "sticky",
+        top: 56,
+      }
     },
     "& .MuiTableCell-head:first-child": {
       textAlign: "left",
