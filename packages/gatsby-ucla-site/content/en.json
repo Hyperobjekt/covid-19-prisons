@@ -33,7 +33,7 @@
   "map_active_rate": "Each spike represents the % of incarcerated people who currently have COVID-19 in a facility",
   "map_active_rate_immigration": "Each spike represents the % of detained people who currently have COVID-19 in a facility",
   "map_notes": "<span>This map displays reported COVID-19 cases and related deaths of people incarcerated in carceral facilities across the US. Click on a state to access more data.</span> <br><span>Rates and active cases are not available for all facilities.  <a href='/methods#which-jurisdictions-are-reporting-facility-level-data'>Learn why.</a></span>",
-  "map_notes_immigration": "<span>This map displays COVID-19 cases and related deaths of people detained by ICE in facilities across the US, as well as the regional boundaries for the <a href='https://www.ice.gov/contact/field-offices?office=16#slc'>24 ICE Enforcement & Removal Operations field office Areas of Responsibility</a>.</span>",
+  "map_notes_immigration": "<span>This map displays COVID-19 cases and related deaths of people detained by ICE in facilities across the US, as well as the boundaries for the <a href='https://www.ice.gov/contact/field-offices?office=16#slc'>24 ICE Enforcement & Removal Operations Field Office regions</a>.</span>",
   "map_tested": "Each spike represents the number of incarcerated people who have been tested for COVID-19 within a facility",
   "map_tested_rate": "Each spike represents the % of incarcerated people who have been tested for COVID-19 within a facility",
   "state": "State Facilities",
