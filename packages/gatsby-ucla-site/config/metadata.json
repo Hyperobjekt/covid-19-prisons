@@ -20,15 +20,14 @@
       "link": "#",
       "type": "internal",
       "location": "header",
-      "subBar": [
-        { "name": "Federal", "link": "/federal", "type": "internal" },
-        {
-          "name": "ICE Data",
-          "link": "/ice",
-          "type": "internal"
-        }
-      ],
       "subMenu": [
+        {
+          "name": "Federal Bureau of Prisons",
+          "link": "/federal",
+          "type": "internal"
+        },
+        { "name": "ICE Detention", "link": "/ice", "type": "internal" },
+
         { "name": "Alaska", "link": "/states/alaska", "type": "internal" },
         { "name": "Alabama", "link": "/states/alabama", "type": "internal" },
         { "name": "Arizona", "link": "/states/arizona", "type": "internal" },

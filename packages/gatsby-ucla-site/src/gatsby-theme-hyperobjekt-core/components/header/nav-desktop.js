@@ -5,7 +5,7 @@ import useBreadcrumb from "gatsby-theme-hyperobjekt-core/src/utils/use-breadcrum
 import { sansSerifyTypography } from "../../theme"
 
 /** number of cols for the subnav */
-const cols = 6
+const cols = 5
 
 const styles = (theme) => ({
   root: {
@@ -14,7 +14,7 @@ const styles = (theme) => ({
       position: "fixed",
       top: `calc(${theme.layout.headerHeight} - 2px)`,
       width: "100%",
-      height: theme.typography.pxToRem(264),
+      // height: theme.typography.pxToRem(264),
       "& .SubMenu-list": {
         columnCount: cols,
       },
