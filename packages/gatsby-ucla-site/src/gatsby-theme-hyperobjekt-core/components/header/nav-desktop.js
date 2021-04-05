@@ -46,8 +46,7 @@ const styles = (theme) => ({
   subMenu: {
     position: "absolute",
     top: `calc(${theme.layout.headerHeight} - .5rem)`,
-    right: 0,
-    // left: "calc(-108px + 50%)", // to center
+    left: 0,
     width: "12rem",
     marginLeft: 0,
     transform: `translate3d(0, -10%, 0)`,
@@ -58,7 +57,7 @@ const styles = (theme) => ({
     opacity: 0,
     display: "block",
     // height: theme.typography.pxToRem(264),
-    padding: theme.spacing(4, 0),
+    padding: theme.spacing(2, 0),
     boxShadow: theme.shadows[1],
     "& .SubMenu-list": {
       padding: 0,
