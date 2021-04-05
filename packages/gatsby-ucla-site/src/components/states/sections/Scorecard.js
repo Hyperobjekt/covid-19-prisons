@@ -289,7 +289,8 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
   const scorecardData = data.scorecard?.nodes[0]
   if (!scorecardData) return null
 
-  const asteriskText = lang.asterisk_notes[state.toLowerCase()]
+  const asteriskKey = props.isFederal ? "federal" : state.toLowerCase()
+  const asteriskText = lang.asterisk_notes[asteriskKey]
   const asterisk = <span className={classes.asterisk}>*</span>
 
   return (

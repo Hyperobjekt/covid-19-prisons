@@ -80,7 +80,7 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           } else if (isFederal) {
             slug = `/federal`
           } else if (isIce) {
-            slug = `/immigration`
+            slug = `/ice`
           }
           const jurisdictionElement = slug ? (
             <Link to={slug} className={classes.jurisdictionLink}>

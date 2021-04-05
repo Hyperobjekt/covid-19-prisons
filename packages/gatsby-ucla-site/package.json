@@ -25,7 +25,7 @@
     "gatsby-transformer-csv": "^2.3.14",
     "geo-albers-usa-territories": "^0.1.0",
     "mdx-scoped-runtime": "^0.7.5",
-    "netlify-cms-app": "^2.13.1",
+    "netlify-cms-app": "^2.14.35",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-simple-maps": "^2.3.0",
