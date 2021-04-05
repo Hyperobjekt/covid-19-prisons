@@ -190,8 +190,13 @@
           "type": "internal"
         },
         {
-          "name": "Methods & FAQ",
+          "name": "Methods",
           "link": "/methods",
+          "type": "internal"
+        },
+        {
+          "name": "FAQ",
+          "link": "/faq",
           "type": "internal"
         },
         {
@@ -215,7 +220,7 @@
       "location": "footer"
     },
     {
-      "name": "Methods & FAQ",
+      "name": "Methods",
       "link": "/methods",
       "type": "internal",
       "location": "footer"
@@ -223,6 +228,18 @@
     {
       "name": "Blog",
       "link": "/blog",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "FAQ",
+      "link": "/faq",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "Opportunities",
+      "link": "/opportunities",
       "type": "internal",
       "location": "footer"
     },
