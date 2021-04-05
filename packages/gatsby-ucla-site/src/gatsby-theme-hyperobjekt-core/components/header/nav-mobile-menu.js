@@ -12,7 +12,7 @@ import {
   ListItem,
 } from "@material-ui/core"
 import { Link } from "gatsby-theme-material-ui"
-import Navigation from "gatsby-theme-hyperobjekt-core/src/components/header/nav"
+import CoreSocialLinks from "gatsby-theme-hyperobjekt-core/src/components/social/social-links"
 import { useSiteMetadata, SiteContext } from "gatsby-theme-hyperobjekt-core"
 import { navigate } from "gatsby"
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown"
@@ -80,10 +80,22 @@ const AccordionDetails = withStyles((theme) => ({
   },
 }))(MuiAccordionDetails)
 
+const SocialLinks = withStyles((theme) => ({
+  root: {
+    margin: theme.spacing(1),
+  },
+  link: {
+    color: "#283224",
+    "& svg": {
+      height: "1rem",
+      width: "1rem",
+    },
+  },
+}))(CoreSocialLinks)
 
 export default function NavMobileMenu(props) {
   const classes = useStyles()
-  const { menuLinks } = useSiteMetadata()
+  const { menuLinks, socialLinks } = useSiteMetadata()
   const { setIsNavOpen } = useContext(SiteContext)
 
   // close menu and navigate on state selection
@@ -102,61 +114,65 @@ export default function NavMobileMenu(props) {
   }
   return (
     <div>
-      {menuLinks.map(menuItem => {
-        if (menuItem.link === "/") return null
+      {menuLinks
+        .filter((m) => ["all", "header"].includes(m.location.toLowerCase()))
+        .map((menuItem) => {
+          const subMenuItems = menuItem.subMenu.filter(
+            (item) => !item.link.includes("states/")
+          )
+          const stateDropdownItems = menuItem.subMenu.filter((item) =>
+            item.link.includes("states/")
+          )
 
-        const subMenuItems = menuItem.subMenu.filter(item => !item.link.includes("states/"))
-        const stateDropdownItems = menuItem.subMenu.filter(item => item.link.includes("states/"))
-        
-        return (
-          <Accordion
-            key={menuItem.link}
-            expanded={expanded === menuItem.link}
-            onChange={handleAccordionToggle(menuItem.link)}
-          >
-            <AccordionSummary
-              expandIcon={<ArrowDropDown />}
-              aria-controls={menuItem.link + "-content"}
-              id={menuItem.link + "-header"}
+          return (
+            <Accordion
+              key={menuItem.link}
+              expanded={expanded === menuItem.link}
+              onChange={handleAccordionToggle(menuItem.link)}
             >
-              <Typography variant="body" className={classes.heading}>
-                {menuItem.name}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <List>
-                {!!stateDropdownItems.length && (
-                  <ListItem>
-                    <NativeSelect
-                      onChange={handleSelect}
-                    >
-                      <option value="">State</option>
-                      {stateDropdownItems.map((opt) => (
-                        <option key={opt.link} value={opt.link}>
-                          {opt.name}
-                        </option>
-                      ))}
-                    </NativeSelect>
-                  </ListItem>
-                )}
-                {subMenuItems.map((subMenuItem) => {
-                  return (
+              <AccordionSummary
+                expandIcon={<ArrowDropDown />}
+                aria-controls={menuItem.link + "-content"}
+                id={menuItem.link + "-header"}
+              >
+                <Typography variant="body" className={classes.heading}>
+                  {menuItem.name}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <List>
+                  {!!stateDropdownItems.length && (
                     <ListItem>
-                      <Link
-                        className={clsx("SubMenu-link", classes.link)}
-                        onClick={handleLinkClick}
-                        to={subMenuItem.link}
-                      >
-                        {subMenuItem.name}
-                      </Link>
+                      <NativeSelect onChange={handleSelect}>
+                        <option value="">State</option>
+                        {stateDropdownItems.map((opt) => (
+                          <option key={opt.link} value={opt.link}>
+                            {opt.name}
+                          </option>
+                        ))}
+                      </NativeSelect>
                     </ListItem>
-                  )
-                })}
-              </List>
-            </AccordionDetails>
-          </Accordion>
-        )
-      })}
+                  )}
+                  {subMenuItems.map((subMenuItem) => {
+                    return (
+                      <ListItem>
+                        <Link
+                          className={clsx("SubMenu-link", classes.link)}
+                          onClick={handleLinkClick}
+                          to={subMenuItem.link}
+                        >
+                          {subMenuItem.name}
+                        </Link>
+                      </ListItem>
+                    )
+                  })}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+          )
+        })}
+      {/* hack to work around not being able to apply styles */}
+      <SocialLinks location="footer" />
     </div>
   )
 }

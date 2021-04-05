@@ -10,12 +10,6 @@
   "siteUrl": "https://uclacovidbehindbars.org",
   "menuLinks": [
     {
-      "name": "Home",
-      "link": "/",
-      "type": "internal",
-      "location": "footer"
-    },
-    {
       "name": "Explore Data",
       "link": "#",
       "type": "internal",
@@ -206,13 +200,37 @@
           "type": "internal"
         }
       ]
-    }
-  ],
-  "footerLinks": [
+    },
+
+    {
+      "name": "Home",
+      "link": "/",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "About the project",
+      "link": "/about",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "Methods & FAQ",
+      "link": "/methods",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "Blog",
+      "link": "/blog",
+      "type": "internal",
+      "location": "footer"
+    },
     {
       "name": "Contact",
       "link": "/contact",
-      "type": "internal"
+      "type": "internal",
+      "location": "footer"
     }
   ],
   "socialLinks": [

@@ -1,6 +1,7 @@
 import React from "react"
 import { withStyles } from "@material-ui/core"
 import Navigation from "gatsby-theme-hyperobjekt-core/src/components/header/nav"
+import CoreSocialLinks from "gatsby-theme-hyperobjekt-core/src/components/social/social-links"
 import useBreadcrumb from "gatsby-theme-hyperobjekt-core/src/utils/use-breadcrumb"
 import { sansSerifyTypography } from "../../theme"
 
@@ -77,6 +78,20 @@ const styles = (theme) => ({
   },
 })
 
+const SocialLinks = withStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(1),
+    marginLeft: "auto",
+  },
+  link: {
+    color: "#283224",
+    "& svg": {
+      height: "1rem",
+      width: "1rem",
+    },
+  },
+}))(CoreSocialLinks)
+
 const Nav = ({ links, ...props }) => {
   const breadcrumb = useBreadcrumb()
   // replace State & Federal link with state name if currently on a state page
@@ -86,7 +101,13 @@ const Nav = ({ links, ...props }) => {
           l.link === "#" ? { ...l, name: breadcrumb[1].name } : l
         )
       : links
-  return <Navigation links={modLinks} {...props} />
+  return (
+    <>
+      <Navigation links={modLinks} {...props} />
+      {/* hack to work around not being able to apply styles */}
+      <SocialLinks location="footer" />
+    </>
+  )
 }
 
 export default withStyles(styles)(Nav)
