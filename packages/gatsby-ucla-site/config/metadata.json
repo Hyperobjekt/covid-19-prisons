@@ -167,6 +167,24 @@
       ]
     },
     {
+      "name": "Publications & Resources",
+      "link": "/blog",
+      "type": "internal",
+      "location": "header",
+      "subMenu": [
+        {
+          "name": "Blog",
+          "link": "/blog",
+          "type": "internal"
+        },
+        {
+          "name": "Reports & Resources",
+          "link": "/resources",
+          "type": "internal"
+        }
+      ]
+    },
+    {
       "name": "About",
       "link": "/about",
       "type": "internal",
@@ -183,34 +201,18 @@
           "type": "internal"
         },
         {
-          "name": "Media & Publications",
+          "name": "In the news",
           "link": "/media",
           "type": "internal"
-        },
-        {
-          "name": "Resources",
-          "link": "/resources",
-          "type": "internal"
-        },
-        {
-          "name": "Contact",
-          "link": "/contact",
-          "type": "internal"
         }
       ]
-    },
+    }
+  ],
+  "footerLinks": [
     {
-      "name": "Updates",
-      "link": "/blog",
-      "type": "internal",
-      "location": "header",
-      "subMenu": [
-        {
-          "name": "Blog",
-          "link": "/blog",
-          "type": "internal"
-        }
-      ]
+      "name": "Contact",
+      "link": "/contact",
+      "type": "internal"
     }
   ],
   "socialLinks": [

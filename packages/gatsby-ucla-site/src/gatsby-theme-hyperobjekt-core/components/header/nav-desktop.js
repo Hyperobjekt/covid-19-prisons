@@ -27,10 +27,10 @@ const styles = (theme) => ({
     zIndex: 999,
 
     "& .MuiSvgIcon-root": {
-      transition: `transform 400ms ${theme.transitions.easing.easeInOut}, fill 200ms ${theme.transitions.easing.easeInOut} 0ms`,
+      transition: `transform 150ms ${theme.transitions.easing.easeInOut}, fill 200ms ${theme.transitions.easing.easeInOut} 0ms`,
     },
     "&:hover .MuiSvgIcon-root": {
-      transform: "rotateX(180deg)",
+      transform: "rotate(180deg)",
     },
 
     "&:hover $subMenu, &:focus-within $subMenu": {

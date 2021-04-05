@@ -49,8 +49,8 @@ const SubMenu = ({ links, className, classes, onSelect, ...props }) => {
     )
   }
 
-  const stateLinks = links.filter((l) => l.link.includes("states"))
-  const federalLinks = links.filter((l) => !l.link.includes("states"))
+  const stateLinks = links.filter((l) => l.link.includes("states/"))
+  const federalLinks = links.filter((l) => !l.link.includes("states/"))
 
   return (
     <div className={clsx("SubMenu-root", classes.root)}>
