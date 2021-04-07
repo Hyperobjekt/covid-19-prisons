@@ -101,9 +101,9 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         },
       },
       {
-        id: "r-vadmin",
-        Header: getLang("residents_vadmin"),
-        accessor: "residents.vadmin",
+        id: "r-initiated",
+        Header: getLang("residents_initiated"),
+        accessor: "residents.initiated",
         disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: {
@@ -113,9 +113,9 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         },
       },
       {
-        id: "s-vadmin",
-        Header: getLang("staff_vadmin"),
-        accessor: "staff.vadmin",
+        id: "s-initiated",
+        Header: getLang("staff_initiated"),
+        accessor: "staff.initiated",
         disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: {
