@@ -17,10 +17,10 @@ export default function useVaccineData() {
             isFederal
             isIce
             residents {
-              vadmin
+              initiated
             }
             staff {
-              vadmin
+              initiated
             }
           }
         }
@@ -33,15 +33,15 @@ export default function useVaccineData() {
       isState: false,
       isTotal: true,
       jurisdiction: getLang("total"),
-      residents: { vadmin: 0 },
-      staff: { vadmin: 0 },
+      residents: { initiated: 0 },
+      staff: { initiated: 0 },
     }
     const filtered = nodes.filter((n) => {
-      if (!n.residents.vadmin && !n.staff.vadmin) {
+      if (!n.residents.initiated && !n.staff.initiated) {
         return false
       }
-      total.residents.vadmin += n.residents.vadmin || 0
-      total.staff.vadmin += n.staff.vadmin || 0
+      total.residents.initiated += n.residents.initiated || 0
+      total.staff.initiated += n.staff.initiated || 0
       return true
     })
 
