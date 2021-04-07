@@ -82,7 +82,7 @@ const prisonReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLx
 const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1678228533&format=csv`
 
 const releasesMap = {
-  facility: ["Facility", "string", exactMatch],
+  facility: ["Facility", "string", roughMatch],
   state: ["State", "string", exactMatch],
   date: ["Date", "string", exactMatch],
   authority: ["Authorizing Agent", "string", roughMatch],
