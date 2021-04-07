@@ -33,7 +33,7 @@ const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbar
 exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
 
 /**
- * VACCINE DATA (RESIDENTS / STAFF VADMIN)
+ * VACCINE DATA (RESIDENTS / STAFF INITIATED)
  */
 
 const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`

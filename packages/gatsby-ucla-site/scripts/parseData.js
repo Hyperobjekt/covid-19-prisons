@@ -180,12 +180,8 @@ const parseFacility = (facility = {}) => {
 const parseVaccine = (vaccine = {}) => {
   const source = groupObjectData(vaccine)
 
-  const residentKeys = [
-    "vadmin",
-  ]
-  const staffKeys = [
-    "vadmin",
-  ]
+  const residentKeys = ["initiated"]
+  const staffKeys = ["initiated"]
 
   const result = {}
 
