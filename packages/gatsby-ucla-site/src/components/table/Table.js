@@ -108,6 +108,7 @@ const Table = ({
     gotoPage,
     setPageSize,
     preGlobalFilteredRows,
+    rows,
     setGlobalFilter,
     toggleSortBy,
     state: { pageIndex, pageSize, globalFilter, sortBy },
@@ -133,12 +134,16 @@ const Table = ({
     }
   }, [sortColumn, toggleSortBy, sortBy, sortDesc])
 
+  const [filtered, setFiltered] = React.useState(globalFilter)
+  
   const handleChangePage = (event, newPage) => {
     gotoPage(newPage)
-
     if (onChangePage) {
       onChangePage(newPage)
     }
+
+    // globalFilter value resets on page change
+    setGlobalFilter(filtered)
   }
 
   const handleChangeRowsPerPage = (event) => {
@@ -147,6 +152,31 @@ const Table = ({
       onChangeRowsPerPage(Number(event.target.value))
     }
   }
+  
+  const handleSetGlobalFilter = (value) => {
+    // eg true if user is deleting letters from search term
+    const lessRestrictiveFilter =
+      !value || (filtered && filtered.includes(value))
+
+    if (!lessRestrictiveFilter) {
+      // so we don't stay on a page that no longer exists
+      gotoPage(0)
+      if (onChangePage) {
+        onChangePage(0)
+      }
+    }
+
+    setGlobalFilter(value)
+    setFiltered(value)
+  }
+
+  // keep globalFilter in sync with filtered
+  // (eg preserves filter state if element is scrolled off-screen)
+  useEffect(() => {
+    if (globalFilter !== filtered) {
+      setGlobalFilter(filtered)
+    }
+  }, [globalFilter, filtered])
 
   return (
     <>
@@ -154,7 +184,7 @@ const Table = ({
         <TableToolbar
           className={classes.toolbar}
           preGlobalFilteredRows={preGlobalFilteredRows}
-          setGlobalFilter={setGlobalFilter}
+          setGlobalFilter={handleSetGlobalFilter}
           globalFilter={globalFilter}
         >
           {children}
@@ -234,7 +264,7 @@ const Table = ({
                     { label: "All", value: data.length },
                   ]}
                   colSpan={columns.length}
-                  count={data.length}
+                  count={rows.length}
                   rowsPerPage={pageSize}
                   page={pageIndex}
                   SelectProps={{
