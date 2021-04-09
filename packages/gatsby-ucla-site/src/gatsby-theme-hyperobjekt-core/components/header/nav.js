@@ -1,8 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import clsx from "clsx"
-import { Link } from "gatsby-theme-material-ui"
-import { List, ListItem, withStyles } from "@material-ui/core"
+import { List, ListItem, Typography, withStyles } from "@material-ui/core"
 import SubNavigation from "./nav-submenu"
 import NavArrow from "gatsby-theme-hyperobjekt-core/src/components/header/nav-arrow"
 import useBreadcrumb from "gatsby-theme-hyperobjekt-core/src/utils/use-breadcrumb"
@@ -26,7 +25,7 @@ export const styles = (theme) => {
       padding: 0,
     },
     listItemActive: {
-      "& > a": {
+      "& > p": {
         fontWeight: "bold",
       },
     },
@@ -36,6 +35,7 @@ export const styles = (theme) => {
       alignItems: "center",
       padding: theme.spacing(2),
       whiteSpace: "nowrap",
+      color: theme.palette.text.primary,
     },
     /** Styles applied to the sub menu root */
     subMenu: { marginLeft: theme.spacing(2) },
@@ -60,7 +60,14 @@ const Navigation = ({
   ...props
 }) => {
   const breadcrumb = useBreadcrumb()
-  const isActive = (link) => breadcrumb.some((l) => l.link === link)
+  const isActive = (link) => {
+    return breadcrumb.some((l) => {
+      // don't highlight as active a supercategory (eg About) in a nav
+      // without submenus (ie the footer)
+      if (!subMenu && l.subMenu) return false
+      return l.link === link
+    })
+  }
   return (
     <Component className={clsx("nav", classes.root, className)} {...props}>
       <List className={clsx("nav__list", classes.list)}>
@@ -71,15 +78,12 @@ const Navigation = ({
             })}
             key={"link" + index}
           >
-            <Link
+            <Typography
               className={clsx("nav__link", classes.link)}
-              activeClassName="active"
-              onClick={onSelect}
-              to={menuItem.link}
             >
               {menuItem.name}
               {menuItem.subMenu?.length > 0 && subMenu && <NavArrow />}
-            </Link>
+            </Typography>
             {menuItem.subMenu?.length > 0 && subMenu && (
               <SubNavigation
                 classes={{
