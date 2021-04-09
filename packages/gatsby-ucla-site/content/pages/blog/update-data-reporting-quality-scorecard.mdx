@@ -1,0 +1,1112 @@
+---
+title: "UPDATE: Data Reporting & Quality Scorecard"
+path: blog/aprilscorecard
+featured: false
+author: Liz DeWolf, Poornima Rajeshwar, and Erika Tyagi
+date: 2021-04-09T20:47:52.444Z
+description: April
+isBlogPost: true
+template: blog
+---
+In March, we released our [Data Reporting & Quality Scorecards](https://uclacovidbehindbars.org/blog/scorecard) assessing each of the 53 major state and federal agencies according to a number of metrics related to what COVID-19 data they report (our data reporting metrics) and how they report those data (our data quality metrics).
+
+The UCLA Law COVID-19 Behind Bars Data Project has been tracking the coronavirus pandemic in prisons, jails, and other detention facilities across the country since March 2020, an effort made immeasurably harder by the lack of transparency and consistency in data reporting by carceral agencies.
+
+Several times per week, our team of data scientists systematically collects self-reported data on the number of COVID-19 cases, deaths, and tests performed (among other variables) from 50 state correctional agencies, the District of Columbia's Department of Corrections, the Federal Bureau of Prisons (BOP), U.S. Immigration and Customs Enforcement (ICE), and several county jail systems.
+
+Our data come directly from official agency websites, but the quality of these dashboards and the frequency with which they are updated are widely variable. Carceral agencies have long been opaque. They resist basic transparency, and federal and state reporting mandates — to the extent they exist — are poorly enforced. Data is hard to access, infrequently collected, and released only after long delays. Unfortunately, [these patterns have continued](https://uclacovidbehindbars.org/blog/data-reporting) during the pandemic.
+
+Inconsistencies in data reporting practices across agencies — including what variables are reported and how — make our efforts to collect and standardize COVID-19 data in the carceral context extremely challenging. Yet there is an urgent national need for the data we seek. Carceral facilities are [hotspots for viral spread](https://jamanetwork.com/journals/jama/fullarticle/2768249) and people living inside are among the most vulnerable to infection and death. Tracking the virus in prisons, jails, and detention centers across the country is necessary to inform critical public health interventions like [decarceration and vaccination](https://www.nejm.org/doi/full/10.1056/NEJMp2100609).
+
+Some of these inconsistencies produce gaps in our data. Certain agencies simply do not report key variables, such as cumulative COVID-19 cases or deaths. Others fail to report data on a regular basis.
+
+Agencies also report data in formats that are hard to access or analyze. In some instances, they post updates in images or PDFs that are difficult for our web scrapers to process. As a result, we are sometimes forced to resort to painstaking manual data collection. In other cases, agencies do not clearly define the variables they report, and we have to make educated guesses as to how to interpret the data. In several instances, agencies have unaccountably altered the form in which the data is posted, necessitating the building of new scrapers in short order.
+
+To demonstrate these inconsistencies in data reporting and quality, we have created a scorecard to assess each of the 53 major state and federal agencies according to a number of metrics related to what COVID-19 data they report (our data reporting metrics) and how they report those data (our data quality metrics).
+
+![Data Reporting & Quality Scorecard for the California Department of Corrections and Rehabilitation](screen-shot-2021-03-16-at-9.41.56-pm.png "Data Reporting & Quality Scorecard for the California Department of Corrections and Rehabilitation")
+
+<i>Scorecard for the California Department of Corrections and Rehabilitation</i>
+
+We assigned our first round of scores and grades on March 15, 2021. Of the 53 systems assessed, the highest grade was a B for the West Virginia Division of Corrections and Rehabilitation. The state correctional agencies in California, Indiana, Minnesota, North Carolina, Oregon, and Wisconsin received a grade of C, and the agencies in Colorado, Maryland, Michigan, and North Dakota, as well as the BOP, received a D. The other 41 — more than 75% of agencies — failed.
+
+The scorecard for each state agency is displayed on each state data page, and the BOP's scorecard is on the [federal data page](https://uclacovidbehindbars.org/federal). The scorecards for ICE will be displayed on a forthcoming page dedicated to immigration detention data. [Click here](https://docs.google.com/spreadsheets/d/1ygkFpF7NVX4qfMs6_spaLM3Aev-JvnGakvWPCkDNuDk/edit#gid=0) for the raw scorecard data for all 53 agencies.
+
+Importantly, the scores we have assigned each agency do not reflect our judgment on how each has managed and responded to COVID-19 outbreaks, nor on how reliably we believe the reported data correspond to true facts on the ground. They reflect only our judgments on *how comprehensive* the data they report are and on *how well* they present those data.
+
+### **About the Metrics**
+
+#### **Data Reporting**
+
+Our metrics for data reporting are tied to the eight key variables we aim to collect from each jurisdiction. Out of these, five relate to incarcerated people and three concern correctional staff. [We have previously outlined](https://uclacovidbehindbars.org/blog/data-reporting) why, at a minimum, all correctional agencies should report COVID-19 cases, deaths, and tests for incarcerated people and staff, and also explained why the reporting of real-time facility-level population data is essential. Knowing how many people are incarcerated at each facility is critical to put total cases, deaths, and tests in context. No agency, with the exception of the West Virginia Division of Corrections and Rehabilitation, reports all eight variables, and even this agency fails to report some variables at the facility level.
+
+To assign scores for data reporting, we first assessed whether an agency reports each variable at all, and then whether it reports the variable in statewide aggregates or at the facility level. The scores allocated to these variables ranged from 0-2: 0 points if the variable is not reported, 1 point if the agency only reports statewide aggregates, and 2 points if the agency provides facility-level data for that variable.
+
+**Data Reporting Metrics — Incarcerated People:**
+
+* **Cumulative cases:** The agency reports the number of individuals who have ever tested positive for COVID-19 while incarcerated at a particular facility.
+* **Cumulative deaths:** The agency reports the total number of individuals who have died with or from COVID-19 while incarcerated in a particular facility. (Note: Some agencies do not include people who were positive for COVID-19 but were found to have died of another cause. Our position is that agencies should include all people who had COVID-19 and died, and note whether infection was the cause of their death.)
+* **Cumulative tests:** The agency reports the total number of tests performed on incarcerated individuals throughout the pandemic. (Note: While a few agencies report the number of people tested, agencies only receive points for reporting the number of tests administered. Monitoring for COVID-19 requires regular testing and reporting only the number of people tested obscures the regularity of testing.)
+* **Active cases:** The agency reports the total number of individuals currently incarcerated at a particular facility who have an active infection of COVID-19 and have not been deemed recovered.
+* **Total population:** The agency reports the total number of individuals incarcerated within a particular facility. (Note: As with all other metrics, agencies only receive points for including total population on their COVID-19 dashboards, not for reporting population elsewhere on their website.)
+
+**Data Reporting Metrics — Staff:**
+
+* **Cumulative cases:** The agency reports the total number of confirmed COVID-19 cases among staff at a particular facility.
+* **Cumulative deaths:** The agency reports the total number of staff who have died with or from COVID-19 who worked in a particular facility.
+* **Cumulative tests:** The agency reports the total number of tests performed on staff throughout the pandemic.
+
+A note on vaccine data: An important variable that we did not include in our scorecard, [but which we do collect where reported](https://uclacovidbehindbars.org/blog/vaccine-dashboard-data), is the number of incarcerated people and staff who have been vaccinated. A number of jurisdictions have not yet initiated vaccinations in their facilities, and we have therefore decided to delay assessing agencies for this metric until a critical mass of departments initiate vaccination.
+
+#### **Data Quality**
+
+The data quality section of the scorecard consists of four metrics related to the manner in which agencies report the eight variables mentioned above. We assessed agencies on whether or not their data are presented in a format that can be easily read by computer software, whether they report data on a regular basis (i.e., at least weekly), whether they clearly define the variables they report, and whether they display any historical trends for at least one of these variables. Although machine-readability may only be important to a particular set of data users, it is a critical feature of functional dashboards that enable researchers to collect and compare data efficiently.
+
+Each data quality metric was assessed on a binary metric: 2 points were awarded for ‘Yes’ and 0 points for ‘No’. We awarded 2 points for ‘Yes’ rather than 1 so that the data quality metrics were weighted equally to the data reporting metrics.
+
+**Data Quality Metrics**
+
+* **Machine readable:** Data are presented in API, json, csv, or xml formats. Static images, pdfs, and html formats are not considered machine readable.
+* **Regularly updated:** Data are updated at least once per week, with a visible timestamp.
+* **Clearly defined:** Variable definitions are visible on the agency website (e.g., in a data dictionary or table footnotes).
+* **Contextualized historically:** Historical trends for at least one of the key variables are displayed on the agency website.
+
+There are several nuanced problems with data quality that were not captured by the above metrics. For example, we recently observed [unexplained fluctuations](https://www.post-gazette.com/news/crime-courts/2021/02/01/pennsylvania-corrections-prisons-significant-flaws-coronavirus-data-health-prisoners-tests/stories/202102010067) in the total number of COVID-19 tests and deaths reported by the Pennsylvania Department of Corrections. In response to inquiries about the inconsistencies, the agency [took its dashboard offline](https://www.media.pa.gov/Pages/corrections_details.aspx?newsid=495) in late January to make adjustments and has not yet reinstated it. The PA DOC lost points for the data it is currently missing, but we did not alter grades for changes in reporting.
+
+A different but related issue exists with the data reported by the correctional departments in Florida, Arkansas, and Wyoming — over the course of the pandemic, the agencies have gradually reduced the granularity of data included on their dashboards, becoming less transparent over time. Again, the DOCs lost points on our scorecard for not reporting key variables, but we did not alter grades for changes in transparency.
+
+Where such issues exist, raising specific concerns about data transparency, we have noted and briefly explained each issue that we have observed on each state’s page. While not comprehensive, these notes provide important context about agencies’ reporting practices.
+
+#### **Assigning Letter Grades**
+
+We assigned standard letter grades to each agency based on the percentage of points earned out of a maximum total of 24. The letter grades are associated with score ranges as follows:
+
+**A:** 22-24
+
+**B:** 20-21
+
+**C:** 17-19
+
+**D:** 16
+
+**F:** <15
+
+We plan to reassess scores on a monthly basis. Please let us know if you use this scorecard as a tool to advocate for better data transparency and quality in your state.
+
+#### **Carceral Agency Scores**
+
+<div className="scorecard-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Carceral Agency</th>
+        <th>Overall</th>
+        <th>Data Quality</th>
+        <th>
+          Reporting for <br />
+          Incarcerated People
+        </th>
+        <th>
+          Reporting
+          <br /> for Staff
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="/federal#scorecard">BOP</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/ice#scorecard">ICE</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(10 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/alabama#scorecard">Alabama</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(14 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/alaska#scorecard">Alaska</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(7 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>3 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/arizona#scorecard">Arizona</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(9 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/arkansas#scorecard">Arkansas</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(7 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>3 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/california#scorecard">California</a>
+        </td>
+        <td>
+          <span>C</span>
+          <span>(18 / 24)</span>
+        </td>
+        <td>
+          <span>6 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/colorado#scorecard">Colorado</a>
+        </td>
+        <td>
+          <span>D</span>
+          <span>(15 / 24)</span>
+        </td>
+        <td>
+          <span>6 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/connecticut#scorecard">Connecticut</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(5 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>3 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/delaware#scorecard">Delaware</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(6 / 24)</span>
+        </td>
+        <td>
+          <span>0 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/district-of-columbia#scorecard">
+            District of Columbia
+          </a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(10 / 24)</span>
+        </td>
+        <td>
+          <span>6 / 8</span>
+        </td>
+        <td>
+          <span>2 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/florida#scorecard">Florida</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(7 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>2 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/georgia#scorecard">Georgia</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/hawaii#scorecard">Hawaii</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/idaho#scorecard">Idaho</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(10 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>4 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/illinois#scorecard">Illinois</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(10 / 24)</span>
+        </td>
+        <td>
+          <span>0 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/indiana#scorecard">Indiana</a>
+        </td>
+        <td>
+          <span>C</span>
+          <span>(18 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>6 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/iowa#scorecard">Iowa</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(14 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/kansas#scorecard">Kansas</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/kentucky#scorecard">Kentucky</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/louisiana#scorecard">Louisiana</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(14 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/maine#scorecard">Maine</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(7 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/maryland#scorecard">Maryland</a>
+        </td>
+        <td>
+          <span>D</span>
+          <span>(16 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>7 / 10</span>
+        </td>
+        <td>
+          <span>5 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/massachusetts#scorecard">Massachusetts</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(0 / 24)</span>
+        </td>
+        <td>
+          <span>0 / 8</span>
+        </td>
+        <td>
+          <span>0 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/michigan#scorecard">Michigan</a>
+        </td>
+        <td>
+          <span>D</span>
+          <span>(16 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>7 / 10</span>
+        </td>
+        <td>
+          <span>5 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/minnesota#scorecard">Minnesota</a>
+        </td>
+        <td>
+          <span>C</span>
+          <span>(18 / 24)</span>
+        </td>
+        <td>
+          <span>6 / 8</span>
+        </td>
+        <td>
+          <span>10 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/mississippi#scorecard">Mississippi</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(4 / 24)</span>
+        </td>
+        <td>
+          <span>0 / 8</span>
+        </td>
+        <td>
+          <span>4 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/missouri#scorecard">Missouri</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(9 / 24)</span>
+        </td>
+        <td>
+          <span>0 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>3 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/montana#scorecard">Montana</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(8 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>3 / 10</span>
+        </td>
+        <td>
+          <span>3 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/nebraska#scorecard">Nebraska</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(7 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/nevada#scorecard">Nevada</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(10 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>4 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/new-hampshire#scorecard">New Hampshire</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>7 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/new-jersey#scorecard">New Jersey</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(8 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>4 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/new-mexico#scorecard">New Mexico</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(9 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>7 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/new-york#scorecard">New York</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/north-carolina#scorecard">North Carolina</a>
+        </td>
+        <td>
+          <span>C</span>
+          <span>(17 / 24)</span>
+        </td>
+        <td>
+          <span>8 / 8</span>
+        </td>
+        <td>
+          <span>9 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/north-dakota#scorecard">North Dakota</a>
+        </td>
+        <td>
+          <span>D</span>
+          <span>(16 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>6 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/ohio#scorecard">Ohio</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(14 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/oklahoma#scorecard">Oklahoma</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(8 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/oregon#scorecard">Oregon</a>
+        </td>
+        <td>
+          <span>C</span>
+          <span>(17 / 24)</span>
+        </td>
+        <td>
+          <span>8 / 8</span>
+        </td>
+        <td>
+          <span>7 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/pennsylvania#scorecard">Pennsylvania</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(8 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>4 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/rhode-island#scorecard">Rhode Island</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>4 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/south-carolina#scorecard">South Carolina</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/south-dakota#scorecard">South Dakota</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(12 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/tennessee#scorecard">Tennessee</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(14 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/texas#scorecard">Texas</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(14 / 24)</span>
+        </td>
+        <td>
+          <span>6 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>3 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/utah#scorecard">Utah</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/vermont#scorecard">Vermont</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/virginia#scorecard">Virginia</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>4 / 8</span>
+        </td>
+        <td>
+          <span>6 / 10</span>
+        </td>
+        <td>
+          <span>1 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/washington#scorecard">Washington</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(11 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>5 / 10</span>
+        </td>
+        <td>
+          <span>4 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/west-virginia#scorecard">West Virginia</a>
+        </td>
+        <td>
+          <span>B</span>
+          <span>(20 / 24)</span>
+        </td>
+        <td>
+          <span>8 / 8</span>
+        </td>
+        <td>
+          <span>9 / 10</span>
+        </td>
+        <td>
+          <span>3 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/wisconsin#scorecard">Wisconsin</a>
+        </td>
+        <td>
+          <span>C</span>
+          <span>(18 / 24)</span>
+        </td>
+        <td>
+          <span>8 / 8</span>
+        </td>
+        <td>
+          <span>8 / 10</span>
+        </td>
+        <td>
+          <span>2 / 6</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="/states/wyoming#scorecard">Wyoming</a>
+        </td>
+        <td>
+          <span>F</span>
+          <span>(5 / 24)</span>
+        </td>
+        <td>
+          <span>2 / 8</span>
+        </td>
+        <td>
+          <span>3 / 10</span>
+        </td>
+        <td>
+          <span>0 / 6</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+#### **Acknowledgements**
+
+Many thanks to Tom Meagher of the [Marshall Project](https://www.themarshallproject.org/subscribe?gclid=Cj0KCQiAv6yCBhCLARIsABqJTjaBmCryPxFV6QCo8D-sICTpSC3ZeKeJ6jplLfyLgvBGruNeSxbSEFcaAmofEALw_wcB) and Peter Wagner of [Prison Policy Initiative](https://www.prisonpolicy.org/) for providing critical input as we developed our scorecard. Benjamin Nyblade, director of the [Empirical Research Group](https://law.ucla.edu/academics/centers/empirical-research-group) at UCLA School of Law and an advisor for our project, also contributed thoughtful guidance on our methodology. We’d also like to thank the many participants of the 2020 MIT Policy Hackathon who, over one short weekend, took on the challenge of assessing agencies using our data and provided us with inspiration and helpful insights for the construction of our framework.
+
+###### **Participants of the 2020 MIT Policy Hackathon**
+
+<div class="continuousColumn">
+
+Shibu Antony\
+Amaan Charaniya\
+Lelia Hampton\
+Amy Huynh\
+Jeffery John\
+Jong Min Jung\
+Ekaterina Kostioukhina\
+Tarun KS\
+Akhil Kumar\
+Katelyn Morrison\
+Shourya Mitra Mustauphy\
+Abhijit Nikhade\
+Olivia Pfeiffer\
+Ariana Pitcher\
+Hassnain Qasim\
+Ibrahim Rashid\
+Ishita Rastogi\
+Marley Rosario\
+Maanas Sharma\
+Maxim Sinelnikov\
+Tishya Srivastava\
+Faiz Syed\
+James Tourkistas\
+Anna Waterkotte\
+Tiana Wong\
+Marina Wyss\
+Stephany YipChoy
+
+</div>
