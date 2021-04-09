@@ -3,10 +3,18 @@ import { default as FooterNav } from "gatsby-theme-hyperobjekt-core/src/componen
 import { default as FooterSocial } from "gatsby-theme-hyperobjekt-core/src/components/footer/footer-social"
 import { default as FooterCopyright } from "gatsby-theme-hyperobjekt-core/src/components/footer/footer-copyright"
 import Subscribe from "../../../components/footer/subscribe"
-import { Grid, Link, Typography, withStyles } from "@material-ui/core"
+import {
+  ButtonBase,
+  Grid,
+  Link,
+  Typography,
+  withStyles,
+} from "@material-ui/core"
 import Stack from "../../../components/Stack"
 import { serifTypography } from "../../theme"
 import ResponsiveContainer from "../../../components/ResponsiveContainer"
+import ArrowToBottom from "../../../../content/assets/arrow-to-bottom.svg"
+import { getLang } from "../../../common/utils/i18n"
 
 const styles = (theme) => ({
   root: {
@@ -67,9 +75,28 @@ const styles = (theme) => ({
       justifyContent: "flex-start",
     },
   },
+  navContainer: {
+    position: "relative",
+  },
+  scrollUpButton: {
+    position: "absolute",
+    right: 0,
+    bottom: theme.spacing(6),
+    transform: "rotate(180deg)",
+    writingMode: "vertical-rl",
+    fontSize: theme.typography.pxToRem(14),
+    "& img": {
+      paddingTop: theme.spacing(1),
+      paddingRight: 3,
+    },
+  },
 })
 
 const Footer = ({ classes, className, ...props }) => {
+  const handleScrollUp = React.useCallback(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   return (
     <footer id="footer" className={classes.root} {...props}>
       <ResponsiveContainer>
@@ -77,7 +104,7 @@ const Footer = ({ classes, className, ...props }) => {
           <Grid item xs={12} sm={9}>
             <Subscribe className={classes.subscribe} />
           </Grid>
-          <Grid item xs={12} sm={3}>
+          <Grid item xs={12} sm={3} className={classes.navContainer}>
             <FooterNav
               classes={{
                 root: classes.links,
@@ -88,6 +115,14 @@ const Footer = ({ classes, className, ...props }) => {
             <FooterSocial
               classes={{ root: classes.social, link: classes.socialLink }}
             />
+            <ButtonBase
+                 onClick={handleScrollUp}
+                className={classes.scrollUpButton}
+            >
+              {getLang("scroll_up")}
+              {/* arrow gets rotated 180° along with text */}
+              <img alt="scroll up" src={ArrowToBottom} />
+            </ButtonBase>
           </Grid>
         </Grid>
         <Stack className={classes.copyright} horizontal>

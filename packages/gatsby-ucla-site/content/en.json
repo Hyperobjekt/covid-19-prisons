@@ -44,5 +44,6 @@
   "unavailable": "Unavailable",
   "nat_map_title": "This map displays COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. Click on a state to access more data.",
   "state_map_title": "Map of ${stateName} with spikes representing the active metric for each facility.",
-  "empty_legend_message": "no data available"
+  "empty_legend_message": "no data available",
+  "scroll_up": "Back to top"
 }
