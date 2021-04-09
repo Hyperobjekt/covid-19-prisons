@@ -40,9 +40,12 @@ const NativeSelect = withStyles((theme) => ({
   },
 }))(MuiNativeSelect)
 
-const Accordion = withStyles(theme => ({
+const Accordion = withStyles((theme) => ({
   root: {
     border: "1px solid #F1F1EB",
+    "&:first-of-type": {
+      borderTop: 0,
+    },
     boxShadow: "none",
     "&:not(:last-child)": {
       borderBottom: 0,
@@ -57,7 +60,7 @@ const Accordion = withStyles(theme => ({
   expanded: {},
 }))(MuiAccordion)
 
-const AccordionSummary = withStyles(theme => ({
+const AccordionSummary = withStyles((theme) => ({
   root: {
     borderBottom: "1px solid #F1F1EB",
     marginBottom: -1,
@@ -85,7 +88,7 @@ const SocialLinks = withStyles((theme) => ({
     margin: theme.spacing(1),
   },
   link: {
-    color: "#283224",
+    color: theme.palette.text.primary,
     "& svg": {
       height: "1rem",
       width: "1rem",

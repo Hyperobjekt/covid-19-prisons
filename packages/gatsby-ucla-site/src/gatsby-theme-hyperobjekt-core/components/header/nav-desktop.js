@@ -83,7 +83,7 @@ const SocialLinks = withStyles((theme) => ({
     marginLeft: "auto",
   },
   link: {
-    color: "#283224",
+    color: theme.palette.text.primary,
     "& svg": {
       height: "1rem",
       width: "1rem",

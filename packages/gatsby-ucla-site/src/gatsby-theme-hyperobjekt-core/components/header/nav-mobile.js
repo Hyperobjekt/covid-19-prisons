@@ -3,14 +3,27 @@ import { IconButton, withStyles } from "@material-ui/core"
 import { SiteContext } from "gatsby-theme-hyperobjekt-core/src/utils/site-context"
 import Navigation from "./nav-mobile-menu"
 import Drawer from "gatsby-theme-hyperobjekt-core/src/components/drawer"
+import Branding from "gatsby-theme-hyperobjekt-core/src/components/header/branding"
 import icons from "gatsby-theme-hyperobjekt-core/src/icons"
 import clsx from "clsx"
 
-const styles = {
+const styles = (theme) => ({
   button: {},
-  drawer: {},
   nav: {},
-}
+  drawerRoot: {
+    "& .drawer__content": {
+      marginTop: theme.spacing(9),
+    },
+  },
+  branding: {
+    position: "absolute",
+    top: theme.spacing(2),
+    left: theme.spacing(2),
+    "& img": {
+      clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`,
+    },
+  },
+})
 
 const MobileNavigation = ({ classes, className, links, ...props }) => {
   const { isNavOpen, setIsNavOpen } = useContext(SiteContext)
@@ -36,10 +49,11 @@ const MobileNavigation = ({ classes, className, links, ...props }) => {
         <MenuIcon />
       </IconButton>
       <Drawer
-        className={clsx(classes.drawer)}
+        classes={{ root: classes.drawerRoot }}
         open={isNavOpen}
         onClose={handleMenuClose}
       >
+        <Branding className={classes.branding} />
         <Navigation
           className={clsx("nav--mobile", classes.nav)}
           links={links}
