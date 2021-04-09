@@ -1,6 +1,6 @@
 import React from "react"
 import { withStyles } from "@material-ui/core"
-import Navigation from "gatsby-theme-hyperobjekt-core/src/components/header/nav"
+import Navigation from "./nav"
 import CoreSocialLinks from "gatsby-theme-hyperobjekt-core/src/components/social/social-links"
 import useBreadcrumb from "gatsby-theme-hyperobjekt-core/src/utils/use-breadcrumb"
 import { sansSerifyTypography } from "../../theme"
