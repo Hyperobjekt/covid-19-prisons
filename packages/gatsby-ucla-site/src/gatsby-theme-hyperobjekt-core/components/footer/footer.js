@@ -96,7 +96,7 @@ const Footer = ({ classes, className, ...props }) => {
   const handleScrollUp = React.useCallback(() => {
     window.scrollTo(0, 0)
   }, [])
-  
+
   return (
     <footer id="footer" className={classes.root} {...props}>
       <ResponsiveContainer>
@@ -116,8 +116,8 @@ const Footer = ({ classes, className, ...props }) => {
               classes={{ root: classes.social, link: classes.socialLink }}
             />
             <ButtonBase
-                 onClick={handleScrollUp}
-                className={classes.scrollUpButton}
+              onClick={handleScrollUp}
+              className={classes.scrollUpButton}
             >
               {getLang("scroll_up")}
               {/* arrow gets rotated 180° along with text */}

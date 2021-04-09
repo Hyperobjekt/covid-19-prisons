@@ -53,7 +53,7 @@ const MobileNavigation = ({ classes, className, links, ...props }) => {
         open={isNavOpen}
         onClose={handleMenuClose}
       >
-        <Branding className={classes.branding} />
+        <Branding className={classes.branding} onClick={handleMenuClose} />
         <Navigation
           className={clsx("nav--mobile", classes.nav)}
           links={links}

@@ -78,9 +78,7 @@ const Navigation = ({
             })}
             key={"link" + index}
           >
-            <Typography
-              className={clsx("nav__link", classes.link)}
-            >
+            <Typography className={clsx("nav__link", classes.link)}>
               {menuItem.name}
               {menuItem.subMenu?.length > 0 && subMenu && <NavArrow />}
             </Typography>
