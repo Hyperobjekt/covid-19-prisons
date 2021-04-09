@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import clsx from "clsx"
+import { Link } from "gatsby-theme-material-ui"
 import { List, ListItem, Typography, withStyles } from "@material-ui/core"
 import SubNavigation from "./nav-submenu"
 import NavArrow from "gatsby-theme-hyperobjekt-core/src/components/header/nav-arrow"
@@ -25,7 +26,7 @@ export const styles = (theme) => {
       padding: 0,
     },
     listItemActive: {
-      "& > p": {
+      "& > a, & > p": {
         fontWeight: "bold",
       },
     },
@@ -60,10 +61,14 @@ const Navigation = ({
   ...props
 }) => {
   const breadcrumb = useBreadcrumb()
+
+  const buildSubMenu = (menuItem) => subMenu && menuItem.subMenu?.length > 0
+
   const isActive = (link) => {
+    if (!breadcrumb.length && link === "/") return true
     return breadcrumb.some((l) => {
-      // don't highlight as active a supercategory (eg About) in a nav
-      // without submenus (ie the footer)
+      // don't highlight items with subMenus (eg About) as active
+      // in a nav without subMenus (ie the footer)
       if (!subMenu && l.subMenu) return false
       return l.link === link
     })
@@ -78,21 +83,32 @@ const Navigation = ({
             })}
             key={"link" + index}
           >
-            <Typography className={clsx("nav__link", classes.link)}>
-              {menuItem.name}
-              {menuItem.subMenu?.length > 0 && subMenu && <NavArrow />}
-            </Typography>
-            {menuItem.subMenu?.length > 0 && subMenu && (
-              <SubNavigation
-                classes={{
-                  root: classes.subMenu,
-                  link: classes.subMenuLink,
-                  listItem: classes.subMenuListItem,
-                  listItemActive: classes.listItemActive,
-                }}
-                onSelect={onSelect}
-                links={menuItem.subMenu}
-              />
+            {buildSubMenu(menuItem) ? (
+              <>
+                <Typography className={clsx("nav__link", classes.link)}>
+                  {menuItem.name}
+                  <NavArrow />
+                </Typography>
+                <SubNavigation
+                  classes={{
+                    root: classes.subMenu,
+                    link: classes.subMenuLink,
+                    listItem: classes.subMenuListItem,
+                    listItemActive: classes.listItemActive,
+                  }}
+                  onSelect={onSelect}
+                  links={menuItem.subMenu}
+                />
+              </>
+            ) : (
+              <Link
+                className={clsx("nav__link", classes.link)}
+                activeClassName="active"
+                onClick={onSelect}
+                to={menuItem.link}
+              >
+                {menuItem.name}
+              </Link>
             )}
           </ListItem>
         ))}
