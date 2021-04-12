@@ -13,7 +13,7 @@ import {
 import Stack from "../../../components/Stack"
 import { serifTypography } from "../../theme"
 import ResponsiveContainer from "../../../components/ResponsiveContainer"
-import ArrowToBottom from "../../../../content/assets/arrow-to-bottom.svg"
+import ArrowToTop from "../../../../content/assets/arrow-to-top.svg"
 import { getLang } from "../../../common/utils/i18n"
 
 const styles = (theme) => ({
@@ -82,12 +82,16 @@ const styles = (theme) => ({
     position: "absolute",
     right: 0,
     bottom: theme.spacing(6),
-    transform: "rotate(180deg)",
-    writingMode: "vertical-rl",
-    fontSize: theme.typography.pxToRem(14),
+    display: "flex",
+    flexDirection: "column",
     "& img": {
-      paddingTop: theme.spacing(1),
-      paddingRight: 3,
+      paddingLeft: 3,
+      paddingBottom: theme.spacing(1),
+    },
+    "& p": {
+      fontSize: theme.typography.pxToRem(14),
+      writingMode: "vertical-rl",
+      transform: "rotate(180deg)",
     },
   },
 })
@@ -119,9 +123,10 @@ const Footer = ({ classes, className, ...props }) => {
               onClick={handleScrollUp}
               className={classes.scrollUpButton}
             >
-              {getLang("scroll_up")}
-              {/* arrow gets rotated 180° along with text */}
-              <img alt="scroll up" src={ArrowToBottom} />
+              <img alt="scroll up" src={ArrowToTop} />
+              <Typography variant="body2">
+                {getLang("scroll_up")}
+              </Typography>
             </ButtonBase>
           </Grid>
         </Grid>
