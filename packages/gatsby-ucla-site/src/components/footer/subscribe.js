@@ -1,8 +1,15 @@
 import React from "react"
 import clsx from "clsx"
-import { Button, TextField, Typography, withStyles } from "@material-ui/core"
+import {
+  Button,
+  Link,
+  TextField,
+  Typography,
+  withStyles,
+} from "@material-ui/core"
 import { titleTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 import Stack from "../Stack"
+import UpRightArrow from "../../../content/assets/up-right-arrow.svg"
 
 export const styles = (theme) => ({
   root: {},
@@ -11,14 +18,20 @@ export const styles = (theme) => ({
     fontSize: theme.typography.pxToRem(26),
     color: "#656647",
     maxWidth: "13.5rem",
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   textField: {
     width: "100%",
     maxWidth: 236,
   },
   form: {
-    minWidth: "21.5rem",
+    minWidth: "18.5rem",
+    marginBottom: theme.spacing(1),
+  },
+  archive: {
+    "& img": {
+      paddingLeft: ".2rem",
+    },
   },
   button: {},
 })
@@ -84,6 +97,15 @@ const Subscribe = ({ classes, className, ...props }) => {
           </form>
         </div>
       </Stack>
+      <Link
+        className={classes.archive}
+        href="https://us7.campaign-archive.com/home/?u=5d704f1af2db3979886a8cde2&id=fa6a9cea7f"
+        target="_blank"
+        rel="noreferrer"
+      >
+        See our MailChimp archive
+        <img src={UpRightArrow} />
+      </Link>
     </Stack>
   )
 }

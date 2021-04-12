@@ -75,11 +75,11 @@
           "cases_residents": "Cumulative Cases",
           "deaths_residents": "Cumulative Deaths",
           "active_residents": "Active Cases",
-          "tests_residents": "Tests",
+          "tests_residents": "Tests Administered",
           "population_residents": "Total Population",
           "cases_staff": "Cumulative Cases",
           "deaths_staff": "Cumulative Deaths",
-          "tests_staff": "Tests"
+          "tests_staff": "Tests Administered"
         },
         "table_value": {
           "yes": "Yes",
