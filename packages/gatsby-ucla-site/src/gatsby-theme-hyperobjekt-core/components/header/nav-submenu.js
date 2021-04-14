@@ -6,13 +6,19 @@ import ResponsiveContainer from "../../../components/ResponsiveContainer"
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    color: theme.palette.primary.main,
-    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    color: theme.palette.text.secondary,
+    borderBottom: `1px solid #C8C8B9`,
     display: "block",
     width: "100%",
     lineHeight: 1,
     paddingBottom: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  exploreData: {
+    "&.SubMenu-root": {
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(4),
+    },
   },
 }))
 
@@ -53,7 +59,7 @@ const SubMenu = ({ links, className, classes, onSelect, ...props }) => {
   const federalLinks = links.filter((l) => !l.link.includes("states/"))
 
   return (
-    <div className={clsx("SubMenu-root", classes.root)}>
+    <div className={clsx("SubMenu-root", ownClasses.exploreData, classes.root)}>
       <ResponsiveContainer
         className={clsx("SubMenu-container", classes.container)}
       >

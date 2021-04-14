@@ -52,7 +52,7 @@ const styles = (theme) => ({
     transform: `translate3d(0, -10%, 0)`,
     pointerEvents: "none",
     background: theme.palette.background.paper,
-    borderTop: `2px dotted #eee`,
+    borderTop: `1px solid #F1F1EB`,
     transition: `transform 400ms ${theme.transitions.easing.easeInOut}, opacity 400ms ${theme.transitions.easing.easeInOut}`,
     opacity: 0,
     display: "block",

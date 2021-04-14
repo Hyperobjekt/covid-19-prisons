@@ -252,12 +252,19 @@ const CovidTheme = () => {
       /** Page level overrides */
       HypPage: {
         root: {
-          // full width content on state pages
+          // full width content on state & federal pages
           "&.page.page--states .content": {
             maxWidth: "none",
           },
           "&.page.page--federal .content": {
             maxWidth: "none",
+          },
+          // no header box shadow when there's a section nav
+          "&.page.page--states header.header": {
+            boxShadow: "none",
+          },
+          "&.page.page--federal header.header": {
+            boxShadow: "none",
           },
           "&.page.page--home .branding__logo": {
             clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`,
@@ -273,7 +280,7 @@ const CovidTheme = () => {
       /** Header style overrides */
       HypHeader: {
         root: {
-          boxShadow: "none",
+          boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.05)",
           background: "#fff",
           borderBottom: `none`,
         },

@@ -104,7 +104,7 @@ const Subscribe = ({ classes, className, ...props }) => {
         rel="noreferrer"
       >
         See our MailChimp archive
-        <img src={UpRightArrow} />
+        <img alt="" src={UpRightArrow} />
       </Link>
     </Stack>
   )
