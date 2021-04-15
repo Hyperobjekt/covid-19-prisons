@@ -26,13 +26,19 @@ const useStyles = makeStyles((theme) => ({
   link: {
     ...sansSerifyTypography,
     fontSize: theme.typography.pxToRem(14),
+    [theme.breakpoints.down("xs")]: {
+      fontSize: theme.typography.pxToRem(16),
+    },
   },
 }))
 
 const NativeSelect = withStyles((theme) => ({
   root: {
     fontSize: theme.typography.pxToRem(14),
-    paddingTop: 0,
+    [theme.breakpoints.down("xs")]: {
+      fontSize: theme.typography.pxToRem(16),
+    },
+    padding: theme.spacing(1),
     "&:before": { display: "none" },
     "& .MuiNativeSelect-icon": {
       top: `calc(50% - 10px)`,
