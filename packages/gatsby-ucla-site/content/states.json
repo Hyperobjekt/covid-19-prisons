@@ -77,9 +77,11 @@
           "active_residents": "Active Cases",
           "tests_residents": "Tests",
           "population_residents": "Total Population",
+          "vaccinations_residents": "Vaccinations",
           "cases_staff": "Cumulative Cases",
           "deaths_staff": "Cumulative Deaths",
-          "tests_staff": "Tests"
+          "tests_staff": "Tests Administered",
+          "vaccinations_staff": "Vaccinations"
         },
         "table_value": {
           "yes": "Yes",

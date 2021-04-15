@@ -300,9 +300,11 @@ export const query = graphql`
         active_residents
         tests_residents
         population_residents
+        vaccinations_residents
         cases_staff
         deaths_staff
         tests_staff
+        vaccinations_staff
       }
     }
     fedScorecard: allScorecard(filter: { state: { eq: "Federal (BOP)" } }) {

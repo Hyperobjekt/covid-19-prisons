@@ -88,17 +88,17 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(5),
     "&$residentSection": {
       "& $table": {
-        maxWidth: MAX_COL_WIDTH * 5,
+        maxWidth: MAX_COL_WIDTH * resReportingColumns.length,
       },
       [theme.breakpoints.down("md")]: {
         marginTop: theme.spacing(5),
       },
     },
     "&$staffSection $table": {
-      maxWidth: MAX_COL_WIDTH * 3,
+      maxWidth: MAX_COL_WIDTH * staffReportingColumns.length,
     },
     "&$qualitySection $table": {
-      maxWidth: MAX_COL_WIDTH * 4,
+      maxWidth: MAX_COL_WIDTH * qualityColumns.length,
     },
   },
   cellValue: {
@@ -210,12 +210,14 @@ const resReportingColumns = [
   { id: "active_residents" },
   { id: "tests_residents" },
   { id: "population_residents" },
+  { id: "vaccinations_residents" },
 ]
 
 const staffReportingColumns = [
   { id: "cases_staff" },
   { id: "deaths_staff" },
   { id: "tests_staff" },
+  { id: "vaccinations_staff" },
 ]
 
 const ScorecardSection = ({
@@ -272,7 +274,7 @@ const ScorecardSection = ({
   )
 
   const theme = useTheme()
-  const bumpWidth = theme.breakpoints.values["sm"]
+  const bumpWidth = theme.breakpoints.values["md"]
   const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`)
 
   return (
