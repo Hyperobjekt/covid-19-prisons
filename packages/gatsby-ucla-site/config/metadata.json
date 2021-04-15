@@ -10,17 +10,18 @@
   "siteUrl": "https://uclacovidbehindbars.org",
   "menuLinks": [
     {
-      "name": "Home",
-      "link": "/",
-      "type": "internal",
-      "location": "footer"
-    },
-    {
-      "name": "State & Federal Data",
+      "name": "Explore Data",
       "link": "#",
       "type": "internal",
       "location": "header",
       "subMenu": [
+        {
+          "name": "Federal Bureau of Prisons",
+          "link": "/federal",
+          "type": "internal"
+        },
+        { "name": "ICE Detention", "link": "/ice", "type": "internal" },
+
         { "name": "Alaska", "link": "/states/alaska", "type": "internal" },
         { "name": "Alabama", "link": "/states/alabama", "type": "internal" },
         { "name": "Arizona", "link": "/states/arizona", "type": "internal" },
@@ -156,44 +157,97 @@
           "link": "/states/wisconsin",
           "type": "internal"
         },
-        { "name": "Wyoming", "link": "/states/wyoming", "type": "internal" },
-        { "name": "Federal", "link": "/federal", "type": "internal" }
+        { "name": "Wyoming", "link": "/states/wyoming", "type": "internal" }
       ]
     },
     {
-      "name": "ICE Detention",
-      "link": "/ice",
-      "type": "internal"
+      "name": "Publications & Resources",
+      "link": "/blog",
+      "type": "internal",
+      "location": "header",
+      "subMenu": [
+        {
+          "name": "Blog",
+          "link": "/blog",
+          "type": "internal"
+        },
+        {
+          "name": "Reports & Resources",
+          "link": "/resources",
+          "type": "internal"
+        }
+      ]
     },
     {
       "name": "About",
       "link": "/about",
-      "type": "internal"
+      "type": "internal",
+      "location": "header",
+      "subMenu": [
+        {
+          "name": "About the project",
+          "link": "/about",
+          "type": "internal"
+        },
+        {
+          "name": "Methods",
+          "link": "/methods",
+          "type": "internal"
+        },
+        {
+          "name": "FAQ",
+          "link": "/faq",
+          "type": "internal"
+        },
+        {
+          "name": "In the news",
+          "link": "/media",
+          "type": "internal"
+        }
+      ]
+    },
+
+    {
+      "name": "Home",
+      "link": "/",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "About the project",
+      "link": "/about",
+      "type": "internal",
+      "location": "footer"
+    },
+    {
+      "name": "Methods",
+      "link": "/methods",
+      "type": "internal",
+      "location": "footer"
     },
     {
       "name": "Blog",
       "link": "/blog",
-      "type": "internal"
+      "type": "internal",
+      "location": "footer"
     },
     {
-      "name": "Media & Publications",
-      "link": "/media",
-      "type": "internal"
+      "name": "FAQ",
+      "link": "/faq",
+      "type": "internal",
+      "location": "footer"
     },
     {
-      "name": "Resources",
-      "link": "/resources",
-      "type": "internal"
-    },
-    {
-      "name": "Methods & FAQ",
-      "link": "/methods",
-      "type": "internal"
+      "name": "Opportunities",
+      "link": "/opportunities",
+      "type": "internal",
+      "location": "footer"
     },
     {
       "name": "Contact",
       "link": "/contact",
-      "type": "internal"
+      "type": "internal",
+      "location": "footer"
     }
   ],
   "socialLinks": [
