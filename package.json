@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "develop": "yarn workspace gatsby-ucla-site develop"
+  },
   "workspaces": [
     "packages/*"
   ]

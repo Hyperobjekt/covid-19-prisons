@@ -1,7 +1,7 @@
 import React from "react"
 import { Table } from "../table"
 import { format } from "d3-format"
-import { Typography, withStyles } from "@material-ui/core"
+import { Box, Typography, withStyles } from "@material-ui/core"
 import { useVaccineData } from "../../common/hooks"
 import { Block } from "gatsby-theme-hyperobjekt-core"
 
@@ -15,7 +15,7 @@ const alphaStateSort = (a, b) => {
   if (a.original.isTotal) return 1
   if (b.original.isTotal) return -1
 
-  // non-state rows (federal, ice) go above states 
+  // non-state rows (federal, ice) go above states
   if (a.original.isState !== b.original.isState) {
     return a.original.isState ? -1 : 1
   }
@@ -28,9 +28,17 @@ const styles = (theme) => ({
     background: theme.palette.background.paper,
   },
   wrapper: {
-    maxWidth: "38rem",
-    "& h3": {
-      maxWidth: "32rem",
+    [theme.breakpoints.up(1100)]: {
+      display: "flex",
+    },
+  },
+  content: {
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: "38rem",
+      minWidth: "36rem",
+      "& h3": {
+        maxWidth: "32rem",
+      },
     },
   },
   body: {
@@ -142,12 +150,14 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
     <Block type="fullWidth" className={classes.root} {...props}>
       <ResponsiveContainer>
         <div className={classes.wrapper}>
-          <Typography variant="h3">{title}</Typography>
-          <Typography
-            variant="body1"
-            dangerouslySetInnerHTML={{ __html: subtitle }}
-            className={classes.body}
-          />
+          <div className={classes.content}>
+            <Typography variant="h3">{title}</Typography>
+            <Typography
+              variant="body1"
+              dangerouslySetInnerHTML={{ __html: subtitle }}
+              className={classes.body}
+            />
+          </div>
           <Table
             className={classes.table}
             data={data}
