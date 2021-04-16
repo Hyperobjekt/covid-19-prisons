@@ -62,14 +62,17 @@ const MobileNavigation = ({ classes, className, links, ...props }) => {
 
   return (
     <React.Fragment>
-      <ButtonBase onClick={handleMenuOpen} className={clsx(classes.openMenuButton, classes.button)}>
+      <ButtonBase
+        onClick={handleMenuOpen}
+        className={clsx(classes.openMenuButton, classes.button)}
+      >
         <img src={MenuIcon} alt="menu" />
       </ButtonBase>
-      <Drawer
-        classes={{ root: classes.drawerRoot }}
-        open={isNavOpen}
-      >
-        <ButtonBase onClick={handleMenuClose} className={clsx(classes.closeMenuButton, classes.button)}>
+      <Drawer classes={{ root: classes.drawerRoot }} open={isNavOpen}>
+        <ButtonBase
+          onClick={handleMenuClose}
+          className={clsx(classes.closeMenuButton, classes.button)}
+        >
           <img src={CloseMenuIcon} alt="close menu" />
         </ButtonBase>
         <Branding className={classes.branding} onClick={handleMenuClose} />

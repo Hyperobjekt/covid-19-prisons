@@ -124,9 +124,7 @@ const Footer = ({ classes, className, ...props }) => {
               className={classes.scrollUpButton}
             >
               <img alt="scroll up" src={ArrowToTop} />
-              <Typography variant="body2">
-                {getLang("scroll_up")}
-              </Typography>
+              <Typography variant="body2">{getLang("scroll_up")}</Typography>
             </ButtonBase>
           </Grid>
         </Grid>
