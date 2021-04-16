@@ -100,6 +100,11 @@ const styles = (theme) => ({
     "&$qualitySection $table": {
       maxWidth: MAX_COL_WIDTH * qualityColumns.length,
     },
+    "& .MuiGrid-item": {
+      // only use the horizontal padding from spacing
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
   },
   cellValue: {
     display: "flex",
@@ -132,6 +137,10 @@ const styles = (theme) => ({
     },
   },
   pivotedTable: {
+    [theme.breakpoints.up(800)]: {
+      // where space is sufficient, use more of it
+      marginLeft: theme.columnSpacing(1),
+    },
     fontSize: theme.typography.pxToRem(13),
     "& th, & td": {
       paddingBottom: theme.spacing(0.5),
@@ -278,12 +287,16 @@ const ScorecardSection = ({
   const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`)
 
   return (
-    <div className={clsx(className, classes.section)}>
-      <Typography className={classes.sectionTitle} variant="h5">
-        {title}
-      </Typography>
-      {isLarge ? table : pivotedTable}
-    </div>
+    <Grid container spacing={3} className={clsx(className, classes.section)}>
+      <Grid item xs={12} sm={5} md={12}>
+        <Typography className={classes.sectionTitle} variant="h5">
+          {title}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} sm={7} md={12}>
+        {isLarge ? table : pivotedTable}
+      </Grid>
+    </Grid>
   )
 }
 
