@@ -8,7 +8,8 @@ import { Link } from "gatsby-theme-material-ui"
 const styles = (theme) => ({
   root: {
     background: theme.palette.background.paper,
-    borderTop: `2px dotted #DDDDCB`,
+    borderTop: `1px solid #F1F1EB`,
+    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.05)",
     // overlay the header border
     top: theme.layout.headerHeight,
     // must override first child margin

@@ -69,7 +69,7 @@ const Navigation = ({
     return breadcrumb.some((l) => {
       // don't highlight items with subMenus (eg About) as active
       // in a nav without subMenus (ie the footer)
-      if (!subMenu && l.subMenu) return false
+      if (!subMenu && l.subMenu && l.subMenu.length) return false
       return l.link === link
     })
   }

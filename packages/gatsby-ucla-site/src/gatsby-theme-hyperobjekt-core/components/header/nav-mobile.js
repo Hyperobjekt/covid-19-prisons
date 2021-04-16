@@ -1,19 +1,43 @@
 import React, { useContext } from "react"
-import { IconButton, withStyles } from "@material-ui/core"
+import { ButtonBase, withStyles } from "@material-ui/core"
 import { SiteContext } from "gatsby-theme-hyperobjekt-core/src/utils/site-context"
 import Navigation from "./nav-mobile-menu"
 import Drawer from "gatsby-theme-hyperobjekt-core/src/components/drawer"
 import Branding from "gatsby-theme-hyperobjekt-core/src/components/header/branding"
-import icons from "gatsby-theme-hyperobjekt-core/src/icons"
+import MenuIcon from "../../../../content/assets/menu-icon.svg"
+import CloseMenuIcon from "../../../../content/assets/close-menu-icon.svg"
 import clsx from "clsx"
 
 const styles = (theme) => ({
-  button: {},
+  button: {
+    "& img": {
+      borderRadius: 20,
+      transition: `background 150ms ${theme.transitions.easing.easeInOut}`,
+    },
+    "&:hover img": {
+      background: "rgba(229, 237, 224, 0.5)",
+    },
+  },
   nav: {},
   drawerRoot: {
+    width: 325,
+    [theme.breakpoints.down("xs")]: {
+      width: "100vw",
+    },
+    "& .drawer__close": {
+      display: "none",
+    },
     "& .drawer__content": {
       marginTop: theme.spacing(9),
     },
+  },
+  openMenuButton: {
+    marginRight: theme.spacing(-1.5),
+  },
+  closeMenuButton: {
+    position: "absolute",
+    top: theme.spacing(0.5),
+    right: theme.spacing(2),
   },
   branding: {
     position: "absolute",
@@ -27,7 +51,6 @@ const styles = (theme) => ({
 
 const MobileNavigation = ({ classes, className, links, ...props }) => {
   const { isNavOpen, setIsNavOpen } = useContext(SiteContext)
-  const MenuIcon = icons["menu"]
 
   function handleMenuOpen() {
     setIsNavOpen(true)
@@ -39,20 +62,16 @@ const MobileNavigation = ({ classes, className, links, ...props }) => {
 
   return (
     <React.Fragment>
-      <IconButton
-        edge="end"
-        color="inherit"
-        aria-label="menu"
-        onClick={handleMenuOpen}
-        className={clsx(classes.button, className)}
-      >
-        <MenuIcon />
-      </IconButton>
+      <ButtonBase onClick={handleMenuOpen} className={clsx(classes.openMenuButton, classes.button)}>
+        <img src={MenuIcon} alt="menu" />
+      </ButtonBase>
       <Drawer
         classes={{ root: classes.drawerRoot }}
         open={isNavOpen}
-        onClose={handleMenuClose}
       >
+        <ButtonBase onClick={handleMenuClose} className={clsx(classes.closeMenuButton, classes.button)}>
+          <img src={CloseMenuIcon} alt="close menu" />
+        </ButtonBase>
         <Branding className={classes.branding} onClick={handleMenuClose} />
         <Navigation
           className={clsx("nav--mobile", classes.nav)}
