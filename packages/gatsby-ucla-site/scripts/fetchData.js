@@ -60,9 +60,11 @@ const scorecardMap = {
   active_residents: ["active_residents", "string", exactMatch],
   tests_residents: ["tests_residents", "string", exactMatch],
   population_residents: ["population_residents", "string", exactMatch],
+  vaccinations_residents: ["vaccinations_residents", "string", exactMatch],
   cases_staff: ["cases_staff", "string", exactMatch],
   deaths_staff: ["deaths_staff", "string", exactMatch],
   tests_staff: ["tests_staff", "string", exactMatch],
+  vaccinations_staff: ["vaccinations_staff", "string", exactMatch],
 }
 
 const scorecardParser = (row) => parseMap(row, scorecardMap)
