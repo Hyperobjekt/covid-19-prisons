@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 
-import { Typography, withStyles } from "@material-ui/core"
+import { ButtonBase, Tooltip, Typography, withStyles } from "@material-ui/core"
 import { getLang } from "../../common/utils/i18n"
 import { SUMMABLE_JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
@@ -9,8 +9,6 @@ import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
 import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
 import { AnchorLink } from "gatsby-plugin-anchor-links"
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward"
-import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 
 const styles = (theme) => ({
   root: {
@@ -55,8 +53,11 @@ const styles = (theme) => ({
       fontWeight: 700,
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(16),
-      color: `${theme.palette.text.primary} !important`,
-      textDecorationColor: `${theme.palette.secondary.main} !important`,
+      color: theme.palette.text.primary,
+      textDecoration: "underline",
+      "&:hover": {
+        textDecorationColor: theme.palette.secondary.main,
+      },
 
       "& .MuiSvgIcon-root": {
         fontSize: theme.typography.pxToRem(16),
@@ -64,6 +65,9 @@ const styles = (theme) => ({
         marginBottom: "auto",
       },
     },
+  },
+  tooltip: {
+    color: "#fff",
   },
 })
 
@@ -101,32 +105,30 @@ const JurisdictionStatList = ({
   const isRateSelected = metric.split("_").pop() === "rate"
   const jurisdictions = isFederal ? ["federal"] : SUMMABLE_JURISDICTIONS
 
-  const scoreExists = stateScore || iceScore || fedScore
-  const scoreMap = {
-    state: stateScore && (
-      <AnchorLink to="#scorecard">
-        {stateScore}
-        <ArrowDownwardIcon />
-      </AnchorLink>
-    ),
-    immigration: (
-      <AnchorLink to="/ice#scorecard">
-        {iceScore}
-        <ChevronRightIcon />
-      </AnchorLink>
-    ),
-    federal: isFederal ? (
-      <AnchorLink to="#scorecard">
-        {stateScore}
-        <ArrowDownwardIcon />
-      </AnchorLink>
-    ) : (
-      <AnchorLink to="/federal#scorecard">
-        {fedScore}
-        <ChevronRightIcon />
-      </AnchorLink>
-    ),
+  const getScorecardLink = (jurisdiction) => {
+    const [score, to, name] = {
+      state: [stateScore, "#scorecard", "state"],
+      immigration: [iceScore, "/ice#scorecard", "ICE"],
+      federal: isFederal
+        ? [stateScore, "#scorecard", "federal"]
+        : [fedScore, "/federal#scorecard", "federal"],
+    }[jurisdiction]
+
+    const title = (
+      <Typography variant="body2" className={classes.tooltip}>
+        go to {name} scorecard
+      </Typography>
+    )
+    return (
+      <Tooltip title={title} enterTouchDelay={1}>
+        <ButtonBase>
+          <AnchorLink to={to}>{score}</AnchorLink>
+        </ButtonBase>
+      </Tooltip>
+    )
   }
+
+  const scoreExists = stateScore || iceScore || fedScore
 
   return (
     <Stack className={clsx(classes.root, className)} spacing={2}>
@@ -184,7 +186,7 @@ const JurisdictionStatList = ({
               className={clsx(classes.stat, classes.scoreColumn)}
               type="body1"
             >
-              {scoreMap[jurisdiction]}
+              {getScorecardLink(jurisdiction)}
             </Typography>
           )}
         </Stack>
