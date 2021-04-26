@@ -191,7 +191,7 @@ const CovidTheme = () => {
       MuiTooltip: {
         tooltip: {
           backgroundColor: fade(theme.palette.text.primary, 0.9),
-          padding: theme.spacing(2),
+          padding: theme.spacing(1),
           borderRadius: 4,
         },
         arrow: {
