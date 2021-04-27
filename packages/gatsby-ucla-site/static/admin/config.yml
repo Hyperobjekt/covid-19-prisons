@@ -59,6 +59,26 @@ collections:
           hint: "Image used when page is shared on social media",
         }
       - { label: "Body", name: "body", widget: "markdown" }
+  - label: "Reports"
+    name: "reports"
+    extension: mdx
+    format: frontmatter
+    create: false
+    folder: "/packages/gatsby-ucla-site/content/pages"
+    editor:
+      preview: false
+    filter: { field: "pagetype", value: "reports" }
+    fields:
+      - label: "Reportes"
+        name: reportes
+        widget: list
+        allow_add: true
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: true }
+          - { label: "Date", name: "date", widget: "date", required: true }
+          - { label: "Author", name: "author", widget: "string", required: true }
+          - { label: "Description", name: "description", widget: "text", required: true }
+          - { label: "URL", name: "url", widget: "string", required: true }
   - label: "Home Page"
     name: "homepage"
     extension: mdx
@@ -128,16 +148,6 @@ collections:
         fields:
           - { label: Title, name: title, widget: markdown, required: false }
           - name: "blog"
-      - label: "Reports"
-        name: reports
-        widget: list
-        allow_add: true
-        fields:
-          - { label: "Title", name: "title", widget: "string", required: true }
-          - { label: "Date", name: "date", widget: "date", required: true }
-          - { label: "Author", name: "author", widget: "string", required: true }
-          - { label: "Description", name: "description", widget: "text", required: true }
-          - { label: "URL", name: "url", widget: "string", required: true }
   - label: "Blog post"
     folder: "/packages/gatsby-ucla-site/content/pages/blog"
     name: "blogpost"
