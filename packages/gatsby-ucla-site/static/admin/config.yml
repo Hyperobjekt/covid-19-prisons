@@ -59,8 +59,9 @@ collections:
           hint: "Image used when page is shared on social media",
         }
       - { label: "Body", name: "body", widget: "markdown" }
-  - label: "Reports"
+  - label: "Reports Page"
     name: "reports"
+    identifier_field: name
     extension: mdx
     format: frontmatter
     create: false
@@ -69,8 +70,8 @@ collections:
       preview: false
     filter: { field: "pagetype", value: "reports" }
     fields:
-      - label: "Reports"
-        name: reports
+      - label: "Reports Data"
+        name: reportsData
         widget: list
         allow_add: true
         fields:
