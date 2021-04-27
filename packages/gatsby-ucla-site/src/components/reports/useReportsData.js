@@ -7,7 +7,7 @@ export default function useResourcesData() {
         allMdx(filter: { slug: { eq: "reports" } }) {
           nodes {
             frontmatter {
-              reportes {
+              reports {
                 date
                 description
                 url
@@ -20,5 +20,5 @@ export default function useResourcesData() {
       }
     `
   )
-  return allMdx.nodes[0].frontmatter.reportes
+  return allMdx.nodes[0].frontmatter.reports
 }

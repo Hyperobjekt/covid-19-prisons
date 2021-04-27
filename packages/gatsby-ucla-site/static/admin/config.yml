@@ -1,9 +1,9 @@
-# backend:
-#   name: git-gateway
-#   repo: Hyperobjekt/covid-19-behind-bars
-#   branch: production
+backend:
+  name: git-gateway
+  repo: Hyperobjekt/covid-19-behind-bars
+  branch: production
 
-# publish_mode: editorial_workflow
+publish_mode: editorial_workflow
 
 # FOR LOCAL DEVELOPMENT:
 # ---
@@ -11,10 +11,10 @@
 # - uncomment the backend below
 # - run `npx netlify-cms-proxy-server` to serve content
 
-backend:
-  name: proxy
-  proxy_url: http://localhost:8081/api/v1
-  branch: cms # optional, defaults to master
+# backend:
+#   name: proxy
+#   proxy_url: http://localhost:8081/api/v1
+#   branch: cms # optional, defaults to master
 
 media_folder: /packages/gatsby-ucla-site/content/assets
 public_folder: /packages/gatsby-ucla-site/assets
@@ -69,8 +69,8 @@ collections:
       preview: false
     filter: { field: "pagetype", value: "reports" }
     fields:
-      - label: "Reportes"
-        name: reportes
+      - label: "Reports"
+        name: reports
         widget: list
         allow_add: true
         fields:

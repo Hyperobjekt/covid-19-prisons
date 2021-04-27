@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   details: {
     display: "inline",
   },
+  primary: {
+    marginBottom: theme.spacing(0.5),
+  },
 }))
 
 const ReportTitle = ({ report }) => {
@@ -33,6 +36,7 @@ const ReportTitle = ({ report }) => {
 
 const ReportList = (props) => {
   const reports = useReportsData()
+  const classes = useStyles()
 
   return (
     <List>
@@ -41,6 +45,7 @@ const ReportList = (props) => {
           <ListItemText
             primary={<ReportTitle report={report} />}
             secondary={report.description}
+            classes={{ primary: classes.primary }}
           />
         </ListItem>
       ))}
