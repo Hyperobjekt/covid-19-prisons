@@ -61,7 +61,6 @@ collections:
       - { label: "Body", name: "body", widget: "markdown" }
   - label: "Reports Page"
     name: "reports"
-    identifier_field: name
     extension: mdx
     format: frontmatter
     create: false
@@ -77,8 +76,18 @@ collections:
         fields:
           - { label: "Title", name: "title", widget: "string", required: true }
           - { label: "Date", name: "date", widget: "date", required: true }
-          - { label: "Author", name: "author", widget: "string", required: true }
-          - { label: "Description", name: "description", widget: "text", required: true }
+          - {
+              label: "Author",
+              name: "author",
+              widget: "string",
+              required: true,
+            }
+          - {
+              label: "Description",
+              name: "description",
+              widget: "text",
+              required: true,
+            }
           - { label: "URL", name: "url", widget: "string", required: true }
   - label: "Home Page"
     name: "homepage"
@@ -124,24 +133,24 @@ collections:
         name: intro
         widget: object
         required: false
-        fields: 
-          - {label: Title, name: title, widget: string, required: false}
-          - {label: Subtitle, name: subtitle, widget: string, required: false} 
-          - {label: Body, name: body, widget: markdown, required: false}
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Subtitle, name: subtitle, widget: string, required: false }
+          - { label: Body, name: body, widget: markdown, required: false }
       - label: "Facilities table"
         name: table
         widget: object
         required: false
-        fields: 
-          - {label: Title, name: title, widget: string, required: false}
-          - {label: Notes, name: note, widget: markdown, required: false}
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Notes, name: note, widget: markdown, required: false }
       - label: "Vaccine table"
         name: vaccineTable
         widget: object
         required: false
-        fields: 
-          - {label: Title, name: title, widget: string, required: false}
-          - {label: Subtitle, name: subtitle, widget: string, required: false}
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Subtitle, name: subtitle, widget: string, required: false }
       - label: "Sponsors"
         name: sponsors
         widget: object
