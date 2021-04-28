@@ -7,6 +7,7 @@ publish_mode: editorial_workflow
 
 # FOR LOCAL DEVELOPMENT:
 # ---
+# - comment the above (*including* publish_mode)
 # - uncomment the backend below
 # - run `npx netlify-cms-proxy-server` to serve content
 
@@ -58,6 +59,27 @@ collections:
           hint: "Image used when page is shared on social media",
         }
       - { label: "Body", name: "body", widget: "markdown" }
+  - label: "Reports Page"
+    name: "reports"
+    identifier_field: name
+    extension: mdx
+    format: frontmatter
+    create: false
+    folder: "/packages/gatsby-ucla-site/content/pages"
+    editor:
+      preview: false
+    filter: { field: "pagetype", value: "reports" }
+    fields:
+      - label: "Reports Data"
+        name: reportsData
+        widget: list
+        allow_add: true
+        fields:
+          - { label: "Title", name: "title", widget: "string", required: true }
+          - { label: "Date", name: "date", widget: "date", required: true }
+          - { label: "Author", name: "author", widget: "string", required: true }
+          - { label: "Description", name: "description", widget: "text", required: true }
+          - { label: "URL", name: "url", widget: "string", required: true }
   - label: "Home Page"
     name: "homepage"
     extension: mdx

@@ -172,8 +172,13 @@
           "type": "internal"
         },
         {
-          "name": "Resources & Reports",
+          "name": "Resources",
           "link": "/resources",
+          "type": "internal"
+        },
+        {
+          "name": "Reports",
+          "link": "/reports",
           "type": "internal"
         }
       ]
