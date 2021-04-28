@@ -1,7 +1,7 @@
-# backend:
-#   name: git-gateway
-#   repo: Hyperobjekt/covid-19-behind-bars
-#   branch: production
+backend:
+  name: git-gateway
+  repo: Hyperobjekt/covid-19-behind-bars
+  branch: production
 
 publish_mode: editorial_workflow
 
@@ -11,10 +11,10 @@ publish_mode: editorial_workflow
 # - uncomment the backend below
 # - run `npx netlify-cms-proxy-server` to serve content
 
-backend:
-  name: proxy
-  proxy_url: http://localhost:8081/api/v1
-  branch: cms # optional, defaults to master
+# backend:
+#   name: proxy
+#   proxy_url: http://localhost:8081/api/v1
+#   branch: cms # optional, defaults to master
 
 media_folder: /packages/gatsby-ucla-site/content/assets
 public_folder: /packages/gatsby-ucla-site/assets
@@ -59,66 +59,56 @@ collections:
           hint: "Image used when page is shared on social media",
         }
       - { label: "Body", name: "body", widget: "markdown" }
-  - label: "Reports"
+  - label: "Reports Page"
     name: "reports"
-    files:
-      - label: "Report List Page"
-        name: "reports"
-        file: "/packages/gatsby-ucla-site/content/pages/reports.mdx"
-        extension: mdx
-        format: frontmatter
-        editor:
-          preview: false
+    extension: mdx
+    format: frontmatter
+    create: false
+    folder: "/packages/gatsby-ucla-site/content/pages"
+    editor:
+      preview: false
+    filter: { field: "pagetype", value: "reports" }
+    fields:
+      - {
+          label: "Page Title",
+          name: title,
+          widget: string,
+          hint: "Title for the browser window",
+        }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          required: false,
+          hint: "Not visible, but used for search engine optimization",
+        }
+      - {
+          label: "Page Type",
+          name: "pagetype",
+          widget: hidden,
+          required: false,
+          default: "reports",
+        }
+      - label: "Reports Data"
+        name: reportsData
+        widget: list
+        allow_add: true
         fields:
-          - label: "Page Title"
-            name: title
-            widget: string
-            hint: "Title for the browser window"
+          - { label: "Title", name: "title", widget: "string", required: true }
+          - { label: "Date", name: "date", widget: "date", required: true }
+          - {
+              label: "Author",
+              name: "author",
+              widget: "string",
+              required: true,
+            }
           - {
               label: "Description",
               name: "description",
-              widget: "string",
-              required: false,
-              hint: "Not visible, but used for search engine optimization",
+              widget: "text",
+              required: true,
             }
-          - {
-              label: "Page Type",
-              name: "pagetype",
-              widget: hidden,
-              required: false,
-              default: "reports",
-            }
-          - {
-              label: "Keywords",
-              name: "keywords",
-              widget: "list",
-              required: false,
-            }
-          - label: "Reports Data"
-            name: "reportsData"
-            widget: "list"
-            allow_add: true
-            fields:
-              - {
-                  label: "Title",
-                  name: "title",
-                  widget: "string",
-                  required: true,
-                }
-              - { label: "Date", name: "date", widget: "date", required: true }
-              - {
-                  label: "Author",
-                  name: "author",
-                  widget: "string",
-                  required: true,
-                }
-              - {
-                  label: "Description",
-                  name: "description",
-                  widget: "text",
-                  required: true,
-                }
-              - { label: "URL", name: "url", widget: "string", required: true }
+          - { label: "URL", name: "url", widget: "string", required: true }
   - label: "Home Page"
     name: "homepage"
     extension: mdx
