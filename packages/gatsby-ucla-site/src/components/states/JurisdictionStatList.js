@@ -54,20 +54,18 @@ const styles = (theme) => ({
       ...sansSerifyTypography,
       fontSize: theme.typography.pxToRem(16),
       color: theme.palette.text.primary,
+      "&:visited": {
+        color: theme.palette.text.primary,
+      },
       textDecoration: "underline",
       "&:hover": {
         textDecorationColor: theme.palette.secondary.main,
-      },
-
-      "& .MuiSvgIcon-root": {
-        fontSize: theme.typography.pxToRem(16),
-        marginTop: "auto",
-        marginBottom: "auto",
       },
     },
   },
   tooltip: {
     color: "#fff",
+    fontSize: theme.typography.pxToRem(12),
   },
 })
 
@@ -110,13 +108,13 @@ const JurisdictionStatList = ({
       state: [stateScore, "#scorecard", "state"],
       immigration: [iceScore, "/ice#scorecard", "ICE"],
       federal: isFederal
-        ? [stateScore, "#scorecard", "federal"]
-        : [fedScore, "/federal#scorecard", "federal"],
+        ? [stateScore, "#scorecard", "BOP"]
+        : [fedScore, "/federal#scorecard", "BOP"],
     }[jurisdiction]
 
     const title = (
       <Typography variant="body2" className={classes.tooltip}>
-        go to {name} scorecard
+        View {name} scorecard
       </Typography>
     )
     return (
