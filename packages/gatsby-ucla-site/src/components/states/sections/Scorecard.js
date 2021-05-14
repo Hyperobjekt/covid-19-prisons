@@ -225,7 +225,9 @@ const resReportingColumns = [
 const staffReportingColumns = [
   { id: "cases_staff" },
   { id: "deaths_staff" },
+  { id: "active_staff" },
   { id: "tests_staff" },
+  { id: "population_staff" },
   { id: "vaccinations_staff" },
 ]
 

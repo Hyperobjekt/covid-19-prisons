@@ -45,7 +45,7 @@ exports.getVaccines = () => getData(vaccinesCsv, parseVaccine)
  * sheet has hidden top row with stable, machine-readable names
  */
 
-const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=0&format=csv`
+const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=696812429&format=csv`
 
 const scorecardMap = {
   state: ["state", "string", exactMatch],
@@ -65,6 +65,8 @@ const scorecardMap = {
   deaths_staff: ["deaths_staff", "string", exactMatch],
   tests_staff: ["tests_staff", "string", exactMatch],
   vaccinations_staff: ["vaccinations_staff", "string", exactMatch],
+  active_staff: ["active_staff", "string", exactMatch],
+  population_staff: ["population_staff", "string", exactMatch],
 }
 
 const scorecardParser = (row) => parseMap(row, scorecardMap)
