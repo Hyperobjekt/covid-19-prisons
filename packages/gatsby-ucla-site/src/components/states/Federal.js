@@ -253,6 +253,8 @@ export const query = graphql`
         deaths_staff
         tests_staff
         vaccinations_staff
+        active_staff
+        population_staff
       }
     }
   }
