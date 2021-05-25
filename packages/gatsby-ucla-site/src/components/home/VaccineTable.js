@@ -9,6 +9,7 @@ import ResponsiveContainer from "../ResponsiveContainer"
 import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
 import { Link } from "gatsby-theme-material-ui"
+import { formatMetricValue } from "../../common/utils/formatters"
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -21,6 +22,15 @@ const alphaStateSort = (a, b) => {
   }
 
   return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1
+}
+
+const rateSorter = (a, b, columnId) => {
+  const [group, metric] = columnId.split("-")
+  const [aVal, bVal] = [a, b].map((v) => v.original[group][metric])
+  if (isNumber(aVal) && !isNumber(bVal)) return 1
+  if (!isNumber(aVal) && isNumber(bVal)) return -1
+  if (!isNumber(aVal) && !isNumber(bVal)) return 0
+  return aVal - bVal
 }
 
 const styles = (theme) => ({
@@ -64,6 +74,7 @@ const styles = (theme) => ({
 
 const intFormatter = format(",d")
 
+const perFormatter = (v) => formatMetricValue(v, "home_table_rate")
 const countFormatter = (value) =>
   !isNumber(value) ? "--" : intFormatter(value)
 
@@ -103,8 +114,8 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           )
         },
         style: {
-          width: "32%",
-          minWidth: 130,
+          width: "20%",
+          // minWidth: 130,
         },
       },
       {
@@ -113,8 +124,20 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         accessor: "residents.initiated",
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "37%",
-          minWidth: 170,
+          width: "20%",
+          // minWidth: 170,
+          textAlign: "right",
+        },
+      },
+      {
+        id: "residents-percentInitiated",
+        Header: getLang("initiated_percent"),
+        accessor: "residents.percentInitiated",
+        sortType: rateSorter,
+        Cell: (prop) => perFormatter(prop.value),
+        style: {
+          width: "20%",
+          // minWidth: 170,
           textAlign: "right",
         },
       },
@@ -124,8 +147,20 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         accessor: "staff.initiated",
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "31%",
-          minWidth: 160,
+          width: "20%",
+          // minWidth: 160,
+          textAlign: "right",
+        },
+      },
+      {
+        id: "staff-percentInitiated",
+        Header: getLang("initiated_percent"),
+        accessor: "staff.percentInitiated",
+        sortType: rateSorter,
+        Cell: (prop) => perFormatter(prop.value),
+        style: {
+          width: "20%",
+          // minWidth: 160,
           textAlign: "right",
         },
       },
