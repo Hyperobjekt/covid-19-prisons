@@ -25,6 +25,9 @@ const alphaStateSort = (a, b) => {
 }
 
 const rateSorter = (a, b, columnId) => {
+  if (a.original.isTotal) return 1
+  if (b.original.isTotal) return -1
+  
   const [group, metric] = columnId.split("-")
   const [aVal, bVal] = [a, b].map((v) => v.original[group][metric])
   if (isNumber(aVal) && !isNumber(bVal)) return 1
