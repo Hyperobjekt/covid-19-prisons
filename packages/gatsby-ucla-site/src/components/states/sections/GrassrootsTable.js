@@ -31,11 +31,18 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         Header: lang.table.facility,
         accessor: "facility",
         Cell: (prop) => prop.value,
+        style: {
+          width: "12%",
+          minWidth: "7.2rem",
+        },
       },
       {
         Header: lang.table.county,
         accessor: "county",
         Cell: (prop) => prop.value,
+        style: {
+          width: "12%",
+        },
       },
       {
         Header: lang.table.date,
@@ -43,27 +50,45 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
+          width: "12%",
+          minWidth: "7.3rem",
         },
       },
       {
         Header: lang.table.organization,
         accessor: "organization",
         Cell: (prop) => prop.value,
+        style: {
+          width: "25%",
+          minWidth: "8rem",
+        },
       },
       {
         Header: lang.table.type,
         accessor: "type",
         Cell: (prop) => prop.value,
+        style: {
+          minWidth: "7.1rem",
+          maxWidth: "7.1rem",
+        },
       },
       {
         Header: lang.table.effort,
         accessor: "effort",
         Cell: (prop) => prop.value,
+        style: {
+          minWidth: "5rem",
+          maxWidth: "5rem",
+        },
       },
       {
         Header: lang.table.concerns,
         accessor: "concerns",
         Cell: (prop) => prop.value,
+        style: {
+          minWidth: "8rem",
+          maxWidth: "8rem",
+        },
       },
       {
         Header: lang.table.source,
@@ -72,14 +97,14 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
           if (!value) return " "
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
           return (
-            <a
-              title={value}
-              href={value}
-              target="__blank"
-            >
+            <a title={value} href={value} target="__blank">
               <LinkIcon />
             </a>
           )
+        },
+        style: {
+          minWidth: "4rem",
+          maxWidth: "4rem",
         },
       },
     ],
