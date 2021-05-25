@@ -1,5 +1,5 @@
 import React from "react"
-import { Table } from "../table"
+import { DefaultTable } from "../table"
 import { format } from "d3-format"
 import { Box, Typography, withStyles } from "@material-ui/core"
 import { useVaccineData } from "../../common/hooks"
@@ -78,7 +78,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         id: "jurisdiction",
         Header: getLang("jurisdiction"),
         accessor: "jurisdiction",
-        disableSortBy: true,
         sortType: alphaStateSort,
         Cell: (prop) => {
           const { jurisdiction, isState, isFederal, isIce } = prop.row.original
@@ -112,7 +111,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         id: "r-initiated",
         Header: getLang("residents_initiated"),
         accessor: "residents.initiated",
-        disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: {
           width: "37%",
@@ -124,7 +122,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         id: "s-initiated",
         Header: getLang("staff_initiated"),
         accessor: "staff.initiated",
-        disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: {
           width: "31%",
@@ -136,16 +133,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
     [classes.jurisdictionLink]
   )
 
-  // memoized table options
-  const options = React.useMemo(
-    () => ({
-      initialState: {
-        pageSize: 5,
-        sortBy: [{ id: "jurisdiction", desc: false }],
-      },
-    }),
-    []
-  )
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
       <ResponsiveContainer>
@@ -158,12 +145,13 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
               className={classes.body}
             />
           </div>
-          <Table
+          <DefaultTable
             className={classes.table}
             data={data}
             columns={columns}
-            options={options}
-            sortColumn={"jurisdiction"}
+            startDesc={true}
+            preventReverseSort={true}
+            initialSortColumn={"jurisdiction"}
             disableFilter={true}
           />
         </div>
