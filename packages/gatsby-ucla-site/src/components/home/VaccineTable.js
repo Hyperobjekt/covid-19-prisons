@@ -200,18 +200,20 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
               className={classes.body}
             />
           </div>
-          <DefaultTable
-            className={classes.table}
-            data={data}
-            columns={columns}
-            startDesc={true}
-            preventReverseSort={true}
-            initialSortColumn={"jurisdiction"}
-            disableFilter={true}
-          />
+          <div>
+            <DefaultTable
+              className={classes.table}
+              data={data}
+              columns={columns}
+              startDesc={true}
+              preventReverseSort={true}
+              initialSortColumn={"jurisdiction"}
+              disableFilter={true}
+            />
+            <Notes notes={note} className={classes.notes} />
+          </div>
         </div>
       </ResponsiveContainer>
-      <Notes notes={note} className={classes.notes} />
     </Block>
   )
 }
