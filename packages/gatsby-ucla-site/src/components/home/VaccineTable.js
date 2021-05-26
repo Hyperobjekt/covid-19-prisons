@@ -10,6 +10,7 @@ import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
 import { Link } from "gatsby-theme-material-ui"
 import { formatMetricValue } from "../../common/utils/formatters"
+import Notes from "../Notes"
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -73,6 +74,22 @@ const styles = (theme) => ({
       },
     },
   },
+  notes: {
+    listStyle: "none",
+    margin: theme.spacing(2, "auto"),
+    maxWidth: "24rem",
+    "& li": {
+      maxWidth: "24rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      justifyContent: "space-around",
+      maxWidth: "none",
+      "& li + li": {
+        marginTop: 0,
+      },
+    },
+  },
 })
 
 const intFormatter = format(",d")
@@ -81,7 +98,7 @@ const perFormatter = (v) => formatMetricValue(v, "home_table_rate")
 const countFormatter = (value) =>
   !isNumber(value) ? "--" : intFormatter(value)
 
-const VaccineTable = ({ title, subtitle, classes, ...props }) => {
+const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
   // data for table
   const data = useVaccineData()
 
@@ -194,6 +211,7 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           />
         </div>
       </ResponsiveContainer>
+      <Notes notes={note} className={classes.notes} />
     </Block>
   )
 }
