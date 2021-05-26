@@ -1,8 +1,8 @@
 [build]
-  publish = "packages/gatsby-ucla-site/public"
-  command = "yarn workspace gatsby-ucla-site build"
+  publish = "public"
+  command = "yarn build"
 [build.environment]
-  NODE_VERSION = "12"
+  NODE_VERSION = "14"
   YARN_VERSION = "1.22.10"
   YARN_FLAGS = "--no-ignore-optional"
 [context.production]

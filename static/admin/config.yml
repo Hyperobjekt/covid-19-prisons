@@ -16,8 +16,8 @@ publish_mode: editorial_workflow
 #   proxy_url: http://localhost:8081/api/v1
 #   branch: cms # optional, defaults to master
 
-media_folder: /packages/gatsby-ucla-site/content/assets
-public_folder: /packages/gatsby-ucla-site/assets
+media_folder: /content/assets
+public_folder: /assets
 
 collections:
   - label: "Subsidiary Pages"
@@ -26,7 +26,7 @@ collections:
     format: frontmatter
     create: true
     filter: { field: "pagetype", value: "subsidiary" }
-    folder: "/packages/gatsby-ucla-site/content/pages"
+    folder: "/content/pages"
     editor:
       preview: false
     fields:
@@ -65,7 +65,7 @@ collections:
     extension: mdx
     format: frontmatter
     create: false
-    folder: "/packages/gatsby-ucla-site/content/pages"
+    folder: "/content/pages"
     editor:
       preview: false
     filter: { field: "pagetype", value: "reports" }
@@ -85,7 +85,7 @@ collections:
     extension: mdx
     format: frontmatter
     create: true
-    folder: "/packages/gatsby-ucla-site/content/pages"
+    folder: "/content/pages"
     editor:
       preview: false
     filter: { field: "pagetype", value: "home" }
@@ -150,7 +150,7 @@ collections:
           - { label: Title, name: title, widget: markdown, required: false }
           - name: "blog"
   - label: "Blog post"
-    folder: "/packages/gatsby-ucla-site/content/pages/blog"
+    folder: "/content/pages/blog"
     name: "blogpost"
     extension: mdx
     format: frontmatter
