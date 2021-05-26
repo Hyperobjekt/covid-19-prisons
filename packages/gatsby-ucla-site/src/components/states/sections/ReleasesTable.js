@@ -39,17 +39,19 @@ const ReleasesTable = ({
         Header: lang.table.jurisdiction,
         accessor: "jurisdiction",
         Cell: (prop) => prop.value,
-        // style: { minWidth: "50%" },
+        style: { width: "12%" },
       },
       {
         Header: lang.table.facility,
         accessor: "facility",
         Cell: (prop) => prop.value,
+        style: { width: "11%" },
       },
       {
         Header: lang.table.authority,
         accessor: "authority",
         Cell: (prop) => prop.value,
+        style: { width: "10%" },
       },
       {
         Header: lang.table.date,
@@ -57,6 +59,7 @@ const ReleasesTable = ({
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
+          width: "10%",
         },
       },
       {
@@ -65,6 +68,8 @@ const ReleasesTable = ({
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
+          minWidth: "8rem",
+          maxWidth: "8rem",
         },
       },
       {
@@ -73,6 +78,7 @@ const ReleasesTable = ({
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
+          width: "13%",
         },
       },
       {
@@ -81,12 +87,17 @@ const ReleasesTable = ({
         Cell: (prop) => prop.value,
         style: {
           textAlign: "right",
+          width: "13%",
         },
       },
       {
         Header: lang.table.details,
         accessor: "details",
         Cell: (prop) => prop.value,
+        style: {
+          width: "14%",
+          minWidth: "7.8rem",
+        },
       },
       {
         Header: lang.table.source,
@@ -99,6 +110,10 @@ const ReleasesTable = ({
               <LinkIcon />
             </a>
           )
+        },
+        style: {
+          minWidth: "4rem",
+          maxWidth: "4rem",
         },
       },
     ],

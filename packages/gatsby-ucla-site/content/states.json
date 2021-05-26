@@ -127,7 +127,7 @@
           "facility": "Facility/facilities",
           "authority": "Authorizing agent(s)",
           "date": "Date*",
-          "releases": "Overall population reduction/total number of releases**",
+          "releases": "Overall population reduction/ total # of releases**",
           "population": "Population prior to releases***",
           "proportion": "Releases as percentage of population",
           "capacity": "Known facility capacity****",
@@ -170,7 +170,7 @@
           "county": "County",
           "organization": "Organization",
           "type": "Type of effort",
-          "effort": "Internal or external",
+          "effort": "Internal/ external",
           "effortMap": {
             "external_effort": "Internal",
             "internal_effort": "External",
