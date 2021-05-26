@@ -2,13 +2,13 @@ import React from "react"
 import clsx from "clsx"
 import PropTypes from "prop-types"
 import { fade, Grid, Typography, withStyles } from "@material-ui/core"
-import { Block } from "gatsby-theme-hyperobjekt-core"
+import { Block } from "@hyperobjekt/material-ui-website"
 import { NationalMap, MapLegend } from "../maps"
 import { navigate } from "gatsby"
 import { useMapStore } from "@hyperobjekt/svg-maps"
 import ResponsiveContainer from "../ResponsiveContainer"
 import Stack from "../Stack"
-import { serifTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { serifTypography } from "../../gatsby-theme-hypercore/theme"
 import { useActiveMetric, useMappableFacilities } from "../../common/hooks"
 import { getLang } from "../../common/utils/i18n"
 import MetricSelectionTitle from "../controls/MetricSelectionTitle"
@@ -177,6 +177,7 @@ const HomeMap = ({
   const [metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4]
 
   const notes = getLang("map", "notes", isImmigration && "immigration")
+  console.log(data, metric)
   return (
     <Block
       type="fullWidth"

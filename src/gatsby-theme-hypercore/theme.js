@@ -123,6 +123,7 @@ const CovidTheme = () => {
   }
   // build overrides
   const overrides = {
+    
     overrides: {
       /** Site wide global style overrides */
       MuiCssBaseline: {
@@ -370,9 +371,12 @@ const CovidTheme = () => {
         variant: "contained", // All buttons have "contained" appearance
       },
     },
+    layout: {
+      headerHeight: 64
+    },
   }
   // return the merged base theme with overrides
-  return deepmerge(base, overrides)
+  return deepmerge(theme, overrides)
 }
 
-export default CovidTheme
+export default CovidTheme()

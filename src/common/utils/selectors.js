@@ -70,7 +70,7 @@ export const getStateCenter = (stateId) => {
 }
 
 export const isNumber = (val) => {
-  return (Boolean(val) || val === 0) && !isNaN(val)
+  return (Boolean(val) || val === 0) && !isNaN(val) && val !== -999
 }
 
 export const getData = (data, ...keyTree) => {

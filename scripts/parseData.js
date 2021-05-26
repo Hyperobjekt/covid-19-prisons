@@ -1,3 +1,5 @@
+
+
 /**
  * Abbreviations that should be forced to uppercase
  */
@@ -54,6 +56,21 @@ const UPPER_CASE = [
  * All ways DC is represented in source data (in lower case)
  */
 const DC_VARIANTS = ["dc", "district of columbia", "district of col"]
+
+/**
+ * Helper function to get integer value, or -999 when not a number
+ * @param {*} value 
+ * @returns 
+ */
+const getInt = (value) => {
+  const intValue = parseInt(value)
+  return isNaN(intValue) ? -999 : intValue
+}
+
+const getFloat = (value) => {
+  const floatValue = parseFloat(value)
+  return isNaN(floatValue) ? -999 : floatValue
+}
 
 /**
  * Fixes casing on strings THAT ARE ALL UPPERCASE
@@ -133,8 +150,8 @@ const parseFacility = (facility = {}) => {
   result.date = Date.parse(source["date"])
 
   // parse coordinates
-  const Latitude = parseFloat(source["latitude"])
-  const Longitude = parseFloat(source["longitude"])
+  const Latitude = getFloat(source["latitude"])
+  const Longitude = getFloat(source["longitude"])
   result.coords = [Longitude, Latitude]
 
   // NOTE should now always be true
@@ -143,13 +160,13 @@ const parseFacility = (facility = {}) => {
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
     if (key === "tadmin") {
-      obj["tested"] = parseInt(source.residents[key])
+      obj["tested"] = getInt(source.residents[key])
       return obj
     } else if (key === "population" && useAltPopCol) {
-      obj["population"] = parseInt(source.population.feb20)
+      obj["population"] = getInt(source.population.feb20)
       return obj
     } else {
-      obj[key] = parseInt(source.residents[key])
+      obj[key] = getInt(source.residents[key])
       return obj
     }
   }, {})
@@ -166,7 +183,7 @@ const parseFacility = (facility = {}) => {
 
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
-    obj[key] = parseInt(source.staff[key])
+    obj[key] = getInt(source.staff[key])
     return obj
   }, {})
 
@@ -202,21 +219,21 @@ const parseVaccine = (vaccine = {}) => {
   
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
-    obj[key] = parseInt(source.staff[key])
+    obj[key] = getInt(source.staff[key])
     return obj
   }, {})
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    obj[key] = parseInt(source.residents[key])
+    obj[key] = getInt(source.residents[key])
     return obj
   }, {})
 
   return result
 }
 
-const parseIntComma = (value) => parseInt(value.replace(/,/g, ""))
-const parseFloatComma = (value) => parseFloat(value.replace(/,/g, ""))
+const parseIntComma = (value) => getInt(value.replace(/,/g, ""))
+const parseFloatComma = (value) => getFloat(value.replace(/,/g, ""))
 
 const getParser = (type) => {
   // if it's already a parsing function, return it

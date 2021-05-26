@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 import { graphql } from "gatsby"
-import { Layout } from "gatsby-theme-hyperobjekt-core"
+import Layout from "gatsby-theme-hypersite/src/layout"
 import {
   makeStyles,
   Typography,

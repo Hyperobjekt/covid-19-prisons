@@ -1,5 +1,5 @@
 import React from "react"
-import { Block } from "gatsby-theme-hyperobjekt-core"
+import { Block } from "@hyperobjekt/material-ui-website"
 import Stack from "../Stack"
 import { Typography, withStyles } from "@material-ui/core"
 import ResponsiveContainer from "../ResponsiveContainer"

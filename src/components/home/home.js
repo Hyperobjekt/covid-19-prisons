@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Layout } from "gatsby-theme-hyperobjekt-core"
 import Intro from "./HomeIntro"
 import HomeMap from "./HomeMap"
 import Sponsors from "./HomeSponsors"
@@ -11,6 +10,7 @@ import VitalProjectsFundLogo from "../../../content/assets/vital-projects-fund-l
 import ArnoldVenturesLogo from "../../../content/assets/arnold-ventures-logo.svg"
 import MapTooltip from "./HomeMapTooltip"
 import { getLang } from "../../common/utils/i18n"
+import Layout from "gatsby-theme-hypersite/src/layout"
 
 export const query = graphql`
   query($pathSlug: String!) {

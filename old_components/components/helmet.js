@@ -1,19 +1,18 @@
 import React from "react"
-import { default as CoreHelmet } from "gatsby-theme-hyperobjekt-core/src/components/helmet"
-
+import { Helmet } from "react-helmet"
 /**
  * Add custom fonts to the helmet
  */
-const Helmet = (props) => {
+const NewHelmet = (props) => {
   return (
-    <CoreHelmet {...props}>
+    <Helmet {...props}>
       <link
         rel="stylesheet"
         type="text/css"
         href="https://cloud.typography.com/6135894/6886832/css/fonts.css"
       />
-    </CoreHelmet>
+    </Helmet>
   )
 }
 
-export default Helmet
+export default NewHelmet

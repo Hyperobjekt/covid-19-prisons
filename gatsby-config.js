@@ -1,20 +1,26 @@
 const metadata = require("./config/metadata.json")
-const coreOptions = require("./config/core.json")
 module.exports = {
   siteMetadata: metadata,
   plugins: [
     {
-      resolve: `gatsby-theme-hyperobjekt-core`,
+      resolve: `gatsby-theme-hypersite`,
       options: {
-        ...coreOptions,
-        typekitId: "uiz8duz",
-        templates: {
+        contentPath: `content/pages`,
+        assetPath: `content/assets`,
+        layouts: {
           home: require.resolve("./src/components/home/home.js"),
           immigration: require.resolve(
             "./src/components/immigration/immigration.js"
-          ),
-          blog: require.resolve("./src/components/blog/blog.js"),
-          blogIndex: require.resolve("./src/components/blog/BlogIndex.js"),
+          )
+        },
+      },
+    },
+    // load typekit fonts
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        typekit: {
+          id: "uiz8duz",
         },
       },
     },

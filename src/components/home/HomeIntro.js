@@ -1,10 +1,10 @@
 import React from "react"
 import { Grid, Typography, withStyles } from "@material-ui/core"
-import { Block } from "gatsby-theme-hyperobjekt-core"
+import { Block } from "@hyperobjekt/material-ui-website"
 import {
   subtitleTypography,
   titleTypography,
-} from "../../gatsby-theme-hyperobjekt-core/theme"
+} from "../../gatsby-theme-hypercore/theme"
 import ResponsiveContainer from "../ResponsiveContainer"
 
 const styles = (theme) => ({

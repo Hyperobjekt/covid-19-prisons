@@ -3,7 +3,7 @@ import { Table } from "../table"
 import { format } from "d3-format"
 import { Box, Typography, withStyles } from "@material-ui/core"
 import { useVaccineData } from "../../common/hooks"
-import { Block } from "gatsby-theme-hyperobjekt-core"
+import { Block } from "@hyperobjekt/material-ui-website"
 
 import ResponsiveContainer from "../ResponsiveContainer"
 import { getSlug, isNumber } from "../../common/utils/selectors"

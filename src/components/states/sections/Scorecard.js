@@ -12,7 +12,7 @@ import StepWrapper from "../StepWrapper"
 import BadIcon from "../../../../content/assets/score-bad.svg"
 import OkayIcon from "../../../../content/assets/score-okay.svg"
 import GoodIcon from "../../../../content/assets/score-good.svg"
-import { sansSerifyTypography } from "../../../gatsby-theme-hyperobjekt-core/theme"
+import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme"
 
 // const MIN_COL_WIDTH = 116
 const MAX_COL_WIDTH = 230

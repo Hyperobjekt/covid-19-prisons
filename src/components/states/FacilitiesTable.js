@@ -1,7 +1,7 @@
 import React from "react"
 import { Table } from "../table"
 import { Typography, withStyles } from "@material-ui/core"
-import { titleTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { titleTypography } from "../../gatsby-theme-hypercore/theme"
 import { getLang } from "../../common/utils/i18n"
 import { formatMetricValue } from "../../common/utils/formatters"
 import useStatesStore from "./useStatesStore"

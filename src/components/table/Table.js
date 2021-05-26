@@ -20,7 +20,7 @@ import {
   useTable,
 } from "react-table"
 import { withStyles } from "@material-ui/core"
-import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme"
 
 const styles = (theme) => ({
   table: {
