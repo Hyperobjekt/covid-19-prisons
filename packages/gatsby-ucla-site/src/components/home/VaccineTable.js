@@ -134,18 +134,16 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
           )
         },
         style: {
-          width: "20%",
-          // minWidth: 130,
+          width: "8.5rem",
         },
       },
       {
         id: "r-initiated",
-        Header: getLang("residents_initiated"),
+        Header: getLang("initiated_total"),
         accessor: "residents.initiated",
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "20%",
-          // minWidth: 170,
+          width: "25%",
           textAlign: "right",
         },
       },
@@ -156,19 +154,17 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "20%",
-          // minWidth: 170,
+          width: "25%",
           textAlign: "right",
         },
       },
       {
         id: "s-initiated",
-        Header: getLang("staff_initiated"),
+        Header: getLang("initiated_total"),
         accessor: "staff.initiated",
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "20%",
-          // minWidth: 160,
+          width: "25%",
           textAlign: "right",
         },
       },
@@ -179,14 +175,19 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "20%",
-          // minWidth: 160,
+          width: "25%",
           textAlign: "right",
         },
       },
     ],
     [classes.jurisdictionLink]
   )
+
+  const topLevelHeaders = [
+    { colSpan: 1, text: " " },
+    { colSpan: 2, align: "center", text: getLang("residents_initiated") },
+    { colSpan: 2, align: "center", text: getLang("staff_initiated") },
+  ]
 
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
@@ -209,6 +210,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
               preventReverseSort={true}
               initialSortColumn={"jurisdiction"}
               disableFilter={true}
+              topLevelHeaders={topLevelHeaders}
             />
             <Notes notes={note} className={classes.notes} />
           </div>

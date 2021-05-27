@@ -92,6 +92,7 @@ const Table = ({
   onChangeRowsPerPage,
   sortColumn,
   sortDesc = true,
+  topLevelHeaders = [],
   options,
   classes,
   className,
@@ -135,7 +136,7 @@ const Table = ({
   }, [sortColumn, toggleSortBy, sortBy, sortDesc])
 
   const [filtered, setFiltered] = React.useState(globalFilter)
-  
+
   const handleChangePage = (event, newPage) => {
     gotoPage(newPage)
     if (onChangePage) {
@@ -152,7 +153,7 @@ const Table = ({
       onChangeRowsPerPage(Number(event.target.value))
     }
   }
-  
+
   const handleSetGlobalFilter = (value) => {
     // eg true if user is deleting letters from search term
     const lessRestrictiveFilter =
@@ -193,6 +194,15 @@ const Table = ({
       <TableContainer className={clsx(classes.table, className)} {...props}>
         <MaUTable {...getTableProps()}>
           <TableHead>
+            {topLevelHeaders.length && (
+              <TableRow>
+                {topLevelHeaders.map(({ colSpan, align, text }, i) => (
+                  <TableCell key={i} align={align} colSpan={colSpan}>
+                    {text}
+                  </TableCell>
+                ))}
+              </TableRow>
+            )}
             {headerGroups.map((headerGroup) => {
               return (
                 <TableRow {...headerGroup.getHeaderGroupProps()}>
