@@ -125,8 +125,8 @@ const HomeTable = ({
   const columns = React.useMemo(() => {
     const facilityCol = {
       Header: "Facility",
+      id: "name",
       accessor: "name",
-      disableSortBy: true,
       Cell: (prop) => {
         const { state, jurisdiction } = prop.row.original
         return (
@@ -135,10 +135,7 @@ const HomeTable = ({
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              <Link
-                to={`/states/${state}`}
-                className={classes.state}
-              >
+              <Link to={`/states/${state}`} className={classes.state}>
                 {state}
               </Link>
               <DotMarker
@@ -196,26 +193,40 @@ const HomeTable = ({
     return [facilityCol, ...cols]
   }, [classes.name, classes.state, isImmigration, numberColStyle])
 
+  const [sortCol, setSortCol] = React.useState(metric)
+  const [sortedByMetric, setSortedByMetric] = React.useState(true)
+
   // memoized table options
   const options = React.useMemo(
     () => ({
       initialState: {
         pageSize: 5,
-        sortBy: [{ id: metric, desc: true }],
+        sortBy: [{ id: sortCol, desc: sortedByMetric }],
       },
     }),
-    [metric]
+    [sortedByMetric, sortCol]
   )
 
   // handler for when table headers are clicked
   const handleSortChange = React.useCallback(
     (sortBy) => {
-      if (sortBy === "name") return
+      const isMetric = sortBy !== "name"
+      setSortedByMetric(isMetric)
+      setSortCol(sortBy)
+
+      if (!isMetric) return
       const newMetric = sortBy
       metric !== newMetric && setMetric(newMetric)
     },
     [metric, setMetric]
   )
+
+  // if user selects metric via dropdown, update sort col
+  React.useEffect(() => {
+    setSortCol(metric)
+    setSortedByMetric(true)
+  }, [metric])
+
   return (
     <Block
       type="fullWidth"
@@ -229,7 +240,8 @@ const HomeTable = ({
           data={data.filter((d) => d.name !== "Statewide")}
           columns={columns}
           options={options}
-          sortColumn={metric}
+          // sortColumn={sortCol}
+          // sortDesc={sortedByMetric}
           onSort={handleSortChange}
         >
           <JurisdictionToggles

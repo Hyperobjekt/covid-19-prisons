@@ -13,14 +13,14 @@ const styles = (theme) => ({
 })
 
 const DefaultTable = ({
-  initialSortCol,
+  initialSortColumn,
   columns,
   startDesc = false,
   preventReverseSort = false,
   ...props
 }) => {
   const firstCol = columns[0].accessor
-  const [sortCol, setSortCol] = React.useState(initialSortCol || firstCol)
+  const [sortCol, setSortCol] = React.useState(initialSortColumn || firstCol)
   const [sortDesc, setSortDesc] = React.useState(startDesc)
   const [pageIndex, setPageIndex] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
