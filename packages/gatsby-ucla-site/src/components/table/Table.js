@@ -194,7 +194,7 @@ const Table = ({
       <TableContainer className={clsx(classes.table, className)} {...props}>
         <MaUTable {...getTableProps()}>
           <TableHead>
-            {topLevelHeaders.length && (
+            {!!topLevelHeaders.length && (
               <TableRow>
                 {topLevelHeaders.map(({ colSpan, align, text }, i) => (
                   <TableCell key={i} align={align} colSpan={colSpan}>

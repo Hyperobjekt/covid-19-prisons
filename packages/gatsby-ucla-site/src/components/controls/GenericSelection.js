@@ -14,7 +14,9 @@ const styles = (theme) => ({
     },
   },
   menu: {},
-  menuItem: {},
+  menuItem: {
+    textTransform: "capitalize",
+  },
   menuItemActive: {},
 })
 

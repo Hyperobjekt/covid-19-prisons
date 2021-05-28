@@ -227,6 +227,12 @@ const HomeTable = ({
     setSortedByMetric(true)
   }, [metric])
 
+  // otherwise column won't update if table sorted by name and active metric is (re)selected
+  const handleSelection = (metric) => {
+    setSortedByMetric(true)
+    setSortCol(metric)
+  }
+
   return (
     <Block
       type="fullWidth"
@@ -234,7 +240,12 @@ const HomeTable = ({
       {...props}
     >
       <ResponsiveContainer>
-        <MetricSelectionTitle title={title} isImmigration={isImmigration} />
+        <MetricSelectionTitle
+          title={sortedByMetric ? title : "Facilities by ${metric}"}
+          isImmigration={isImmigration}
+          handleSelection={handleSelection}
+          forceSelectedOption={!sortedByMetric && sortCol}
+        />
         <Table
           className={classes.table}
           data={data.filter((d) => d.name !== "Statewide")}
