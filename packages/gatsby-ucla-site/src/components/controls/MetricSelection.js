@@ -27,7 +27,6 @@ const MetricSelection = ({
   let selectedOption = metric
 
   if (forceSelectedOption) {
-    console.log("HIT")
     selectedOption = forceSelectedOption
     if (!options.includes(forceSelectedOption)) {
       options = [...options, forceSelectedOption]
