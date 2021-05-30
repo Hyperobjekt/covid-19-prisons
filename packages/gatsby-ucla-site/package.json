@@ -1,6 +1,6 @@
 {
   "name": "gatsby-ucla-site",
-  "description": "Gatsby site for COVID-19 Behind Bars",
+  "description": "Gatsby site for COVID Behind Bars",
   "version": "1.0.0",
   "author": "Lane Olson <laneolson@gmail.com>",
   "dependencies": {

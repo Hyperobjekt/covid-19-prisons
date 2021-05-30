@@ -1,4 +1,4 @@
-# UCLA COVID-19 Behind Bars Website
+# UCLA COVID Behind Bars Website
 
 This is the main gatsby site for https://uclacovidbehindbars.org/
 
@@ -18,8 +18,8 @@ See the [hyperobjekt core starter](https://gatsby-starter-hyperobjekt.netlify.ap
 
 Data is pulled from a many sources:
 
-- [UCLA Law COVID-19 Behind Bars Data Repo](https://github.com/uclalawcovid19behindbars/data)
-- [UCLA Law COVID-19 Behind Bars Google Sheet](https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1641553906)
+- [UCLA Law COVID Behind Bars Data Repo](https://github.com/uclalawcovid19behindbars/data)
+- [UCLA Law COVID Behind Bars Google Sheet](https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1641553906)
 
 Data fetching and processing happens on build in `gatsby-node.js`
 

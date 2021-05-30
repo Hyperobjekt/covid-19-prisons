@@ -1,6 +1,6 @@
-# COVID-19 Behind Bars
+# COVID Behind Bars
 
-This is a monorepo containing all code for the COVID-19 Behind Bars project.
+This is a monorepo containing all code for the COVID Behind Bars project.
 
 ## Getting Started
 

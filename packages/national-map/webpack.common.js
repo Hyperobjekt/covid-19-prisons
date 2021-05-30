@@ -10,13 +10,11 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      title: "COVID-19 Behind Bars",
+      title: "COVID Behind Bars",
       template: "src/index.html",
     }),
     new CopyPlugin({
-      patterns: [
-        { from: 'src/assets', to: 'assets' }
-      ],
+      patterns: [{ from: "src/assets", to: "assets" }],
     }),
   ],
   output: {
