@@ -4,3 +4,5 @@ tmp
 __MACOSX
 dist
 .vscode
+.cache
+public
