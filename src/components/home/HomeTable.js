@@ -5,7 +5,6 @@ import { Typography, withStyles } from "@material-ui/core";
 import { useFacilitiesData, useOptionsStore } from "../../common/hooks";
 import { Block } from "@hyperobjekt/material-ui-website";
 
-import ResponsiveContainer from "../ResponsiveContainer";
 import {
   getColorForJurisdiction,
   isNumber,

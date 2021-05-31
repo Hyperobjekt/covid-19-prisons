@@ -1,9 +1,9 @@
-import React from "react"
-import clsx from "clsx"
-import { graphql, navigate } from "gatsby"
-import Layout from "gatsby-theme-hypersite/src/layout"
-import { makeStyles, Typography } from "@material-ui/core"
-import { Step, Scrollama } from "@hyperobjekt/react-scrollama"
+import React from "react";
+import clsx from "clsx";
+import { graphql, navigate } from "gatsby";
+import Layout from "gatsby-theme-hypersite/src/layout";
+import { makeStyles, Typography } from "@material-ui/core";
+import { Step, Scrollama } from "@hyperobjekt/react-scrollama";
 import {
   ResidentsSummary,
   Facilities,
@@ -11,12 +11,12 @@ import {
   Releases,
   Scorecard,
   StaffSummary,
-} from "./sections"
-import useStatesStore from "./useStatesStore"
-import shallow from "zustand/shallow"
-import SectionNavigation from "../SectionNavigation"
-import ResponsiveContainer from "../ResponsiveContainer"
-import content from "../../../content/federal.json"
+} from "./sections";
+import useStatesStore from "./useStatesStore";
+import shallow from "zustand/shallow";
+import SectionNavigation from "../SectionNavigation";
+import content from "../../../content/federal.json";
+import { Block } from "@hyperobjekt/material-ui-website";
 
 const useStyles = makeStyles((theme) => ({
   block: {
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
       "& .MuiBox-root .MuiBox-root": { marginLeft: `2rem`, transform: "none" },
     },
   },
-}))
+}));
 
 const SECTION_COMPONENTS = {
   residents: ResidentsSummary,
@@ -95,51 +95,46 @@ const SECTION_COMPONENTS = {
   scorecard: Scorecard,
   filings: Filings,
   releases: Releases,
-}
+};
 
 const StateTemplate = ({ pageContext, data }) => {
   // classes used on this page
-  const classes = useStyles()
-  const state = "Federal"
+  const classes = useStyles();
+  const state = "Federal";
   // track current step index for scrollytelling
-  const [
-    currentStep,
-    setCurrentStep,
-    setStateName,
-    setData,
-    setContent,
-  ] = useStatesStore(
-    (state) => [
-      state.currentStep,
-      state.setCurrentStep,
-      state.setStateName,
-      state.setData,
-      state.setContent,
-    ],
-    shallow
-  )
+  const [currentStep, setCurrentStep, setStateName, setData, setContent] =
+    useStatesStore(
+      (state) => [
+        state.currentStep,
+        state.setCurrentStep,
+        state.setStateName,
+        state.setData,
+        state.setContent,
+      ],
+      shallow
+    );
   // set the state name in the store
-  setStateName(state)
+  setStateName(state);
   // set the data in the store
-  setData(data)
+  setData(data);
   // set the content for the page
-  setContent(content)
+  setContent(content);
 
   // update current step when entering
   const handleStepEnter = ({ data }) => {
-    setCurrentStep(data)
-  }
+    setCurrentStep(data);
+  };
 
   const handleNavigation = (section) => {
-    navigate("#" + section)
-    setCurrentStep(section)
-  }
+    navigate("#" + section);
+    setCurrentStep(section);
+  };
 
   // setctions for section nav
   const sections = content.sections.map((s) => ({
     id: s.id,
     name: s.lang.link,
-  }))
+  }));
 
   return (
     <Layout title={state}>
@@ -148,12 +143,12 @@ const StateTemplate = ({ pageContext, data }) => {
         sections={sections}
         onSelect={handleNavigation}
       />
-      <ResponsiveContainer>
+      <Block>
         {/* <Visual className={classes.visual} /> */}
         <div className={classes.content}>
           <Scrollama onStepEnter={handleStepEnter}>
             {content.sections.map((section, index) => {
-              const Component = SECTION_COMPONENTS[section.id]
+              const Component = SECTION_COMPONENTS[section.id];
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
@@ -172,16 +167,16 @@ const StateTemplate = ({ pageContext, data }) => {
                     />
                   </div>
                 </Step>
-              )
+              );
             })}
           </Scrollama>
         </div>
-      </ResponsiveContainer>
+      </Block>
     </Layout>
-  )
-}
+  );
+};
 
-StateTemplate.propTypes = {}
+StateTemplate.propTypes = {};
 
 export const query = graphql`
   query {
@@ -258,6 +253,6 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
-export default StateTemplate
+export default StateTemplate;

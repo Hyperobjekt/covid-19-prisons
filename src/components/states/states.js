@@ -1,15 +1,15 @@
-import React from "react"
-import clsx from "clsx"
-import { graphql } from "gatsby"
-import Layout from "gatsby-theme-hypersite/src/layout"
+import React from "react";
+import clsx from "clsx";
+import { graphql } from "gatsby";
+import Layout from "gatsby-theme-hypersite/src/layout";
 import {
   makeStyles,
   Typography,
   useMediaQuery,
   useTheme,
-} from "@material-ui/core"
+} from "@material-ui/core";
 
-import { Step, Scrollama } from "@hyperobjekt/react-scrollama"
+import { Step, Scrollama } from "@hyperobjekt/react-scrollama";
 import {
   ResidentsSummary,
   Facilities,
@@ -21,13 +21,13 @@ import {
   ReleasesTable,
   GrassrootsTable,
   StaffSummary,
-} from "./sections"
-import useStatesStore from "./useStatesStore"
-import Visual from "./Visual"
-import shallow from "zustand/shallow"
-import SectionNavigation from "../SectionNavigation"
-import ResponsiveContainer from "../ResponsiveContainer"
-import content from "../../../content/states.json"
+} from "./sections";
+import useStatesStore from "./useStatesStore";
+import Visual from "./Visual";
+import shallow from "zustand/shallow";
+import SectionNavigation from "../SectionNavigation";
+import content from "../../../content/states.json";
+import { Block } from "@hyperobjekt/material-ui-website";
 
 const useStyles = makeStyles((theme) => ({
   block: {
@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
     },
   },
-}))
+}));
 
 const SECTION_COMPONENTS = {
   residents: ResidentsSummary,
@@ -135,63 +135,58 @@ const SECTION_COMPONENTS = {
   scorecard: Scorecard,
   releases: ReleasesTable,
   grassroots: GrassrootsTable,
-}
+};
 
 const StateTemplate = ({ pageContext, data }) => {
   // classes used on this page
-  const classes = useStyles()
+  const classes = useStyles();
   // pull state name from page context
-  const { state } = pageContext
+  const { state } = pageContext;
   // track current step index for scrollytelling
-  const [
-    currentStep,
-    setCurrentStep,
-    setStateName,
-    setData,
-    setContent,
-  ] = useStatesStore(
-    (state) => [
-      state.currentStep,
-      state.setCurrentStep,
-      state.setStateName,
-      state.setData,
-      state.setContent,
-    ],
-    shallow
-  )
-  const scorecardData = data.scorecard?.nodes[0]
+  const [currentStep, setCurrentStep, setStateName, setData, setContent] =
+    useStatesStore(
+      (state) => [
+        state.currentStep,
+        state.setCurrentStep,
+        state.setStateName,
+        state.setData,
+        state.setContent,
+      ],
+      shallow
+    );
+  const scorecardData = data.scorecard?.nodes[0];
 
   if (!scorecardData) {
-    content.sections = content.sections.filter((s) => s.id !== "scorecard")
+    content.sections = content.sections.filter((s) => s.id !== "scorecard");
   }
 
   // set the state name in the store
-  setStateName(state)
+  setStateName(state);
   // set the data in the store
-  setData(data)
+  setData(data);
   // set the content for the page
-  setContent(content)
+  setContent(content);
 
   // update current step when entering
   const handleStepEnter = ({ data }) => {
-    setCurrentStep(data)
-  }
+    setCurrentStep(data);
+  };
 
   // setctions for section nav
   const sections = content.sections.map((s) => ({
     id: s.id,
     name: s.lang.link,
-  }))
-  const theme = useTheme()
-  const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"))
+  }));
+  const theme = useTheme();
+  const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"));
 
-  const scrollSections = content.sections.filter((s) => !s.fullWidth)
-  const fullWidthSections = content.sections.filter((s) => s.fullWidth)
+  const scrollSections = content.sections.filter((s) => !s.fullWidth);
+  const fullWidthSections = content.sections.filter((s) => s.fullWidth);
 
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
-      <ResponsiveContainer>
+      <Block>
         <Typography variant="h2" className={classes.title}>
           {state}
         </Typography>
@@ -202,7 +197,7 @@ const StateTemplate = ({ pageContext, data }) => {
             offset={isHorizontalLayout ? 0.3 : 0.15}
           >
             {scrollSections.map((section, index) => {
-              const Component = SECTION_COMPONENTS[section.id]
+              const Component = SECTION_COMPONENTS[section.id];
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
@@ -215,39 +210,39 @@ const StateTemplate = ({ pageContext, data }) => {
                     />
                   </div>
                 </Step>
-              )
+              );
             })}
           </Scrollama>
         </div>
-      </ResponsiveContainer>
-      <ResponsiveContainer className={classes.bottomSections}>
+      </Block>
+      <Block className={classes.bottomSections}>
         <div className={classes.fullWidthContent}>
           <Scrollama
             onStepEnter={handleStepEnter}
             offset={isHorizontalLayout ? 0.3 : 0.15}
           >
             {fullWidthSections.map((section, index) => {
-              const Component = SECTION_COMPONENTS[section.id]
-              const { fullWidth, ...sectionData } = section
+              const Component = SECTION_COMPONENTS[section.id];
+              const { fullWidth, ...sectionData } = section;
               return (
                 <Step key={section.id} data={section.id}>
                   <div id={section.id}>
                     <Component data={data} state={state} {...sectionData} />
                   </div>
                 </Step>
-              )
+              );
             })}
           </Scrollama>
         </div>
-      </ResponsiveContainer>
+      </Block>
     </Layout>
-  )
-}
+  );
+};
 
-StateTemplate.propTypes = {}
+StateTemplate.propTypes = {};
 
 export const query = graphql`
-  query($state: String!) {
+  query ($state: String!) {
     allFacilities(filter: { state: { eq: $state } }) {
       edges {
         node {
@@ -378,7 +373,7 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
 /*
  * Unused sections
@@ -432,4 +427,4 @@ export const query = graphql`
   }
 */
 
-export default StateTemplate
+export default StateTemplate;

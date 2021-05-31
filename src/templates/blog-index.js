@@ -1,18 +1,19 @@
 import React from "react";
 import PageTemplate from "gatsby-theme-hypercore/src/templates/page";
 import { graphql } from "gatsby";
-// const useStyles = makeStyles((theme) =>
-//   createStyles({
-//     "@global": {
-
-//     },
-//   })
-// );
-
-// const useStyles = makeStyles((theme) => ());
+import { createStyles, makeStyles } from "@material-ui/core";
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    "@global": {
+      ".HypMain-root": {
+        background: theme.palette.background.paper,
+      },
+    },
+  })
+);
 
 export default function BlogIndexTemplate(props) {
-  // useStyles();
+  useStyles();
   const postsData = props.data.allMdx.nodes || [];
   const featuredPost = postsData.find((p) => p.frontmatter?.featured) || {};
   const otherPosts = postsData.filter((p) => p.id !== featuredPost.id);
@@ -20,25 +21,6 @@ export default function BlogIndexTemplate(props) {
     <PageTemplate featuredPost={featuredPost} posts={otherPosts} {...props} />
   );
 }
-
-// const BlogIndex = () => {
-//   const classes = useStyles();
-//   return (
-//     <Layout className={classes.layout}>
-//       <div className={classes.featuredSection}>
-//         <h2 className={classes.sectionTitle}>featured post</h2>
-//         <BlogPost post={featuredPost} isFeatured={true} />
-//       </div>
-
-//       <div className={classes.recentSection}>
-//         <h2 className={classes.sectionTitle}>recent posts</h2>
-//         {posts.map((p, idx) => (
-//           <BlogPost post={p} key={p.frontmatter.path} />
-//         ))}
-//       </div>
-//     </Layout>
-//   );
-// };
 
 export const pageQuery = graphql`
   query BlogIndexQuery($id: String) {

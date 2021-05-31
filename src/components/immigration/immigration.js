@@ -1,24 +1,23 @@
-import React from "react"
-import shallow from "zustand/shallow"
-import { graphql } from "gatsby"
-import { Block } from "@hyperobjekt/material-ui-website"
-import Layout from "gatsby-theme-hypersite/src/layout"
-import { GeoJsonLayer } from "@hyperobjekt/svg-maps"
-import IceShapes from "../../common/data/full_ice_topo.json"
-import Intro from "../home/HomeIntro"
-import HomeMap from "../home/HomeMap"
-import Table from "../home/HomeTable"
-import { Scorecard } from "../states/sections"
-import MapTooltip from "../home/HomeMapTooltip"
-import { makeStyles } from "@material-ui/core"
-import FacilitiesMapTooltip from "../states/visuals/FacilitiesMapTooltip"
-import { useRegionShapeStyles } from "../maps/styles"
-import { useActiveMetric, useOptionsStore } from "../../common/hooks"
-import sectionContent from "../../../content/immigration.json"
-import ResponsiveContainer from "../ResponsiveContainer"
+import React from "react";
+import shallow from "zustand/shallow";
+import { graphql } from "gatsby";
+import { Block } from "@hyperobjekt/material-ui-website";
+import Layout from "gatsby-theme-hypersite/src/layout";
+import { GeoJsonLayer } from "@hyperobjekt/svg-maps";
+import IceShapes from "../../common/data/full_ice_topo.json";
+import Intro from "../home/HomeIntro";
+import HomeMap from "../home/HomeMap";
+import Table from "../home/HomeTable";
+import { Scorecard } from "../states/sections";
+import MapTooltip from "../home/HomeMapTooltip";
+import { makeStyles } from "@material-ui/core";
+import FacilitiesMapTooltip from "../states/visuals/FacilitiesMapTooltip";
+import { useRegionShapeStyles } from "../maps/styles";
+import { useActiveMetric, useOptionsStore } from "../../common/hooks";
+import sectionContent from "../../../content/immigration.json";
 
 export const query = graphql`
-  query($pathSlug: String!) {
+  query ($pathSlug: String!) {
     mdx(frontmatter: { path: { eq: $pathSlug } }) {
       frontmatter {
         intro {
@@ -67,7 +66,7 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -98,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-}))
+}));
 
 const ImmigrationTemplate = ({
   pageContext,
@@ -107,15 +106,15 @@ const ImmigrationTemplate = ({
   className,
   ...props
 }) => {
-  const content = data.mdx.frontmatter
-  const muiClasses = useStyles()
+  const content = data.mdx.frontmatter;
+  const muiClasses = useStyles();
 
   const [iceRegionId, setIceRegionId] = useOptionsStore(
     (state) => [state.iceRegionId, state.setIceRegionId],
     shallow
-  )
+  );
 
-  const shapeClasses = useRegionShapeStyles()
+  const shapeClasses = useRegionShapeStyles();
   const classMap = {
     shape: shapeClasses.shape,
     label: shapeClasses.shapeLabel,
@@ -124,27 +123,27 @@ const ImmigrationTemplate = ({
     // label: shapeClasses.label,
     // marker: shapeClasses.marker,
     text: shapeClasses.text,
-  }
+  };
   const shapeProps = {
     classes: classMap,
     selected: iceRegionId,
     isSelectedMatch: (geo, selected) =>
       selected && geo.properties.id === selected,
-  }
+  };
 
   // const [searchValue, setSearchValue] = React.useState("")
 
-  const labelSelector = (d) => d && d.properties && d.properties.name
+  const labelSelector = (d) => d && d.properties && d.properties.name;
   const onSelect = (geo) => {
-    let toSelect = geo.properties.id
+    let toSelect = geo.properties.id;
     // unselect if user clicks the selected region
     if (toSelect === iceRegionId) {
-      toSelect = null
+      toSelect = null;
     }
-    setIceRegionId(toSelect)
-  }
+    setIceRegionId(toSelect);
+  };
 
-  const metric = useActiveMetric()
+  const metric = useActiveMetric();
 
   return (
     <Layout title={content.title} className={muiClasses.root}>
@@ -185,17 +184,15 @@ const ImmigrationTemplate = ({
         title={content.table.title}
         note={content.table.note}
       />
-      <Block id="scorecard" type="fullWidth">
-        <ResponsiveContainer>
-          <Scorecard
-            state="immigration"
-            data={data}
-            lang={sectionContent.scorecard.lang}
-          />
-        </ResponsiveContainer>
+      <Block id="scorecard">
+        <Scorecard
+          state="immigration"
+          data={data}
+          lang={sectionContent.scorecard.lang}
+        />
       </Block>
     </Layout>
-  )
-}
+  );
+};
 
-export default ImmigrationTemplate
+export default ImmigrationTemplate;

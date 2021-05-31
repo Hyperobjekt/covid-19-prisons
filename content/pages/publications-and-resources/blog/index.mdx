@@ -6,18 +6,8 @@ pagetype: non_cms
 template: blogIndex
 ---
 
-import BlogPost from "components/blog/blog-post";
+import { BlogPosts, BlogFeatured } from "components/blog";
 
-<Block>
-  <h2>Featured Post</h2>
-  <BlogPost post={props.featuredPost} isFeatured={true} />
-</Block>
+<BlogFeatured title="Featured Post" post={props.featuredPost} />
 
-<Block>
-  <Box>
-    <h2>Recent Posts</h2>
-    {props.posts.map((p, idx) => (
-      <BlogPost post={p} key={p.frontmatter.path} />
-    ))}
-  </Box>
-</Block>
+<BlogPosts title="Recent Posts" posts={props.posts} />

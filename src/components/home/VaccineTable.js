@@ -8,7 +8,6 @@ import { getLang } from "../../common/utils/i18n";
 import { Link } from "gatsby-theme-material-ui";
 import { DefaultTable } from "../table";
 import { Box, Typography, withStyles } from "@material-ui/core";
-import ResponsiveContainer from "../ResponsiveContainer";
 import { formatMetricValue } from "../../common/utils/formatters";
 import Notes from "../Notes";
 
