@@ -1,11 +1,11 @@
-import React from "react"
-import { Grid, Typography, withStyles } from "@material-ui/core"
-import { Block } from "gatsby-theme-hyperobjekt-core"
+import React from "react";
+import { Grid, Typography, withStyles } from "@material-ui/core";
+import { Block } from "gatsby-theme-hyperobjekt-core";
 import {
   subtitleTypography,
   titleTypography,
-} from "../../gatsby-theme-hyperobjekt-core/theme"
-import ResponsiveContainer from "../ResponsiveContainer"
+} from "../../gatsby-theme-hyperobjekt-core/theme";
+import ResponsiveContainer from "../ResponsiveContainer";
 
 const styles = (theme) => ({
   root: {
@@ -14,7 +14,7 @@ const styles = (theme) => ({
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(44),
-    maxWidth: "11em",
+    maxWidth: "10em",
     marginTop: 0,
   },
   subtitle: {
@@ -26,7 +26,7 @@ const styles = (theme) => ({
   body: {
     maxWidth: "32em",
   },
-})
+});
 
 const Intro = ({ classes, className, title, subtitle, body, ...props }) => {
   return (
@@ -49,9 +49,9 @@ const Intro = ({ classes, className, title, subtitle, body, ...props }) => {
         </Grid>
       </ResponsiveContainer>
     </Block>
-  )
-}
+  );
+};
 
-Intro.propTypes = {}
+Intro.propTypes = {};
 
-export default withStyles(styles)(Intro)
+export default withStyles(styles)(Intro);
