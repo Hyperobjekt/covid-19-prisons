@@ -1,24 +1,24 @@
-import React from "react"
-import { Table } from "../table"
-import { format } from "d3-format"
-import { Typography, withStyles } from "@material-ui/core"
-import { useFacilitiesData, useOptionsStore } from "../../common/hooks"
-import { Block } from "@hyperobjekt/material-ui-website"
+import React from "react";
+import { Table } from "../table";
+import { format } from "d3-format";
+import { Typography, withStyles } from "@material-ui/core";
+import { useFacilitiesData, useOptionsStore } from "../../common/hooks";
+import { Block } from "@hyperobjekt/material-ui-website";
 
-import ResponsiveContainer from "../ResponsiveContainer"
+import ResponsiveContainer from "../ResponsiveContainer";
 import {
   getColorForJurisdiction,
   isNumber,
-} from "../../common/utils/selectors"
-import shallow from "zustand/shallow"
-import { getLang } from "../../common/utils/i18n"
-import JurisdictionToggles from "../controls/JurisdictionToggles"
-import DotMarker from "../markers/DotMarker"
-import MetricSelectionTitle from "../controls/MetricSelectionTitle"
-import Notes from "../Notes"
-import { formatMetricValue } from "../../common/utils/formatters"
-import clsx from "clsx"
-import { Link } from "gatsby-theme-material-ui"
+} from "../../common/utils/selectors";
+import shallow from "zustand/shallow";
+import { getLang } from "../../common/utils/i18n";
+import JurisdictionToggles from "../controls/JurisdictionToggles";
+import DotMarker from "../markers/DotMarker";
+import MetricSelectionTitle from "../controls/MetricSelectionTitle";
+import Notes from "../Notes";
+import { formatMetricValue } from "../../common/utils/formatters";
+import clsx from "clsx";
+import { Link } from "gatsby-theme-material-ui";
 
 const styles = (theme) => ({
   root: {
@@ -73,24 +73,25 @@ const styles = (theme) => ({
       },
     },
   },
-})
+});
 
-const intFormatter = format(",d")
-const perFormatter = (v) => formatMetricValue(v, "home_table_rate")
+const intFormatter = format(",d");
+const perFormatter = (v) => formatMetricValue(v, "home_table_rate");
 
 const countFormatter = (value) =>
-  !isNumber(value) ? "--" : intFormatter(value)
+  !isNumber(value) ? "--" : intFormatter(value);
 
-const rateFormatter = (value) => (!isNumber(value) ? "--" : perFormatter(value))
+const rateFormatter = (value) =>
+  !isNumber(value) ? "--" : perFormatter(value);
 
 const rateSorter = (a, b, columnId) => {
-  const vals = [a, b].map((v) => v["original"]["residents"][columnId])
-  if (isNumber(vals[0]) && !isNumber(vals[1])) return 1
-  if (!isNumber(vals[0]) && isNumber(vals[1])) return -1
-  if (!isNumber(vals[0]) && !isNumber(vals[1])) return 0
-  const diff = vals[0] - vals[1]
-  return diff < 0 ? -1 : 1
-}
+  const vals = [a, b].map((v) => v["original"]["residents"][columnId]);
+  if (isNumber(vals[0]) && !isNumber(vals[1])) return 1;
+  if (!isNumber(vals[0]) && isNumber(vals[1])) return -1;
+  if (!isNumber(vals[0]) && !isNumber(vals[1])) return 0;
+  const diff = vals[0] - vals[1];
+  return diff < 0 ? -1 : 1;
+};
 
 const HomeTable = ({
   title,
@@ -105,10 +106,10 @@ const HomeTable = ({
   const [metric, setMetric] = useOptionsStore(
     (state) => [state.metric, state.setMetric],
     shallow
-  )
+  );
 
   // data for table
-  const data = useFacilitiesData(categories, selectedRegion)
+  const data = useFacilitiesData(categories, selectedRegion);
 
   // styles for number columns in table
   const numberColStyle = React.useMemo(
@@ -119,7 +120,7 @@ const HomeTable = ({
     }),
 
     []
-  )
+  );
 
   // column configuration for the table
   const columns = React.useMemo(() => {
@@ -128,17 +129,14 @@ const HomeTable = ({
       accessor: "name",
       disableSortBy: true,
       Cell: (prop) => {
-        const { state, jurisdiction } = prop.row.original
+        const { state, jurisdiction } = prop.row.original;
         return (
           <>
             <Typography className={classes.name} variant="body1">
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              <Link
-                to={`/states/${state}`}
-                className={classes.state}
-              >
+              <Link to={`/states/${state}`} className={classes.state}>
                 {state}
               </Link>
               <DotMarker
@@ -147,13 +145,13 @@ const HomeTable = ({
               />
             </Typography>
           </>
-        )
+        );
       },
       style: {
         width: "25%",
         minWidth: 260,
       },
-    }
+    };
 
     const colMetrics = isImmigration
       ? [
@@ -173,7 +171,7 @@ const HomeTable = ({
           "deaths_rate",
           "tested",
           "tested_rate",
-        ]
+        ];
 
     const cols = colMetrics.map((colMetric) => {
       const col = {
@@ -182,19 +180,19 @@ const HomeTable = ({
         accessor: `residents.${colMetric}`,
         Cell: (prop) => countFormatter(prop.value),
         style: numberColStyle,
-      }
+      };
 
-      const isRate = colMetric.indexOf("_rate") > 0
+      const isRate = colMetric.indexOf("_rate") > 0;
       if (isRate) {
-        col.sortType = rateSorter
-        col.Cell = (prop) => rateFormatter(prop.value)
+        col.sortType = rateSorter;
+        col.Cell = (prop) => rateFormatter(prop.value);
       }
 
-      return col
-    })
+      return col;
+    });
 
-    return [facilityCol, ...cols]
-  }, [classes.name, classes.state, isImmigration, numberColStyle])
+    return [facilityCol, ...cols];
+  }, [classes.name, classes.state, isImmigration, numberColStyle]);
 
   // memoized table options
   const options = React.useMemo(
@@ -205,45 +203,39 @@ const HomeTable = ({
       },
     }),
     [metric]
-  )
+  );
 
   // handler for when table headers are clicked
   const handleSortChange = React.useCallback(
     (sortBy) => {
-      if (sortBy === "name") return
-      const newMetric = sortBy
-      metric !== newMetric && setMetric(newMetric)
+      if (sortBy === "name") return;
+      const newMetric = sortBy;
+      metric !== newMetric && setMetric(newMetric);
     },
     [metric, setMetric]
-  )
+  );
   return (
-    <Block
-      type="fullWidth"
-      className={clsx(classes.root, "home-table")}
-      {...props}
-    >
-      <ResponsiveContainer>
-        <MetricSelectionTitle title={title} isImmigration={isImmigration} />
-        <Table
-          className={classes.table}
-          data={data.filter((d) => d.name !== "Statewide")}
-          columns={columns}
-          options={options}
-          sortColumn={metric}
-          onSort={handleSortChange}
-        >
-          <JurisdictionToggles
-            marker="dot"
-            horizontal="md"
-            classes={{ root: classes.toggleContainer }}
-          />
-        </Table>
-        {note && note.length > 0 && (
-          <Notes notes={note} className={classes.notes} />
-        )}
-      </ResponsiveContainer>
+    <Block className={clsx(classes.root, "home-table")} {...props}>
+      <MetricSelectionTitle title={title} isImmigration={isImmigration} />
+      <Table
+        className={classes.table}
+        data={data.filter((d) => d.name !== "Statewide")}
+        columns={columns}
+        options={options}
+        sortColumn={metric}
+        onSort={handleSortChange}
+      >
+        <JurisdictionToggles
+          marker="dot"
+          horizontal="md"
+          classes={{ root: classes.toggleContainer }}
+        />
+      </Table>
+      {note && note.length > 0 && (
+        <Notes notes={note} className={classes.notes} />
+      )}
     </Block>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(HomeTable)
+export default withStyles(styles)(HomeTable);

@@ -1,6 +1,6 @@
-import { createMuiTheme } from "@material-ui/core"
-import { deepmerge } from "@material-ui/utils"
-import { fade as alpha, fade } from "@material-ui/core/styles"
+import { createMuiTheme } from "@material-ui/core";
+import { deepmerge } from "@material-ui/utils";
+import { fade as alpha, fade } from "@material-ui/core/styles";
 
 /**
  * Base theme definitions
@@ -79,35 +79,35 @@ const base = {
       },
     },
   },
-}
+};
 
 export const sansSerifyTypography = {
   fontFamily: "neue-haas-grotesk-display, sans-serif",
   textTransform: "none",
-}
+};
 
 export const serifTypography = {
   fontFamily: "plantin, serif",
   textTransform: "none",
-}
+};
 export const titleTypography = {
   fontFamily: `"Champion Middlewt A", "Champion Middlewt B", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",
-}
+};
 export const compactTitleTypography = {
   fontFamily: `"Champion Featherwt A", "Champion Featherwt B", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",
-}
+};
 export const subtitleTypography = {
   fontFamily: `"Champion Bantamwt A", "Champion Bantamwt B", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",
-}
+};
 
 /**
  * A function that accepts site context (currently only `isDarkMode`)
@@ -115,15 +115,14 @@ export const subtitleTypography = {
  */
 const CovidTheme = () => {
   // create a base theme to utilize theme values and functions
-  const theme = createMuiTheme(base)
+  const theme = createMuiTheme(base);
   // console.log("theme, ", theme)
 
   const headingStyles = {
     ...serifTypography,
-  }
+  };
   // build overrides
   const overrides = {
-    
     overrides: {
       /** Site wide global style overrides */
       MuiCssBaseline: {
@@ -133,21 +132,25 @@ const CovidTheme = () => {
             overflowX: "visible",
             // boost the font size when there is enough horizontal / vertical space
             // this will resize all elements that use rem values or theme.spacing functions
-            [`@media (min-width: ${theme.breakpoints.values["lg"]}px) and (min-height: 666px)`]: {
-              fontSize: 20,
-            },
+            [`@media (min-width: ${theme.breakpoints.values["lg"]}px) and (min-height: 666px)`]:
+              {
+                fontSize: 20,
+              },
           },
           a: {
-            "&:not(.MuiLink-root):not(.MuiButtonBase-root)": {
-              color: theme.palette.secondary.main,
-              textDecoration: "none",
-            },
-            "&:not(.MuiLink-root):not(.MuiButtonBase-root):visited": {
-              color: theme.palette.secondary.main,
-            },
-            "&:not(.MuiLink-root):not(.MuiButtonBase-root):hover": {
-              textDecoration: "underline",
-            },
+            "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link)":
+              {
+                color: theme.palette.secondary.main,
+                textDecoration: "none",
+              },
+            "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link):visited":
+              {
+                color: theme.palette.secondary.main,
+              },
+            "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link):hover":
+              {
+                textDecoration: "underline",
+              },
           },
           // update padding and font on <code> elements
           code: {
@@ -285,14 +288,7 @@ const CovidTheme = () => {
           background: "#fff",
           borderBottom: `none`,
         },
-        toolbar: {
-          maxWidth: theme.breakpoints.values["md"],
-          [theme.breakpoints.up("lg")]: {
-            maxWidth: `calc(${
-              theme.breakpoints.values["lg"]
-            }px - ${theme.spacing(6)})`,
-          },
-        },
+        toolbar: {},
         shrunk: {
           // boxShadow: `inset 0 -1px 0 #DDDDCB`,
           // "& .header__branding": {
@@ -372,11 +368,11 @@ const CovidTheme = () => {
       },
     },
     layout: {
-      headerHeight: 64
+      headerHeight: "64px",
     },
-  }
+  };
   // return the merged base theme with overrides
-  return deepmerge(theme, overrides)
-}
+  return deepmerge(theme, overrides);
+};
 
-export default CovidTheme()
+export default CovidTheme();

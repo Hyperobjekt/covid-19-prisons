@@ -1,4 +1,4 @@
-const metadata = require("./config/metadata.json")
+const metadata = require("./config/metadata.json");
 module.exports = {
   siteMetadata: metadata,
   plugins: [
@@ -7,11 +7,11 @@ module.exports = {
       options: {
         contentPath: `content/pages`,
         assetPath: `content/assets`,
-        layouts: {
+        templates: {
           home: require.resolve("./src/components/home/home.js"),
           immigration: require.resolve(
             "./src/components/immigration/immigration.js"
-          )
+          ),
         },
       },
     },
@@ -76,4 +76,4 @@ module.exports = {
       },
     },
   ],
-}
+};

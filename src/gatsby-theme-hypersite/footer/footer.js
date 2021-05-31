@@ -1,25 +1,21 @@
-import React from "react"
-import { default as FooterNav } from "gatsby-theme-hyperobjekt-core/src/components/footer/footer-nav"
-import { default as FooterSocial } from "gatsby-theme-hyperobjekt-core/src/components/footer/footer-social"
-import { default as FooterCopyright } from "gatsby-theme-hyperobjekt-core/src/components/footer/footer-copyright"
-import Subscribe from "../../../components/footer/subscribe"
+import React from "react";
 import {
+  Box,
   ButtonBase,
   Grid,
   Link,
   Typography,
   withStyles,
-} from "@material-ui/core"
-import Stack from "../../../components/Stack"
-import { serifTypography } from "../../theme"
-import ResponsiveContainer from "../../../components/ResponsiveContainer"
-import ArrowToTop from "../../../../content/assets/arrow-to-top.svg"
-import { getLang } from "../../../common/utils/i18n"
-
+} from "@material-ui/core";
+import { serifTypography } from "../../gatsby-theme-hypercore/theme";
+import { VerticalNavigation } from "@hyperobjekt/material-ui-website/lib/navigation";
+import SocialLinks from "gatsby-theme-hypersite/src/header/social-links";
+import Subscribe from "./subscribe";
+import { getLang } from "../../common/utils/i18n";
+import { Block, Stack } from "@hyperobjekt/material-ui-website";
 const styles = (theme) => ({
   root: {
     background: "#F5F5ED",
-    padding: theme.spacing(8, 0, 3, 0),
   },
   subscribe: {
     alignItems: "center",
@@ -94,42 +90,60 @@ const styles = (theme) => ({
       transform: "rotate(180deg)",
     },
   },
-})
+});
 
-const Footer = ({ classes, className, ...props }) => {
+const Footer = ({ social, links, copyright, classes, className, ...props }) => {
+  console.log(props);
   const handleScrollUp = React.useCallback(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <footer id="footer" className={classes.root} {...props}>
-      <ResponsiveContainer>
+      <Block>
         <Grid container justify="center">
           <Grid item xs={12} sm={9}>
             <Subscribe className={classes.subscribe} />
           </Grid>
           <Grid item xs={12} sm={3} className={classes.navContainer}>
-            <FooterNav
+            <VerticalNavigation
               classes={{
                 root: classes.links,
                 listItem: classes.listItem,
                 link: classes.link,
               }}
+              links={links}
             />
-            <FooterSocial
+            <SocialLinks
               classes={{ root: classes.social, link: classes.socialLink }}
+              links={social}
             />
             <ButtonBase
               onClick={handleScrollUp}
               className={classes.scrollUpButton}
             >
-              <img alt="scroll up" src={ArrowToTop} />
+              <svg
+                width="9"
+                height="12"
+                viewBox="0 0 9 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M-3.93402e-07 7L0.948711 7.94871L3.82906 5.06836L3.82906 11.5L5.17094 11.5L5.17094 5.06836L8.05129 7.94871L9 7L4.5 2.5L-3.93402e-07 7Z"
+                  fill="#555526"
+                />
+                <path
+                  d="M0 1.5L-6.55671e-08 0L9 -3.93402e-07L9 1.5L0 1.5Z"
+                  fill="#555526"
+                />
+              </svg>
               <Typography variant="body2">{getLang("scroll_up")}</Typography>
             </ButtonBase>
           </Grid>
         </Grid>
-        <Stack className={classes.copyright} horizontal>
-          <FooterCopyright />
+        <Stack className={classes.copyright}>
+          <Typography variant="body1">{copyright}</Typography>
           <Typography variant="body1">
             Site by{" "}
             <Link
@@ -141,9 +155,9 @@ const Footer = ({ classes, className, ...props }) => {
             </Link>
           </Typography>
         </Stack>
-      </ResponsiveContainer>
+      </Block>
     </footer>
-  )
-}
+  );
+};
 
-export default withStyles(styles, { name: "HypFooter" })(Footer)
+export default withStyles(styles, { name: "HypFooter" })(Footer);

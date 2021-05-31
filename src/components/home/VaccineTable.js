@@ -1,27 +1,25 @@
-import React from "react"
-import { Table } from "../table"
-import { format } from "d3-format"
-import { Box, Typography, withStyles } from "@material-ui/core"
-import { useVaccineData } from "../../common/hooks"
-import { Block } from "@hyperobjekt/material-ui-website"
-
-import ResponsiveContainer from "../ResponsiveContainer"
-import { getSlug, isNumber } from "../../common/utils/selectors"
-import { getLang } from "../../common/utils/i18n"
-import { Link } from "gatsby-theme-material-ui"
+import React from "react";
+import { Table } from "../table";
+import { format } from "d3-format";
+import { Typography, withStyles } from "@material-ui/core";
+import { useVaccineData } from "../../common/hooks";
+import { Block } from "@hyperobjekt/material-ui-website";
+import { getSlug, isNumber } from "../../common/utils/selectors";
+import { getLang } from "../../common/utils/i18n";
+import { Link } from "gatsby-theme-material-ui";
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
-  if (a.original.isTotal) return 1
-  if (b.original.isTotal) return -1
+  if (a.original.isTotal) return 1;
+  if (b.original.isTotal) return -1;
 
   // non-state rows (federal, ice) go above states
   if (a.original.isState !== b.original.isState) {
-    return a.original.isState ? -1 : 1
+    return a.original.isState ? -1 : 1;
   }
 
-  return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1
-}
+  return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1;
+};
 
 const styles = (theme) => ({
   root: {
@@ -60,16 +58,16 @@ const styles = (theme) => ({
       },
     },
   },
-})
+});
 
-const intFormatter = format(",d")
+const intFormatter = format(",d");
 
 const countFormatter = (value) =>
-  !isNumber(value) ? "--" : intFormatter(value)
+  !isNumber(value) ? "--" : intFormatter(value);
 
 const VaccineTable = ({ title, subtitle, classes, ...props }) => {
   // data for table
-  const data = useVaccineData()
+  const data = useVaccineData();
 
   // column configuration for the table
   const columns = React.useMemo(
@@ -81,14 +79,14 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         disableSortBy: true,
         sortType: alphaStateSort,
         Cell: (prop) => {
-          const { jurisdiction, isState, isFederal, isIce } = prop.row.original
-          let slug = null
+          const { jurisdiction, isState, isFederal, isIce } = prop.row.original;
+          let slug = null;
           if (jurisdiction && isState) {
-            slug = `/states/${getSlug(jurisdiction)}`
+            slug = `/states/${getSlug(jurisdiction)}`;
           } else if (isFederal) {
-            slug = `/federal`
+            slug = `/federal`;
           } else if (isIce) {
-            slug = `/ice`
+            slug = `/ice`;
           }
           const jurisdictionElement = slug ? (
             <Link to={slug} className={classes.jurisdictionLink}>
@@ -96,12 +94,12 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
             </Link>
           ) : (
             jurisdiction
-          )
+          );
           return (
             <Typography variant="body2" color="textSecondary">
               {jurisdictionElement}
             </Typography>
-          )
+          );
         },
         style: {
           width: "32%",
@@ -134,7 +132,7 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
       },
     ],
     [classes.jurisdictionLink]
-  )
+  );
 
   // memoized table options
   const options = React.useMemo(
@@ -145,31 +143,29 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
       },
     }),
     []
-  )
+  );
   return (
-    <Block type="fullWidth" className={classes.root} {...props}>
-      <ResponsiveContainer>
-        <div className={classes.wrapper}>
-          <div className={classes.content}>
-            <Typography variant="h3">{title}</Typography>
-            <Typography
-              variant="body1"
-              dangerouslySetInnerHTML={{ __html: subtitle }}
-              className={classes.body}
-            />
-          </div>
-          <Table
-            className={classes.table}
-            data={data}
-            columns={columns}
-            options={options}
-            sortColumn={"jurisdiction"}
-            disableFilter={true}
+    <Block className={classes.root} {...props}>
+      <div className={classes.wrapper}>
+        <div className={classes.content}>
+          <Typography variant="h3">{title}</Typography>
+          <Typography
+            variant="body1"
+            dangerouslySetInnerHTML={{ __html: subtitle }}
+            className={classes.body}
           />
         </div>
-      </ResponsiveContainer>
+        <Table
+          className={classes.table}
+          data={data}
+          columns={columns}
+          options={options}
+          sortColumn={"jurisdiction"}
+          disableFilter={true}
+        />
+      </div>
     </Block>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(VaccineTable)
+export default withStyles(styles)(VaccineTable);

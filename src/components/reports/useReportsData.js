@@ -1,10 +1,10 @@
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby";
 
-export default function useResourcesData() {
+export default function useReportsData() {
   const { allMdx } = useStaticQuery(
     graphql`
       query {
-        allMdx(filter: { slug: { eq: "reports" } }) {
+        allMdx(filter: { frontmatter: { pagetype: { eq: "reports" } } }) {
           nodes {
             frontmatter {
               reportsData {
@@ -19,6 +19,6 @@ export default function useResourcesData() {
         }
       }
     `
-  )
-  return allMdx.nodes[0].frontmatter.reportsData
+  );
+  return allMdx.nodes[0].frontmatter.reportsData;
 }

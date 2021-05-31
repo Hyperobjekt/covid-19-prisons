@@ -1,5 +1,3 @@
-
-
 /**
  * Abbreviations that should be forced to uppercase
  */
@@ -50,27 +48,27 @@ const UPPER_CASE = [
   "cs",
   "imcc",
   "ice",
-]
+];
 
 /**
  * All ways DC is represented in source data (in lower case)
  */
-const DC_VARIANTS = ["dc", "district of columbia", "district of col"]
+const DC_VARIANTS = ["dc", "district of columbia", "district of col"];
 
 /**
  * Helper function to get integer value, or -999 when not a number
- * @param {*} value 
- * @returns 
+ * @param {*} value
+ * @returns
  */
 const getInt = (value) => {
-  const intValue = parseInt(value)
-  return isNaN(intValue) ? -999 : intValue
-}
+  const intValue = parseInt(value);
+  return isNaN(intValue) ? null : intValue;
+};
 
 const getFloat = (value) => {
-  const floatValue = parseFloat(value)
-  return isNaN(floatValue) ? -999 : floatValue
-}
+  const floatValue = parseFloat(value);
+  return isNaN(floatValue) ? null : floatValue;
+};
 
 /**
  * Fixes casing on strings THAT ARE ALL UPPERCASE
@@ -78,7 +76,7 @@ const getFloat = (value) => {
  * @param {string} str
  */
 function fixCasing(str) {
-  if (!str) return "Unknown"
+  if (!str) return "Unknown";
   const result = str
     .toLowerCase()
     .replace(/\b\w/g, (v) => v.toString(v).toUpperCase())
@@ -86,8 +84,8 @@ function fixCasing(str) {
     .map((v) =>
       UPPER_CASE.indexOf(v.toLowerCase()) > -1 ? v.toUpperCase() : v
     )
-    .join(" ")
-  return result
+    .join(" ");
+  return result;
 }
 
 /**
@@ -95,7 +93,7 @@ function fixCasing(str) {
  * @param {string} str
  */
 function formatState(str) {
-  return DC_VARIANTS.includes(str.toLowerCase()) ? "District of Columbia" : str
+  return DC_VARIANTS.includes(str.toLowerCase()) ? "District of Columbia" : str;
 }
 
 /**
@@ -105,23 +103,23 @@ function formatState(str) {
 const groupObjectData = (data) =>
   Object.keys(data).reduce((obj, key) => {
     if (key.indexOf(".") > -1) {
-      const [group, ...rest] = key.split(".")
-      const first = group.toLowerCase()
-      const second = rest.map((r) => r.toLowerCase()).join(".")
-      if (!obj.hasOwnProperty(first)) obj[first] = {}
-      obj[first][second] = data[key]
+      const [group, ...rest] = key.split(".");
+      const first = group.toLowerCase();
+      const second = rest.map((r) => r.toLowerCase()).join(".");
+      if (!obj.hasOwnProperty(first)) obj[first] = {};
+      obj[first][second] = data[key];
     } else {
-      obj[key.toLowerCase()] = data[key]
+      obj[key.toLowerCase()] = data[key];
     }
-    return obj
-  }, {})
+    return obj;
+  }, {});
 
 /**
  * Parses a facility object
  * @param {*} facility
  */
 const parseFacility = (facility = {}) => {
-  const source = groupObjectData(facility)
+  const source = groupObjectData(facility);
 
   const residentKeys = [
     "confirmed",
@@ -131,167 +129,161 @@ const parseFacility = (facility = {}) => {
     "released",
     "recovered",
     "tadmin",
-  ]
-  const residentRates = ["confirmed", "deaths", "active", "tested"]
-  const staffKeys = [
-    "confirmed",
-    "deaths",
-    "active",
-    "recovered",
-    "tested",
-  ]
+  ];
+  const residentRates = ["confirmed", "deaths", "active", "tested"];
+  const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"];
 
-  const result = {}
+  const result = {};
 
-  result.name = fixCasing(source.name)
-  result.jurisdiction = source["jurisdiction"]
-  result.city = source["city"]
-  result.state = formatState(source["state"])
-  result.date = Date.parse(source["date"])
+  result.name = fixCasing(source.name);
+  result.jurisdiction = source["jurisdiction"];
+  result.city = source["city"];
+  result.state = formatState(source["state"]);
+  result.date = Date.parse(source["date"]);
 
   // parse coordinates
-  const Latitude = getFloat(source["latitude"])
-  const Longitude = getFloat(source["longitude"])
-  result.coords = [Longitude, Latitude]
+  const Latitude = getFloat(source["latitude"]);
+  const Longitude = getFloat(source["longitude"]);
+  result.coords = [Longitude, Latitude];
 
   // NOTE should now always be true
-  const useAltPopCol = source.population && source.population.feb20
+  const useAltPopCol = source.population && source.population.feb20;
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
     if (key === "tadmin") {
-      obj["tested"] = getInt(source.residents[key])
-      return obj
+      obj["tested"] = getInt(source.residents[key]);
+      return obj;
     } else if (key === "population" && useAltPopCol) {
-      obj["population"] = getInt(source.population.feb20)
-      return obj
+      obj["population"] = getInt(source.population.feb20);
+      return obj;
     } else {
-      obj[key] = getInt(source.residents[key])
-      return obj
+      obj[key] = getInt(source.residents[key]);
+      return obj;
     }
-  }, {})
+  }, {});
 
   // add field office id
-  result.iceFieldOffice = source.ice["field.office"] || null
+  result.iceFieldOffice = source.ice["field.office"] || null;
 
   // add rates
   residentRates.forEach((rateType) => {
     result.residents[rateType + "_rate"] = result.residents.population
       ? result.residents[rateType] / result.residents.population
-      : null
-  })
+      : null;
+  });
 
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
-    obj[key] = getInt(source.staff[key])
-    return obj
-  }, {})
+    obj[key] = getInt(source.staff[key]);
+    return obj;
+  }, {});
 
-  return result
-}
+  return result;
+};
 
 /**
  * Parses a vaccine object
  * @param {*} vaccine
  */
 const parseVaccine = (vaccine = {}) => {
-  const source = groupObjectData(vaccine)
+  const source = groupObjectData(vaccine);
 
-  const residentKeys = ["initiated"]
-  const staffKeys = ["initiated"]
+  const residentKeys = ["initiated"];
+  const staffKeys = ["initiated"];
 
-  const result = {}
+  const result = {};
 
   const jurisMap = {
     federal: "Federal Bureau of Prisons",
     ice: "U.S. Immigration and Customs Enforcement",
-  }
+  };
 
   const nonStateMap = {
     federal: true,
     ice: true,
-  }
+  };
 
-  result.jurisdiction = jurisMap[source.state.toLowerCase()] || source.state
-  result.isState = !nonStateMap[source.state.toLowerCase()]
-  result.isIce = source.state.toLowerCase() === "ice"
-  result.isFederal = source.state.toLowerCase() === "federal"
-  
+  result.jurisdiction = jurisMap[source.state.toLowerCase()] || source.state;
+  result.isState = !nonStateMap[source.state.toLowerCase()];
+  result.isIce = source.state.toLowerCase() === "ice";
+  result.isFederal = source.state.toLowerCase() === "federal";
+
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
-    obj[key] = getInt(source.staff[key])
-    return obj
-  }, {})
+    obj[key] = getInt(source.staff[key]);
+    return obj;
+  }, {});
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    obj[key] = getInt(source.residents[key])
-    return obj
-  }, {})
+    obj[key] = getInt(source.residents[key]);
+    return obj;
+  }, {});
 
-  return result
-}
+  return result;
+};
 
-const parseIntComma = (value) => getInt(value.replace(/,/g, ""))
-const parseFloatComma = (value) => getFloat(value.replace(/,/g, ""))
+const parseIntComma = (value) => getInt(value.replace(/,/g, ""));
+const parseFloatComma = (value) => getFloat(value.replace(/,/g, ""));
 
 const getParser = (type) => {
   // if it's already a parsing function, return it
-  if (typeof type === "function") return type
+  if (typeof type === "function") return type;
   switch (type) {
     case "int":
-      return parseIntComma
+      return parseIntComma;
     case "float":
-      return parseFloatComma
+      return parseFloatComma;
     case "string":
-      return (a) => a.trim()
+      return (a) => a.trim();
     default:
       // do nothing by default
-      return (a) => a
+      return (a) => a;
   }
-}
+};
 
 // checks if b is exact match to a
-const exactMatch = (a, b) => a.toLowerCase() === b.toLowerCase() && a
+const exactMatch = (a, b) => a.toLowerCase() === b.toLowerCase() && a;
 
 // checks if b is contained within a
-const roughMatch = (a, b) => a.toLowerCase().indexOf(b.toLowerCase()) > -1 && a
+const roughMatch = (a, b) => a.toLowerCase().indexOf(b.toLowerCase()) > -1 && a;
 
 // checks if the regex matches the key
 const regexMatch = (a, b) => {
-  const regex = new RegExp(b)
-  const matches = a.match(regex)
-  return !!matches && a
-}
+  const regex = new RegExp(b);
+  const matches = a.match(regex);
+  return !!matches && a;
+};
 
 const getSourceValue = (row, colName, checkMatch = exactMatch) => {
-  const keys = Object.keys(row)
+  const keys = Object.keys(row);
   for (let i = 0; i < keys.length; i++) {
-    const key = keys[i]
-    const matchKey = checkMatch(key, colName, row)
-    if (matchKey) return row[matchKey]
+    const key = keys[i];
+    const matchKey = checkMatch(key, colName, row);
+    if (matchKey) return row[matchKey];
   }
-  console.warn("no match for column: ", colName)
-  console.debug("column names are: ", keys.join("\n"))
-}
+  console.warn("no match for column: ", colName);
+  console.debug("column names are: ", keys.join("\n"));
+};
 
 const parseMap = (row, colMap) => {
-  const result = {}
+  const result = {};
   Object.keys(colMap).forEach((colName) => {
-    const [sourceCol, parser, selector] = colMap[colName]
-    const valueParser = getParser(parser)
-    const rawValue = getSourceValue(row, sourceCol, selector)
-    let parsedValue = valueParser(rawValue)
+    const [sourceCol, parser, selector] = colMap[colName];
+    const valueParser = getParser(parser);
+    const rawValue = getSourceValue(row, sourceCol, selector);
+    let parsedValue = valueParser(rawValue);
     if ((parser === "int" || parser === "float") && isNaN(parsedValue))
-      parsedValue = null
+      parsedValue = null;
 
     if (colName === "state") {
-      parsedValue = formatState(parsedValue)
+      parsedValue = formatState(parsedValue);
     }
-    result[colName] = parsedValue
-  })
-  return result
-}
+    result[colName] = parsedValue;
+  });
+  return result;
+};
 
 module.exports = {
   parseFacility,
@@ -300,4 +292,4 @@ module.exports = {
   exactMatch,
   roughMatch,
   regexMatch,
-}
+};

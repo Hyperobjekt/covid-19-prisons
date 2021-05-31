@@ -1,18 +1,18 @@
-import React from "react"
-import clsx from "clsx"
-import PropTypes from "prop-types"
-import { fade, Grid, Typography, withStyles } from "@material-ui/core"
-import { Block } from "@hyperobjekt/material-ui-website"
-import { NationalMap, MapLegend } from "../maps"
-import { navigate } from "gatsby"
-import { useMapStore } from "@hyperobjekt/svg-maps"
-import ResponsiveContainer from "../ResponsiveContainer"
-import Stack from "../Stack"
-import { serifTypography } from "../../gatsby-theme-hypercore/theme"
-import { useActiveMetric, useMappableFacilities } from "../../common/hooks"
-import { getLang } from "../../common/utils/i18n"
-import MetricSelectionTitle from "../controls/MetricSelectionTitle"
-import { getSlug } from "../../common/utils/selectors"
+import React from "react";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import { Box, fade, Grid, Typography, withStyles } from "@material-ui/core";
+import { Block } from "@hyperobjekt/material-ui-website";
+import { NationalMap, MapLegend } from "../maps";
+import { navigate } from "gatsby";
+import { useMapStore } from "@hyperobjekt/svg-maps";
+import Stack from "../Stack";
+import { serifTypography } from "../../gatsby-theme-hypercore/theme";
+import { useActiveMetric, useMappableFacilities } from "../../common/hooks";
+import { getLang } from "../../common/utils/i18n";
+import MetricSelectionTitle from "../controls/MetricSelectionTitle";
+import { getSlug } from "../../common/utils/selectors";
+import { Container } from "@hyperobjekt/material-ui-website";
 
 const styles = (theme) => ({
   root: {
@@ -151,7 +151,7 @@ const styles = (theme) => ({
       justifyContent: "space-between",
     },
   },
-})
+});
 
 const HomeMap = ({
   classes,
@@ -163,29 +163,24 @@ const HomeMap = ({
   selectedRegion,
   ...props
 }) => {
-  const setSelected = useMapStore((state) => state.setSelected)
-  const metric = useActiveMetric()
-  const data = useMappableFacilities(categories, selectedRegion)
+  const setSelected = useMapStore((state) => state.setSelected);
+  const metric = useActiveMetric();
+  const data = useMappableFacilities(categories, selectedRegion);
 
   // handler for selection
   const handleSelect = (geo) => {
-    setSelected(geo)
-    navigate(`states/${getSlug(geo.properties.name)}`)
-  }
+    setSelected(geo);
+    navigate(`states/${getSlug(geo.properties.name)}`);
+  };
 
   // MetricSelection includes region name in immigration map
-  const [metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4]
+  const [metricSelectCols, legendCols] = isImmigration ? [9, 3] : [8, 4];
 
-  const notes = getLang("map", "notes", isImmigration && "immigration")
-  console.log(data, metric)
+  const notes = getLang("map", "notes", isImmigration && "immigration");
+  console.log(data, metric);
   return (
-    <Block
-      type="fullWidth"
-      data-tip=""
-      className={clsx(classes.root, className)}
-      {...props}
-    >
-      <ResponsiveContainer className={classes.controls}>
+    <Block data-tip="" className={clsx(classes.root, className)} {...props}>
+      <Container className={classes.controls}>
         <Grid container spacing={1} className={classes.detailContainer}>
           <Grid
             item
@@ -215,7 +210,7 @@ const HomeMap = ({
             />
           </Grid>
         </Grid>
-      </ResponsiveContainer>
+      </Container>
       <NationalMap
         facilities={data}
         metric={metric}
@@ -230,12 +225,12 @@ const HomeMap = ({
         dangerouslySetInnerHTML={{ __html: notes }}
       />
     </Block>
-  )
-}
+  );
+};
 
 HomeMap.propTypes = {
   classes: PropTypes.object,
   className: PropTypes.string,
-}
+};
 
-export default withStyles(styles)(HomeMap)
+export default withStyles(styles)(HomeMap);

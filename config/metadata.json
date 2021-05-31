@@ -5,6 +5,7 @@
   "copyright": "Copyright © 2020",
   "siteUrl": "https://uclacovidbehindbars.org",
   "image": "https://via.placeholder.com/1230x600",
+  "logo": "/images/site-logo.svg",
   "menuLinks": [
     {
       "name": "Explore Data",
@@ -252,7 +253,7 @@
       "location": "footer"
     }
   ],
-  "socialLinks": [
+  "social": [
     {
       "name": "Twitter",
       "value": "https://twitter.com/uclaprisondata",

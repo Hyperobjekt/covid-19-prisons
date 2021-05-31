@@ -1,15 +1,14 @@
-import React from "react"
-import clsx from "clsx"
+import React from "react";
+import clsx from "clsx";
 import {
   Button,
   Link,
   TextField,
   Typography,
   withStyles,
-} from "@material-ui/core"
-import { titleTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
-import Stack from "../Stack"
-import UpRightArrow from "../../../content/assets/up-right-arrow.svg"
+} from "@material-ui/core";
+import { titleTypography } from "../../gatsby-theme-hypercore/theme";
+import { Stack } from "@hyperobjekt/material-ui-website";
 
 export const styles = (theme) => ({
   root: {},
@@ -34,15 +33,19 @@ export const styles = (theme) => ({
     },
   },
   button: {},
-})
+});
 
 const Subscribe = ({ classes, className, ...props }) => {
   return (
-    <Stack className={clsx(classes.root, className)} {...props}>
+    <Stack
+      className={clsx(classes.root, className)}
+      direction="vertical"
+      {...props}
+    >
       <Typography id="subscribe_prompt" className={classes.title} variant="h3">
         Subscribe to our e-mail updates
       </Typography>
-      <Stack className={classes.form} align="bottom" spacing={2} horizontal>
+      <Stack className={classes.form} align="bottom" spacing={2}>
         <div id="mc_embed_signup">
           <form
             style={{ display: "flex", alignItems: "baseline" }}
@@ -104,10 +107,21 @@ const Subscribe = ({ classes, className, ...props }) => {
         rel="noreferrer"
       >
         See our MailChimp archive
-        <img alt="" src={UpRightArrow} />
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 13 13"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.03479 3.03454L3.03479 4.19597L7.12742 4.17943L2.619 8.68785L3.44431 9.51315L7.95273 5.00473L7.94246 9.10364L9.10388 9.10364L9.10388 3.03454L3.03479 3.03454Z"
+            fill="#555526"
+          />
+        </svg>
       </Link>
     </Stack>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(Subscribe)
+export default withStyles(styles)(Subscribe);
