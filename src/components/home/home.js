@@ -83,6 +83,7 @@ const HomeTemplate = ({
       <VaccineTable
         title={content.vaccineTable.title}
         subtitle={getLang("vaccine", "subtitle")}
+        note={[getLang("vaccine", "note")]}
       />
       <Sponsors title={content.sponsors.title} logos={content.sponsors.logos} />
     </Layout>

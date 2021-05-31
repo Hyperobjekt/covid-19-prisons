@@ -5,7 +5,6 @@ import {
   subtitleTypography,
   titleTypography,
 } from "../../gatsby-theme-hypercore/theme";
-import ResponsiveContainer from "../ResponsiveContainer";
 
 const styles = (theme) => ({
   root: {
@@ -14,7 +13,7 @@ const styles = (theme) => ({
   title: {
     ...titleTypography,
     fontSize: theme.typography.pxToRem(44),
-    maxWidth: "11em",
+    maxWidth: "10em",
     marginTop: 0,
   },
   subtitle: {

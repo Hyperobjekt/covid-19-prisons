@@ -126,8 +126,8 @@ const HomeTable = ({
   const columns = React.useMemo(() => {
     const facilityCol = {
       Header: "Facility",
+      id: "name",
       accessor: "name",
-      disableSortBy: true,
       Cell: (prop) => {
         const { state, jurisdiction } = prop.row.original;
         return (
@@ -194,35 +194,61 @@ const HomeTable = ({
     return [facilityCol, ...cols];
   }, [classes.name, classes.state, isImmigration, numberColStyle]);
 
+  const [sortCol, setSortCol] = React.useState(metric);
+  const [sortedByMetric, setSortedByMetric] = React.useState(true);
+
   // memoized table options
   const options = React.useMemo(
     () => ({
       initialState: {
         pageSize: 5,
-        sortBy: [{ id: metric, desc: true }],
+        sortBy: [{ id: sortCol, desc: sortedByMetric }],
       },
     }),
-    [metric]
+    [sortedByMetric, sortCol]
   );
 
   // handler for when table headers are clicked
   const handleSortChange = React.useCallback(
     (sortBy) => {
-      if (sortBy === "name") return;
+      const isMetric = sortBy !== "name";
+      setSortedByMetric(isMetric);
+      setSortCol(sortBy);
+
+      if (!isMetric) return;
       const newMetric = sortBy;
       metric !== newMetric && setMetric(newMetric);
     },
     [metric, setMetric]
   );
+
+  // if user selects metric via dropdown, update sort col
+  React.useEffect(() => {
+    setSortCol(metric);
+    setSortedByMetric(true);
+  }, [metric]);
+
+  // otherwise column won't update if table sorted by name and active metric is (re)selected
+  const handleSelection = (metric) => {
+    setSortedByMetric(true);
+    setSortCol(metric);
+  };
+
   return (
     <Block className={clsx(classes.root, "home-table")} {...props}>
-      <MetricSelectionTitle title={title} isImmigration={isImmigration} />
+      <MetricSelectionTitle
+        title={sortedByMetric ? title : "Facilities by ${metric}"}
+        isImmigration={isImmigration}
+        handleSelection={handleSelection}
+        forceSelectedOption={!sortedByMetric && sortCol}
+      />
       <Table
         className={classes.table}
         data={data.filter((d) => d.name !== "Statewide")}
         columns={columns}
         options={options}
-        sortColumn={metric}
+        // sortColumn={sortCol}
+        // sortDesc={sortedByMetric}
         onSort={handleSortChange}
       >
         <JurisdictionToggles

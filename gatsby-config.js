@@ -27,7 +27,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `COVID-19 Behind Bars`,
+        name: `COVID Behind Bars`,
         short_name: `COVID Behind Bars`,
         start_url: `/`,
         background_color: `#ffffff`,

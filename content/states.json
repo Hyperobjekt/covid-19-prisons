@@ -103,7 +103,7 @@
       "id": "filings",
       "fullWidth": true,
       "lang": {
-        "title": "Legal Filings and Court Orders Related to COVID-19",
+        "title": "Legal Filings and Court Orders Related to COVID",
         "link": "Filings & Court Orders",
         "body": "Our project collaborates with Bronx Defenders, Columbia Law School’s Center for Institutional and Social Change, and Zealous to collect legal documents from around the country related to COVID-19 and incarceration. Together, we then organize and code them into the jointly managed <a href='https://healthisjustice.org/litigation-hub/login' rel='noreferrer' target='_blank'>Health is Justice litigation hub</a> for public defenders, litigators, and other advocates. The majority of the legal documents in the Health is Justice litigation hub are federal court opinions, but we are expanding to state legal filings, declarations, and exhibits.<br /><br />In addition to the Health is Justice litigation hub, our project also manages additional data self-reported by advocates regarding COVID-19-related legal filings involving <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1832796231' rel='noreferrer' target='_blank'>incarcerated youth</a> and <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=22612814' rel='noreferrer' target='_blank'>individuals in immigration detention</a>.<br><br>For more COVID-19-related legal filings, please visit the University of Michigan Law School’s <a href='https://clearinghouse.net/results.php?searchSpecialCollection=62'>Civil Rights Litigation Clearinghouse, COVID-19 Special Collection</a>.",
         "visual": {
@@ -119,7 +119,7 @@
       "id": "releases",
       "fullWidth": true,
       "lang": {
-        "title": "Prison and Jail Releases Related to COVID-19",
+        "title": "Prison and Jail Releases Related to COVID",
         "link": "Releases",
         "body": "We collect data on jurisdictions across the U.S. that have released people from adult prison and jail custody in response to the COVID-19 pandemic.",
         "table": {
@@ -155,7 +155,7 @@
       "id": "grassroots",
       "fullWidth": true,
       "lang": {
-        "title": "Grassroots and Community Organizing Efforts Related to COVID-19",
+        "title": "Grassroots and Community Organizing Efforts Related to COVID",
         "link": "Grassroots Organizing",
         "body": "Our team collects data on grassroots and community organizing efforts by incarcerated people, their families, community-based organizations, nonprofits, and advocates aimed at influencing government agencies to protect the lives of people incarcerated in prisons, jails, and detention centers against the threats posed by COVID-19.",
         "visual": {
