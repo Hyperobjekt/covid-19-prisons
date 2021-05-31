@@ -1,5 +1,5 @@
-import React from "react"
-import useReportsData from "./useReportsData"
+import React from "react";
+import useReportsData from "./useReportsData";
 import {
   Link,
   List,
@@ -7,8 +7,8 @@ import {
   ListItemText,
   Typography,
   makeStyles,
-} from "@material-ui/core"
-import moment from "moment"
+} from "@material-ui/core";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   details: {
@@ -17,31 +17,32 @@ const useStyles = makeStyles((theme) => ({
   primary: {
     marginBottom: theme.spacing(0.5),
   },
-}))
+}));
 
 const ReportTitle = ({ report }) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <>
       <Link target="_blank" href={report.url}>
         {report.title}
-      </Link>{" "}
+      </Link>
+      <br />
       <Typography variant="body2" className={classes.details}>
         {moment(report.date).format("MMMM Do, YYYY")}, {report.author}
       </Typography>
     </>
-  )
-}
+  );
+};
 
 const ReportList = (props) => {
-  const reports = useReportsData()
-  const classes = useStyles()
+  const reports = useReportsData();
+  const classes = useStyles();
 
   return (
     <List>
       {reports.map((report) => (
-        <ListItem>
+        <ListItem disableGutters>
           <ListItemText
             primary={<ReportTitle report={report} />}
             secondary={report.description}
@@ -50,9 +51,9 @@ const ReportList = (props) => {
         </ListItem>
       ))}
     </List>
-  )
-}
+  );
+};
 
-ReportList.propTypes = {}
+ReportList.propTypes = {};
 
-export default ReportList
+export default ReportList;

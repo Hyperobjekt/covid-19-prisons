@@ -19,6 +19,7 @@
     "gatsby-plugin-anchor-links": "^1.2.1",
     "gatsby-plugin-google-gtag": "^3.5.0",
     "gatsby-plugin-mdx": "^2.4.0",
+    "gatsby-plugin-meta-redirect": "^1.1.1",
     "gatsby-plugin-netlify-cms": "^5.4.1",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-filesystem": "^3.4.0",
@@ -33,6 +34,7 @@
     "react-spring": "^8.0.27",
     "react-table": "^7.6.2",
     "react-tooltip": "^4.2.10",
+    "sharp": "^0.28.3",
     "zustand": "^3.1.4"
   },
   "resolutions": {

@@ -2,16 +2,20 @@ const metadata = require("./config/metadata.json");
 module.exports = {
   siteMetadata: metadata,
   plugins: [
+    `gatsby-plugin-meta-redirect`,
     {
       resolve: `gatsby-theme-hypersite`,
       options: {
         contentPath: `content/pages`,
         assetPath: `content/assets`,
         templates: {
+          default: require.resolve("./src/templates/page.js"),
           home: require.resolve("./src/components/home/home.js"),
           immigration: require.resolve(
             "./src/components/immigration/immigration.js"
           ),
+          blogIndex: require.resolve("./src/templates/blog-index.js"),
+          blog: require.resolve("./src/templates/blog-post.js"),
         },
       },
     },

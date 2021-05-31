@@ -1,0 +1,23 @@
+---
+meta:
+  title: Blog
+path: /blog
+pagetype: non_cms
+template: blogIndex
+---
+
+import BlogPost from "components/blog/blog-post";
+
+<Block>
+  <h2>Featured Post</h2>
+  <BlogPost post={props.featuredPost} isFeatured={true} />
+</Block>
+
+<Block>
+  <Box>
+    <h2>Recent Posts</h2>
+    {props.posts.map((p, idx) => (
+      <BlogPost post={p} key={p.frontmatter.path} />
+    ))}
+  </Box>
+</Block>

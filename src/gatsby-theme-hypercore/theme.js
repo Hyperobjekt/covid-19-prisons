@@ -38,6 +38,18 @@ const base = {
   },
   typography: {
     fontFamily: "neue-haas-grotesk-display, sans-serif",
+    h1: {
+      fontSize: `3rem`,
+    },
+    h2: {
+      fontSize: `2.125rem`,
+    },
+    h3: { fontSize: `1.625rem` },
+    h4: {
+      fontSize: "1.5rem",
+    },
+    h5: { fontSize: `1.25rem` },
+    h6: { fontSize: `1rem` },
   },
   shadows: [
     "none",
@@ -143,6 +155,7 @@ const CovidTheme = () => {
             "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link)":
               {
                 color: theme.palette.secondary.main,
+                fontWeight: "bold",
                 textDecoration: "none",
               },
             "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link):visited":
