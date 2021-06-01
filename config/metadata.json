@@ -9,7 +9,7 @@
   "menuLinks": [
     {
       "name": "Explore Data",
-      "link": "",
+      "link": "#",
       "location": "header",
       "subMenu": [
         {
@@ -137,7 +137,7 @@
     },
     {
       "name": "Publications & Resources",
-      "link": "",
+      "link": "#",
       "location": "header",
       "subMenu": [
         {
@@ -156,7 +156,7 @@
     },
     {
       "name": "About",
-      "link": "",
+      "link": "#",
       "location": "header",
       "subMenu": [
         {

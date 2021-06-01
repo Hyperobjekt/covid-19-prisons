@@ -38,6 +38,7 @@ const base = {
   },
   typography: {
     fontFamily: "neue-haas-grotesk-display, sans-serif",
+    // typography scale
     h1: {
       fontSize: `3rem`,
     },
@@ -51,6 +52,7 @@ const base = {
     h5: { fontSize: `1.25rem` },
     h6: { fontSize: `1rem` },
   },
+  // only one level of shadows
   shadows: [
     "none",
     "0 3px 4px rgba(0,0,0,0.2)",
@@ -271,28 +273,15 @@ const CovidTheme = () => {
       /** Page level overrides */
       HypPage: {
         root: {
-          // full width content on state & federal pages
-          "&.page.page--states .content": {
-            maxWidth: "none",
-          },
-          "&.page.page--federal .content": {
-            maxWidth: "none",
-          },
           // no header box shadow when there's a section nav
-          "&.page.page--states header.header": {
+          "&.HypPage-states .HypHeader-root": {
             boxShadow: "none",
           },
-          "&.page.page--federal header.header": {
+          "&.HypPage-federal .HypHeader-root": {
             boxShadow: "none",
           },
-          "&.page.page--home .branding__logo": {
-            clipPath: `inset(0px ${theme.typography.pxToRem(150)} 0px 0px)`,
-          },
-          "&.page.page--project-team .HypContent-root-33": {
-            maxWidth: "50.5rem",
-          },
-          "&.page.page--project-team .jss33": {
-            maxWidth: "50.5rem",
+          "&.page.page--home .logo": {
+            clipPath: `inset(0px 152px 0px 0px)`,
           },
         },
       },
@@ -326,12 +315,7 @@ const CovidTheme = () => {
           marginBottom: "auto",
         },
       },
-      HypBranding: {
-        logo: {
-          width: theme.typography.pxToRem(184),
-          height: theme.typography.pxToRem(32),
-        },
-      },
+
       HypNavigation: {
         link: {
           ...sansSerifyTypography,
