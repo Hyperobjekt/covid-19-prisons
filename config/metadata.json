@@ -3,7 +3,7 @@
   "socialImage": "site-social.png",
   "iconImage": "site-icon.png",
   "title": "UCLA Law COVID Behind Bars Data Project",
-  "description": "Reporting COVID data from U.S. carceral facilities.",
+  "description": "Reporting COVID-19 data from U.S. carceral facilities.",
   "keywords": ["gatsby", "theme", "react"],
   "author": "Lane Olson",
   "copyright": "Copyright © 2020",
