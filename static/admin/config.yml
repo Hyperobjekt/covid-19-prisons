@@ -157,13 +157,25 @@ collections:
           - { label: Title, name: title, widget: string, required: false }
           - { label: Subtitle, name: subtitle, widget: string, required: false }
           - { label: Body, name: body, widget: markdown, required: false }
+      - label: "Map"
+        name: map
+        widget: object
+        required: false
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - {
+              label: Description,
+              name: description,
+              widget: string,
+              required: false,
+            }
       - label: "Facilities table"
         name: table
         widget: object
         required: false
         fields:
           - { label: Title, name: title, widget: string, required: false }
-          - { label: Notes, name: note, widget: markdown, required: false }
+          - { label: Notes, name: note, widget: list, required: false }
       - label: "Vaccine table"
         name: vaccineTable
         widget: object
@@ -176,8 +188,7 @@ collections:
         widget: object
         required: false
         fields:
-          - { label: Title, name: title, widget: markdown, required: false }
-          - name: "blog"
+          - { label: Title, name: title, widget: string, required: false }
   - label: "Blog post"
     folder: "/content/pages/blog"
     name: "blogpost"
