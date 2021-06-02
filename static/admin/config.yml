@@ -69,6 +69,26 @@ collections:
       preview: false
     filter: { field: "pagetype", value: "reports" }
     fields:
+      - {
+          label: "Page Title",
+          name: title,
+          widget: string,
+          hint: "Title for the browser window",
+        }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          required: false,
+          hint: "Not visible, but used for search engine optimization",
+        }
+      - {
+          label: "Page Type",
+          name: "pagetype",
+          widget: hidden,
+          required: false,
+          default: "reports",
+        }
       - label: "Reports Data"
         name: reportsData
         widget: list
