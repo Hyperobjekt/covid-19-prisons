@@ -180,10 +180,8 @@ const parseFacility = (facility = {}) => {
 const parseVaccine = (vaccine = {}) => {
   const source = groupObjectData(vaccine)
 
-  const residentKeys = ["initiated", "population.jan21"]
-  // to change name from spreadsheet on import
-  const residentKeyMap = { "population.jan21": "population" }
-  const staffKeys = ["initiated", "population"]
+  const residentKeys = ["initiated"]
+  const staffKeys = ["initiated"]
 
   const result = {}
 
@@ -210,8 +208,7 @@ const parseVaccine = (vaccine = {}) => {
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    const ourKey = residentKeyMap[key] || key
-    obj[ourKey] = parseInt(source.residents[key])
+    obj[key] = parseInt(source.residents[key])
     return obj
   }, {})
 

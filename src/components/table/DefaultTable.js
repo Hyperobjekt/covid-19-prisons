@@ -12,16 +12,10 @@ const styles = (theme) => ({
   },
 })
 
-const DefaultTable = ({
-  initialSortColumn,
-  columns,
-  startDesc = false,
-  preventReverseSort = false,
-  ...props
-}) => {
+const DefaultTable = ({ initialSortCol, columns, ...props }) => {
   const firstCol = columns[0].accessor
-  const [sortCol, setSortCol] = React.useState(initialSortColumn || firstCol)
-  const [sortDesc, setSortDesc] = React.useState(startDesc)
+  const [sortCol, setSortCol] = React.useState(initialSortCol || firstCol)
+  const [sortDesc, setSortDesc] = React.useState(false)
   const [pageIndex, setPageIndex] = React.useState(0)
   const [pageSize, setPageSize] = React.useState(5)
 
@@ -39,9 +33,7 @@ const DefaultTable = ({
   const handleSortChange = React.useCallback(
     (sortBy) => {
       if (sortBy === sortCol) {
-        if (!preventReverseSort) {
-          setSortDesc(!sortDesc)
-        }
+        setSortDesc(!sortDesc)
       } else {
         setSortCol(sortBy)
       }

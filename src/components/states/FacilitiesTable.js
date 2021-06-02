@@ -45,8 +45,6 @@ const FacilitiesTable = ({
   group = "residents",
   metric,
   isFederal,
-  sortCol,
-  sortedByGroup,
   ...props
 }) => {
   const setHoveredFacility = useStatesStore((state) => state.setHoveredFacility)
@@ -55,6 +53,7 @@ const FacilitiesTable = ({
       {
         Header: "Facility",
         accessor: "name",
+        disableSortBy: true,
         Cell: (prop) => {
           return (
             <>
@@ -117,18 +116,19 @@ const FacilitiesTable = ({
   const changePageHandler = React.useCallback((idx) => {
     setPageIndex(idx)
   }, [])
-
-  const options = React.useMemo(() => {
-    const id = sortedByGroup ? (group + "." + metric) : sortCol
-    const desc = sortedByGroup
-    return {
-      initialState: {
-        pageSize: 5,
-        pageIndex,
-        sortBy: [{ id, desc }],
-      },
-    }
-  }, [metric, group, sortCol, sortedByGroup, pageIndex])
+  
+  const options = React.useMemo(
+    () => {
+      return {
+        initialState: {
+          pageSize: 5,
+          pageIndex,
+          sortBy: [{ id: group + "." + metric, desc: true }],
+        },
+      }
+    },
+    [metric, group, pageIndex]
+  )
 
   return (
     <Table
