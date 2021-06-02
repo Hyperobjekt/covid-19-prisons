@@ -1,52 +1,39 @@
-# COVID-19 Behind Bars
+# UCLA COVID-19 Behind Bars Website
 
-This is a monorepo containing all code for the COVID-19 Behind Bars project.
+This is the main gatsby site for https://uclacovidbehindbars.org/
 
-## Getting Started
+This site is based off of [gatsby-theme-hyperobject-core](https://github.com/Hyperobjekt/gatsby-theme-hyperobjekt), which provides the basics:
 
-This project is managed using yarn workspaces. To get started, clone the repo and install all dependencies with:
+- MDX content rendering
+- Page creation
+- SEO (customizable via front matter)
+- [Base level components](https://github.com/Hyperobjekt/gatsby-theme-hyperobjekt/tree/main/themes/gatsby-theme-hyperobjekt-core/src/components) (header, footer, body, navigation, etc)
+- Theming via [material styles](https://material-ui.com/styles/basics/)
 
-```
-yarn install
-```
+All components from the core theme can be overridden using [component shadowing](https://www.gatsbyjs.com/blog/2019-04-29-component-shadowing/) (creating the same component from the core theme in `src/gatsby-theme-hyperobjekt-core`).
 
-## Contributing
+See the [hyperobjekt core starter](https://gatsby-starter-hyperobjekt.netlify.app/) site for more details.
 
-  1. All new features, fixes, and work in progress should be branched off off the `development` branch.
-  2. Open a Pull Request from your local branch on to the `development` branch when your work is ready to become part of the code base.
-  3. When a new release is ready, merge in to `staging` to preview on the [staging site](https://staging--covid-19-behind-bars.netlify.app/).
-  4. Once a staging review is complete, merge into the `production` branch to trigger a build of the live site.
+## Data Sources
 
-To share work-in-progress with the team internally, pushing to `internal-staging` triggers a build of the [internal staging site](https://internal-staging--covid-19-behind-bars.netlify.app/). This branch is not a part of the above workflow and can be overwritten with your local branch by running `git push origin head:internal-staging --force`
+Data is pulled from a many sources:
 
-## Website (`/packages/gatsby-ucla-site`)
+- [UCLA Law COVID-19 Behind Bars Data Repo](https://github.com/uclalawcovid19behindbars/data)
+- [UCLA Law COVID-19 Behind Bars Google Sheet](https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1641553906)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1886ec87-389f-470e-a6c0-84f5d44ed418/deploy-status)](https://app.netlify.com/sites/covid-19-behind-bars/deploys)
+Data fetching and processing happens on build in `gatsby-node.js`
 
-Run the Gatsby site in development mode with
+## Publishing the website
 
-```
-yarn workspace gatsby-ucla-site develop
-```
+- [staging website](https://staging--covid-19-behind-bars.netlify.app/)
+  - publishes on any pushes to the `staging` branch
+  - publishes when new data is committed to the `master` branch of the [data repository](https://github.com/uclalawcovid19behindbars/data)
+  - uses data in the `master` branch of the data repo
+- [public website](https://uclacovidbehindbars.org/)
+  - publishes on any pushes to the `production` branch
+  - publishes when new data is committed to the `website` branch of the [data repository](https://github.com/uclalawcovid19behindbars/data)
+  - uses data in the `website` branch of the data repo
 
-and perform a build with:
+## Content Management System
 
-```
-yarn workspace gatsby-ucla-site build
-```
-
-## National Map (`/packages/national-map`)
-
-> ARCHIVED: this is a national mapbox map that has been replaced by the SVG spike maps in `/packages/gatsby-ucla-site`.
-
-Run the national map in development mode with:
-
-```
-yarn workspace national-map start
-```
-
-Create a build that places the map in the static site `public` directory with
-
-```
-yarn workspace national-map build
-```
+- as per the [config.yml](https://github.com/Hyperobjekt/covid-19-behind-bars/blob/production/packages/gatsby-ucla-site/static/admin/config.yml), CMS updates on the public website trigger commits to the `production` branch (with `editorial_workflow`, so a preview branch with the content updates is created on save before being published).
