@@ -134,7 +134,8 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
           )
         },
         style: {
-          width: "8.5rem",
+          minWidth: "8rem",
+          maxWidth: "8rem",
         },
       },
       {
