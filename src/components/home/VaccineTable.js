@@ -94,7 +94,7 @@ const styles = (theme) => ({
 
 const intFormatter = format(",d")
 
-const perFormatter = (v) => formatMetricValue(v, "home_table_rate")
+const perFormatter = (v) => formatMetricValue(v, "home_table_rate", "--")
 const countFormatter = (value) =>
   !isNumber(value) ? "--" : intFormatter(value)
 
