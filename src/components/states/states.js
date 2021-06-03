@@ -242,7 +242,7 @@ const StateTemplate = ({ pageContext, data }) => {
 StateTemplate.propTypes = {};
 
 export const query = graphql`
-  query ($state: String!) {
+  query($state: String!) {
     allFacilities(filter: { state: { eq: $state } }) {
       edges {
         node {
@@ -266,7 +266,6 @@ export const query = graphql`
             active
             confirmed
             deaths
-            tested
           }
           date
         }
