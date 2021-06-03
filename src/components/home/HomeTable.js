@@ -19,7 +19,6 @@ import Notes from "../Notes"
 import { formatMetricValue } from "../../common/utils/formatters"
 import clsx from "clsx"
 import { Link } from "gatsby-theme-material-ui"
-import { DISPLAY_NAMES } from "../../common/constants"
 
 const styles = (theme) => ({
   root: {
@@ -134,10 +133,10 @@ const HomeTable = ({
         let link = `/states/${state}`
 
         if (name.toLowerCase().startsWith("all ice")) {
-          entity = DISPLAY_NAMES.immigration
+          entity = "ICE Detention"
           link = "/ice"
         } else if (name.toLowerCase().startsWith("all bop")) {
-          entity = DISPLAY_NAMES.federal
+          entity = "Federal Bureau of Prisons"
           link = "/federal"
         }
         return (

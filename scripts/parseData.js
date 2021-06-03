@@ -1,5 +1,3 @@
-const { DISPLAY_NAMES } = require("../src/common/constants")
-
 /**
  * Abbreviations that should be forced to uppercase
  */
@@ -118,7 +116,7 @@ const parseFacility = (facility = {}) => {
     "tadmin",
   ]
   const residentRates = ["confirmed", "deaths", "active", "tested"]
-  const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"]
+  const staffKeys = ["confirmed", "deaths", "active"]
 
   const result = {}
 
@@ -184,8 +182,8 @@ const parseVaccine = (vaccine = {}) => {
   const result = {}
 
   const jurisMap = {
-    federal: DISPLAY_NAMES.federal,
-    ice: DISPLAY_NAMES.immigration,
+    federal: "Federal Bureau of Prisons",
+    ice: "ICE Detention",
   }
 
   const nonStateMap = {
