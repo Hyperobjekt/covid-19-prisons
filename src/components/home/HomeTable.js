@@ -19,6 +19,7 @@ import Notes from "../Notes"
 import { formatMetricValue } from "../../common/utils/formatters"
 import clsx from "clsx"
 import { Link } from "gatsby-theme-material-ui"
+import { DISPLAY_NAMES } from "../../common/constants"
 
 const styles = (theme) => ({
   root: {
@@ -128,15 +129,25 @@ const HomeTable = ({
       id: "name",
       accessor: "name",
       Cell: (prop) => {
-        const { state, jurisdiction } = prop.row.original
+        const { state, jurisdiction, name } = prop.row.original
+        let entity = state
+        let link = `/states/${state}`
+
+        if (name.toLowerCase().startsWith("all ice")) {
+          entity = DISPLAY_NAMES.immigration
+          link = "/ice"
+        } else if (name.toLowerCase().startsWith("all bop")) {
+          entity = DISPLAY_NAMES.federal
+          link = "/federal"
+        }
         return (
           <>
             <Typography className={classes.name} variant="body1">
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              <Link to={`/states/${state}`} className={classes.state}>
-                {state}
+              <Link to={link} className={classes.state}>
+                {entity}
               </Link>
               <DotMarker
                 radius={4}

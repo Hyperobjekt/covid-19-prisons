@@ -1,3 +1,5 @@
+const { DISPLAY_NAMES } = require("../src/common/constants")
+
 /**
  * Abbreviations that should be forced to uppercase
  */
@@ -116,13 +118,7 @@ const parseFacility = (facility = {}) => {
     "tadmin",
   ]
   const residentRates = ["confirmed", "deaths", "active", "tested"]
-  const staffKeys = [
-    "confirmed",
-    "deaths",
-    "active",
-    "recovered",
-    "tested",
-  ]
+  const staffKeys = ["confirmed", "deaths", "active", "recovered", "tested"]
 
   const result = {}
 
@@ -188,8 +184,8 @@ const parseVaccine = (vaccine = {}) => {
   const result = {}
 
   const jurisMap = {
-    federal: "Federal Bureau of Prisons",
-    ice: "U.S. Immigration and Customs Enforcement",
+    federal: DISPLAY_NAMES.federal,
+    ice: DISPLAY_NAMES.immigration,
   }
 
   const nonStateMap = {
@@ -201,7 +197,7 @@ const parseVaccine = (vaccine = {}) => {
   result.isState = !nonStateMap[source.state.toLowerCase()]
   result.isIce = source.state.toLowerCase() === "ice"
   result.isFederal = source.state.toLowerCase() === "federal"
-  
+
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
     obj[key] = parseInt(source.staff[key])

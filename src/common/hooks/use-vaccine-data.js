@@ -48,13 +48,16 @@ export default function useVaccineData() {
       total.staff.initiated += n.staff.initiated || 0
       total.staff.population += n.staff.population || 0
 
-      if (n.residents.initiated && n.residents.population) {
-        n.residents.percentInitiated =
-          n.residents.initiated / n.residents.population
-      }
-      if (n.staff.initiated && n.staff.population) {
-        n.staff.percentInitiated = n.staff.initiated / n.staff.population
-      }
+      n.residents.percentInitiated =
+        n.residents.initiated && n.residents.population
+          ? n.residents.initiated / n.residents.population
+          : null
+
+      n.staff.percentInitiated =
+        n.staff.initiated && n.staff.population
+          ? n.staff.initiated / n.staff.population
+          : null
+
       return true
     })
 
