@@ -23,6 +23,9 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
     shallow
   )
 
+  const [sortCol, setSortCol] = React.useState(facilitiesGroup)
+  const [sortedByGroup, setSortedByGroup] = React.useState(true)
+
   // get facilities for current state
   const facilities = isFederal
     ? all.filter((f) => f.jurisdiction === "federal")
@@ -30,12 +33,18 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
 
   // handler for when table headers are clicked
   const handleFacilitiesGroupChange = React.useCallback(
-    (newGroup) => {
-      const group = newGroup.split(".")[0]
-      // console.log(group)
-      // exit if invalid
-      if (!group || GROUPS.indexOf(group) === -1) return
-      group && group !== facilitiesGroup && setFacilitiesGroup(group)
+    (col) => {
+      const group = col.split(".")[0]
+      const isGroup = group && GROUPS.indexOf(group) > -1
+      setSortedByGroup(isGroup)
+
+      if (isGroup) {
+        setSortCol(group)
+        console.log(group, facilitiesGroup)
+        group !== facilitiesGroup && setFacilitiesGroup(group)
+      } else {
+        setSortCol(col)
+      }
     },
     [facilitiesGroup, setFacilitiesGroup]
   )
@@ -46,6 +55,8 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
         <FacilitiesTable
           metric={metric}
           group={facilitiesGroup}
+          sortCol={sortCol}
+          sortedByGroup={sortedByGroup}
           data={facilities}
           onSort={handleFacilitiesGroupChange}
           isFederal={isFederal}
