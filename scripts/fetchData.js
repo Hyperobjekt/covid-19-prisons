@@ -36,7 +36,7 @@ exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
  * VACCINE DATA (RESIDENTS / STAFF INITIATED)
  */
 
-const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`
+const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/alt_denominators/latest-data/state_aggregate_counts.csv`
 
 exports.getVaccines = () => getData(vaccinesCsv, parseVaccine)
 
