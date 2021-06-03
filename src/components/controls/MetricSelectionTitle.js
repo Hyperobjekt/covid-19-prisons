@@ -30,8 +30,6 @@ const MetricSelectionTitle = ({
   title,
   group,
   isImmigration,
-  handleSelection,
-  forceSelectedOption = null,
   ...props
 }) => {
   // inject metric selection onto title
@@ -39,12 +37,7 @@ const MetricSelectionTitle = ({
   const titleParts = title.split("${metric}")
   /* eslint-enable no-template-curly-in-string */
   const metricSelection = (
-    <MetricSelection
-      group={group}
-      isImmigration={isImmigration}
-      handleSelection={handleSelection}
-      forceSelectedOption={forceSelectedOption}
-    />
+    <MetricSelection group={group} isImmigration={isImmigration} />
   )
   const titleArray =
     titleParts.length === 2

@@ -164,7 +164,7 @@ export default function NavMobileMenu(props) {
                   )}
                   {subMenuItems.map((subMenuItem) => {
                     return (
-                      <ListItem key={subMenuItem.name}>
+                      <ListItem>
                         <Link
                           className={clsx("SubMenu-link", classes.link)}
                           onClick={handleLinkClick}

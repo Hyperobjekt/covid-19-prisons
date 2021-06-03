@@ -109,8 +109,6 @@ export const subtitleTypography = {
   textTransform: "uppercase",
 }
 
-export const MAX_CONTENT_WIDTH = 1400
-
 /**
  * A function that accepts site context (currently only `isDarkMode`)
  * and returns a theme object that is applied to the site.
@@ -289,7 +287,9 @@ const CovidTheme = () => {
         toolbar: {
           maxWidth: theme.breakpoints.values["md"],
           [theme.breakpoints.up("lg")]: {
-            maxWidth: `calc(${MAX_CONTENT_WIDTH}px - ${theme.spacing(6)})`,
+            maxWidth: `calc(${
+              theme.breakpoints.values["lg"]
+            }px - ${theme.spacing(6)})`,
           },
         },
         shrunk: {

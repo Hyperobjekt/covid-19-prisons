@@ -9,8 +9,6 @@ const MetricSelection = ({
   className,
   group,
   isImmigration,
-  handleSelection,
-  forceSelectedOption = null,
   ...props
 }) => {
   const [metric, setMetric] = useOptionsStore(
@@ -18,33 +16,17 @@ const MetricSelection = ({
     shallow
   )
   // use immigration metrics. otherwise get available metrics, or default to first group
-  let options = isImmigration
+  const metrics = isImmigration
     ? METRICS.immigration
     : group
     ? METRICS[group]
     : METRICS[GROUPS[0]]
 
-  let selectedOption = metric
-
-  if (forceSelectedOption) {
-    selectedOption = forceSelectedOption
-    if (!options.includes(forceSelectedOption)) {
-      options = [...options, forceSelectedOption]
-    }
-  }
-
-  const handleSelect = (metric) => {
-    setMetric(metric)
-    if (handleSelection) {
-      handleSelection(metric)
-    }
-  }
-
   return (
     <GenericSelection
-      options={options}
-      selectedOption={selectedOption}
-      handleSelect={handleSelect}
+      options={metrics}
+      selectedOption={metric}
+      handleSelect={setMetric}
     />
   )
 }
