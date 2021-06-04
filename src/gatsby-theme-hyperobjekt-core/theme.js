@@ -287,7 +287,8 @@ const CovidTheme = () => {
           borderBottom: `none`,
         },
         toolbar: {
-          maxWidth: theme.breakpoints.values["md"],
+          // maxWidth: theme.breakpoints.values["md"],
+          maxWidth: "100%",
           [theme.breakpoints.up("lg")]: {
             maxWidth: `calc(${MAX_CONTENT_WIDTH}px - ${theme.spacing(6)})`,
           },
