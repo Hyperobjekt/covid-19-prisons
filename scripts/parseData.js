@@ -116,13 +116,7 @@ const parseFacility = (facility = {}) => {
     "tadmin",
   ]
   const residentRates = ["confirmed", "deaths", "active", "tested"]
-  const staffKeys = [
-    "confirmed",
-    "deaths",
-    "active",
-    "recovered",
-    "tested",
-  ]
+  const staffKeys = ["confirmed", "deaths", "active"]
 
   const result = {}
 
@@ -180,14 +174,16 @@ const parseFacility = (facility = {}) => {
 const parseVaccine = (vaccine = {}) => {
   const source = groupObjectData(vaccine)
 
-  const residentKeys = ["initiated"]
-  const staffKeys = ["initiated"]
+  const residentKeys = ["initiated", "population.jan21"]
+  // to change name from spreadsheet on import
+  const residentKeyMap = { "population.jan21": "population" }
+  const staffKeys = ["initiated", "population"]
 
   const result = {}
 
   const jurisMap = {
     federal: "Federal Bureau of Prisons",
-    ice: "U.S. Immigration and Customs Enforcement",
+    ice: "ICE Detention",
   }
 
   const nonStateMap = {
@@ -199,7 +195,7 @@ const parseVaccine = (vaccine = {}) => {
   result.isState = !nonStateMap[source.state.toLowerCase()]
   result.isIce = source.state.toLowerCase() === "ice"
   result.isFederal = source.state.toLowerCase() === "federal"
-  
+
   // parse staff data
   result.staff = staffKeys.reduce((obj, key) => {
     obj[key] = parseInt(source.staff[key])
@@ -208,7 +204,8 @@ const parseVaccine = (vaccine = {}) => {
 
   // parse residents data
   result.residents = residentKeys.reduce((obj, key) => {
-    obj[key] = parseInt(source.residents[key])
+    const ourKey = residentKeyMap[key] || key
+    obj[ourKey] = parseInt(source.residents[key])
     return obj
   }, {})
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Table } from "../table"
+import { DefaultTable } from "../table"
 import { format } from "d3-format"
 import { Box, Typography, withStyles } from "@material-ui/core"
 import { useVaccineData } from "../../common/hooks"
@@ -9,6 +9,8 @@ import ResponsiveContainer from "../ResponsiveContainer"
 import { getSlug, isNumber } from "../../common/utils/selectors"
 import { getLang } from "../../common/utils/i18n"
 import { Link } from "gatsby-theme-material-ui"
+import { formatMetricValue } from "../../common/utils/formatters"
+import Notes from "../Notes"
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -21,6 +23,18 @@ const alphaStateSort = (a, b) => {
   }
 
   return a.original.jurisdiction > b.original.jurisdiction ? -1 : 1
+}
+
+const rateSorter = (a, b, columnId) => {
+  if (a.original.isTotal) return 1
+  if (b.original.isTotal) return -1
+  
+  const [group, metric] = columnId.split("-")
+  const [aVal, bVal] = [a, b].map((v) => v.original[group][metric])
+  if (isNumber(aVal) && !isNumber(bVal)) return 1
+  if (!isNumber(aVal) && isNumber(bVal)) return -1
+  if (!isNumber(aVal) && !isNumber(bVal)) return 0
+  return aVal - bVal
 }
 
 const styles = (theme) => ({
@@ -60,14 +74,31 @@ const styles = (theme) => ({
       },
     },
   },
+  notes: {
+    listStyle: "none",
+    margin: theme.spacing(2, "auto"),
+    maxWidth: "24rem",
+    "& li": {
+      maxWidth: "24rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      justifyContent: "space-around",
+      maxWidth: "none",
+      "& li + li": {
+        marginTop: 0,
+      },
+    },
+  },
 })
 
 const intFormatter = format(",d")
 
+const perFormatter = (v) => formatMetricValue(v, "home_table_rate", "--")
 const countFormatter = (value) =>
   !isNumber(value) ? "--" : intFormatter(value)
 
-const VaccineTable = ({ title, subtitle, classes, ...props }) => {
+const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
   // data for table
   const data = useVaccineData()
 
@@ -78,7 +109,6 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
         id: "jurisdiction",
         Header: getLang("jurisdiction"),
         accessor: "jurisdiction",
-        disableSortBy: true,
         sortType: alphaStateSort,
         Cell: (prop) => {
           const { jurisdiction, isState, isFederal, isIce } = prop.row.original
@@ -104,31 +134,49 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
           )
         },
         style: {
-          width: "32%",
-          minWidth: 130,
+          minWidth: "8rem",
+          maxWidth: "8rem",
         },
       },
       {
         id: "r-initiated",
-        Header: getLang("residents_initiated"),
+        Header: getLang("initiated_total"),
         accessor: "residents.initiated",
-        disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "37%",
-          minWidth: 170,
+          width: "25%",
+          textAlign: "right",
+        },
+      },
+      {
+        id: "residents-percentInitiated",
+        Header: getLang("initiated_percent"),
+        accessor: "residents.percentInitiated",
+        sortType: rateSorter,
+        Cell: (prop) => perFormatter(prop.value),
+        style: {
+          width: "25%",
           textAlign: "right",
         },
       },
       {
         id: "s-initiated",
-        Header: getLang("staff_initiated"),
+        Header: getLang("initiated_total"),
         accessor: "staff.initiated",
-        disableSortBy: true,
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "31%",
-          minWidth: 160,
+          width: "25%",
+          textAlign: "right",
+        },
+      },
+      {
+        id: "staff-percentInitiated",
+        Header: getLang("initiated_percent"),
+        accessor: "staff.percentInitiated",
+        sortType: rateSorter,
+        Cell: (prop) => perFormatter(prop.value),
+        style: {
+          width: "25%",
           textAlign: "right",
         },
       },
@@ -136,16 +184,12 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
     [classes.jurisdictionLink]
   )
 
-  // memoized table options
-  const options = React.useMemo(
-    () => ({
-      initialState: {
-        pageSize: 5,
-        sortBy: [{ id: "jurisdiction", desc: false }],
-      },
-    }),
-    []
-  )
+  const topLevelHeaders = [
+    { colSpan: 1, text: " " },
+    { colSpan: 2, align: "center", text: getLang("residents_initiated") },
+    { colSpan: 2, align: "center", text: getLang("staff_initiated") },
+  ]
+
   return (
     <Block type="fullWidth" className={classes.root} {...props}>
       <ResponsiveContainer>
@@ -158,14 +202,19 @@ const VaccineTable = ({ title, subtitle, classes, ...props }) => {
               className={classes.body}
             />
           </div>
-          <Table
-            className={classes.table}
-            data={data}
-            columns={columns}
-            options={options}
-            sortColumn={"jurisdiction"}
-            disableFilter={true}
-          />
+          <div>
+            <DefaultTable
+              className={classes.table}
+              data={data}
+              columns={columns}
+              startDesc={true}
+              preventReverseSort={true}
+              initialSortColumn={"jurisdiction"}
+              disableFilter={true}
+              topLevelHeaders={topLevelHeaders}
+            />
+            <Notes notes={note} className={classes.notes} />
+          </div>
         </div>
       </ResponsiveContainer>
     </Block>
