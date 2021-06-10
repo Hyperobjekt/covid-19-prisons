@@ -35,6 +35,24 @@ In this step, the large CSV file is reduced to smaller state-level files that ca
 
 #### sample wide CSV
 
+JSON:
+
+```json
+[
+  {
+    "id": 1,
+    "state": "Alabama",
+    "name": "ALABAMA HEADQUARTERS",
+    "res_confirmed": "2020-10-09|23;2020-10-09|23;...",
+    "staff_confirmed": "2020-10-09|0;2020-10-09|0;...",
+    ...
+  },
+  ...
+]
+```
+
+converted to CSV with `csvFormat`:
+
 ```csv
 id,state,name,res_confirmed,staff_confirmed,...
 1,Alabama,ALABAMA HEADQUARTERS,2020-10-09|23;2020-10-09|23,2020-10-09|0;2020-10-09|0,...
