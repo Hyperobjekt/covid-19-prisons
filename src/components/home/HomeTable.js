@@ -94,7 +94,6 @@ const rateSorter = (a, b, columnId) => {
 
 const HomeTable = ({
   title,
-  note,
   classes,
   categories,
   selectedRegion,
@@ -233,6 +232,8 @@ const HomeTable = ({
     setSortCol(metric);
   };
 
+  const notes = getLang("home_table_notes");
+
   return (
     <Block className={clsx(classes.root, "home-table")} {...props}>
       <MetricSelectionTitle
@@ -256,8 +257,8 @@ const HomeTable = ({
           classes={{ root: classes.toggleContainer }}
         />
       </Table>
-      {note && note.length > 0 && (
-        <Notes notes={note} className={classes.notes} />
+      {notes && notes.length > 0 && (
+        <Notes notes={notes} className={classes.notes} />
       )}
     </Block>
   );

@@ -11,6 +11,8 @@ import { Box, Typography, withStyles } from "@material-ui/core";
 import { formatMetricValue } from "../../common/utils/formatters";
 import Notes from "../Notes";
 
+const TWO_COL_WIDTH = 1100;
+
 const alphaStateSort = (a, b) => {
   // Total row goes first
   if (a.original.isTotal) return 1;
@@ -41,7 +43,7 @@ const styles = (theme) => ({
     background: theme.palette.background.paper,
   },
   wrapper: {
-    [theme.breakpoints.up(1100)]: {
+    [theme.breakpoints.up(TWO_COL_WIDTH)]: {
       display: "flex",
     },
   },
@@ -80,7 +82,7 @@ const styles = (theme) => ({
     "& li": {
       maxWidth: "24rem",
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.between("md", TWO_COL_WIDTH)]: {
       display: "flex",
       justifyContent: "space-around",
       maxWidth: "none",

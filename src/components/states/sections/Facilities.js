@@ -4,10 +4,32 @@ import FacilitiesTable from "../FacilitiesTable"
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle"
 import shallow from "zustand/shallow"
 import useStatesStore from "../useStatesStore"
+import { withStyles } from "@material-ui/core"
 import { useActiveMetric, useFacilitiesData } from "../../../common/hooks"
 import StepWrapper from "./../StepWrapper"
+import Notes from "../../Notes"
+import { getLang } from "../../../common/utils/i18n"
 
-const Facilities = ({ id, lang, data, isFederal, ...props }) => {
+const styles = (theme) => ({
+  notes: {
+    listStyle: "none",
+    margin: theme.spacing(2, "auto"),
+    maxWidth: "24rem",
+    "& li": {
+      maxWidth: "24rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      justifyContent: "space-around",
+      maxWidth: "none",
+      "& li + li": {
+        marginTop: 0,
+      },
+    },
+  },
+})
+
+const Facilities = ({ id, lang, data, classes, isFederal, ...props }) => {
   const all = useFacilitiesData()
 
   // currently selected metric
@@ -48,6 +70,9 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
     },
     [facilitiesGroup, setFacilitiesGroup]
   )
+
+  const notes = getLang("state_table_notes")
+
   return (
     <div {...props}>
       <StepWrapper>
@@ -61,6 +86,7 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
           onSort={handleFacilitiesGroupChange}
           isFederal={isFederal}
         />
+        <Notes notes={notes} className={classes.notes} />
       </StepWrapper>
     </div>
   )
@@ -68,4 +94,4 @@ const Facilities = ({ id, lang, data, isFederal, ...props }) => {
 
 Facilities.propTypes = {}
 
-export default Facilities
+export default withStyles(styles)(Facilities)
