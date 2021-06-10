@@ -23,6 +23,8 @@ import moment from "moment";
 import Content from "../components/Content";
 import { useLocation } from "@reach/router";
 
+const maxContentWidth = "600px";
+
 const useStyles = makeStyles((theme) => ({
   layout: {
     "& .content": {
@@ -196,21 +198,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.columnSpacing(1),
     paddingRight: theme.columnSpacing(1),
     marginBottom: theme.spacing(7),
-    // "& *": {
-    //   maxWidth: "700px",
-    //   marginLeft: "auto",
-    //   marginRight: "auto",
-    //   [theme.breakpoints.up("lg")]: {
-    //     // maxWidth: "900px",
-    //   },
-    // },
+    marginLeft: "auto",
+    marginRight: "auto",
+
     [theme.breakpoints.up("sm")]: {
       paddingLeft: theme.columnSpacing(2),
       paddingRight: theme.columnSpacing(2),
     },
+    [theme.breakpoints.up("md")]: {
+      maxWidth: `calc(2 * ${theme.columnSpacing(2)} + ${maxContentWidth})`,
+    },
     [theme.breakpoints.up("lg")]: {
-      paddingLeft: theme.columnSpacing(3),
-      paddingRight: theme.columnSpacing(3),
       marginBottom: theme.spacing(10),
     },
     "& .MuiTypography-paragraph": {
