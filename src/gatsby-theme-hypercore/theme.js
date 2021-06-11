@@ -299,7 +299,7 @@ const CovidTheme = () => {
       HypContainer: {
         root: {
           [theme.breakpoints.up("lg")]: {
-            maxWidth: 1440,
+            maxWidth: 1360,
           },
           [theme.breakpoints.up("xl")]: {
             maxWidth: 1600,
@@ -312,6 +312,12 @@ const CovidTheme = () => {
           boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.05)",
           background: "#fff",
           borderBottom: `none`,
+          // hide social links on mobile
+          [theme.breakpoints.down("sm")]: {
+            "& .HypSocialLinks-root": {
+              display: "none",
+            },
+          },
         },
         toolbar: {},
         shrunk: {
