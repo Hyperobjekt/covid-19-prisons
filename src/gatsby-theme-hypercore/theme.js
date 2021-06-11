@@ -308,7 +308,7 @@ const CovidTheme = () => {
             maxWidth: CONTENT_MAXWIDTH_LG,
           },
           [theme.breakpoints.up("xl")]: {
-            maxWidth: CONTENT_MAXWIDTH_LG,
+            maxWidth: CONTENT_MAXWIDTH_XL,
           },
         },
       },
