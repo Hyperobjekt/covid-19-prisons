@@ -33,7 +33,6 @@ export default function useFacilitiesData(categories, selectedRegion) {
               confirmed
               deaths
               active
-              tested
             }
           }
         }

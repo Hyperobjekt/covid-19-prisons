@@ -202,8 +202,6 @@ export const query = graphql`
             active
             confirmed
             deaths
-            tested
-            recovered
           }
         }
       }

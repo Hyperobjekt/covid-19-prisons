@@ -23,6 +23,7 @@ const base = {
     text: {
       primary: "#283224",
       secondary: "#555526",
+      tertiary: "rgba(85, 85, 38, 0.666)",
     },
     action: {
       hover: fade("#555526", 0.05),
@@ -150,6 +151,10 @@ const CovidTheme = () => {
             // this will resize all elements that use rem values or theme.spacing functions
             [`@media (min-width: ${theme.breakpoints.values["lg"]}px) and (min-height: 666px)`]:
               {
+                fontSize: 18,
+              },
+            [`@media (min-width: ${theme.breakpoints.values["xl"]}px) and (min-height: 666px)`]:
+              {
                 fontSize: 20,
               },
           },
@@ -193,6 +198,12 @@ const CovidTheme = () => {
           ...sansSerifyTypography,
           color: theme.palette.text.secondary,
           letterSpacing: `0.01em`,
+        },
+        caption: {
+          ...sansSerifyTypography,
+          color: theme.palette.text.tertiary,
+          fontSize: theme.typography.pxToRem(12),
+          lineHeight: 1.43,
         },
       },
       MuiListItem: {
@@ -282,6 +293,16 @@ const CovidTheme = () => {
           },
           "&.page.page--home .logo": {
             clipPath: `inset(0px 152px 0px 0px)`,
+          },
+        },
+      },
+      HypContainer: {
+        root: {
+          [theme.breakpoints.up("lg")]: {
+            maxWidth: 1440,
+          },
+          [theme.breakpoints.up("xl")]: {
+            maxWidth: 1600,
           },
         },
       },
