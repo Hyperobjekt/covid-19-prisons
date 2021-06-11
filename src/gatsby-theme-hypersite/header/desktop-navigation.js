@@ -43,7 +43,11 @@ import { HorizontalNavigation } from "@hyperobjekt/material-ui-website/lib/navig
 const cols = 5;
 
 const styles = (theme) => ({
-  root: {},
+  root: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
   depth0: {
     height: 64,
     zIndex: 2,
