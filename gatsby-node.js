@@ -12,6 +12,7 @@ const {
   getGrassroots,
   // getFundraisers,
   getResources,
+  loadTimeSeries,
 } = require(`./scripts/fetchData.js`);
 const { validStatePages, slugify } = require(`./scripts/utils.js`);
 
@@ -58,6 +59,11 @@ exports.sourceNodes = async (params) => {
     // ["Fundraisers", getFundraisers],
     ["Resources", getResources],
   ];
+
+  console.log("Load time series");
+  // NOTE: loads asynchronously
+  loadTimeSeries();
+  
   for (let i = 0; i < nodes.length; i++) {
     await createSourceNodes(nodes[i][0], nodes[i][1], params);
   }

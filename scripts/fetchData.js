@@ -1,51 +1,128 @@
 if (typeof fetch !== "function") {
-  global.fetch = require("node-fetch")
+  global.fetch = require("node-fetch");
 }
-const { csv: fetchCsv, text: fetchText } = require("d3-fetch")
-const { csvParse } = require("d3-dsv")
-const { groups } = require("d3-array")
+const { csv: fetchCsv, text: fetchText } = require("d3-fetch");
+const { csvParse, csvFormat } = require("d3-dsv");
+const { groups } = require("d3-array");
 const {
   parseFacility,
   parseVaccine,
   parseMap,
   exactMatch,
   roughMatch,
-} = require(`./parseData.js`)
-const US_STATES = require("../data/us_states.json")
+} = require(`./parseData.js`);
+const US_STATES = require("../data/us_states.json");
+const { writeFile } = require("./utils.js");
 
-async function getData(url, parser, options  =  {}) {
-  let data = await fetchCsv(url, parser)
+async function getData(url, parser, options = {}) {
+  let data = await fetchCsv(url, parser);
   // remove descriptive rows following the top identifier row
   if (options.dropRows) {
-    data = data.slice(options.dropRows)
+    data = data.slice(options.dropRows);
   }
-  return data
+  return data;
 }
 
-const dataBranch = process.env.DATA_BRANCH || "master"
+const dataBranch = process.env.DATA_BRANCH || "master";
 
 /**
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
  */
 
-const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/adult_facility_covid_counts.csv`
+const timeSeriesCsv = `http://104.131.72.50:3838/scraper_data/summary_data/scraped_time_series.csv`;
 
-exports.getFacilities = () => getData(facilitiesCsv, parseFacility)
+exports.loadTimeSeries = () => {
+  getData(timeSeriesCsv).then((d) => {
+    const byFacility = groups(d, (r) => r["Facility.ID"]);
+    const allFacilities = [];
+
+    const shapedData = byFacility.map((facData) => {
+      const facId = facData[0];
+      const facRows = facData[1];
+      const sampleRow = facRows[0];
+
+      const facility = {
+        id: facId,
+        name: sampleRow["Name"],
+        state: sampleRow["State"],
+        residents_deaths: sampleRow["Residents.Deaths"],
+      };
+
+      const groupKeys = {
+        Residents: ["Confirmed", "Deaths", "Active", "Tested"],
+        Staff: ["Confirmed", "Deaths", "Active"],
+      };
+
+      ["Residents", "Staff"].forEach((grp) => {
+        const keys = groupKeys[grp];
+
+        keys.forEach((key) => {
+          const accessor = grp + "." + key;
+          const popAccessor = grp + ".Population";
+
+          const newKey = (grp + "_" + key).toLowerCase();
+          facility[newKey] = "";
+
+          const newRateKey = newKey + "_rate";
+          facility[newRateKey] = "";
+
+          facRows.forEach((row) => {
+            const date = row["Date"];
+            const population = row[popAccessor];
+            const value = row[accessor];
+
+            facility[newKey] += date + "|" + value + ";";
+
+            const rate = +value / +population;
+            facility[newRateKey] += date + "|" + rate + ";";
+          });
+        });
+      });
+
+      allFacilities.push({
+        id: facility.id,
+        name: facility.name,
+        state: facility.state,
+      });
+
+      return facility;
+    });
+
+    const shapedByState = groups(shapedData, (r) => r.state);
+    shapedByState.forEach((stateData, i) => {
+      const stateName = stateData[0];
+      const stateRows = stateData[1];
+
+      writeFile(csvFormat(stateRows), "./static/data/" + stateName);
+    });
+
+    writeFile(csvFormat(allFacilities), "./static/data/allFacilities");
+    console.log("Time series loaded");
+  });
+};
+
+/**
+ * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
+ */
+
+const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/adult_facility_covid_counts.csv`;
+
+exports.getFacilities = () => getData(facilitiesCsv, parseFacility);
 
 /**
  * VACCINE DATA (RESIDENTS / STAFF INITIATED)
  */
 
-const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`
+const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`;
 
-exports.getVaccines = () => getData(vaccinesCsv, parseVaccine)
+exports.getVaccines = () => getData(vaccinesCsv, parseVaccine);
 
 /**
  * SCORECARD
  * sheet has hidden top row with stable, machine-readable names
  */
 
-const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=696812429&format=csv`
+const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=696812429&format=csv`;
 
 const scorecardMap = {
   state: ["state", "string", exactMatch],
@@ -67,12 +144,12 @@ const scorecardMap = {
   vaccinations_staff: ["vaccinations_staff", "string", exactMatch],
   active_staff: ["active_staff", "string", exactMatch],
   population_staff: ["population_staff", "string", exactMatch],
-}
+};
 
-const scorecardParser = (row) => parseMap(row, scorecardMap)
+const scorecardParser = (row) => parseMap(row, scorecardMap);
 
 exports.getScorecard = () =>
-  getData(scorecard, scorecardParser, { dropRows: 2 })
+  getData(scorecard, scorecardParser, { dropRows: 2 });
 
 /**
  * PRISON / JAIL RELEASES
@@ -82,8 +159,8 @@ exports.getScorecard = () =>
  * - how to pull jurisdiction from releases?
  */
 
-const prisonReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=845601985&format=csv`
-const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1678228533&format=csv`
+const prisonReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=845601985&format=csv`;
+const jailReleases = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1678228533&format=csv`;
 
 const releasesMap = {
   facility: ["Facility", "string", roughMatch],
@@ -98,43 +175,43 @@ const releasesMap = {
   detailOther: ["Other (please explain", "string", roughMatch],
   capacity: ["Known Capacity", "int", roughMatch],
   source: ["Perma links", "string", roughMatch],
-}
+};
 const jailReleasesMap = {
   ...releasesMap,
   jurisdiction: ["County", "string", exactMatch],
   detailMinor: ["Minor Offenses", "string", roughMatch],
   detailBail: ["On Bail with Inability", "string", roughMatch],
-}
+};
 const prisonReleasesMap = {
   ...releasesMap,
   jurisdiction: ["State", "string", exactMatch],
   detailMinor: ["Non-Violent Crimes", "string", roughMatch],
-}
+};
 
-const jailReleaseParser = (row) => parseMap(row, jailReleasesMap)
-const prisonReleaseParser = (row) => parseMap(row, prisonReleasesMap)
+const jailReleaseParser = (row) => parseMap(row, jailReleasesMap);
+const prisonReleaseParser = (row) => parseMap(row, prisonReleasesMap);
 
 // exports.getReleases = () =>
 //   Promise.all([
 //     getData(jailReleases, releaseParser),
 //     getData(prisonReleases, releaseParser),
 //   ])
-exports.getJailReleases = () => getData(jailReleases, jailReleaseParser)
-exports.getPrisonReleases = () => getData(prisonReleases, prisonReleaseParser)
+exports.getJailReleases = () => getData(jailReleases, jailReleaseParser);
+exports.getPrisonReleases = () => getData(prisonReleases, prisonReleaseParser);
 
 /**
  * COURT FILINGS / ORDERS
  */
 
-const filingsOrdersCsv = `https://docs.google.com/spreadsheets/d/1L_lVGAf-G1VRgi-7a_pFhkTNPRi89MfMjT9E_Gjxiac/export?gid=393515537&format=csv`
+const filingsOrdersCsv = `https://docs.google.com/spreadsheets/d/1L_lVGAf-G1VRgi-7a_pFhkTNPRi89MfMjT9E_Gjxiac/export?gid=393515537&format=csv`;
 
 const selectCourtName = (key, colName, row) => {
   // use 'Federal Court Name' if it has a value, if not use 'State Court Name'
   if (roughMatch(key, colName)) {
-    return row[key] ? key : "State Court Name"
+    return row[key] ? key : "State Court Name";
   }
-  return false
-}
+  return false;
+};
 
 const filingsOrdersMap = {
   case: ["Case Citation", "string", roughMatch],
@@ -143,21 +220,21 @@ const filingsOrdersMap = {
   court: ["Federal Court Name", "string", selectCourtName],
   granted: ["Release Granted", "string", roughMatch],
   incarcerationType: ["Type of Incarceration", "string", roughMatch],
-}
+};
 
-const filingsOrdersParser = (row) => parseMap(row, filingsOrdersMap)
+const filingsOrdersParser = (row) => parseMap(row, filingsOrdersMap);
 
 exports.getFilingsOrders = () =>
   fetchText(filingsOrdersCsv).then((d) => {
-    const dataIndex = d.indexOf("Case Citation,Practice Area,Relief Requested")
-    const lines = d.substring(dataIndex)
-    const rows = csvParse(lines, filingsOrdersParser)
-    const byState = groups(rows, (d) => d.state)
+    const dataIndex = d.indexOf("Case Citation,Practice Area,Relief Requested");
+    const lines = d.substring(dataIndex);
+    const rows = csvParse(lines, filingsOrdersParser);
+    const byState = groups(rows, (d) => d.state);
 
     const result = byState.map((stateGroup) => {
-      const stateData = stateGroup[1]
-      const facilityCount = groups(stateData, (d) => d.facility).length
-      const courtCount = groups(stateData, (d) => d.court).length
+      const stateData = stateGroup[1];
+      const facilityCount = groups(stateData, (d) => d.facility).length;
+      const courtCount = groups(stateData, (d) => d.court).length;
       return {
         state: stateGroup[0],
         total: stateData.length,
@@ -165,15 +242,17 @@ exports.getFilingsOrders = () =>
         courtCount,
         granted: stateData.filter((d) => d.granted.toLowerCase() === "yes")
           .length,
-      }
-    })
+      };
+    });
 
     const federalTypeRows = rows.filter(
       (d) => d.incarcerationType.toLowerCase() === "federal prison"
-    )
-    const federalFacilityCount = groups(federalTypeRows, (d) => d.facility)
-      .length
-    const federalCourtCount = groups(federalTypeRows, (d) => d.court).length
+    );
+    const federalFacilityCount = groups(
+      federalTypeRows,
+      (d) => d.facility
+    ).length;
+    const federalCourtCount = groups(federalTypeRows, (d) => d.court).length;
     const federalData = {
       state: "federal",
       total: federalTypeRows.length,
@@ -181,17 +260,17 @@ exports.getFilingsOrders = () =>
       courtCount: federalCourtCount,
       granted: federalTypeRows.filter((d) => d.granted.toLowerCase() === "yes")
         .length,
-    }
-    result.push(federalData)
+    };
+    result.push(federalData);
 
-    return result
-  })
+    return result;
+  });
 
 /**
  * IMMIGRATION DETENTION CASES
  */
 
-const immigrationCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=278828877&format=csv`
+const immigrationCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=278828877&format=csv`;
 
 const immigrationMap = {
   facility: ["facility", "string", exactMatch],
@@ -206,28 +285,28 @@ const immigrationMap = {
   ],
   active: ["ACTIVE Confirmed Cases - ICE DATA", "int", roughMatch],
   deaths: ["Confirmed Deaths - ICE DATA (Detainees)", "int", exactMatch],
-}
+};
 
 const immigrationParser = (row) => {
   // facility column has no header, so fix that before parsing
-  row["facility"] = row[""] ? row[""] : ""
-  return parseMap(row, immigrationMap)
-}
+  row["facility"] = row[""] ? row[""] : "";
+  return parseMap(row, immigrationMap);
+};
 
 exports.getImmigrationCases = () =>
   getData(immigrationCsv, immigrationParser).then((d) => {
     // remove rows without state value or marked as total
     const result = d.filter(
       (d) => !!d.state && d.facility.toLowerCase().indexOf("total:") === -1
-    )
-    return result
-  })
+    );
+    return result;
+  });
 
 /**
  * IMMIGRATION FILINGS
  */
 
-const immigrationFilingsCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=22612814&format=csv`
+const immigrationFilingsCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=22612814&format=csv`;
 
 const immigrationFilingsMap = {
   facility: ["Facility", "string", roughMatch],
@@ -240,23 +319,23 @@ const immigrationFilingsMap = {
   medication: ["Immuno- suppressant Medication", "string", roughMatch],
   smoking: ["History of Smoking", "string", roughMatch],
   other: ["Other Risk Factor(s)", "string", roughMatch],
-}
+};
 
-const immigrationFilingsParser = (row) => parseMap(row, immigrationFilingsMap)
+const immigrationFilingsParser = (row) => parseMap(row, immigrationFilingsMap);
 
 exports.getImmigrationFilings = () =>
   // fetch text because top rows are not headers
   fetchText(immigrationFilingsCsv).then((d) => {
-    const dataIndex = d.indexOf("Unique ID (internal use only)")
+    const dataIndex = d.indexOf("Unique ID (internal use only)");
     // pull test from the start of the column headers
-    const lines = d.substring(dataIndex)
+    const lines = d.substring(dataIndex);
     // parse the csv and change state abbreviation to name
     const result = csvParse(lines, immigrationFilingsParser).map((r) => ({
       ...r,
       state: US_STATES[r.state],
-    }))
-    return result
-  })
+    }));
+    return result;
+  });
 
 /**
  * YOUTH INCARCERATION
@@ -287,7 +366,7 @@ exports.getImmigrationFilings = () =>
  * GRASSROOTS
  */
 
-const grassrootsCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1720501154&format=csv`
+const grassrootsCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1720501154&format=csv`;
 
 const grassrootsMap = {
   facility: ["Target Facility", "string", roughMatch],
@@ -308,11 +387,11 @@ const grassrootsMap = {
   success: ["Demands Met?", "string", roughMatch],
   date: ["Date (of action)", "string", roughMatch],
   source: ["Perma links", "string", roughMatch],
-}
+};
 
-const grassrootsParser = (row) => parseMap(row, grassrootsMap)
+const grassrootsParser = (row) => parseMap(row, grassrootsMap);
 
-const valueToBool = (value) => value.trim().toLowerCase() === "x"
+const valueToBool = (value) => value.trim().toLowerCase() === "x";
 
 exports.getGrassroots = () =>
   getData(grassrootsCsv, grassrootsParser).then((data) => {
@@ -322,18 +401,18 @@ exports.getGrassroots = () =>
       "sanitary",
       "releases",
       "testing",
-    ]
+    ];
     const result = data.map((d) => {
       return {
         ...d,
         ...booleanCols.reduce((obj, curr) => {
-          obj[curr] = valueToBool(d[curr])
-          return obj
+          obj[curr] = valueToBool(d[curr]);
+          return obj;
         }, {}),
-      }
-    })
-    return result
-  })
+      };
+    });
+    return result;
+  });
 
 /**
  * FUNDRAISERS
@@ -360,16 +439,16 @@ exports.getGrassroots = () =>
  * RESOURCES
  */
 
-const resourcesCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1126533660&format=csv`
+const resourcesCsv = `https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/export?gid=1126533660&format=csv`;
 
 const resourcesMap = {
   category: ["Category", "string", exactMatch],
   organization: ["Organization", "string", exactMatch],
   links: ["Link(s)", "string", exactMatch],
   description: ["Description", "string", exactMatch],
-}
+};
 
-const resourcesParser = (row) => parseMap(row, resourcesMap)
+const resourcesParser = (row) => parseMap(row, resourcesMap);
 
 exports.getResources = () =>
   getData(resourcesCsv, resourcesParser).then((data) => {
@@ -382,8 +461,8 @@ exports.getResources = () =>
         // remove semicolon from end of links
         .map((link) =>
           link[link.length - 1] === ";" ? link.substr(0, link.length - 1) : link
-        )
-      return d
-    })
-    return data
-  })
+        );
+      return d;
+    });
+    return data;
+  });

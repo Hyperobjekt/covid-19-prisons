@@ -7,3 +7,5 @@ dist
 .cache
 public
 yarn-error.log
+
+/static/data
