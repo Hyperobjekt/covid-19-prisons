@@ -33,6 +33,11 @@ const timeSeriesCsv = `http://104.131.72.50:3838/scraper_data/summary_data/scrap
 
 exports.loadTimeSeries = () => {
   getData(timeSeriesCsv).then((d) => {
+    const groupKeys = {
+      Residents: ["Confirmed", "Deaths", "Active", "Tested"],
+      Staff: ["Confirmed", "Deaths", "Active"],
+    };
+    
     const byFacility = groups(d, (r) => r["Facility.ID"]);
     const allFacilities = [];
 
@@ -45,20 +50,14 @@ exports.loadTimeSeries = () => {
         id: facId,
         name: sampleRow["Name"],
         state: sampleRow["State"],
-        residents_deaths: sampleRow["Residents.Deaths"],
-      };
-
-      const groupKeys = {
-        Residents: ["Confirmed", "Deaths", "Active", "Tested"],
-        Staff: ["Confirmed", "Deaths", "Active"],
       };
 
       ["Residents", "Staff"].forEach((grp) => {
         const keys = groupKeys[grp];
+        const popAccessor = grp + ".Population";
 
         keys.forEach((key) => {
           const accessor = grp + "." + key;
-          const popAccessor = grp + ".Population";
 
           const newKey = (grp + "_" + key).toLowerCase();
           facility[newKey] = "";
@@ -96,7 +95,17 @@ exports.loadTimeSeries = () => {
       writeFile(csvFormat(stateRows), "./static/data/" + stateName);
     });
 
-    writeFile(csvFormat(allFacilities), "./static/data/allFacilities");
+    const sortedFacilities = allFacilities.sort((a, b) => {
+      const stateA = a.state.toLowerCase();
+      const stateB = b.state.toLowerCase();
+      if (stateA > stateB) return 1;
+      if (stateA < stateB) return -1;
+
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      return nameA > nameB ? 1 : -1;
+    });
+    writeFile(csvFormat(sortedFacilities), "./static/data/allFacilities");
     console.log("Time series loaded");
   });
 };

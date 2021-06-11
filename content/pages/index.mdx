@@ -45,6 +45,7 @@ import {
   HomeMapTooltip,
   HomeTable,
   VaccineTable,
+  FacilitiesTimeSeries,
 } from "components/home";
 
 <HomeIntro
@@ -63,6 +64,7 @@ import {
   subtitle={props.frontmatter.vaccineTable.subtitle}
   note={[props.frontmatter.vaccineTable.note]}
 />
+<FacilitiesTimeSeries />
 <Sponsors
   title={props.frontmatter.sponsors.title}
   logos={props.frontmatter.sponsors.logos}
