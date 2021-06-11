@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 function slugify(text) {
   return text
     .toString()
@@ -6,10 +8,10 @@ function slugify(text) {
     .replace(/[^\w\-]+/g, "") // Remove all non-word chars
     .replace(/\-\-+/g, "-") // Replace multiple - with single -
     .replace(/^-+/, "") // Trim - from start of text
-    .replace(/-+$/, "") // Trim - from end of text
+    .replace(/-+$/, ""); // Trim - from end of text
 }
 
-exports.slugify = slugify
+exports.slugify = slugify;
 
 exports.validStatePages = [
   "Alabama",
@@ -64,4 +66,27 @@ exports.validStatePages = [
   "West Virginia",
   "Wisconsin",
   "Wyoming",
-].map(slugify)
+].map(slugify);
+
+exports.writeFile = function (data, outputFile) {
+  const filePieces = outputFile.split("/");
+  const outputFileName = filePieces.pop();
+  const outputFileDir = filePieces.join("/");
+  // make dir if needed
+  return fs.promises
+    .mkdir(outputFileDir, { recursive: true })
+    .then(() => {
+      // write file
+      return new Promise((resolve, reject) => {
+        fs.writeFile(outputFile, data, (err) => {
+          if (err) return reject(err);
+          console.info("wrote transformed data to: " + outputFile);
+          return resolve(outputFile);
+        });
+      });
+    })
+    .catch((error) => {
+      console.error("caught exception : ", error.message);
+      return error;
+    });
+};
