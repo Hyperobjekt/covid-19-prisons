@@ -10,7 +10,7 @@ module.exports = {
         assetPath: `content/assets`,
         templates: {
           default: require.resolve("./src/templates/page.js"),
-          home: require.resolve("./src/components/home/home.js"),
+          home: require.resolve("./src/templates/home.js"),
           immigration: require.resolve(
             "./src/components/immigration/immigration.js"
           ),

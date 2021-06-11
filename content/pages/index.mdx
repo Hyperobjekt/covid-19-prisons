@@ -1,10 +1,7 @@
 ---
 meta:
   title: UCLA Law COVID Behind Bars Data Project
-  description:
-  keywords:
 name: Home
-pagetype: home
 template: home
 path: /
 intro:
@@ -50,14 +47,14 @@ import {
   VaccineTable,
 } from "components/home";
 
-<Intro
+<HomeIntro
   title={props.frontmatter.intro.title}
   subtitle={props.frontmatter.intro.subtitle}
   body={props.frontmatter.intro.body}
 />
 <HomeMap title={props.frontmatter.map.title} />
-<MapTooltip />
-<Table
+<HomeMapTooltip />
+<HomeTable
   title={props.frontmatter.table.title}
   note={props.frontmatter.table.note}
 />

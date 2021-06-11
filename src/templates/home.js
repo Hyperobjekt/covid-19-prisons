@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import PageTemplate from "./page";
+import PageTemplate from "gatsby-theme-hypercore/src/templates/page";
 
 export const query = graphql`
   query ($pathSlug: String!) {

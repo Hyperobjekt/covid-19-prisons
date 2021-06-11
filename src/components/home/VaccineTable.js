@@ -41,27 +41,28 @@ const styles = (theme) => ({
     background: theme.palette.background.paper,
   },
   wrapper: {
-    [theme.breakpoints.up(1100)]: {
+    [theme.breakpoints.up("md")]: {
       display: "flex",
+      justifyContent: "space-between",
     },
   },
   content: {
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: "38rem",
-      minWidth: "36rem",
-      "& h3": {
-        maxWidth: "32rem",
-      },
+    maxWidth: "32rem",
+    [theme.breakpoints.up("md")]: {
+      marginRight: theme.spacing(5),
     },
   },
   body: {
-    maxWidth: "32rem",
-    margin: theme.spacing(1, 0, 2),
+    margin: theme.spacing(2, 0),
   },
   jurisdictionLink: {
     "&.MuiLink-root.MuiTypography-root": {
       color: theme.palette.text.secondary,
     },
+  },
+  tableWrapper: {
+    flex: 1,
+    maxWidth: theme.spacing(69),
   },
   table: {
     "& tr:hover $jurisdictionLink": {
@@ -132,9 +133,6 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
             </Typography>
           );
         },
-        style: {
-          width: "8.5rem",
-        },
       },
       {
         id: "r-initiated",
@@ -142,7 +140,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         accessor: "residents.initiated",
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "25%",
+          width: "6em",
           textAlign: "right",
         },
       },
@@ -153,7 +151,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "25%",
+          width: "6em",
           textAlign: "right",
         },
       },
@@ -163,7 +161,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         accessor: "staff.initiated",
         Cell: (prop) => countFormatter(prop.value),
         style: {
-          width: "25%",
+          width: "6em",
           textAlign: "right",
         },
       },
@@ -174,7 +172,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "25%",
+          width: "6em",
           textAlign: "right",
         },
       },
@@ -199,7 +197,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
             className={classes.body}
           />
         </div>
-        <div>
+        <div className={classes.tableWrapper}>
           <DefaultTable
             className={classes.table}
             data={data}
@@ -213,15 +211,6 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
           <Notes notes={note} className={classes.notes} />
         </div>
       </div>
-      {/* <Table
-          className={classes.table}
-          data={data}
-          columns={columns}
-          options={options}
-          sortColumn={"jurisdiction"}
-          disableFilter={true}
-        /> */}
-      {/* </div> */}
     </Block>
   );
 };
