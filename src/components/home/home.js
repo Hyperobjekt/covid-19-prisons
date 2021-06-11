@@ -11,6 +11,7 @@ import ArnoldVenturesLogo from "../../../content/assets/arnold-ventures-logo.svg
 import MapTooltip from "./HomeMapTooltip"
 import { getLang } from "../../common/utils/i18n"
 import Layout from "gatsby-theme-hypersite/src/layout"
+import FacilitiesTimeSeries from "../FacilitiesTimeSeries";
 
 export const query = graphql`
   query($pathSlug: String!) {
@@ -85,9 +86,10 @@ const HomeTemplate = ({
         subtitle={getLang("vaccine", "subtitle")}
         note={[getLang("vaccine", "note")]}
       />
+      <FacilitiesTimeSeries />
       <Sponsors title={content.sponsors.title} logos={content.sponsors.logos} />
     </Layout>
-  )
+  );
 }
 
 export default HomeTemplate
