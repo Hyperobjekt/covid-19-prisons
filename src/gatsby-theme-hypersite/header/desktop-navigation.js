@@ -100,7 +100,6 @@ const styles = (theme) => ({
       "& $list": {
         display: "block",
         columnCount: cols,
-        maxWidth: 1216,
         marginLeft: theme.spacing(27),
         position: "relative",
         paddingTop: theme.spacing(5),

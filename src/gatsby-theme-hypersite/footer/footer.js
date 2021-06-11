@@ -93,7 +93,6 @@ const styles = (theme) => ({
 });
 
 const Footer = ({ social, links, copyright, classes, className, ...props }) => {
-  console.log(props);
   const handleScrollUp = React.useCallback(() => {
     window.scrollTo(0, 0);
   }, []);

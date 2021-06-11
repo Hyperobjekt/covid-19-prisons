@@ -5,34 +5,102 @@ import { getImage } from "gatsby-plugin-image";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Layout from "gatsby-theme-hypersite/src/layout";
 import { Block } from "@hyperobjekt/material-ui-website";
-import { Link } from "gatsby-theme-material-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
-import LeftArrow from "../common/icons/left-arrow.svg";
-import FbIcon from "../common/icons/fb-icon.svg";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import EmailIcon from "@material-ui/icons/Email";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core";
+import { Box, makeStyles, withStyles } from "@material-ui/core";
 import {
-  compactTitleTypography,
+  CONTENT_MAXWIDTH_LG,
+  CONTENT_MAXWIDTH_XL,
   sansSerifyTypography,
   serifTypography,
   subtitleTypography,
 } from "../gatsby-theme-hypercore/theme";
-import moment from "moment";
-import Content from "../components/Content";
-import { useLocation } from "@reach/router";
+import { BlogHero, BlogSocialLinks, BlogLinkedPost } from "../components/blog";
 
-const maxContentWidth = "600px";
+const maxContentWidth = "37.5rem";
+
+const LinkedBlock = withStyles((theme) => ({
+  root: {
+    [theme.breakpoints.down("xs")]: {
+      paddingBottom: 0,
+    },
+  },
+  container: {
+    background: theme.palette.background.alt3,
+    marginRight: 0,
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: `calc((100% - 6rem) + ((100vw - (100% - 6rem)) / 2))`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      maxWidth: `calc((${CONTENT_MAXWIDTH_LG} - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_LG} - 6rem)) / 2))`,
+    },
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: `calc((${CONTENT_MAXWIDTH_XL} - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_XL} - 6rem)) / 2))`,
+    },
+  },
+}))(Block);
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
-    "& .content": {
-      maxWidth: "unset !important",
-      padding: "unset !important",
+  body: {
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(5),
+    [theme.breakpoints.up("sm")]: {
+      paddingTop: theme.spacing(5),
     },
-    "& header": {
-      // background: theme.palette.background.alt3,
+    [theme.breakpoints.up("md")]: {
+      paddingBottom: theme.spacing(7),
+    },
+    [theme.breakpoints.up("lg")]: {
+      paddingBottom: theme.spacing(10),
+    },
+    background: theme.palette.background.paper,
+  },
+  postContent: {
+    position: "relative",
+    wordWrap: "break-word",
+    margin: "auto",
+    maxWidth: maxContentWidth,
+    // dividers within blog post
+    "& > hr": {
+      margin: theme.spacing(3, 0),
+    },
+    // headings within the blog post
+    "& > h1, & > h2, & > h3, & > h4, & > h5, & > h6": {
+      marginTop: "1em",
+    },
+    // default paragraph styles
+    "& > p": {
+      marginBottom: "1rem",
+    },
+    "& .MuiTypography-paragraph": {
+      [theme.breakpoints.between("sm", "md")]: {
+        fontSize: theme.typography.pxToRem(20),
+        lineHeight: 1.6,
+      },
+    },
+    // image and figure margins
+    "& > p > .gatsby-resp-image-wrapper, & > figure": {
+      [theme.breakpoints.up("md")]: {
+        marginBottom: theme.spacing(4),
+        marginTop: theme.spacing(4),
+        marginLeft: theme.spacing(-4),
+        marginRight: theme.spacing(-4),
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginBottom: theme.spacing(6),
+        marginTop: theme.spacing(6),
+        marginLeft: theme.spacing(-6),
+        marginRight: theme.spacing(-6),
+      },
+    },
+    // image captions
+    "& figcaption": {
+      margin: "auto",
+      marginTop: theme.spacing(2),
+      color: theme.palette.text.secondary,
+      textAlign: "center",
+      maxWidth: "34em",
     },
     // SCORECARD TABLE STYLES
     "& .scorecard-table": {
@@ -51,10 +119,21 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.columnSpacing(-0.5),
         width: `calc(100% + ${theme.columnSpacing(1)})`,
       },
+      // links
+      "& .MuiLink-root": {
+        fontWeight: 700,
+        color: theme.palette.secondary.main,
+      },
+      // table body text
+      "& .MuiTypography-body1": {
+        ...sansSerifyTypography,
+        fontSize: theme.typography.pxToRem(14),
+      },
+      "& .MuiTable-root": {
+        position: "relative",
+      },
     },
-    "& .scorecard-table .MuiTable-root": {
-      position: "relative",
-    },
+
     "& .MuiTableCell-head:nth-child(5), & .MuiTableCell-body:nth-child(2)": {
       minWidth: 100,
     },
@@ -86,6 +165,7 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTableCell-body:first-child": {
       textAlign: "left",
     },
+    // letter grade
     "& .MuiTableCell-body:nth-child(2) span:first-child": {
       fontWeight: 700,
       marginRight: 4,
@@ -100,153 +180,8 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTableRow-root:nth-child(2) .MuiTableCell-body": {
       borderBottom: `1px solid ${theme.palette.text.primary}`,
     },
+
     // END SCORECARD TABLE STYLES
-  },
-  hero: {
-    background: theme.palette.background.alt3,
-    marginTop: "0 !important", // otherwise color shines through
-    paddingTop: theme.spacing(11),
-    paddingLeft: theme.columnSpacing(1),
-    paddingRight: theme.columnSpacing(1),
-    [theme.breakpoints.up("md")]: {
-      paddingRight: theme.columnSpacing(3),
-    },
-  },
-  date: {
-    fontSize: theme.typography.pxToRem(14),
-  },
-  postTitle: {
-    ...compactTitleTypography,
-    color: theme.palette.text.secondary,
-    lineHeight: 1.05,
-    margin: 0,
-    paddingBottom: theme.spacing(5),
-    fontSize: theme.typography.pxToRem(55),
-    [theme.breakpoints.up("sm")]: {
-      fontSize: theme.typography.pxToRem(70),
-    },
-    [theme.breakpoints.up("md")]: {
-      fontSize: theme.typography.pxToRem(85),
-    },
-  },
-  body: {
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(5),
-    [theme.breakpoints.up("sm")]: {
-      paddingTop: theme.spacing(5),
-    },
-    [theme.breakpoints.up("md")]: {
-      paddingBottom: theme.spacing(7),
-    },
-    [theme.breakpoints.up("lg")]: {
-      paddingBottom: theme.spacing(10),
-    },
-    background: theme.palette.background.paper,
-  },
-  crumb: {
-    ...sansSerifyTypography,
-    fontSize: theme.typography.pxToRem(13),
-    color: theme.palette.text.secondary + " !important",
-    textDecoration: "none !important",
-    "& img": {
-      paddingRight: theme.spacing(1),
-    },
-  },
-  social: {
-    display: "flex",
-    position: "absolute",
-    top: "-10px",
-    right: theme.columnSpacing(1),
-    color: theme.palette.text.secondary + " !important",
-    "& a": {
-      color: theme.palette.text.secondary + " !important",
-      fontSize: "0",
-    },
-    "& button": {
-      background: theme.palette.background.alt2 + " !important",
-      padding: "10px",
-      marginRight: theme.spacing(1),
-      [theme.breakpoints.down("xs")]: {
-        marginRight: "0",
-        transform: "scale(0.8)",
-      },
-    },
-    [theme.breakpoints.up("lg")]: {
-      flexDirection: "column",
-      right: "unset",
-      top: theme.spacing(10),
-      "& button": {
-        padding: "12px",
-        marginBottom: theme.spacing(1),
-      },
-    },
-  },
-  crumbWrapper: {
-    display: "block",
-    position: "relative",
-    paddingLeft: theme.columnSpacing(1),
-    paddingBottom: theme.spacing(5),
-    [theme.breakpoints.up("md")]: {
-      paddingBottom: theme.spacing(7),
-    },
-    [theme.breakpoints.up("lg")]: {
-      // paddingBottom: theme.spacing(7),
-    },
-  },
-  content: {
-    wordWrap: "break-word",
-    paddingLeft: theme.columnSpacing(1),
-    paddingRight: theme.columnSpacing(1),
-    marginBottom: theme.spacing(7),
-    marginLeft: "auto",
-    marginRight: "auto",
-
-    [theme.breakpoints.up("sm")]: {
-      paddingLeft: theme.columnSpacing(2),
-      paddingRight: theme.columnSpacing(2),
-    },
-    [theme.breakpoints.up("md")]: {
-      maxWidth: `calc(2 * ${theme.columnSpacing(2)} + ${maxContentWidth})`,
-    },
-    [theme.breakpoints.up("lg")]: {
-      marginBottom: theme.spacing(10),
-    },
-    "& .MuiTypography-paragraph": {
-      [theme.breakpoints.between("sm", "md")]: {
-        fontSize: theme.typography.pxToRem(20),
-        lineHeight: 1.6,
-      },
-    },
-
-    "& .gatsby-resp-image-wrapper": {
-      [theme.breakpoints.up("md")]: {
-        marginBottom: theme.spacing(4),
-        marginTop: theme.spacing(4),
-      },
-      [theme.breakpoints.up("lg")]: {
-        marginBottom: theme.spacing(6),
-        marginTop: theme.spacing(6),
-      },
-    },
-    // image captions
-    "& i": {
-      textAlign: "center",
-      display: "block",
-      position: "relative",
-      fontStyle: "normal",
-      // shift them up the amount that the image is pushing them down (theme.spacing),
-      // then shift down to give some distance from image
-      top: `calc(-${theme.spacing(2)} + 5px)`,
-      [theme.breakpoints.up("md")]: {
-        top: `calc(-${theme.spacing(4)} + 10px)`,
-        padding: theme.spacing(0, 1.5),
-      },
-      [theme.breakpoints.up("lg")]: {
-        top: `calc(-${theme.spacing(6)} + 15px)`,
-        padding: theme.spacing(0, 3),
-      },
-    },
-
     "& .continuousColumn": {
       [theme.breakpoints.up("sm")]: {
         columnCount: 2,
@@ -335,114 +270,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Hero = ({ author, date, title, image }) => {
-  const postDetails = `${author} • ${moment(date).format("MMMM Do, YYYY")}`;
-  const classes = useStyles();
-
-  return (
-    <div className={classes.hero}>
-      <p className={classes.date}>{postDetails}</p>
-      <h2 className={classes.postTitle}>{title}</h2>
-    </div>
-  );
-};
-
-const SocialIcons = ({ title }) => {
-  const location = useLocation();
-  console.log({ location });
-  const classes = useStyles();
-  const url = "https://uclacovidbehindbars.org" + location.pathname;
-
-  const twitterClick = (e) => {
-    window
-      .open(
-        `https://twitter.com/share?text=${title}&url=${url}`,
-        "_blank",
-        "width=550,height=420"
-      )
-      .focus();
-  };
-
-  const facebookClick = (e) => {
-    window
-      .open(
-        `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-        "_blank",
-        "width=550,height=420"
-      )
-      .focus();
-  };
-
-  return (
-    <div className={classes.social}>
-      <IconButton onClick={twitterClick}>
-        <TwitterIcon />
-      </IconButton>
-      <IconButton onClick={facebookClick}>
-        <img alt="share on Facebook" src={FbIcon} />
-      </IconButton>
-      <IconButton>
-        <a
-          target="_blank"
-          href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`}
-          rel="noreferrer"
-        >
-          <EmailIcon />
-        </a>
-      </IconButton>
-    </div>
-  );
-};
-
-const BreadCrumb = (title, path) => {
-  const classes = useStyles();
-  return (
-    <div className={classes.crumbWrapper}>
-      <Link className={classes.crumb} to="/blog">
-        <img alt="" src={LeftArrow} /> Back to blog
-      </Link>
-      {SocialIcons(title, path)}
-    </div>
-  );
-};
-
-const Linked = ({ next, previous }) => {
-  const classes = useStyles();
-  const post = next || previous;
-  if (!post) {
-    return null;
-  }
-  const { title, description, path } = post.frontmatter;
-  const sectionTitle = (next ? "next" : "previous") + " post";
-  return (
-    <div className={classes.linkedSection}>
-      <div className={classes.post}>
-        <h3 className={classes.sectionTitle}>{sectionTitle}</h3>
-        <h4 className={classes.linkedTitle}>{title}</h4>
-        <p className={classes.description}>{description}</p>
-
-        <Link className={classes.readLink} to={"/" + path}>
-          Read more
-        </Link>
-      </div>
-    </div>
-  );
-};
-
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx } = props.data;
-  const { image, title } = mdx.frontmatter;
-  console.log({ image, gatsbyimage: getImage(image) });
+  const { author, date, image, title } = mdx.frontmatter;
   const featuredImage = image && getImage(image);
   const classes = useStyles();
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id);
   const { body, ...mdxProps } = getMdxProps(props);
   return (
     <Layout {...mdxProps} {...props}>
-      <Hero {...mdx.frontmatter} />
-      <div className={classes.body}>
-        <Content className={classes.content}>
-          <SocialIcons title={title} />
+      <BlogHero {...{ author, date, title }} />
+      <Block
+        bgcolor="background.paper"
+        ContainerProps={{ style: { position: "relative" } }}
+      >
+        <BlogSocialLinks title={title} />
+        <Box className={classes.postContent}>
           {featuredImage && (
             <GatsbyImage
               className={classes.featuredImage}
@@ -450,9 +293,11 @@ const BlogPostTemplate = (props) => {
             />
           )}
           <MDXRenderer>{body}</MDXRenderer>
-        </Content>
-        <Linked {...postNode} />
-      </div>
+        </Box>
+      </Block>
+      <LinkedBlock bgcolor="background.paper">
+        <BlogLinkedPost {...postNode} />
+      </LinkedBlock>
     </Layout>
   );
 };

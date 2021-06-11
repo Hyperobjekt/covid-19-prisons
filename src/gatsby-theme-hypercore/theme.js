@@ -3,6 +3,12 @@ import { deepmerge } from "@material-ui/utils";
 import { fade as alpha, fade } from "@material-ui/core/styles";
 
 /**
+ * Content container widths
+ */
+export const CONTENT_MAXWIDTH_LG = 1360; // 1280+
+export const CONTENT_MAXWIDTH_XL = 1600; // 1920+
+
+/**
  * Base theme definitions
  */
 const base = {
@@ -106,19 +112,19 @@ export const serifTypography = {
   textTransform: "none",
 };
 export const titleTypography = {
-  fontFamily: `"Champion Middlewt A", "Champion Middlewt B", sans-serif`,
+  fontFamily: `"Champion Middlewt A", "Champion Middlewt B", "Impact", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",
 };
 export const compactTitleTypography = {
-  fontFamily: `"Champion Featherwt A", "Champion Featherwt B", sans-serif`,
+  fontFamily: `"Champion Featherwt A", "Champion Featherwt B", "Oswald", "Impact", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",
 };
 export const subtitleTypography = {
-  fontFamily: `"Champion Bantamwt A", "Champion Bantamwt B", sans-serif`,
+  fontFamily: `"Champion Bantamwt A", "Champion Bantamwt B", "Impact", sans-serif`,
   fontStyle: "normal",
   fontWeight: 400,
   textTransform: "uppercase",
@@ -299,10 +305,10 @@ const CovidTheme = () => {
       HypContainer: {
         root: {
           [theme.breakpoints.up("lg")]: {
-            maxWidth: 1360,
+            maxWidth: CONTENT_MAXWIDTH_LG,
           },
           [theme.breakpoints.up("xl")]: {
-            maxWidth: 1600,
+            maxWidth: CONTENT_MAXWIDTH_LG,
           },
         },
       },
