@@ -26,17 +26,18 @@ const LinkedBlock = withStyles((theme) => ({
   },
   container: {
     background: theme.palette.background.alt3,
-    marginRight: 0,
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+    marginRight: 0, // shift container so it is pushed to the right side of the page
+    // extend container widths at different resolutions, so left margin aligns with content
     [theme.breakpoints.up("sm")]: {
       maxWidth: `calc((100% - 6rem) + ((100vw - (100% - 6rem)) / 2))`,
     },
     [theme.breakpoints.up("lg")]: {
-      maxWidth: `calc((${CONTENT_MAXWIDTH_LG} - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_LG} - 6rem)) / 2))`,
+      maxWidth: `calc((${CONTENT_MAXWIDTH_LG}px - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_LG}px - 6rem)) / 2))`,
     },
     [theme.breakpoints.up("xl")]: {
-      maxWidth: `calc((${CONTENT_MAXWIDTH_XL} - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_XL} - 6rem)) / 2))`,
+      maxWidth: `calc((${CONTENT_MAXWIDTH_XL}px - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_XL}px - 6rem)) / 2))`,
     },
   },
 }))(Block);
