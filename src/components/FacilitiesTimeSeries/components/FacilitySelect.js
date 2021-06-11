@@ -3,8 +3,10 @@ import { getLang } from "../../../common/utils/i18n";
 import { Block } from "@hyperobjekt/material-ui-website";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles, TextField } from "@material-ui/core";
-import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
+// import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
+import useTimeSeriesStore from "../useTimeSeriesStore";
+// import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,22 +20,29 @@ const useStyles = makeStyles((theme) => ({
 const FacilitySelect = ({ ...props }) => {
   const classes = useStyles();
 
-  const [facilities, setFacilities] = React.useState([]);
+  const [allFacilities, setAllFacilities] = React.useState([]);
+  const { setSelectedFacilities } = useTimeSeriesStore(
+    (state) => state
+  );
+  const handleSelection = (event, selected) => setSelectedFacilities(selected);
 
-  React.useEffect(async () => {
-    const result = await csv("/data/allFacilities");
-    console.log("********", result.length);
-    setFacilities(result);
+  // load all facilities on initial load
+  React.useEffect(() => {
+    async function fetchData() {
+      const result = await csv("./data/allFacilities");
+;
+      setAllFacilities(result);
+    }
+    fetchData();
   }, []);
-  // const facilities = useFacilitiesMetadata();
-  // const facilities = React.useEffect();
 
   return (
     <div className={classes.root}>
       <Autocomplete
         multiple
         id="facility-autocomplete"
-        options={facilities}
+        options={allFacilities}
+        onChange={handleSelection}
         getOptionLabel={(option) => option.name}
         groupBy={(option) => option.state}
         renderInput={(params) => (
