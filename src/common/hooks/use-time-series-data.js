@@ -37,50 +37,67 @@ const parseTimeSeries = (timeSeries = {}) => {
 };
 
 export default function useTimeSeriesData() {
-  const metric = useOptionsStore((state) => state.metric);
-  const group = useStatesStore((state) => state.facilitiesGroup);
+  // const metric = useOptionsStore((state) => state.metric);
+  // const group = useStatesStore((state) => state.facilitiesGroup);
 
   const {
     selectedFacilities,
-    setSelectedFacilities,
+
     loadedStates,
-    setLoadedStates,
+    loadedStateDataMap,
     setLoaded,
-    loadedDataMap,
-    setLoadedDataMap,
+
+    parsedFacilityMap,
+    setParsedFacilityMap,
   } = useTimeSeriesStore((state) => state, shallow);
 
-  //
-  const getFacilityData = useCallback((facilityId, state) => {
-    console.log(state, facilityId);
-    const stateData = loadedDataMap[state];
+  const getParsedFacilityData = useCallback((facilityId, state) => {
+    const stateData = loadedStateDataMap[state];
     const facData = stateData.find((fac) => fac.id === facilityId);
 
     return parseTimeSeries(facData);
   }, []);
 
-  const addStateData = (state) => {
-    csv("./data/" + state, (x) => x)
+  const loadStateData = useCallback((state) => {
+    csv("./data/" + state)
       .then((d) => {
-        loadedDataMap[state] = d;
-        setLoaded(state, loadedDataMap);
+        loadedStateDataMap[state] = d;
+        console.log(`DATA LOADED FOR ${state}`);
+        setLoaded(state, loadedStateDataMap);
       })
       .catch((err) => {
         console.error(
           `Failed to load ${state} time series data due to: ${err}`
         );
       });
-  };
+  }, []);
 
   return useMemo(() => {
     const output = {};
 
+    debugger;
+    console.log(`GETTING TIME SERIES DATA`);
+    
     selectedFacilities.forEach(({ name, state, id }) => {
-      if (loadedDataMap[state]) {
-        const data = getFacilityData(id, state);
-        output[id] = data;
+      let facilityData = parsedFacilityMap[id];
+      if (facilityData) {
+        // already been parsed
+        console.log(`USING PARSED DATA FOR ${name}`);
+        output[id] = facilityData
+      } else if (loadedStateDataMap[state]) {
+        // state already loaded, facility not yet parsed
+        console.log(`CREATING PARSED DATA FOR ${name}`);
+        facilityData = getParsedFacilityData(id, state);
+        output[id] = facilityData;
+        
+        // add parsed facility to state so it can be used immediately next time
+        parsedFacilityMap[id] = facilityData
+        setParsedFacilityMap(parsedFacilityMap)
       } else {
-        addStateData(state);
+        // Async call to load state data. Once setLoaded is called with newly loaded data,
+        // loadedStates will update and trigger a recalculation here.
+        console.log(`LOADING DATA FOR ${state}`);
+        loadStateData(state);
       }
     });
     return output;

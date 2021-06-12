@@ -6,7 +6,7 @@ import { makeStyles, TextField } from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
 import useTimeSeriesStore from "../useTimeSeriesStore";
-// import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
+import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,21 +21,21 @@ const FacilitySelect = ({ ...props }) => {
   const classes = useStyles();
 
   const [allFacilities, setAllFacilities] = React.useState([]);
-  const { setSelectedFacilities } = useTimeSeriesStore(
-    (state) => state
-  );
+  const { setSelectedFacilities } = useTimeSeriesStore((state) => state);
   const handleSelection = (event, selected) => setSelectedFacilities(selected);
 
   // load all facilities on initial load
   React.useEffect(() => {
     async function fetchData() {
       const result = await csv("./data/allFacilities");
-;
       setAllFacilities(result);
     }
     fetchData();
   }, []);
 
+  // TODO to reflect loaded data, make controlled component
+  // and display as "selected" only the facilities having data
+  // loaded into useTimeSeriesData
   return (
     <div className={classes.root}>
       <Autocomplete

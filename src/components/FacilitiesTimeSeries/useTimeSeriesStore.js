@@ -5,10 +5,22 @@ const useTimeSeriesStore = create((set, get) => ({
   setSelectedFacilities: (selectedFacilities) => set({ selectedFacilities }),
   loadedStates: [],
   // setLoadedStates: (loadedStates) => set({ loadedStates }),
-  // loadedDataMap: [],
-  // setLoadedDataMap: (loadedDataMap) => set({ loadedDataMap }),
-  setLoaded: (state, loadedDataMap) =>
-    set({ loadedStates: [...get().loadedStates, state], loadedDataMap }),
+  loadedStateDataMap: {},
+  // setLoadedStateDataMap: (loadedStateDataMap) => set({ loadedStateDataMap }),
+  setLoaded: (state, loadedStateDataMap) =>
+    set({
+      loadedStates: [...get().loadedStates, state],
+      loadedStateDataMap,
+    }),
+
+  // parsedFacilities: [],
+  parsedFacilityMap: {},
+  setParsedFacilityMap: (parsedFacilityMap) => set({ parsedFacilityMap }),
+  // setParsed: (facility, parsedFacilityMap) =>
+  //   set({
+  //     parsedFacilities: [...get().parsedFacilities, facility],
+  //     parsedFacilityMap,
+  //   }),
 }));
 
 export default useTimeSeriesStore;
