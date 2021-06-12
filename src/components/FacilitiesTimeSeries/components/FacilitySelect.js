@@ -21,7 +21,9 @@ const FacilitySelect = ({ ...props }) => {
   const classes = useStyles();
 
   const [allFacilities, setAllFacilities] = React.useState([]);
-  const { setSelectedFacilities } = useTimeSeriesStore((state) => state);
+  const { setSelectedFacilities, selectedFacilities } = useTimeSeriesStore(
+    (state) => state
+  );
   const handleSelection = (event, selected) => setSelectedFacilities(selected);
 
   // load all facilities on initial load
@@ -33,13 +35,15 @@ const FacilitySelect = ({ ...props }) => {
     fetchData();
   }, []);
 
-  // TODO to reflect loaded data, make controlled component
-  // and display as "selected" only the facilities having data
-  // loaded into useTimeSeriesData
+  const facilitiesData = useTimeSeriesData();
+  // only show facility as selected when its data is ready to be charted
+  const values = selectedFacilities.filter(({ id }) => !!facilitiesData[id]);
+
   return (
     <div className={classes.root}>
       <Autocomplete
         multiple
+        value={values}
         id="facility-autocomplete"
         options={allFacilities}
         onChange={handleSelection}
