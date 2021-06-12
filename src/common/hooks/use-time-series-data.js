@@ -75,7 +75,6 @@ export default function useTimeSeriesData() {
   return useMemo(() => {
     const output = {};
 
-    debugger;
     console.log(`GETTING TIME SERIES DATA`);
     
     selectedFacilities.forEach(({ name, state, id }) => {
