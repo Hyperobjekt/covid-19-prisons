@@ -7,6 +7,7 @@ import { makeStyles, TextField } from "@material-ui/core";
 import { csv } from "d3-fetch";
 import useTimeSeriesStore from "../useTimeSeriesStore";
 import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
+import { formatFacilityName } from "../../../common/utils/formatters";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -30,27 +31,20 @@ const FacilitySelect = ({ ...props }) => {
     fetchData();
   }, []);
 
-  const facilitiesData = useTimeSeriesData();
+  // const facilitiesData = useTimeSeriesData();
   // only show facility as selected when its data is ready to be charted
-  const values = selectedFacilities
-    .slice()
-    .filter(({ id }) => !!facilitiesData[id])
-    .map((f) => {
-      // f.name = f.name + ", " + f.state;
-      return f;
-    });
-
+  // const values = selectedFacilities.filter(({ id }) => !!facilitiesData[id]);
   return (
     <div className={classes.root}>
       <Autocomplete
         multiple
-        value={values}
+        // value={values}
         id="facility-autocomplete"
         options={allFacilities}
         onChange={handleSelection}
-        getOptionLabel={(option) => option.name + ", " + option.state}
+        getOptionLabel={formatFacilityName}
         renderOption={(option) => option.name}
-        groupBy={(option) => option.state}
+        groupBy={({ state }) => (state === "*other" ? "" : state)}
         size="small"
         renderInput={(params) => (
           <TextField
