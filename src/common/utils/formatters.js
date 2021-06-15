@@ -14,3 +14,8 @@ export const formatMetricValue = (value, metric) => {
   }
   return format(value)
 }
+
+export const formatFacilityName = ({ name, state }) => {
+  const appendState = !name.includes(state) && state !== "*other";
+  return !appendState ? name : `${name}, ${state}`;
+};

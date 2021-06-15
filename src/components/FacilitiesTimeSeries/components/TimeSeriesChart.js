@@ -2,6 +2,7 @@ import React from "react";
 import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 import useOptionsStore from "../../../common/hooks/use-options-store";
 import useStatesStore from "../../states/useStatesStore";
+import { formatFacilityName } from "../../../common/utils/formatters";
 
 import {
   AnimatedAxis, // any of these can be non- equivalents
@@ -24,16 +25,20 @@ const TimeSeriesChart = () => {
   const group = useStatesStore((state) => state.facilitiesGroup);
   const { selectedFacilities } = useTimeSeriesStore((state) => state, shallow);
 
-  const linesData = selectedFacilities.reduce((accum, { id, name, state }) => {
-    const facilityData = facilitiesData[id];
+  let dataLoading = false;
+  const linesData = selectedFacilities.reduce((accum, facility) => {
+    const facilityData = facilitiesData[facility.id];
     if (!facilityData) {
-      console.warn("Facility not yet loaded: ", name);
+      console.log("Facility not yet loaded: ", name);
+      dataLoading = true;
       return accum;
     }
 
     const accessor = group + "_" + metric;
     const lineData = facilityData[accessor];
-    accum.push({ name: `${name}, ${state}`, lineData });
+
+    const name = formatFacilityName(facility);
+    accum.push({ name, lineData });
     return accum;
   }, []);
 
