@@ -2,8 +2,6 @@ import { csv } from "d3-fetch";
 import { useCallback, useMemo } from "react";
 import shallow from "zustand/shallow";
 import useTimeSeriesStore from "../../components/FacilitiesTimeSeries/useTimeSeriesStore";
-import useStatesStore from "../../components/states/useStatesStore";
-import useOptionsStore from "./use-options-store";
 
 const groupMetrics = {
   residents: ["confirmed", "deaths", "active", "tested"],
@@ -25,10 +23,14 @@ const parseTimeSeries = (timeSeries = {}) => {
       const rateAccessor = accessor + "_rate";
 
       [accessor, rateAccessor].forEach((acc) => {
-        result[acc] = timeSeries[acc].split(";").map((keyValStr) => {
-          const [date, value] = keyValStr.split("|");
-          return { date, value };
-        });
+        const dataString = timeSeries[acc];
+
+        result[acc] = !dataString
+          ? []
+          : dataString.split(";").map((keyValStr) => {
+              const [date, value] = keyValStr.split("|");
+              return { date, value };
+            });
       });
     });
   });
@@ -37,9 +39,6 @@ const parseTimeSeries = (timeSeries = {}) => {
 };
 
 export default function useTimeSeriesData() {
-  // const metric = useOptionsStore((state) => state.metric);
-  // const group = useStatesStore((state) => state.facilitiesGroup);
-
   const {
     selectedFacilities,
 
@@ -76,22 +75,22 @@ export default function useTimeSeriesData() {
     const output = {};
 
     console.log(`GETTING TIME SERIES DATA`);
-    
+
     selectedFacilities.forEach(({ name, state, id }) => {
       let facilityData = parsedFacilityMap[id];
       if (facilityData) {
         // already been parsed
         console.log(`USING PARSED DATA FOR ${name}`);
-        output[id] = facilityData
+        output[id] = facilityData;
       } else if (loadedStateDataMap[state]) {
         // state already loaded, facility not yet parsed
         console.log(`CREATING PARSED DATA FOR ${name}`);
         facilityData = getParsedFacilityData(id, state);
         output[id] = facilityData;
-        
+
         // add parsed facility to state so it can be used immediately next time
-        parsedFacilityMap[id] = facilityData
-        setParsedFacilityMap(parsedFacilityMap)
+        parsedFacilityMap[id] = facilityData;
+        setParsedFacilityMap(parsedFacilityMap);
       } else {
         // Async call to load state data. Once setLoaded is called with newly loaded data,
         // loadedStates will update and trigger a recalculation here.

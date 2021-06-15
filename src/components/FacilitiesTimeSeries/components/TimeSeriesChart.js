@@ -13,10 +13,6 @@ import {
 import useTimeSeriesStore from "../useTimeSeriesStore";
 import shallow from "zustand/shallow";
 
-// TODO
-// - filter out NaN?
-// -
-
 const accessors = {
   xAccessor: (d) => new Date(`${d.date}T00:00:00`),
   yAccessor: (d) => Number(d.value),
@@ -28,7 +24,7 @@ const TimeSeriesChart = () => {
   const group = useStatesStore((state) => state.facilitiesGroup);
   const { selectedFacilities } = useTimeSeriesStore((state) => state, shallow);
 
-  const linesData = selectedFacilities.reduce((accum, { id, name }) => {
+  const linesData = selectedFacilities.reduce((accum, { id, name, state }) => {
     const facilityData = facilitiesData[id];
     if (!facilityData) {
       console.warn("Facility not yet loaded: ", name);
@@ -37,7 +33,7 @@ const TimeSeriesChart = () => {
 
     const accessor = group + "_" + metric;
     const lineData = facilityData[accessor];
-    accum.push({ name, lineData });
+    accum.push({ name: `${name}, ${state}`, lineData });
     return accum;
   }, []);
 

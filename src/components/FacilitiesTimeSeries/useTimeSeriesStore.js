@@ -1,6 +1,16 @@
 import create from "zustand";
+import { METRICS, GROUPS } from "../../common/constants";
+
+// grab first group (residents)
+const group = Object.keys(GROUPS)[0];
+const metric = METRICS[group];
 
 const useTimeSeriesStore = create((set, get) => ({
+  selectedMetric: metric,
+  setMetric: (selectedMetric) => set({ selectedMetric }),
+  selectedGroup: group,
+  setMetric: (selectedGroup) => set({ selectedGroup }),
+
   selectedFacilities: [],
   setSelectedFacilities: (selectedFacilities) => set({ selectedFacilities }),
   loadedStates: [],
