@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
 }));
 
-const FacilitySelect = ({ ...props }) => {
+const FacilitySelect = ({ defaultFacilities = [] }) => {
   const classes = useStyles();
 
   const [allFacilities, setAllFacilities] = React.useState([]);
@@ -25,8 +25,12 @@ const FacilitySelect = ({ ...props }) => {
   // load all facilities on initial load
   React.useEffect(() => {
     async function fetchData() {
-      const result = await csv("./data/allFacilities");
-      setAllFacilities(result);
+      const allFacilities = await csv("./data/allFacilities");
+      setAllFacilities(allFacilities);
+      const defaultSelected = defaultFacilities
+          .map((facId) => allFacilities.find(({ id }) => id === facId))
+          .filter((f) => !!f);
+      setSelectedFacilities(defaultSelected);
     }
     fetchData();
   }, []);
@@ -38,7 +42,7 @@ const FacilitySelect = ({ ...props }) => {
     <div className={classes.root}>
       <Autocomplete
         multiple
-        // value={values}
+        value={selectedFacilities}
         id="facility-autocomplete"
         options={allFacilities}
         onChange={handleSelection}
