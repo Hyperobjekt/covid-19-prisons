@@ -2,35 +2,29 @@ import create from "zustand";
 import { METRICS, GROUPS } from "../../common/constants";
 
 // grab first group (residents)
-const group = Object.keys(GROUPS)[0];
-const metric = METRICS[group];
+const group = GROUPS[0];
+const metric = METRICS[group][0];
 
 const useTimeSeriesStore = create((set, get) => ({
   selectedMetric: metric,
-  setMetric: (selectedMetric) => set({ selectedMetric }),
+  setSelectedMetric: (selectedMetric) => set({ selectedMetric }),
   selectedGroup: group,
-  setMetric: (selectedGroup) => set({ selectedGroup }),
+  setSelectedGroup: (selectedGroup) => set({ selectedGroup }),
 
   selectedFacilities: [],
   setSelectedFacilities: (selectedFacilities) => set({ selectedFacilities }),
+
   loadedStates: [],
-  // setLoadedStates: (loadedStates) => set({ loadedStates }),
   loadedStateDataMap: {},
-  // setLoadedStateDataMap: (loadedStateDataMap) => set({ loadedStateDataMap }),
+  // loadedStates is simply the keys of loadedStateDataMap, useful to insure an easy diff
   setLoaded: (state, loadedStateDataMap) =>
     set({
       loadedStates: [...get().loadedStates, state],
       loadedStateDataMap,
     }),
 
-  // parsedFacilities: [],
   parsedFacilityMap: {},
   setParsedFacilityMap: (parsedFacilityMap) => set({ parsedFacilityMap }),
-  // setParsed: (facility, parsedFacilityMap) =>
-  //   set({
-  //     parsedFacilities: [...get().parsedFacilities, facility],
-  //     parsedFacilityMap,
-  //   }),
 }));
 
 export default useTimeSeriesStore;

@@ -3,9 +3,10 @@ import { useCallback, useMemo } from "react";
 import shallow from "zustand/shallow";
 import useTimeSeriesStore from "../../components/FacilitiesTimeSeries/useTimeSeriesStore";
 
+// TODO: confirm staff metrics
 const groupMetrics = {
   residents: ["confirmed", "deaths", "active", "tested"],
-  staff: ["confirmed", "deaths", "active"],
+  staff: ["confirmed", "deaths", "active", "tested"],
 };
 
 const parseTimeSeries = (timeSeries = {}) => {

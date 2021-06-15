@@ -1,7 +1,5 @@
 import React from "react";
 import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
-import useOptionsStore from "../../../common/hooks/use-options-store";
-import useStatesStore from "../../states/useStatesStore";
 import { formatFacilityName } from "../../../common/utils/formatters";
 
 import {
@@ -21,9 +19,8 @@ const accessors = {
 
 const TimeSeriesChart = () => {
   const facilitiesData = useTimeSeriesData();
-  const metric = useOptionsStore((state) => state.metric);
-  const group = useStatesStore((state) => state.facilitiesGroup);
-  const { selectedFacilities } = useTimeSeriesStore((state) => state, shallow);
+  const { selectedFacilities, selectedGroup, selectedMetric } =
+    useTimeSeriesStore((state) => state, shallow);
 
   let dataLoading = false;
   const linesData = selectedFacilities.reduce((accum, facility) => {
@@ -34,7 +31,7 @@ const TimeSeriesChart = () => {
       return accum;
     }
 
-    const accessor = group + "_" + metric;
+    const accessor = selectedGroup + "_" + selectedMetric;
     const lineData = facilityData[accessor];
 
     const name = formatFacilityName(facility);
@@ -75,7 +72,8 @@ const TimeSeriesChart = () => {
             </div>
             {accessors.xAccessor(tooltipData.nearestDatum.datum).toDateString()}
             <br />
-            {metric}:{accessors.yAccessor(tooltipData.nearestDatum.datum)}
+            {selectedMetric}:
+            {accessors.yAccessor(tooltipData.nearestDatum.datum)}
           </div>
         )}
       />
