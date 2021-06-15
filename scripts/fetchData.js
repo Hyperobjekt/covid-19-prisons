@@ -12,7 +12,7 @@ const {
   roughMatch,
 } = require(`./parseData.js`);
 const US_STATES = require("../data/us_states.json");
-const { writeFile } = require("./utils.js");
+const { writeFile, fixCasing, getInt, validStateNames } = require("./utils.js");
 
 async function getData(url, parser, options = {}) {
   let data = await fetchCsv(url, parser);
@@ -37,19 +37,20 @@ exports.loadTimeSeries = () => {
       Residents: ["Confirmed", "Deaths", "Active", "Tested"],
       Staff: ["Confirmed", "Deaths", "Active"],
     };
-    
+
     const byFacility = groups(d, (r) => r["Facility.ID"]);
     const allFacilities = [];
 
     const shapedData = byFacility.map((facData) => {
-      const facId = facData[0];
+      const id = facData[0];
       const facRows = facData[1];
       const sampleRow = facRows[0];
+      const state = validStateNames.includes(sampleRow["State"]) ? sampleRow["State"] : "*other";
 
       const facility = {
-        id: facId,
-        name: sampleRow["Name"],
-        state: sampleRow["State"],
+        id,
+        state,
+        name: fixCasing(sampleRow["Name"]),
       };
 
       ["Residents", "Staff"].forEach((grp) => {
@@ -67,13 +68,22 @@ exports.loadTimeSeries = () => {
 
           facRows.forEach((row) => {
             const date = row["Date"];
-            const population = row[popAccessor];
-            const value = row[accessor];
-
-            facility[newKey] += date + "|" + value + ";";
-
-            const rate = +value / +population;
-            facility[newRateKey] += date + "|" + rate + ";";
+            const value = getInt(row[accessor]);
+            
+            // record non-values only if some value is already recorded
+            // (so gaps between data are shown, but not large leading gaps)
+            if (Number.isInteger(value) || facility[newKey]) {
+              
+              facility[newKey] += date + "|" + value + ";";
+              
+              // ignore populations of 0
+              const population = getInt(row[popAccessor]) || NaN;
+              
+              if (Number.isInteger(population) || facility[newRateKey]) {
+                const rate = value / population;
+                facility[newRateKey] += date + "|" + rate + ";";
+              }
+            }
           });
         });
       });
@@ -95,6 +105,7 @@ exports.loadTimeSeries = () => {
       writeFile(csvFormat(stateRows), "./static/data/" + stateName);
     });
 
+    // sorts primarily by State, secondarily by Name
     const sortedFacilities = allFacilities.sort((a, b) => {
       const stateA = a.state.toLowerCase();
       const stateB = b.state.toLowerCase();

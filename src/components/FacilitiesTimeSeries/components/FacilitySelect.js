@@ -9,12 +9,7 @@ import useTimeSeriesStore from "../useTimeSeriesStore";
 import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 500,
-    "& > * + *": {
-      marginTop: theme.spacing(3),
-    },
-  },
+  root: {},
 }));
 
 const FacilitySelect = ({ ...props }) => {
@@ -37,7 +32,13 @@ const FacilitySelect = ({ ...props }) => {
 
   const facilitiesData = useTimeSeriesData();
   // only show facility as selected when its data is ready to be charted
-  const values = selectedFacilities.filter(({ id }) => !!facilitiesData[id]);
+  const values = selectedFacilities
+    .slice()
+    .filter(({ id }) => !!facilitiesData[id])
+    .map((f) => {
+      // f.name = f.name + ", " + f.state;
+      return f;
+    });
 
   return (
     <div className={classes.root}>
@@ -47,8 +48,10 @@ const FacilitySelect = ({ ...props }) => {
         id="facility-autocomplete"
         options={allFacilities}
         onChange={handleSelection}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.name + ", " + option.state}
+        renderOption={(option) => option.name}
         groupBy={(option) => option.state}
+        size="small"
         renderInput={(params) => (
           <TextField
             {...params}
