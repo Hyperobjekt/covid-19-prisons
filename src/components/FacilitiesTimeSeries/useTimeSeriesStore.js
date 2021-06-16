@@ -16,7 +16,7 @@ const useTimeSeriesStore = create((set, get) => ({
 
   loadedStates: [],
   loadedStateDataMap: {},
-  // loadedStates is simply the keys of loadedStateDataMap, useful to insure an easy diff
+  // loadedStates is simply the keys of loadedStateDataMap, useful to ensure an easy diff
   setLoaded: (state, loadedStateDataMap) =>
     set({
       loadedStates: [...get().loadedStates, state],
