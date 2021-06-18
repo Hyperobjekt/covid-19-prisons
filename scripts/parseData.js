@@ -174,9 +174,9 @@ const parseFacility = (facility = {}) => {
 const parseVaccine = (vaccine = {}) => {
   const source = groupObjectData(vaccine)
 
-  const residentKeys = ["initiated", "population.jan21"]
+  const residentKeys = ["initiated", "population"]
   // to change name from spreadsheet on import
-  const residentKeyMap = { "population.jan21": "population" }
+  const residentKeyMap = { "population": "population" }
   const staffKeys = ["initiated", "population"]
 
   const result = {}
