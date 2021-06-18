@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     "& header": {
       // background: theme.palette.background.alt3,
     },
-    // SCORECARD TABLE STYLES
-    "& .scorecard-table": {
+    // SCORECARD & VACCINE TABLE STYLES
+    "& .scorecard-table, & .vaccine-table": {
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
       marginLeft: theme.columnSpacing(-1),
@@ -45,56 +45,57 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.columnSpacing(-0.5),
         width: `calc(100% + ${theme.columnSpacing(1)})`,
       },
-    },
-    "& .scorecard-table .MuiTable-root": {
-      position: "relative",
-    },
-    "& .MuiTableCell-head:nth-child(5), & .MuiTableCell-body:nth-child(2)": {
-      minWidth: 100,
-    },
-    "& .MuiTableCell-head": {
-      background: "#fff",
-      fontWeight: 700,
-      lineHeight: 1.333,
-      verticalAlign: "bottom",
-      textAlign: "center",
-      zIndex: 999,
-      borderBottom: `none`,
-      boxShadow: `0 2px 0 ${theme.palette.text.primary}`,
-      [theme.breakpoints.up("sm")]: {
-        position: "sticky",
-        top: 56,
+
+      "& .MuiTable-root": {
+        position: "relative",
+      },
+      "& .MuiTableCell-head:nth-child(5), & .MuiTableCell-body:nth-child(2)": {
+        minWidth: 100,
+      },
+      "& .MuiTableCell-head": {
+        background: "#fff",
+        fontWeight: 700,
+        lineHeight: 1.333,
+        verticalAlign: "bottom",
+        textAlign: "center",
+        zIndex: 999,
+        borderBottom: `none`,
+        boxShadow: `0 2px 0 ${theme.palette.text.primary}`,
+        [theme.breakpoints.up("sm")]: {
+          position: "sticky",
+          top: 56,
+        },
+      },
+      "& .MuiTableCell-head:first-child": {
+        textAlign: "left",
+      },
+      "& .MuiTableCell-head span": {
+        display: "block",
+        fontWeight: 500,
+        color: theme.palette.text.secondary,
+      },
+      "& .MuiTableCell-body": {
+        textAlign: "center",
+      },
+      "& .MuiTableCell-body:first-child": {
+        textAlign: "left",
+      },
+      "& .MuiTableCell-body span + span": {
+        display: "block",
+        margin: "auto",
+        fontWeight: 500,
+        color: theme.palette.text.secondary,
+      },
+      "& .MuiTableRow-root:nth-child(2) .MuiTableCell-body": {
+        borderBottom: `1px solid ${theme.palette.text.primary}`,
       },
     },
-    "& .MuiTableCell-head:first-child": {
-      textAlign: "left",
-    },
-    "& .MuiTableCell-head span": {
-      display: "block",
-      fontWeight: 500,
-      color: theme.palette.text.secondary,
-    },
-    "& .MuiTableCell-body": {
-      textAlign: "center",
-    },
-    "& .MuiTableCell-body:first-child": {
-      textAlign: "left",
-    },
-    "& .MuiTableCell-body:nth-child(2) span:first-child": {
+    "& .scorecard-table .MuiTableCell-body:nth-child(2) span:first-child": {
       fontWeight: 700,
       marginRight: 4,
       fontSize: theme.typography.pxToRem(16),
     },
-    "& .MuiTableCell-body span + span": {
-      display: "block",
-      margin: "auto",
-      fontWeight: 500,
-      color: theme.palette.text.secondary,
-    },
-    "& .MuiTableRow-root:nth-child(2) .MuiTableCell-body": {
-      borderBottom: `1px solid ${theme.palette.text.primary}`,
-    },
-    // END SCORECARD TABLE STYLES
+    // END BLOG TABLE STYLES
   },
   hero: {
     background: theme.palette.background.alt3,
@@ -250,14 +251,13 @@ const useStyles = makeStyles((theme) => ({
         columnCount: 2,
         columnGap: theme.spacing(3),
       },
-      
+
       "& p": {
         [theme.breakpoints.only("sm")]: {
           fontSize: theme.typography.pxToRem(16),
         },
       },
     },
-
   },
   featuredImage: {
     [theme.breakpoints.up("sm")]: {
