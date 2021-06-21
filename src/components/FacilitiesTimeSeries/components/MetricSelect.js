@@ -13,8 +13,14 @@ const useStyles = makeStyles((theme) => ({
 const MetricSelect = ({ ...props }) => {
   const classes = useStyles();
 
-  const { setSelectedMetric, selectedMetric, selectedGroup } =
-    useTimeSeriesStore((state) => state, shallow);
+  const [setSelectedMetric, selectedMetric, selectedGroup] = useTimeSeriesStore(
+    (state) => [
+      state.setSelectedMetric,
+      state.selectedMetric,
+      state.selectedGroup,
+    ],
+    shallow
+  );
 
   // TODO: which options should be available for staff?
   const options = METRICS[GROUPS[0]];

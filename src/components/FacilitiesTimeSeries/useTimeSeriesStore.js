@@ -22,9 +22,6 @@ const useTimeSeriesStore = create((set, get) => ({
       loadedStates: [...get().loadedStates, state],
       loadedStateDataMap,
     }),
-
-  parsedFacilityMap: {},
-  setParsedFacilityMap: (parsedFacilityMap) => set({ parsedFacilityMap }),
 }));
 
 export default useTimeSeriesStore;

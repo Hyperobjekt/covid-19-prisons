@@ -20,8 +20,15 @@ const accessors = {
 const TimeSeriesChart = () => {
   const facilitiesData = useTimeSeriesData();
 
-  const { selectedFacilities, selectedGroup, selectedMetric } =
-  useTimeSeriesStore((state) => state, shallow);
+  const [selectedFacilities, selectedGroup, selectedMetric] =
+    useTimeSeriesStore(
+      (state) => [
+        state.selectedFacilities,
+        state.selectedGroup,
+        state.selectedMetric,
+      ],
+      shallow
+    );
 
   const accessor = selectedGroup + "_" + selectedMetric;
 

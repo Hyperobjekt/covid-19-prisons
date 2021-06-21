@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
 const GroupSelect = ({ ...props }) => {
   const classes = useStyles();
 
-  const { setSelectedGroup, selectedGroup } = useTimeSeriesStore(
-    (state) => state,
+  const [setSelectedGroup, selectedGroup] = useTimeSeriesStore(
+    (state) => [state.setSelectedGroup, state.selectedGroup],
     shallow
   );
 

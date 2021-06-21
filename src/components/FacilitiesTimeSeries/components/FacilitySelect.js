@@ -17,8 +17,8 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
   const classes = useStyles();
 
   const [allFacilities, setAllFacilities] = React.useState([]);
-  const { setSelectedFacilities, selectedFacilities } = useTimeSeriesStore(
-    (state) => state
+  const [setSelectedFacilities, selectedFacilities] = useTimeSeriesStore(
+    (state) => [state.setSelectedFacilities, state.selectedFacilities]
   );
   const handleSelection = (event, selected) => setSelectedFacilities(selected);
 

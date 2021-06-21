@@ -41,12 +41,16 @@ const parseTimeSeries = (timeSeries = {}) => {
 };
 
 export default function useTimeSeriesData() {
-  const {
-    selectedFacilities,
-    loadedStateDataMap,
-    loadedStates,
-    setLoaded,
-  } = useTimeSeriesStore((state) => state, shallow);
+  const [selectedFacilities, loadedStateDataMap, loadedStates, setLoaded] =
+    useTimeSeriesStore(
+      (state) => [
+        state.selectedFacilities,
+        state.loadedStateDataMap,
+        state.loadedStates,
+        state.setLoaded,
+      ],
+      shallow
+    );
 
   /** Returns data for selectedFacilities, and loads the data if unavailable */
   return useMemo(() => {
