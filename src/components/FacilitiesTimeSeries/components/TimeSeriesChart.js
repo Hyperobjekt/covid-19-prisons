@@ -19,26 +19,25 @@ const accessors = {
 
 const TimeSeriesChart = () => {
   const facilitiesData = useTimeSeriesData();
+
   const { selectedFacilities, selectedGroup, selectedMetric } =
-    useTimeSeriesStore((state) => state, shallow);
+  useTimeSeriesStore((state) => state, shallow);
 
-  let dataLoading = false;
-  const linesData = selectedFacilities.reduce((accum, facility) => {
-    const facilityData = facilitiesData[facility.id];
-    if (!facilityData) {
-      console.log("Facility not yet loaded: ", name);
-      dataLoading = true;
-      return accum;
-    }
+  const accessor = selectedGroup + "_" + selectedMetric;
 
-    const accessor = selectedGroup + "_" + selectedMetric;
+  const linesData = facilitiesData.map((facilityData) => {
     const lineData = facilityData[accessor];
+    const { id } = facilitiesData
+    const name = formatFacilityName(facilityData);
+    
+    return ({ name, id, lineData });
+  });
 
-    const name = formatFacilityName(facility);
-    accum.push({ name, lineData });
-    return accum;
-  }, []);
-
+  const dataLoading = selectedFacilities.some(({ id }) => {
+    return !linesData.find(lineData => lineData.id === id)
+  });
+  
+  console.log("loading:", dataLoading);
   console.log("#::", linesData);
   return (
     <XYChart height={400} xScale={{ type: "time" }} yScale={{ type: "linear" }}>

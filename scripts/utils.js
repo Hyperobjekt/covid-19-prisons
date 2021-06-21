@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { csv: fetchCsv } = require("d3-fetch");
 
+// keep in line with getSlug in selectors.js
 function slugify(text) {
   return text
     .toString()
