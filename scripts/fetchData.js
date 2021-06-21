@@ -1,8 +1,8 @@
 if (typeof fetch !== "function") {
   global.fetch = require("node-fetch");
 }
-const { csv: fetchCsv, text: fetchText } = require("d3-fetch");
-const { csvParse, csvFormat } = require("d3-dsv");
+const { text: fetchText } = require("d3-fetch");
+const { csvParse } = require("d3-dsv");
 const { groups } = require("d3-array");
 const {
   parseFacility,
@@ -12,114 +12,9 @@ const {
   roughMatch,
 } = require(`./parseData.js`);
 const US_STATES = require("../data/us_states.json");
-const { writeFile, fixCasing, getInt, validStateNames } = require("./utils.js");
-
-async function getData(url, parser, options = {}) {
-  let data = await fetchCsv(url, parser);
-  // remove descriptive rows following the top identifier row
-  if (options.dropRows) {
-    data = data.slice(options.dropRows);
-  }
-  return data;
-}
+const { getData } = require("./utils.js");
 
 const dataBranch = process.env.DATA_BRANCH || "master";
-
-/**
- * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
- */
-
-const timeSeriesCsv = `http://104.131.72.50:3838/scraper_data/summary_data/scraped_time_series.csv`;
-
-exports.loadTimeSeries = () => {
-  getData(timeSeriesCsv).then((d) => {
-    const groupKeys = {
-      Residents: ["Confirmed", "Deaths", "Active", "Tested"],
-      Staff: ["Confirmed", "Deaths", "Active"],
-    };
-
-    const byFacility = groups(d, (r) => r["Facility.ID"]);
-    const allFacilities = [];
-
-    const shapedData = byFacility.map((facData) => {
-      const id = facData[0];
-      const facRows = facData[1];
-      const sampleRow = facRows[0];
-      const state = validStateNames.includes(sampleRow["State"]) ? sampleRow["State"] : "*other";
-
-      const facility = {
-        id,
-        state,
-        name: fixCasing(sampleRow["Name"]),
-      };
-
-      ["Residents", "Staff"].forEach((grp) => {
-        const keys = groupKeys[grp];
-        const popAccessor = grp + ".Population";
-
-        keys.forEach((key) => {
-          const accessor = grp + "." + key;
-
-          const newKey = (grp + "_" + key).toLowerCase();
-          facility[newKey] = "";
-
-          const newRateKey = newKey + "_rate";
-          facility[newRateKey] = "";
-
-          facRows.forEach((row) => {
-            const date = row["Date"];
-            const value = getInt(row[accessor]);
-            
-            // record non-values only if some value is already recorded
-            // (so gaps between data are shown, but not large leading gaps)
-            if (Number.isInteger(value) || facility[newKey]) {
-              
-              facility[newKey] += date + "|" + value + ";";
-              
-              // ignore populations of 0
-              const population = getInt(row[popAccessor]) || NaN;
-              
-              if (Number.isInteger(population) || facility[newRateKey]) {
-                const rate = value / population;
-                facility[newRateKey] += date + "|" + rate + ";";
-              }
-            }
-          });
-        });
-      });
-
-      allFacilities.push({
-        id: facility.id,
-        name: facility.name,
-        state: facility.state,
-      });
-
-      return facility;
-    });
-
-    const shapedByState = groups(shapedData, (r) => r.state);
-    shapedByState.forEach((stateData, i) => {
-      const stateName = stateData[0];
-      const stateRows = stateData[1];
-
-      writeFile(csvFormat(stateRows), "./static/data/" + stateName);
-    });
-
-    // sorts primarily by State, secondarily by Name
-    const sortedFacilities = allFacilities.sort((a, b) => {
-      const stateA = a.state.toLowerCase();
-      const stateB = b.state.toLowerCase();
-      if (stateA > stateB) return 1;
-      if (stateA < stateB) return -1;
-
-      const nameA = a.name.toLowerCase();
-      const nameB = b.name.toLowerCase();
-      return nameA > nameB ? 1 : -1;
-    });
-    writeFile(csvFormat(sortedFacilities), "./static/data/allFacilities");
-    console.log("Time series loaded");
-  });
-};
 
 /**
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)

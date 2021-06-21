@@ -50,6 +50,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prebuild": "node scripts/sourceTimeSeries.js",
     "build": "gatsby build",
     "develop": "gatsby develop -H 0.0.0.0",
     "clean": "gatsby clean",

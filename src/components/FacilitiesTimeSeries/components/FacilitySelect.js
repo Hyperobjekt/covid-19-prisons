@@ -25,7 +25,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
   // load all facilities on initial load
   React.useEffect(() => {
     async function fetchData() {
-      const allFacilities = await csv("./data/allFacilities");
+      const allFacilities = await csv("./data/allFacilities.csv");
       setAllFacilities(allFacilities);
       const defaultSelected = defaultFacilities
           .map((facId) => allFacilities.find(({ id }) => id === facId))

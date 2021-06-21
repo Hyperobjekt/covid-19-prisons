@@ -59,7 +59,7 @@ export default function useTimeSeriesData() {
   }, []);
 
   const loadStateData = useCallback((state) => {
-    csv("./data/" + state)
+    csv(`./data/${state}.csv`)
       .then((d) => {
         loadedStateDataMap[state] = d;
         console.log(`DATA LOADED FOR ${state}`);

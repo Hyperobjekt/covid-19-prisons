@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { csv: fetchCsv } = require("d3-fetch");
 
 function slugify(text) {
   return text
@@ -192,6 +193,14 @@ exports.formatState = function (str) {
   return DC_VARIANTS.includes(str.toLowerCase()) ? "District of Columbia" : str;
 }
 
+exports.getData = async function (url, parser, options = {}) {
+  let data = await fetchCsv(url, parser);
+  // remove descriptive rows following the top identifier row
+  if (options.dropRows) {
+    data = data.slice(options.dropRows);
+  }
+  return data;
+};
 
 /**
  * Splits any keys with a "." into a nested object
