@@ -5,7 +5,7 @@
       "link": "Data Scorecard",
       "description": "This scorecard assesses data reporting and quality for ICE. <a href='https://uclacovidbehindbars.org/blog/scorecard'>Read more about our scoring methodology</a> and to see how this jurisdiction compares to other state and federal systems.",
       "score_title": ["Data Reporting", "& Quality Grade"],
-      "date_note": "Scores assessed as of ${date}. Scores will be reevaluated on a monthly basis.",
+      "date_note": "Scores assessed as of ${date}.",
       "asterisk_notes": {
         "immigration": "We have observed several unexplained fluctuations in the cumulative number of COVID-19 cases and tests that ICE reports."
       },
