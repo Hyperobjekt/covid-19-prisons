@@ -48,5 +48,6 @@
   "nat_map_title": "This map displays COVID cases and related deaths of people incarcerated in prisons and jails across the US. Click on a state to access more data.",
   "state_map_title": "Map of ${stateName} with spikes representing the active metric for each facility.",
   "empty_legend_message": "no data available",
-  "scroll_up": "Back to top"
+  "scroll_up": "Back to top",
+  "time_series_facility_select": "Add state facilities, statewide totals, BOP (Federal Bureau of Prisons), or U.S. Immigrations and Customs Enforcement (ICE) facilities to compare trends."
 }

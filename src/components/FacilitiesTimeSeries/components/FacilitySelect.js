@@ -1,21 +1,31 @@
 import React from "react";
 import { getLang } from "../../../common/utils/i18n";
-import { Block } from "@hyperobjekt/material-ui-website";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { makeStyles, TextField } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
 import useTimeSeriesStore from "../useTimeSeriesStore";
-import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 import { formatFacilityName } from "../../../common/utils/formatters";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
+  placeholder: {
+    display: "none",
+  },
 }));
 
 const FacilitySelect = ({ defaultFacilities = [] }) => {
   const classes = useStyles();
 
+  const [modalOpen, setModalOpen] = React.useState(false);
   const [allFacilities, setAllFacilities] = React.useState([]);
   const [setSelectedFacilities, selectedFacilities] = useTimeSeriesStore(
     (state) => [state.setSelectedFacilities, state.selectedFacilities]
@@ -28,37 +38,69 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
       const allFacilities = await csv("./data/allFacilities.csv");
       setAllFacilities(allFacilities);
       const defaultSelected = defaultFacilities
-          .map((facId) => allFacilities.find(({ id }) => id === facId))
-          .filter((f) => !!f);
+        .map((facId) => allFacilities.find(({ id }) => id === facId))
+        .filter((f) => !!f);
       setSelectedFacilities(defaultSelected);
     }
     fetchData();
   }, []);
 
-  // const facilitiesData = useTimeSeriesData();
-  // only show facility as selected when its data is ready to be charted
-  // const values = selectedFacilities.filter(({ id }) => !!facilitiesData[id]);
+  const openHandler = () => setModalOpen(true);
+  const closeHandler = () => setModalOpen(false);
+
   return (
     <div className={classes.root}>
-      <Autocomplete
-        multiple
-        value={selectedFacilities}
-        id="facility-autocomplete"
-        options={allFacilities}
-        onChange={handleSelection}
-        getOptionLabel={formatFacilityName}
-        renderOption={(option) => option.name}
-        groupBy={({ state }) => (state === "*other" ? "" : state)}
-        size="small"
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Facilities"
-            placeholder="Select facilities"
+      <div onClick={openHandler}>
+        <Autocomplete
+          multiple
+          open={false}
+          value={selectedFacilities}
+          id="facility-autocomplete-placeholder"
+          options={allFacilities}
+          getOptionLabel={formatFacilityName}
+          renderOption={(option) => option.name}
+          size="small"
+          classes={{ input: classes.placeholder }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              disabled={true}
+              variant="standard"
+              label="Facilities"
+              placeholder=""
+            />
+          )}
+        />
+      </div>
+      <Dialog open={modalOpen} onClose={closeHandler}>
+        <DialogTitle>{getLang("time_series_facility_select")}</DialogTitle>
+        <DialogContent>
+          <Autocomplete
+            multiple
+            value={selectedFacilities}
+            id="facility-autocomplete"
+            options={allFacilities}
+            onChange={handleSelection}
+            getOptionLabel={formatFacilityName}
+            renderOption={(option) => option.name}
+            groupBy={({ state }) => (state === "*other" ? "" : state)}
+            // size="small"
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label="Facilities"
+                placeholder="Add location"
+              />
+            )}
           />
-        )}
-      />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeHandler} color="primary">
+            Done
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
