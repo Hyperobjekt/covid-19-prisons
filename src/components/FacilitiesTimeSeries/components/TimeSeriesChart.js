@@ -3,7 +3,7 @@ import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 import { formatFacilityName } from "../../../common/utils/formatters";
 
 import {
-  AnimatedAxis, // any of these can be non- equivalents
+  AnimatedAxis,
   Grid,
   AnimatedLineSeries,
   XYChart,
@@ -11,6 +11,23 @@ import {
 } from "@visx/xychart";
 import useTimeSeriesStore from "../useTimeSeriesStore";
 import shallow from "zustand/shallow";
+
+const colors = [
+  "#D7790F",
+  "#82CAA4",
+  "#4C6788",
+  "#84816F",
+  "#71A9C9",
+  "#AE91A8",
+  "#DED6DC",
+  "#B4C551",
+  "#7E55D4",
+  "#A21916",
+  "#BC73AE",
+  "#567EBA",
+  "#FFD540",
+  "#CF5833",
+];
 
 const accessors = {
   xAccessor: (d) => new Date(`${d.date}T00:00:00`),
@@ -58,11 +75,12 @@ const TimeSeriesChart = () => {
       // columns={true}
       // numTicks={4}
       /> */}
-      {linesData.map(({ name, lineData }) => (
+      {linesData.map(({ name, lineData }, i) => (
         <AnimatedLineSeries
           key={name}
           dataKey={name}
           data={lineData}
+          stroke={colors[i % colors.length]}
           {...accessors}
         />
       ))}

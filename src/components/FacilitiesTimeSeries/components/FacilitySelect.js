@@ -9,11 +9,31 @@ import {
   DialogContent,
   makeStyles,
   TextField,
+  Chip,
 } from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
 import useTimeSeriesStore from "../useTimeSeriesStore";
 import { formatFacilityName } from "../../../common/utils/formatters";
+import { FiberManualRecord } from "@material-ui/icons";
+
+const colors = [
+  "#D7790F",
+  "#82CAA4",
+  "#4C6788",
+  "#84816F",
+  "#71A9C9",
+  "#AE91A8",
+  "#DED6DC",
+  "#B4C551",
+  "#7E55D4",
+  "#A21916",
+  "#BC73AE",
+  "#567EBA",
+  "#FFD540",
+  "#CF5833",
+];
+
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -45,7 +65,10 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
     fetchData();
   }, []);
 
-  const openHandler = () => setModalOpen(true);
+  const openHandler = (e) => {
+    console.log(e);
+    setModalOpen(true);
+  };
   const closeHandler = () => setModalOpen(false);
 
   return (
@@ -59,12 +82,26 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
           options={allFacilities}
           getOptionLabel={formatFacilityName}
           renderOption={(option) => option.name}
+          limitTags={4}
           size="small"
           classes={{ input: classes.placeholder }}
+          renderTags={(tagValue, getTagProps) =>
+            tagValue.map((option, i) => (
+              <Chip
+                icon={
+                  <FiberManualRecord
+                    style={{ fill: colors[i % colors.length] }}
+                  />
+                }
+                label={formatFacilityName(option)}
+                {...getTagProps({ i })}
+                onDelete={null}
+              />
+            ))
+          }
           renderInput={(params) => (
             <TextField
               {...params}
-              disabled={true}
               variant="standard"
               label="Facilities"
               placeholder=""
@@ -85,6 +122,19 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
             renderOption={(option) => option.name}
             groupBy={({ state }) => (state === "*other" ? "" : state)}
             // size="small"
+            renderTags={(tagValue, getTagProps) =>
+              tagValue.map((option, i) => (
+                <Chip
+                  icon={
+                    <FiberManualRecord
+                      style={{ fill: colors[i % colors.length] }}
+                    />
+                  }
+                  label={formatFacilityName(option)}
+                  {...getTagProps({ i })}
+                />
+              ))
+            }
             renderInput={(params) => (
               <TextField
                 {...params}
