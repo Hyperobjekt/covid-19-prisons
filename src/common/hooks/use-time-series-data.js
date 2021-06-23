@@ -63,8 +63,7 @@ export default function useTimeSeriesData() {
             ...loadedStateDataMap,
             [state]: d,
           };
-          // loadedStateDataMap[state] = d;
-          console.log(`DATA LOADED FOR ${state}`);
+          // console.log(`DATA LOADED FOR ${state}`);
           setLoaded(state, newStateDataMap);
         })
         .catch((err) => {

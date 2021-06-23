@@ -14,26 +14,11 @@ import {
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
 import useTimeSeriesStore from "../useTimeSeriesStore";
-import { formatFacilityName } from "../../../common/utils/formatters";
+import {
+  formatFacilityName,
+  getFacilityColor,
+} from "../../../common/utils/formatters";
 import { FiberManualRecord } from "@material-ui/icons";
-
-const colors = [
-  "#D7790F",
-  "#82CAA4",
-  "#4C6788",
-  "#84816F",
-  "#71A9C9",
-  "#AE91A8",
-  "#DED6DC",
-  "#B4C551",
-  "#7E55D4",
-  "#A21916",
-  "#BC73AE",
-  "#567EBA",
-  "#FFD540",
-  "#CF5833",
-];
-
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -65,10 +50,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
     fetchData();
   }, []);
 
-  const openHandler = (e) => {
-    console.log(e);
-    setModalOpen(true);
-  };
+  const openHandler = () => setModalOpen(true);
   const closeHandler = () => setModalOpen(false);
 
   return (
@@ -83,15 +65,14 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
           getOptionLabel={formatFacilityName}
           renderOption={(option) => option.name}
           limitTags={4}
+          disableClearable
           size="small"
           classes={{ input: classes.placeholder }}
           renderTags={(tagValue, getTagProps) =>
             tagValue.map((option, i) => (
               <Chip
                 icon={
-                  <FiberManualRecord
-                    style={{ fill: colors[i % colors.length] }}
-                  />
+                  <FiberManualRecord style={{ fill: getFacilityColor(i) }} />
                 }
                 label={formatFacilityName(option)}
                 {...getTagProps({ i })}
@@ -126,9 +107,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
               tagValue.map((option, i) => (
                 <Chip
                   icon={
-                    <FiberManualRecord
-                      style={{ fill: colors[i % colors.length] }}
-                    />
+                    <FiberManualRecord style={{ fill: getFacilityColor(i) }} />
                   }
                   label={formatFacilityName(option)}
                   {...getTagProps({ i })}
