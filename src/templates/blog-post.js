@@ -26,8 +26,8 @@ const LinkedBlock = withStyles((theme) => ({
   },
   container: {
     background: theme.palette.background.alt3,
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
     marginRight: 0, // shift container so it is pushed to the right side of the page
     // extend container widths at different resolutions, so left margin aligns with content
     [theme.breakpoints.up("sm")]: {

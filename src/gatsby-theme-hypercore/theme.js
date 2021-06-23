@@ -165,20 +165,17 @@ const CovidTheme = () => {
               },
           },
           a: {
-            "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link)":
-              {
-                color: theme.palette.secondary.main,
-                fontWeight: "bold",
-                textDecoration: "none",
-              },
-            "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link):visited":
-              {
-                color: theme.palette.secondary.main,
-              },
-            "&:not(.MuiLink-root):not(.MuiButtonBase-root):not(.HypNavigation-link):hover":
-              {
-                textDecoration: "underline",
-              },
+            "&:not([class])": {
+              color: theme.palette.secondary.main,
+              fontWeight: "bold",
+              textDecoration: "none",
+            },
+            "&:not([class]):visited": {
+              color: theme.palette.secondary.main,
+            },
+            "&:not([class]):hover": {
+              textDecoration: "underline",
+            },
           },
           // update padding and font on <code> elements
           code: {

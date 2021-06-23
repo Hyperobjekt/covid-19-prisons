@@ -2,9 +2,11 @@ import React from "react";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core";
 import { Link } from "gatsby-theme-material-ui";
+import { Link as GatsbyLink } from "gatsby";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import moment from "moment";
 import { serifTypography } from "../../gatsby-theme-hypercore/theme";
+import ReadLink from "./read-link";
 
 const styles = (theme) => ({
   title: {
@@ -36,7 +38,19 @@ const styles = (theme) => ({
     },
   },
 
-  root: {},
+  root: {
+    position: "relative",
+    paddingBottom: theme.spacing(10),
+    "&:not(:last-child):before": {
+      content: "''",
+      display: "block",
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      borderBottom: "2px dotted #92926C",
+      width: 142,
+    },
+  },
   featured: {},
   date: {
     color: theme.palette.text.secondary,
@@ -70,16 +84,6 @@ const styles = (theme) => ({
     top: 0,
     display: "none", // deactivate for now
   },
-  readLink: {
-    "&:not(:hover)": {
-      color: `${theme.palette.text.primary} !important`,
-    },
-    textDecoration: "none !important",
-    paddingBottom: theme.spacing(1),
-    borderBottom: "solid 1px",
-    borderBottomColor: theme.palette.secondary.main,
-  },
-  readLinkWrapper: {}, // needed for nested $readLinkWrapper above
 });
 
 const BlogPost = ({ classes, className, post, isFeatured, ...props }) => {
@@ -89,18 +93,18 @@ const BlogPost = ({ classes, className, post, isFeatured, ...props }) => {
     <div className={clsx(classes.root, className)} {...props}>
       {!isFeatured && <p className={classes.date}>{formattedDate}</p>}
       <div className={classes.titleWrapper}>
-        <h3 className={classes.title}>{title}</h3>
+        <h3 className={classes.title}>
+          <Link to={"/" + path}>{title}</Link>
+        </h3>
         <p className={classes.description}>{description}</p>
         <div className={classes.authorImageWrapper}>
           <AccountCircle className={classes.authorImage} />
         </div>
       </div>
 
-      <div className={classes.readLinkWrapper}>
-        <Link className={classes.readLink} to={"/" + path}>
-          Read more
-        </Link>
-      </div>
+      <ReadLink aria-hidden="true" to={"/" + path}>
+        Read more
+      </ReadLink>
     </div>
   );
 };

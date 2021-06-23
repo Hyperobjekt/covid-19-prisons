@@ -13,7 +13,7 @@ const Content = withStyles((theme) => ({
       marginBottom: `0.5rem`,
     },
     "& h1,h2,h3,h4,h5,h6": {
-      marginTop: `1rem`,
+      marginTop: `1.5em`,
     },
     "& a": {
       color: theme.palette.secondary.main,

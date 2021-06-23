@@ -7,20 +7,10 @@ import BlogPost from "./blog-post";
 const styles = (theme) => ({
   root: {
     paddingTop: theme.spacing(13),
+    paddingBottom: theme.spacing(13),
     paddingLeft: theme.columnSpacing(1),
     [theme.breakpoints.up("sm")]: {
       paddingLeft: theme.columnSpacing(2),
-    },
-    "& $post": {
-      marginBottom: theme.spacing(9),
-      paddingBottom: theme.spacing(9),
-
-      "&:not(:last-child) $readLinkWrapper": {
-        display: "inline",
-        borderBottom: "2px dotted #92926C",
-        paddingRight: theme.spacing(10),
-        paddingBottom: theme.spacing(9),
-      },
     },
   },
   title: {

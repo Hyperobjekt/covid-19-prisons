@@ -13,6 +13,9 @@ const FeaturedPost = withStyles((theme) => ({
     color: theme.palette.text.secondary,
     fontSize: theme.typography.pxToRem(48),
     lineHeight: 1.1,
+    "& a": {
+      color: theme.palette.text.secondary,
+    },
     [theme.breakpoints.up("sm")]: {
       fontSize: theme.typography.pxToRem(62),
     },
@@ -21,6 +24,7 @@ const FeaturedPost = withStyles((theme) => ({
 
 const styles = (theme) => ({
   root: {
+    marginTop: theme.spacing(8),
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(9),
     background: theme.palette.background.alt3,
