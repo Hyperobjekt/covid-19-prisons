@@ -128,15 +128,25 @@ const HomeTable = ({
       id: "name",
       accessor: "name",
       Cell: (prop) => {
-        const { state, jurisdiction } = prop.row.original;
+        const { state, jurisdiction, name } = prop.row.original;
+        let entity = state;
+        let link = `/states/${state}`;
+
+        if (name.toLowerCase().startsWith("all ice")) {
+          entity = "ICE Detention";
+          link = "/ice";
+        } else if (name.toLowerCase().startsWith("all bop")) {
+          entity = "Federal Bureau of Prisons";
+          link = "/federal";
+        }
         return (
           <>
             <Typography className={classes.name} variant="body1">
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              <Link to={`/states/${state}`} className={classes.state}>
-                {state}
+              <Link to={link} className={classes.state}>
+                {entity}
               </Link>
               <DotMarker
                 radius={4}
