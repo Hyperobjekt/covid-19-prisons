@@ -10,6 +10,7 @@ import {
   makeStyles,
   TextField,
   Chip,
+  Icon,
 } from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
@@ -19,11 +20,16 @@ import {
   getFacilityColor,
 } from "../../../common/utils/formatters";
 import { FiberManualRecord } from "@material-ui/icons";
+import CloseIcon from "../../../../content/assets/close-icon.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   placeholder: {
     display: "none",
+  },
+  chip: {
+    background: "none",
+    border: "1px solid #DDDDCC",
   },
 }));
 
@@ -71,6 +77,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
           renderTags={(tagValue, getTagProps) =>
             tagValue.map((option, i) => (
               <Chip
+                classes={{ root: classes.chip }}
                 icon={
                   <FiberManualRecord style={{ fill: getFacilityColor(i) }} />
                 }
@@ -106,6 +113,11 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
             renderTags={(tagValue, getTagProps) =>
               tagValue.map((option, i) => (
                 <Chip
+                  deleteIcon={<img src={CloseIcon} alt="remove" />}
+                  classes={{
+                    deleteIcon: classes.deleteIcon,
+                    root: classes.chip,
+                  }}
                   icon={
                     <FiberManualRecord style={{ fill: getFacilityColor(i) }} />
                   }
