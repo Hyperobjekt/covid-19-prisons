@@ -1,5 +1,4 @@
 import React from "react";
-import { Table } from "../table";
 import { format } from "d3-format";
 import { useVaccineData } from "../../common/hooks";
 import { Block } from "@hyperobjekt/material-ui-website";
@@ -7,9 +6,11 @@ import { getSlug, isNumber } from "../../common/utils/selectors";
 import { getLang } from "../../common/utils/i18n";
 import { Link } from "gatsby-theme-material-ui";
 import { DefaultTable } from "../table";
-import { Box, Typography, withStyles } from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import { formatMetricValue } from "../../common/utils/formatters";
 import Notes from "../Notes";
+import FlagIcon from "../../../content/assets/flag-icon.svg"
+import IconWithTooltip from "../IconWithTooltip";
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -73,6 +74,13 @@ const styles = (theme) => ({
         textDecorationColor: theme.palette.secondary.main,
       },
     },
+    "& .icon-with-tooltip": {
+      display: "inline-block",
+    },
+    "& .icon-wrapper": {
+      margin: theme.spacing(0, 0, 0, 1),
+      padding: 0,
+    },
   },
   notes: {
     listStyle: "none",
@@ -90,17 +98,24 @@ const styles = (theme) => ({
       },
     },
   },
-});
+})
 
-const intFormatter = format(",d");
+// const intFormatter = format(",d");
 
 const perFormatter = (v) => formatMetricValue(v, "home_table_rate");
-const countFormatter = (value) =>
-  !isNumber(value) ? "--" : intFormatter(value);
+// const countFormatter = (value) =>
+//   !isNumber(value) ? "--" : intFormatter(value);
 
-const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
+const VaccineTable = ({
+  title,
+  subtitle,
+  note,
+  flagNote,
+  classes,
+  ...props
+}) => {
   // data for table
-  const data = useVaccineData();
+  const data = useVaccineData()
 
   // column configuration for the table
   const columns = React.useMemo(
@@ -111,14 +126,14 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
         accessor: "jurisdiction",
         sortType: alphaStateSort,
         Cell: (prop) => {
-          const { jurisdiction, isState, isFederal, isIce } = prop.row.original;
-          let slug = null;
+          const { jurisdiction, isState, isFederal, isIce } = prop.row.original
+          let slug = null
           if (jurisdiction && isState) {
-            slug = `/states/${getSlug(jurisdiction)}`;
+            slug = `/states/${getSlug(jurisdiction)}`
           } else if (isFederal) {
-            slug = `/federal`;
+            slug = `/federal`
           } else if (isIce) {
-            slug = `/ice`;
+            slug = `/ice`
           }
           const jurisdictionElement = slug ? (
             <Link to={slug} className={classes.jurisdictionLink}>
@@ -126,65 +141,80 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
             </Link>
           ) : (
             jurisdiction
-          );
+          )
+
+          const ent = isFederal ? "federal" : jurisdiction.toLowerCase()
+          const flagNoteDetails = flagNote.find(({ entity }) => entity === ent )
+          
+          const flagNoteElement = flagNoteDetails ? (
+              <IconWithTooltip
+                iconText={null}
+                title={null}
+                icon={FlagIcon}
+                notes={[flagNoteDetails.text]}
+                id={jurisdiction}
+              />
+            ) : null
+            
           return (
             <Typography variant="body2" color="textSecondary">
               {jurisdictionElement}
+              {flagNoteElement}
             </Typography>
-          );
+          )
         },
       },
-      {
-        id: "r-initiated",
-        Header: getLang("initiated_total"),
-        accessor: "residents.initiated",
-        Cell: (prop) => countFormatter(prop.value),
-        style: {
-          width: "6em",
-          textAlign: "right",
-        },
-      },
+      // {
+      //   id: "r-initiated",
+      //   Header: getLang("initiated_total"),
+      //   accessor: "residents.initiated",
+      //   Cell: (prop) => countFormatter(prop.value),
+      //   style: {
+      //     width: "6em",
+      //     textAlign: "right",
+      //   },
+      // },
       {
         id: "residents-percentInitiated",
-        Header: getLang("initiated_percent"),
+        Header: getLang("residents_rate"),
         accessor: "residents.percentInitiated",
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "6em",
+          width: "12em",
           textAlign: "right",
         },
       },
-      {
-        id: "s-initiated",
-        Header: getLang("initiated_total"),
-        accessor: "staff.initiated",
-        Cell: (prop) => countFormatter(prop.value),
-        style: {
-          width: "6em",
-          textAlign: "right",
-        },
-      },
+      // {
+      //   id: "s-initiated",
+      //   Header: getLang("initiated_total"),
+      //   accessor: "staff.initiated",
+      //   Cell: (prop) => countFormatter(prop.value),
+      //   style: {
+      //     width: "6em",
+      //     textAlign: "right",
+      //   },
+      // },
       {
         id: "staff-percentInitiated",
-        Header: getLang("initiated_percent"),
+        Header: getLang("staff_rate"),
         accessor: "staff.percentInitiated",
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "6em",
+          width: "8em",
           textAlign: "right",
         },
       },
     ],
     [classes.jurisdictionLink]
-  );
+  )
 
-  const topLevelHeaders = [
-    { colSpan: 1, text: " " },
-    { colSpan: 2, align: "center", text: getLang("residents_initiated") },
-    { colSpan: 2, align: "center", text: getLang("staff_initiated") },
-  ];
+  // const topLevelHeaders = [
+  //   { colSpan: 1, text: " " },
+  //   { colSpan: 2, align: "center", text: getLang("residents_initiated") },
+  //   { colSpan: 2, align: "center", text: getLang("staff_initiated") },
+  // ];
 
   return (
     <Block className={classes.root} {...props}>
@@ -206,13 +236,13 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
             preventReverseSort={true}
             initialSortColumn={"jurisdiction"}
             disableFilter={true}
-            topLevelHeaders={topLevelHeaders}
+            // topLevelHeaders={topLevelHeaders}
           />
           <Notes notes={note} className={classes.notes} />
         </div>
       </div>
     </Block>
-  );
-};
+  )
+}
 
 export default withStyles(styles)(VaccineTable);

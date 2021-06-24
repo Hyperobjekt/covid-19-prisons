@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-ui/core"
 import { sansSerifyTypography } from "../gatsby-theme-hypercore/theme"
+import clsx from "clsx"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,7 @@ const IconWithTooltip = ({
   iconText = "Data notes",
   title = "Data notes",
   notes = [],
+  icon = InfoIcon,
   id: idSuffix,
   ...props
 }) => {
@@ -81,10 +83,10 @@ const IconWithTooltip = ({
   )
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, "icon-with-tooltip")}>
       <Tooltip title={tooltipContent} enterTouchDelay={1}>
-        <ButtonBase className={classes.iconWrapper}>
-          <img alt="info" src={InfoIcon} />
+        <ButtonBase className={clsx(classes.iconWrapper, "icon-wrapper")}>
+          <img alt="info" src={icon} />
           {iconText}
         </ButtonBase>
       </Tooltip>

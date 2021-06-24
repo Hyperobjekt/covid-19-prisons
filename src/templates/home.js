@@ -46,12 +46,16 @@ export const query = graphql`
         vaccineTable {
           title
           subtitle
+          flag_note {
+            entity
+            text
+          }
         }
       }
       body
     }
   }
-`;
+`
 
 /**
  * Use default page template, but provide content prop
