@@ -4,7 +4,7 @@ import {
   formatFacilityName,
   getFacilityColor,
 } from "../../../common/utils/formatters";
-
+import moment from "moment";
 import {
   AnimatedAxis,
   Grid,
@@ -51,6 +51,25 @@ const TimeSeriesChart = () => {
     return !linesData.find((lineData) => lineData.id === id);
   });
 
+  const formatDate = (date, i, allTicks) => {
+    const justMonth = "MMM";
+    const monthAndYear = "MMM 'YY";
+
+    const d = moment(date);
+    // first date
+    if (!i) {
+      const lastD = moment(allTicks[allTicks.length - 1].value);
+      // show year only if the data doesn't span multiple
+      const format = d.year() !== lastD.year() ? justMonth : monthAndYear;
+      return d.format(format);
+    } else {
+      const previousD = moment(allTicks[i - 1].value);
+      // show year only if this tick is in the next year
+      const format = d.year() === previousD.year() ? justMonth : monthAndYear;
+      return d.format(format);
+    }
+  };
+
   console.log("loading:", dataLoading);
   return (
     <XYChart
@@ -59,16 +78,16 @@ const TimeSeriesChart = () => {
       yScale={{ type: "linear" }}
       theme={customTheme}
     >
-      <AnimatedAxis orientation="bottom" />
+      <AnimatedAxis tickFormat={formatDate} orientation="bottom" />
       <AnimatedAxis
         orientation="left"
         numTicks={4}
         // tickLabelProps={() => ({ dx: -10 })}
       />
-      {/* <Grid
-      // columns={true}
-      // numTicks={4}
-      /> */}
+      <Grid
+        columns={false}
+        numTicks={4}
+      />
       {linesData.map(({ name, lineData }, i) => (
         <AnimatedLineSeries
           key={name}
@@ -96,6 +115,6 @@ const TimeSeriesChart = () => {
       />
     </XYChart>
   );
-};
+};;;;
 
 export default TimeSeriesChart;
