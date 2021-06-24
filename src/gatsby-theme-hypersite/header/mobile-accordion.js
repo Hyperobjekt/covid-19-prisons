@@ -1,5 +1,5 @@
-import React, { useContext } from "react"
-import clsx from "clsx"
+import React from "react";
+import clsx from "clsx";
 import {
   Accordion as MuiAccordion,
   AccordionDetails as MuiAccordionDetails,
@@ -10,13 +10,12 @@ import {
   withStyles,
   List,
   ListItem,
-} from "@material-ui/core"
-import { Link } from "gatsby-theme-material-ui"
-import CoreSocialLinks from "gatsby-theme-hyperobjekt-core/src/components/social/social-links"
-import { useSiteMetadata, SiteContext } from "gatsby-theme-hyperobjekt-core"
-import { navigate } from "gatsby"
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown"
-import { sansSerifyTypography } from "../../theme"
+} from "@material-ui/core";
+import { Link } from "gatsby-theme-material-ui";
+import { navigate } from "gatsby";
+import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme";
+import useSiteLinks from "../../common/hooks/use-site-links";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -25,26 +24,20 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     ...sansSerifyTypography,
-    fontSize: theme.typography.pxToRem(14),
-    [theme.breakpoints.down("xs")]: {
-      fontSize: theme.typography.pxToRem(16),
-    },
+    fontSize: theme.typography.pxToRem(16),
   },
-}))
+}));
 
 const NativeSelect = withStyles((theme) => ({
   root: {
-    fontSize: theme.typography.pxToRem(14),
-    [theme.breakpoints.down("xs")]: {
-      fontSize: theme.typography.pxToRem(16),
-    },
+    fontSize: theme.typography.pxToRem(16),
     padding: theme.spacing(1),
     "&:before": { display: "none" },
     "& .MuiNativeSelect-icon": {
       top: `calc(50% - 10px)`,
     },
   },
-}))(MuiNativeSelect)
+}))(MuiNativeSelect);
 
 const Accordion = withStyles((theme) => ({
   root: {
@@ -64,7 +57,7 @@ const Accordion = withStyles((theme) => ({
     },
   },
   expanded: {},
-}))(MuiAccordion)
+}))(MuiAccordion);
 
 const AccordionSummary = withStyles((theme) => ({
   root: {
@@ -81,63 +74,49 @@ const AccordionSummary = withStyles((theme) => ({
     },
   },
   expanded: {},
-}))(MuiAccordionSummary)
+}))(MuiAccordionSummary);
 
 const AccordionDetails = withStyles((theme) => ({
   root: {
     padding: theme.spacing(0, 1),
   },
-}))(MuiAccordionDetails)
+}))(MuiAccordionDetails);
 
-const SocialLinks = withStyles((theme) => ({
-  root: {
-    margin: theme.spacing(1),
-  },
-  link: {
-    color: theme.palette.text.primary,
-    "& svg": {
-      height: "1rem",
-      width: "1rem",
-    },
-  },
-}))(CoreSocialLinks)
-
-export default function NavMobileMenu(props) {
-  const classes = useStyles()
-  const { menuLinks, socialLinks } = useSiteMetadata()
-  const { setIsNavOpen } = useContext(SiteContext)
+export default function MobileAccordion(props) {
+  const classes = useStyles();
+  const menuLinks = useSiteLinks();
 
   // close menu and navigate on state selection
   const handleSelect = (event) => {
-    setIsNavOpen(false)
-    navigate(event.target.value)
-  }
+    // setIsNavOpen(false);
+    navigate(event.target.value);
+  };
   const handleLinkClick = () => {
-    setIsNavOpen(false)
-  }
+    // setIsNavOpen(false);
+  };
 
-  const [expanded, setExpanded] = React.useState(false)
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleAccordionToggle = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false)
-  }
+    setExpanded(isExpanded ? panel : false);
+  };
   return (
-    <div>
+    <div {...props}>
       {menuLinks
         .filter((m) => ["all", "header"].includes(m.location.toLowerCase()))
         .map((menuItem) => {
           const subMenuItems = menuItem.subMenu.filter(
             (item) => !item.link.includes("states/")
-          )
+          );
           const stateDropdownItems = menuItem.subMenu.filter((item) =>
             item.link.includes("states/")
-          )
+          );
 
           return (
             <Accordion
               key={menuItem.link}
-              expanded={expanded === menuItem.link}
-              onChange={handleAccordionToggle(menuItem.link)}
+              expanded={expanded === menuItem.name}
+              onChange={handleAccordionToggle(menuItem.name)}
             >
               <AccordionSummary
                 expandIcon={<ArrowDropDown />}
@@ -173,15 +152,13 @@ export default function NavMobileMenu(props) {
                           {subMenuItem.name}
                         </Link>
                       </ListItem>
-                    )
+                    );
                   })}
                 </List>
               </AccordionDetails>
             </Accordion>
-          )
+          );
         })}
-      {/* hack to work around not being able to apply styles */}
-      <SocialLinks location="footer" />
     </div>
-  )
+  );
 }

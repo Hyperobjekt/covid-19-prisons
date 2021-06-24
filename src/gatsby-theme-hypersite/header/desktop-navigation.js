@@ -1,44 +1,8 @@
-// import React from "react";
-
-// import { HorizontalNavigation } from "@hyperobjekt/material-ui-website";
-// import { withStyles } from "@material-ui/core";
-
-// const StyledNavigation = withStyles((theme) => ({
-//   root: {
-//     display: "none",
-//     [theme.breakpoints.up("md")]: {
-//       display: "block",
-//     },
-//   },
-//   list: {
-//     display: "flex",
-//     flexDirection: "row",
-//   },
-//   listItem: {
-//     background: "transparent",
-//   },
-//   link: {
-//     color: theme.palette.primary.contrastText,
-//     textDecoration: "none",
-//     "&:hover, &:focus": {
-//       textDecoration: "underline",
-//     },
-//   },
-//   linkActive: {
-//     fontWeight: "bold",
-//   },
-// }))(HorizontalNavigation);
-
-// export default function DesktopNavigation(props) {
-//   console.log(props);
-//   return <StyledNavigation {...props} />;
-// }
-
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme";
-import { HorizontalNavigation } from "@hyperobjekt/material-ui-website/lib/navigation";
-
+import { HorizontalNavigation } from "@hyperobjekt/material-ui-website";
+import { useLocation } from "@reach/router";
 /** number of cols for the subnav */
 const cols = 5;
 
@@ -176,4 +140,46 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(HorizontalNavigation);
+const StyledNavigation = withStyles(styles)(HorizontalNavigation);
+
+const hasChildUrl = (links, url) => Boolean(getChildLinkItem(links, url));
+
+/**
+ * Returns true if any of the provided links (or child links) contain the provided URL
+ * @param {Array<{name, link, subMenu}>} links
+ * @param {string} url
+ * @returns {boolean}
+ */
+const getChildLinkItem = (links, url) => {
+  if (!links || links.length === 0) return false;
+  return links.find(
+    (linkItem) =>
+      linkItem.link === url || getChildLinkItem(linkItem.subMenu, url)
+  );
+};
+
+/**
+ * Changes the "Explore Data" link item to the child name if viewing a page in that section
+ * otherwise, returns the linkItem.name prop
+ * @param {*} linkItem
+ * @param {*} url
+ */
+const getLinkName = (linkItem, url) => {
+  if (linkItem.name === "Explore Data" || url.indexOf("/states/") > -1) {
+    const currentLinkItem = getChildLinkItem(linkItem.subMenu, url);
+    return currentLinkItem ? currentLinkItem.name : linkItem.name;
+  }
+  return linkItem.name;
+};
+
+export default function UclaNavigation({ links, ...props }) {
+  const { pathname } = useLocation();
+
+  const updatedLinks = links.map((linkItem) => ({
+    ...linkItem,
+    name: getLinkName(linkItem, pathname), // change the name of "Explore Data" to active data page if needed
+    active: hasChildUrl(linkItem.subMenu, pathname), // set active state on top level if its subMenu contains the active page
+  }));
+  console.log({ pathname, links });
+  return <StyledNavigation links={updatedLinks} {...props} />;
+}

@@ -183,6 +183,9 @@ const CovidTheme = () => {
             borderRadius: theme.shape.borderRadius,
             fontFamily: ["Fira Mono", "monospace"].join(","),
           },
+          ".HypSocialLinks-root svg": {
+            fontSize: 18, // reduce size of social share icons
+          },
         },
       },
       /** Add margins to material UI typography */
@@ -352,6 +355,7 @@ const CovidTheme = () => {
           fontSize: theme.typography.pxToRem(16),
         },
       },
+
       /** Content area style overrides */
       HypContent: {
         root: {
