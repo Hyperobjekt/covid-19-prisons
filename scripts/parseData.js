@@ -189,16 +189,16 @@ const parseFacility = (facility = {}) => {
 const parseVaccine = (vaccine = {}) => {
   const source = groupObjectData(vaccine);
 
-  const residentKeys = ["initiated", "population"]
+  const residentKeys = ["initiated", "population"];
   // to change name from spreadsheet on import
-  const residentKeyMap = { "population": "population" }
-  const staffKeys = ["initiated", "population"]
+  const residentKeyMap = { population: "population" };
+  const staffKeys = ["initiated", "population"];
 
   const result = {};
 
   const jurisMap = {
     federal: "Federal Bureau of Prisons",
-    ice: "U.S. Immigration and Customs Enforcement",
+    ice: "ICE Detention",
   };
 
   const nonStateMap = {
