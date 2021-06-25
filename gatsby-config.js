@@ -19,6 +19,13 @@ module.exports = {
         },
       },
     },
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./content/data/`,
+      },
+    },
     // load typekit fonts
     {
       resolve: "gatsby-plugin-web-font-loader",
@@ -43,6 +50,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-netlify-cms`,
       options: {
+        manualInit: true,
         modulePath: `./src/cms/cms.js`,
       },
     },

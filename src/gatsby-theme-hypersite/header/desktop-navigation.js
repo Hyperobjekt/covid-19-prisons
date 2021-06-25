@@ -180,6 +180,5 @@ export default function UclaNavigation({ links, ...props }) {
     name: getLinkName(linkItem, pathname), // change the name of "Explore Data" to active data page if needed
     active: hasChildUrl(linkItem.subMenu, pathname), // set active state on top level if its subMenu contains the active page
   }));
-  console.log({ pathname, links });
   return <StyledNavigation links={updatedLinks} {...props} />;
 }

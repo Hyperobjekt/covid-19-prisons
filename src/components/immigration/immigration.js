@@ -30,9 +30,6 @@ export const query = graphql`
           title
         }
         title
-        sponsors {
-          title
-        }
         regionSelection {
           title
         }

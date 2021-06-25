@@ -1,5 +1,4 @@
 import React from "react";
-import { Table } from "../table";
 import { format } from "d3-format";
 import { useVaccineData } from "../../common/hooks";
 import { Block } from "@hyperobjekt/material-ui-website";
@@ -7,7 +6,7 @@ import { getSlug, isNumber } from "../../common/utils/selectors";
 import { getLang } from "../../common/utils/i18n";
 import { Link } from "gatsby-theme-material-ui";
 import { DefaultTable } from "../table";
-import { Box, Typography, withStyles } from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import { formatMetricValue } from "../../common/utils/formatters";
 import Notes from "../Notes";
 

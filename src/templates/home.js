@@ -21,32 +21,6 @@ export const query = graphql`
           }
           isBlogPost
         }
-        intro {
-          body
-          subtitle
-          title
-        }
-        map {
-          description
-          title
-        }
-        title
-        sponsors {
-          title
-          logos {
-            image
-            link
-            alt
-          }
-        }
-        table {
-          note
-          title
-        }
-        vaccineTable {
-          title
-          subtitle
-        }
       }
       body
     }

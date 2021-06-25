@@ -1,24 +1,23 @@
 import { useStaticQuery, graphql } from "gatsby";
 
 export default function useReportsData() {
-  const { allMdx } = useStaticQuery(
+  const { allDataJson } = useStaticQuery(
     graphql`
       query {
-        allMdx(filter: { frontmatter: { pagetype: { eq: "reports" } } }) {
+        allDataJson(filter: { id: { eq: "reports" } }) {
           nodes {
-            frontmatter {
-              reportsData {
-                date
-                description
-                url
-                author
-                title
-              }
+            reports {
+              author
+              description
+              title
+              url
+              date
             }
           }
         }
       }
     `
   );
-  return allMdx.nodes[0].frontmatter.reportsData;
+  console.log({ allDataJson });
+  return allDataJson.nodes[0].reports || [];
 }

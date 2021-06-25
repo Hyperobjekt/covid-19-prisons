@@ -54,7 +54,7 @@ export const pageQuery = graphql`
         frontmatter {
           featured
           description
-          title
+          name
           path
           date
         }
