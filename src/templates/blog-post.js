@@ -274,7 +274,8 @@ const useStyles = makeStyles((theme) => ({
 
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx } = props.data;
-  const { author, date, image, title } = mdx.frontmatter;
+  const { date, image, name: title, meta } = mdx.frontmatter;
+  const { author } = meta;
   const featuredImage = image && getImage(image);
   const classes = useStyles();
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id);
@@ -325,10 +326,10 @@ export const query = graphql`
             }
           }
           isBlogPost
+          author
         }
-        author
         date
-        title
+        name
         image {
           childImageSharp {
             gatsbyImageData(
@@ -352,14 +353,14 @@ export const query = graphql`
         }
         next {
           frontmatter {
-            title
+            name
             description
             path
           }
         }
         previous {
           frontmatter {
-            title
+            name
             description
             path
           }

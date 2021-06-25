@@ -1,0 +1,50 @@
+{
+  "id": "authors",
+  "authors": [
+    {
+      "name": "Liz DeWolf",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Erika Tyagi",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Joshua Manson",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Ishan Nagpal",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Theresa Cheng",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Poornima Rajeshwar",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Victoria Rossi",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Sharon Dolovich",
+      "bio": "",
+      "image": ""
+    },
+    {
+      "name": "Maya Chaudhuri",
+      "bio": "",
+      "image": ""
+    }
+  ]
+}

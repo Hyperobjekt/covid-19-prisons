@@ -2,7 +2,6 @@ import React from "react";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core";
 import { Link } from "gatsby-theme-material-ui";
-import { Link as GatsbyLink } from "gatsby";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import moment from "moment";
 import { serifTypography } from "../../gatsby-theme-hypercore/theme";
@@ -87,7 +86,7 @@ const styles = (theme) => ({
 });
 
 const BlogPost = ({ classes, className, post, isFeatured, ...props }) => {
-  const { date, title, description, path } = post.frontmatter;
+  const { date, name: title, description, path } = post.frontmatter;
   const formattedDate = moment(date).format("MMMM Do, YYYY");
   return (
     <div className={clsx(classes.root, className)} {...props}>

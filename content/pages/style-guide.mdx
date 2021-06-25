@@ -1,8 +1,10 @@
 ---
 meta:
-  title: Style Guide
+  title: Style guide
+  isBlogPost: false
+draft: true
+name: Style Guide
 path: /style-guide
-pagetype: non_cms
 ---
 
 ## Style Guide
@@ -44,14 +46,14 @@ Sample block of code:
 
 ```js
 module.exports = (themeOptions) => {
-  const contentPath = themeOptions.contentPath || `content/pages`
-  const assetPath = themeOptions.assetPath || `content/assets`
+  const contentPath = themeOptions.contentPath || `content/pages`;
+  const assetPath = themeOptions.assetPath || `content/assets`;
 
   return {
     contentPath,
     assetPath,
-  }
-}
+  };
+};
 ```
 
 ### Blockquotes

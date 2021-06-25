@@ -1,5 +1,3 @@
-import React from "react";
-
 /**
  * we are using a custom implementation with
  * accordion menus for mobile links. This component
