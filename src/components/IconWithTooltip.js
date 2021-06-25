@@ -57,7 +57,6 @@ const IconWithTooltip = ({
   title = "Data notes",
   notes = [],
   icon = InfoIcon,
-  id: idSuffix,
   ...props
 }) => {
   const classes = useStyles()
@@ -95,10 +94,10 @@ const IconWithTooltip = ({
 }
 
 IconWithTooltip.propTypes = {
-  id: PropTypes.string.isRequired,
   notes: PropTypes.array,
   title: PropTypes.string,
   iconText: PropTypes.string,
+  icon: PropTypes.object,
 }
 
 export default IconWithTooltip
