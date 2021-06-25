@@ -46,6 +46,7 @@ export const query = graphql`
         vaccineTable {
           title
           subtitle
+          note
           flag_note {
             entity
             text
