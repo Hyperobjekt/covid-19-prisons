@@ -76,7 +76,7 @@ const authorData = createFile(
 );
 
 const data = createFileCollection({
-  label: "Data",
+  label: "Collections",
   name: "data",
   extension: "json",
   format: "json",

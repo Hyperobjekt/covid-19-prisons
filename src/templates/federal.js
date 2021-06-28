@@ -11,11 +11,11 @@ import {
   Releases,
   Scorecard,
   StaffSummary,
-} from "./sections";
-import useStatesStore from "./useStatesStore";
+} from "../components/states/sections";
+import useStatesStore from "../components/states/useStatesStore";
 import shallow from "zustand/shallow";
-import SectionNavigation from "../SectionNavigation";
-import content from "../../../content/federal.json";
+import SectionNavigation from "../components/SectionNavigation";
+import content from "../../content/lang/federal.json";
 import { Block } from "@hyperobjekt/material-ui-website";
 
 const useStyles = makeStyles((theme) => ({
@@ -131,27 +131,29 @@ const StateTemplate = ({ pageContext, data }) => {
   };
 
   // setctions for section nav
-  const sections = content.sections.map((s) => ({
-    id: s.id,
-    name: s.lang.link,
+  const sections = Object.values(content);
+  const sectionNav = sections.map((section) => ({
+    id: section.id,
+    name: section.link,
   }));
 
   return (
     <Layout title={state}>
       <SectionNavigation
         current={currentStep}
-        sections={sections}
+        sections={sectionNav}
         onSelect={handleNavigation}
       />
       <Block>
         {/* <Visual className={classes.visual} /> */}
         <div className={classes.content}>
           <Scrollama onStepEnter={handleStepEnter}>
-            {content.sections.map((section, index) => {
-              const Component = SECTION_COMPONENTS[section.id];
+            {sections.map((section, index) => {
+              const { id, ...lang } = section;
+              const Component = SECTION_COMPONENTS[id];
               return (
-                <Step key={section.id} data={section.id}>
-                  <div id={section.id}>
+                <Step key={id} data={id}>
+                  <div id={id}>
                     {index === 0 && (
                       <Typography variant="h2" className={classes.title}>
                         Federal Facilities in the United States
@@ -163,7 +165,7 @@ const StateTemplate = ({ pageContext, data }) => {
                         [classes.first]: index === 0,
                       })}
                       data={data}
-                      {...section}
+                      lang={lang}
                     />
                   </div>
                 </Step>

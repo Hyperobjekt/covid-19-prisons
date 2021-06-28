@@ -21,12 +21,12 @@ import {
   ReleasesTable,
   GrassrootsTable,
   StaffSummary,
-} from "./sections";
-import useStatesStore from "./useStatesStore";
-import Visual from "./Visual";
+} from "../components/states/sections";
+import useStatesStore from "../components/states/useStatesStore";
+import Visual from "../components/states/Visual";
 import shallow from "zustand/shallow";
-import SectionNavigation from "../SectionNavigation";
-import content from "../../../content/states.json";
+import SectionNavigation from "../components/SectionNavigation";
+import content from "../../content/lang/states.json";
 import { Block } from "@hyperobjekt/material-ui-website";
 
 const useStyles = makeStyles((theme) => ({
@@ -157,7 +157,7 @@ const StateTemplate = ({ pageContext, data }) => {
   const scorecardData = data.scorecard?.nodes[0];
 
   if (!scorecardData) {
-    content.sections = content.sections.filter((s) => s.id !== "scorecard");
+    delete content.scorecard;
   }
 
   // set the state name in the store
@@ -173,16 +173,18 @@ const StateTemplate = ({ pageContext, data }) => {
   };
 
   // setctions for section nav
-  const sections = content.sections.map((s) => ({
-    id: s.id,
-    name: s.lang.link,
+  const sections = Object.entries(content).map(([key, section]) => ({
+    id: key,
+    name: section.link,
   }));
   const theme = useTheme();
   const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"));
 
-  const scrollSections = content.sections.filter((s) => !s.fullWidth);
-  const fullWidthSections = content.sections.filter((s) => s.fullWidth);
-
+  const scrollSectionKeys = ["residents", "staff", "facilities"];
+  const scrollSections = scrollSectionKeys.map((key) => content[key]);
+  const fullWidthKeys = ["scorecard", "releases", "grassroots", "filings"];
+  const fullWidthSections = fullWidthKeys.map((key) => content[key]);
+  console.log({ scrollSections, fullWidthSections });
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />
@@ -206,7 +208,7 @@ const StateTemplate = ({ pageContext, data }) => {
                         [classes.first]: index === 0,
                       })}
                       data={data}
-                      {...section}
+                      lang={section}
                     />
                   </div>
                 </Step>
@@ -222,12 +224,12 @@ const StateTemplate = ({ pageContext, data }) => {
             offset={isHorizontalLayout ? 0.3 : 0.15}
           >
             {fullWidthSections.map((section, index) => {
-              const Component = SECTION_COMPONENTS[section.id];
-              const { fullWidth, ...sectionData } = section;
+              const { id, ...lang } = section;
+              const Component = SECTION_COMPONENTS[id];
               return (
-                <Step key={section.id} data={section.id}>
-                  <div id={section.id}>
-                    <Component data={data} state={state} {...sectionData} />
+                <Step key={id} data={id}>
+                  <div id={id}>
+                    <Component data={data} state={state} lang={lang} />
                   </div>
                 </Step>
               );
@@ -242,7 +244,7 @@ const StateTemplate = ({ pageContext, data }) => {
 StateTemplate.propTypes = {};
 
 export const query = graphql`
-  query($state: String!) {
+  query ($state: String!) {
     allFacilities(filter: { state: { eq: $state } }) {
       edges {
         node {

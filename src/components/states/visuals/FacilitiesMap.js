@@ -1,14 +1,14 @@
-import React, { useMemo } from "react"
-import shallow from "zustand/shallow"
-import { MapGradients, MapLegend, StateMap } from "../../maps"
-import FacilitiesMarkerLayer from "../../maps/MarkerLayer/FacilitiesMarkerLayer"
-import { animated } from "react-spring"
-import useStatesStore from "../useStatesStore"
-import { useActiveMetric, useMappableFacilities } from "../../../common/hooks"
-import { Typography, withStyles } from "@material-ui/core"
-import Stack from "../../Stack"
-import { getLang } from "../../../common/utils/i18n"
-import FacilitiesMapTooltip from "./FacilitiesMapTooltip"
+import React, { useMemo } from "react";
+import shallow from "zustand/shallow";
+import { MapGradients, MapLegend, StateMap } from "../../maps";
+import FacilitiesMarkerLayer from "../../maps/MarkerLayer/FacilitiesMarkerLayer";
+import { animated } from "react-spring";
+import useStatesStore from "../useStatesStore";
+import { useActiveMetric, useMappableFacilities } from "../../../common/hooks";
+import { Typography, withStyles } from "@material-ui/core";
+import Stack from "../../Stack";
+import { getLang } from "../../../common/utils/i18n";
+import FacilitiesMapTooltip from "./FacilitiesMapTooltip";
 
 const styles = (theme) => ({
   contentContainer: {
@@ -34,7 +34,7 @@ const styles = (theme) => ({
     fontSize: theme.typography.pxToRem(12),
     opacity: 0.75,
   },
-})
+});
 
 const FacilitiesMap = ({ classes, ...props }) => {
   // current step that is scrolled in view
@@ -46,32 +46,32 @@ const FacilitiesMap = ({ classes, ...props }) => {
       state.content,
     ],
     shallow
-  )
+  );
 
   // currently selected metric
-  const metric = useActiveMetric()
+  const metric = useActiveMetric();
 
   // pull data for mappable facilities
-  const data = useMappableFacilities()
+  const data = useMappableFacilities();
 
   // memoize facilities for the state
-  const facilities = useMemo(() => data.filter((f) => f.state === stateName), [
-    data,
-    stateName,
-  ])
+  const facilities = useMemo(
+    () => data.filter((f) => f.state === stateName),
+    [data, stateName]
+  );
 
   // map group based on step
   const mapGroup = (() => {
-    if (currentStep === "staff") return "staff"
-    if (currentStep === "facilities") return facilitiesGroup
-    return "residents"
-  })()
+    if (currentStep === "staff") return "staff";
+    if (currentStep === "facilities") return facilitiesGroup;
+    return "residents";
+  })();
 
   /* eslint-disable no-template-curly-in-string */
-  const mapDescription = content.mapDescription
+  const mapDescription = content.map.description
     .replace("${metric}", getLang(metric).toLowerCase())
     .replace("${group}", getLang(mapGroup).toLowerCase())
-    .replace("${count}", facilities.length)
+    .replace("${count}", facilities.length);
   /* eslint-enable no-template-curly-in-string */
 
   return (
@@ -92,9 +92,9 @@ const FacilitiesMap = ({ classes, ...props }) => {
         </Typography>
       </Stack>
     </animated.div>
-  )
-}
+  );
+};
 
-FacilitiesMap.propTypes = {}
+FacilitiesMap.propTypes = {};
 
-export default withStyles(styles)(FacilitiesMap)
+export default withStyles(styles)(FacilitiesMap);
