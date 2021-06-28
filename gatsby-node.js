@@ -63,8 +63,8 @@ exports.sourceNodes = async (params) => {
   }
 };
 
-const StateTemplate = require.resolve(`./src/components/states/states.js`);
-const FederalPage = require.resolve(`./src/components/states/Federal.js`);
+const StateTemplate = require.resolve(`./src/templates/states.js`);
+const FederalPage = require.resolve(`./src/templates/federal.js`);
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;

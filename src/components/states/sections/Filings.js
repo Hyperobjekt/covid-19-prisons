@@ -1,10 +1,10 @@
-import React from "react"
-import clsx from "clsx"
-import { Box, Typography, withStyles } from "@material-ui/core"
-import NumberStat from "../../stats/NumberStat"
-import shallow from "zustand/shallow"
-import useStatesStore from "../useStatesStore"
-import StepWrapper from "./../StepWrapper"
+import React from "react";
+import clsx from "clsx";
+import { Box, Typography, withStyles } from "@material-ui/core";
+import NumberStat from "../../stats/NumberStat";
+import shallow from "zustand/shallow";
+import useStatesStore from "../useStatesStore";
+import StepWrapper from "./../StepWrapper";
 
 const styles = (theme) => ({
   root: {},
@@ -39,7 +39,7 @@ const styles = (theme) => ({
       },
     },
   },
-})
+});
 
 const Filings = ({
   id,
@@ -51,10 +51,10 @@ const Filings = ({
   className,
   ...props
 }) => {
-  const content = useStatesStore((state) => state.content, shallow)
+  const content = useStatesStore((state) => state.content, shallow);
 
-  const filingsData = data.allFilings?.edges[0]?.node
-  const labels = content.sections.find((s) => s.id === "filings").lang.visual
+  const filingsData = data.allFilings?.edges[0]?.node;
+  const labels = content["filings"].visual;
 
   return (
     <div className={clsx(classes.root, "filings", className)} {...props}>
@@ -88,7 +88,7 @@ const Filings = ({
         </Box>
       </StepWrapper>
     </div>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(Filings)
+export default withStyles(styles)(Filings);

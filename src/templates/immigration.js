@@ -4,39 +4,23 @@ import { graphql } from "gatsby";
 import { Block } from "@hyperobjekt/material-ui-website";
 import Layout from "gatsby-theme-hypersite/src/layout";
 import { GeoJsonLayer } from "@hyperobjekt/svg-maps";
-import IceShapes from "../../common/data/full_ice_topo.json";
-import Intro from "../home/HomeIntro";
-import HomeMap from "../home/HomeMap";
-import Table from "../home/HomeTable";
-import { Scorecard } from "../states/sections";
-import MapTooltip from "../home/HomeMapTooltip";
+import IceShapes from "../common/data/full_ice_topo.json";
+import Intro from "../components/home/HomeIntro";
+import HomeMap from "../components/home/HomeMap";
+import Table from "../components/home/HomeTable";
+import { Scorecard } from "../components/states/sections";
+import MapTooltip from "../components/home/HomeMapTooltip";
 import { makeStyles } from "@material-ui/core";
-import FacilitiesMapTooltip from "../states/visuals/FacilitiesMapTooltip";
-import { useRegionShapeStyles } from "../maps/styles";
-import { useActiveMetric, useOptionsStore } from "../../common/hooks";
-import sectionContent from "../../../content/immigration.json";
+import FacilitiesMapTooltip from "../components/states/visuals/FacilitiesMapTooltip";
+import { useRegionShapeStyles } from "../components/maps/styles";
+import { useActiveMetric, useOptionsStore } from "../common/hooks";
+import sectionContent from "../../content/lang/immigration.json";
 
 export const query = graphql`
   query ($pathSlug: String!) {
     mdx(frontmatter: { path: { eq: $pathSlug } }) {
       frontmatter {
-        intro {
-          body
-          subtitle
-          title
-        }
-        map {
-          description
-          title
-        }
         title
-        regionSelection {
-          title
-        }
-        table {
-          note
-          title
-        }
       }
       body
     }
@@ -145,15 +129,16 @@ const ImmigrationTemplate = ({
   return (
     <Layout title={content.title} className={muiClasses.root}>
       <Intro
-        title={content.intro.title}
-        subtitle={content.intro.subtitle}
-        body={content.intro.body}
+        title={sectionContent.intro.title}
+        subtitle={sectionContent.intro.subtitle}
+        body={sectionContent.intro.body}
       />
       <HomeMap
         selectedRegion={iceRegionId}
         categories={["immigration"]}
-        title={content.map.title}
-        description={content.map.description}
+        title={sectionContent.map.title}
+        description={sectionContent.map.description}
+        lang={sectionContent.map}
         isImmigration={true}
       >
         <GeoJsonLayer
@@ -178,14 +163,14 @@ const ImmigrationTemplate = ({
         isImmigration={true}
         selectedRegion={iceRegionId}
         categories={["immigration"]}
-        title={content.table.title}
-        note={content.table.note}
+        title={sectionContent.table.title}
+        note={sectionContent.table.note}
       />
       <Block id="scorecard">
         <Scorecard
           state="immigration"
           data={data}
-          lang={sectionContent.scorecard.lang}
+          lang={sectionContent.scorecard}
         />
       </Block>
     </Layout>

@@ -1,6 +1,10 @@
 import { createFileCollection, createFile } from "@hyperobjekt/cms-config";
+import federal from "./federal";
+import home from "./home";
+import immigration from "./immigration";
+import states from "./states";
 
-const home = createFile(
+const site = createFile(
   {
     label: "Sitewide Language",
     name: "en",
@@ -23,32 +27,15 @@ const home = createFile(
   { mergeFields: false }
 );
 
-const immmigration = createFile(
-  {
-    label: "ICE Page",
-    name: "immigration",
-    file: "content/lang/immigration.json",
-    extension: "json",
-    format: "json",
-    fields: [
-      {
-        label: "Scorecard Language",
-        name: "scorecard",
-        widget: "text",
-      },
-    ],
-  },
-  { mergeFields: false }
-);
-
 const lang = createFileCollection({
   label: "Language",
   name: "language",
   extension: "json",
   format: "json",
-  files: [home, immmigration],
+  editor: {
+    preview: false,
+  },
+  files: [site, home, federal, immigration, states],
 });
-
-console.log({ lang });
 
 export default lang;

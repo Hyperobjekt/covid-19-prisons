@@ -10,6 +10,8 @@ import StepWrapper from "./../StepWrapper";
 const Facilities = ({ id, lang, data, isFederal, ...props }) => {
   const all = useFacilitiesData();
 
+  console.log({ lang });
+
   // currently selected metric
   const metric = useActiveMetric();
 

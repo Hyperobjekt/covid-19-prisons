@@ -11,9 +11,7 @@ module.exports = {
         templates: {
           default: require.resolve("./src/templates/page.js"),
           home: require.resolve("./src/templates/home.js"),
-          immigration: require.resolve(
-            "./src/components/immigration/immigration.js"
-          ),
+          immigration: require.resolve("./src/templates/immigration.js"),
           blogIndex: require.resolve("./src/templates/blog-index.js"),
           blog: require.resolve("./src/templates/blog-post.js"),
         },

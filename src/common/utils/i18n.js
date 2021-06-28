@@ -1,5 +1,10 @@
 import en from "../../../content/lang/en.json";
 
+/**
+ * Maps array of key value pairs into an object
+ * @param {Array<{key, value}>} keyValueArray
+ * @returns {object}
+ */
 export const createDictFromArray = (keyValueArray) => {
   return keyValueArray.reduce((dict, current) => {
     dict[current.key] = current.value;
