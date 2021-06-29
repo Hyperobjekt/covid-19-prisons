@@ -184,7 +184,6 @@ const StateTemplate = ({ pageContext, data }) => {
   const scrollSections = scrollSectionKeys.map((key) => content[key]);
   const fullWidthKeys = ["scorecard", "releases", "grassroots", "filings"];
   const fullWidthSections = fullWidthKeys.map((key) => content[key]);
-  console.log({ scrollSections, fullWidthSections });
   return (
     <Layout title={state}>
       <SectionNavigation current={currentStep} sections={sections} />

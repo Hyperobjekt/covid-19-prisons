@@ -1,7 +1,5 @@
-import {
-  createFolderCollection,
-  extendFieldConfig,
-} from "@hyperobjekt/cms-config";
+import { createFolderCollection } from "@hyperobjekt/cms-config";
+import { updateField } from "../utils";
 
 // create a default folder configuration
 const baseBlogConfig = createFolderCollection({
@@ -9,6 +7,26 @@ const baseBlogConfig = createFolderCollection({
   folder: "content/pages/blog",
   media_folder: "/content/pages/blog/images",
   public_folder: "./images",
+});
+
+updateField(baseBlogConfig.fields, "meta.title", { required: false });
+updateField(baseBlogConfig.fields, "meta.isBlogPost", { default: true });
+updateField(baseBlogConfig.fields, "meta.author", {
+  field: {
+    label: "Name",
+    name: "name",
+    widget: "relation",
+    collection: "authors",
+    search_fields: ["name"],
+    display_fields: ["name"],
+    value_field: "name",
+  },
+  summary: "{{fields.name}}",
+});
+updateField(baseBlogConfig.fields, "path", { required: false });
+updateField(baseBlogConfig.fields, "name", {
+  label: "Title",
+  hint: "the title of your post",
 });
 
 // filter out unneeded fields
@@ -23,6 +41,8 @@ const featured = {
   name: "featured",
   widget: "boolean",
   hint: "Whether to display as the featured post on the blog index page. If more than one post is marked as featured, the most recent one will be used.",
+  required: false,
+  default: false,
 };
 
 // date field
@@ -47,6 +67,7 @@ const image = {
   name: "image",
   widget: "image",
   hint: "Image displayed below the title before the blog post body",
+  required: false,
 };
 
 // template field (sets the page template to "blog")
@@ -64,42 +85,11 @@ fields.splice(fields.length - 1, 0, summary); // before blog body
 fields.splice(fields.length - 1, 0, image); // before blog body
 fields.splice(fields.length, 0, template); // last field
 
-/**
- * update the blog metadata so that:
- * - isBlogPost defaults to true
- * - authors uses a list widget with a string field
- */
-const blogMetadata = extendFieldConfig(
-  fields.find((f) => f.name === "meta").fields,
-  {
-    isBlogPost: { default: true },
-    author: {
-      field: {
-        label: "Name",
-        name: "name",
-        widget: "relation",
-        collection: "data",
-        file: "authors",
-        search_fields: ["authors.*.name"],
-        display_fields: ["authors.*.name"],
-        value_field: "authors.*.name",
-      },
-      summary: "{{fields.name}}",
-    },
-  }
-);
-
 // create the blog config, with updated meta field
 const blog = {
   ...baseBlogConfig,
   filter: { field: "template", value: "blog" }, // only show blog posts
-  fields: extendFieldConfig(fields, {
-    meta: { fields: blogMetadata },
-    path: {
-      required: true,
-      hint: "URL where the blog post will be accessed on the site. should be lowercase, with no spaces or special characters. e.g. blog/this-is-the-post-name",
-    },
-  }),
+  fields,
 };
 
 console.log({ blog });

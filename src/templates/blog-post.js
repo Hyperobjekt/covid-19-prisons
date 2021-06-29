@@ -11,8 +11,6 @@ import {
   CONTENT_MAXWIDTH_LG,
   CONTENT_MAXWIDTH_XL,
   sansSerifyTypography,
-  serifTypography,
-  subtitleTypography,
 } from "../gatsby-theme-hypercore/theme";
 import { BlogHero, BlogSocialLinks, BlogLinkedPost } from "../components/blog";
 
@@ -68,15 +66,23 @@ const useStyles = makeStyles((theme) => ({
     },
     // headings within the blog post
     "& > h1, & > h2, & > h3, & > h4, & > h5, & > h6": {
-      marginTop: "1em",
+      marginTop: "1.5em",
+      marginBottom: "0.75em",
     },
     // default paragraph styles
-    "& > p": {
-      marginBottom: "1rem",
+    "& > p.MuiTypography-root": {
+      marginBottom: "1.5em",
+      fontSize: "1.2rem",
       // fontSize: theme.typography.pxToRem(16),
       // [theme.breakpoints.up('lg')]: {
 
       // }
+    },
+    "& > .MuiList-root .MuiTypography-root": {
+      fontSize: "1.2rem",
+    },
+    "& > .MuiList-root .MuiListItem-root": {
+      marginBottom: "1rem",
     },
     // image and figure margins
     "& > p > .gatsby-resp-image-wrapper, & > figure": {
@@ -211,75 +217,20 @@ const useStyles = makeStyles((theme) => ({
     },
     marginBottom: theme.spacing(2),
   },
-
-  linkedSection: {
-    background: theme.palette.background.alt3,
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(6),
-    paddingLeft: theme.columnSpacing(1),
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.columnSpacing(1),
-    },
-    [theme.breakpoints.up("md")]: {
-      paddingTop: theme.spacing(8),
-      paddingBottom: theme.spacing(8),
-    },
-  },
-  sectionTitle: {
-    ...subtitleTypography,
-    color: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(28),
-    letterSpacing: "calc(18px / 25)",
-  },
-  linkedTitle: {
-    ...serifTypography,
-    fontWeight: 400,
-    color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(32),
-    lineHeight: 1.25,
-    margin: 0,
-    maxWidth: theme.columnSpacing(10),
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: theme.columnSpacing(8),
-    },
-    [theme.breakpoints.up("md")]: {
-      maxWidth: theme.columnSpacing(6),
-    },
-  },
-  description: {
-    ...serifTypography,
-    color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(16),
-    lineHeight: 1.5,
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(3),
-    maxWidth: theme.columnSpacing(9),
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: theme.columnSpacing(7),
-    },
-    [theme.breakpoints.up("md")]: {
-      maxWidth: theme.columnSpacing(5),
-    },
-  },
-  readLink: {
-    "&:not(:hover)": {
-      color: `${theme.palette.text.primary} !important`,
-    },
-    textDecoration: "none !important",
-    paddingBottom: theme.spacing(1),
-    borderBottom: "solid 1px",
-    borderBottomColor: theme.palette.secondary.main,
-  },
 }));
 
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx } = props.data;
-  const { date, image, name: title, meta } = mdx.frontmatter;
+  const { date, image, name: title, description, meta } = mdx.frontmatter;
   const { author } = meta;
   const featuredImage = image && getImage(image);
   const classes = useStyles();
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id);
   const { body, ...mdxProps } = getMdxProps(props);
+  // fallback title if it is not set in metadata
+  if (!mdxProps.meta.title) mdxProps.meta.title = title;
+  // fallback description if it is not set in metadata
+  if (!mdxProps.meta.description) mdxProps.meta.description = description;
   return (
     <Layout {...mdxProps} {...props}>
       <BlogHero {...{ author, date, title }} />
@@ -307,10 +258,11 @@ const BlogPostTemplate = (props) => {
 export default BlogPostTemplate;
 
 export const query = graphql`
-  query ($pathSlug: String!) {
+  query ($id: String!) {
     # get post itself (could instead pull this data off allMdx node by path === $pathSlug)
-    mdx(frontmatter: { path: { eq: $pathSlug } }) {
+    mdx(id: { eq: $id }) {
       id
+      slug
       frontmatter {
         meta {
           title
@@ -330,6 +282,7 @@ export const query = graphql`
         }
         date
         name
+        description
         image {
           childImageSharp {
             gatsbyImageData(
@@ -352,17 +305,27 @@ export const query = graphql`
           id
         }
         next {
+          slug
           frontmatter {
+            meta {
+              author
+            }
             name
             description
             path
+            date
           }
         }
         previous {
+          slug
           frontmatter {
+            meta {
+              author
+            }
             name
             description
             path
+            date
           }
         }
       }

@@ -3,6 +3,7 @@ import { config, createFolderCollection } from "@hyperobjekt/cms-config";
 import blog from "./blog";
 import data from "./data";
 import lang from "./lang";
+import authors from "./authors";
 
 window.CMS_MANUAL_INIT = true;
 
@@ -25,6 +26,6 @@ CMS.init({
     },
     media_folder: "/static/images",
     public_folder: "/images",
-    collections: [config, pages, blog, data, lang],
+    collections: [config, pages, blog, authors, data, lang],
   },
 });

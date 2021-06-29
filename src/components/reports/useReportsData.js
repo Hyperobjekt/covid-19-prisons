@@ -18,6 +18,5 @@ export default function useReportsData() {
       }
     `
   );
-  console.log({ allDataJson });
   return allDataJson.nodes[0].reports || [];
 }

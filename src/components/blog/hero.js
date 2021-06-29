@@ -1,8 +1,8 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
-import { compactTitleTypography } from "../../gatsby-theme-hypercore/theme";
-import moment from "moment";
 import Block from "gatsby-theme-hypersite/src/main/block";
+import { Typography, withStyles } from "@material-ui/core";
+import { compactTitleTypography } from "../../gatsby-theme-hypercore/theme";
+import BlogMeta from "./blog-meta";
 
 const styles = (theme) => ({
   hero: {
@@ -18,6 +18,7 @@ const styles = (theme) => ({
     color: theme.palette.text.secondary,
     lineHeight: 1.05,
     margin: 0,
+    marginTop: theme.spacing(2),
     paddingBottom: theme.spacing(5),
     fontSize: theme.typography.pxToRem(55),
     [theme.breakpoints.up("sm")]: {
@@ -30,12 +31,13 @@ const styles = (theme) => ({
 });
 
 const Hero = ({ classes, author, date, title, ...props }) => {
-  const postDetails = `${author} • ${moment(date).format("MMMM Do, YYYY")}`;
   return (
     <Block>
       <div className={classes.hero} {...props}>
-        <p className={classes.date}>{postDetails}</p>
-        <h2 className={classes.postTitle}>{title}</h2>
+        <BlogMeta author={author} date={date} />
+        <Typography variant="h2" component="h2" className={classes.postTitle}>
+          {title}
+        </Typography>
       </div>
     </Block>
   );

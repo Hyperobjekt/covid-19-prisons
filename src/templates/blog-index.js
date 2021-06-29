@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) =>
 
 export default function BlogIndexTemplate(props) {
   useStyles();
-  const postsData = props.data.allMdx.nodes || [];
+  const postsData =
+    props.data.allMdx.nodes.map((node) => {
+      node.frontmatter.path = node.frontmatter.path || node.slug;
+      return node;
+    }) || [];
   const featuredPost = postsData.find((p) => p.frontmatter?.featured) || {};
   const otherPosts = postsData.filter((p) => p.id !== featuredPost.id);
   return (
@@ -51,7 +55,11 @@ export const pageQuery = graphql`
     ) {
       nodes {
         id
+        slug
         frontmatter {
+          meta {
+            author
+          }
           featured
           description
           name

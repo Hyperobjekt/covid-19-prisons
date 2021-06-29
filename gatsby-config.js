@@ -14,6 +14,7 @@ module.exports = {
           immigration: require.resolve("./src/templates/immigration.js"),
           blogIndex: require.resolve("./src/templates/blog-index.js"),
           blog: require.resolve("./src/templates/blog-post.js"),
+          author: require.resolve("./src/templates/author.js"),
         },
       },
     },
