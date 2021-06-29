@@ -4,7 +4,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import EmailIcon from "@material-ui/icons/Email";
 import IconButton from "@material-ui/core/IconButton";
 import { useLocation } from "@reach/router";
-import { withStyles } from "@material-ui/core";
+import { Box, withStyles } from "@material-ui/core";
 
 const styles = (theme) => ({
   social: {
@@ -27,9 +27,10 @@ const styles = (theme) => ({
     },
     [theme.breakpoints.up("lg")]: {
       flexDirection: "column",
-      position: "absolute",
-      left: theme.spacing(6),
-      top: 0,
+      position: "sticky",
+      marginTop: theme.spacing(2),
+      top: theme.spacing(11),
+      marginLeft: theme.spacing(-1),
       "& button": {
         padding: "12px",
         marginBottom: theme.spacing(1),
@@ -63,23 +64,27 @@ const SocialLinks = ({ classes, title }) => {
   };
 
   return (
-    <div className={classes.social}>
-      <IconButton onClick={twitterClick}>
-        <TwitterIcon />
-      </IconButton>
-      <IconButton onClick={facebookClick}>
-        <img alt="share on Facebook" src={FbIcon} />
-      </IconButton>
-      <IconButton>
-        <a
-          target="_blank"
-          href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`}
-          rel="noreferrer"
-        >
-          <EmailIcon />
-        </a>
-      </IconButton>
-    </div>
+    <>
+      <div className={classes.social}>
+        <IconButton onClick={twitterClick}>
+          <TwitterIcon />
+        </IconButton>
+        <IconButton onClick={facebookClick}>
+          <img alt="share on Facebook" src={FbIcon} />
+        </IconButton>
+        <IconButton>
+          <a
+            target="_blank"
+            href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`}
+            rel="noreferrer"
+          >
+            <EmailIcon />
+          </a>
+        </IconButton>
+      </div>
+      {/* Box adds negative margin to account for sticky social icons */}
+      <Box display={{ xs: "none", lg: "block" }} mb={-22} />
+    </>
   );
 };
 

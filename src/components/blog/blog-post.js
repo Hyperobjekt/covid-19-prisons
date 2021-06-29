@@ -1,45 +1,18 @@
 import React from "react";
 import clsx from "clsx";
-import { withStyles } from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import { Link } from "gatsby-theme-material-ui";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import moment from "moment";
 import { serifTypography } from "../../gatsby-theme-hypercore/theme";
 import ReadLink from "./read-link";
+import BlogMeta from "./blog-meta";
 
 const styles = (theme) => ({
-  title: {
-    ...serifTypography,
-    color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(32),
-    fontWeight: 400,
-    lineHeight: 1.2,
-    margin: 0,
-    maxWidth: theme.columnSpacing(10),
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: theme.columnSpacing(8),
-      fontSize: theme.typography.pxToRem(40),
-    },
-    [theme.breakpoints.up("md")]: {
-      maxWidth: theme.columnSpacing(6),
-    },
-  },
-  authorImage: {
-    display: "none", // deactivate for now
-    position: "relative",
-    left: "-100%",
-    fontSize: theme.typography.pxToRem(40),
-    marginRight: theme.spacing(2),
-    // marginTop: theme.spacing(1),
-    color: "#B7B7A5",
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
-  },
-
   root: {
     position: "relative",
-    paddingBottom: theme.spacing(10),
+    paddingBottom: theme.spacing(9),
+    "& + $root": {
+      paddingTop: theme.spacing(7),
+    },
     "&:not(:last-child):before": {
       content: "''",
       display: "block",
@@ -48,6 +21,22 @@ const styles = (theme) => ({
       left: 0,
       borderBottom: "2px dotted #92926C",
       width: 142,
+    },
+    "&:last-child": {
+      paddingBottom: 0,
+    },
+  },
+  title: {
+    ...serifTypography,
+    display: "block",
+    marginTop: theme.spacing(1),
+    color: theme.palette.text.primary,
+    fontSize: theme.typography.pxToRem(32),
+    fontWeight: 400,
+    lineHeight: 1.2,
+    maxWidth: "16em",
+    [theme.breakpoints.up("sm")]: {
+      fontSize: theme.typography.pxToRem(40),
     },
   },
   featured: {},
@@ -78,30 +67,32 @@ const styles = (theme) => ({
     },
     // marginRight: theme.columnSpacing(2),
   },
-  authorImageWrapper: {
-    position: "absolute",
-    top: 0,
-    display: "none", // deactivate for now
-  },
 });
 
 const BlogPost = ({ classes, className, post, isFeatured, ...props }) => {
-  const { date, name: title, description, path } = post.frontmatter;
-  const formattedDate = moment(date).format("MMMM Do, YYYY");
+  const { date, name: title, description, path, meta } = post.frontmatter;
+  const url = path || post.slug;
+  const absoluteUrl = url[0] === "/" ? url : "/" + url;
   return (
-    <div className={clsx(classes.root, className)} {...props}>
-      {!isFeatured && <p className={classes.date}>{formattedDate}</p>}
+    <div
+      className={clsx(
+        classes.root,
+        { [classes.featured]: isFeatured },
+        className
+      )}
+      {...props}
+    >
+      <BlogMeta date={date} author={meta.author} />
       <div className={classes.titleWrapper}>
-        <h3 className={classes.title}>
-          <Link to={"/" + path}>{title}</Link>
-        </h3>
-        <p className={classes.description}>{description}</p>
-        <div className={classes.authorImageWrapper}>
-          <AccountCircle className={classes.authorImage} />
-        </div>
+        <Typography variant="h3" component="h3">
+          <Link className={classes.title} to={absoluteUrl}>
+            {title}
+          </Link>
+        </Typography>
+        <Typography className={classes.description}>{description}</Typography>
       </div>
 
-      <ReadLink aria-hidden="true" to={"/" + path}>
+      <ReadLink aria-hidden="true" to={absoluteUrl}>
         Read more
       </ReadLink>
     </div>

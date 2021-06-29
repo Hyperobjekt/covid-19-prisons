@@ -37,52 +37,12 @@ const reportData = createFile(
   { mergeFields: false }
 );
 
-const authorData = createFile(
-  {
-    label: "Authors",
-    name: "authors",
-    file: "content/data/authors.json",
-    extension: "json",
-    format: "json",
-    media_folder: "../assets",
-    public_folder: "",
-    fields: [
-      {
-        label: "Authors ID",
-        name: "id",
-        default: "authors",
-        widget: "hidden",
-      },
-      {
-        label: "Authors",
-        name: "authors",
-        allow_add: true,
-        widget: "list",
-        fields: [
-          { label: "Name", name: "name", widget: "string", required: true },
-          { label: "Bio", name: "bio", widget: "text", required: false },
-          {
-            label: "Image",
-            name: "image",
-            widget: "image",
-            required: false,
-            hint: "small square avatar image",
-          },
-        ],
-      },
-    ],
-  },
-  { mergeFields: false }
-);
-
 const data = createFileCollection({
-  label: "Collections",
+  label: "External Reports",
   name: "data",
   extension: "json",
   format: "json",
-  files: [reportData, authorData],
+  files: [reportData],
 });
-
-console.log({ data });
 
 export default data;

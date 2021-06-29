@@ -15,6 +15,21 @@ const {
 } = require(`./scripts/fetchData.js`);
 const { validStatePages, slugify } = require(`./scripts/utils.js`);
 
+exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
+  createTypes(`
+    type AuthorsJson implements Node {
+      id: String!
+      authors: [Author]
+    }
+
+    type Author {
+      name: String
+      bio: String
+      image: File @fileByRelativePath
+    }
+  `);
+};
+
 /**
  * Creates a data node from the data fetcher
  * @param {*} id identifier for node
@@ -63,10 +78,17 @@ exports.sourceNodes = async (params) => {
   }
 };
 
-const StateTemplate = require.resolve(`./src/templates/states.js`);
-const FederalPage = require.resolve(`./src/templates/federal.js`);
+const createFederalPage = async ({ actions: { createPage } }) => {
+  const FederalTemplate = require.resolve(`./src/templates/federal.js`);
+  createPage({
+    path: `/federal/`,
+    component: FederalTemplate,
+    context: {},
+  });
+};
 
-exports.createPages = async ({ graphql, actions }) => {
+const createStatePages = async ({ graphql, actions }) => {
+  const StateTemplate = require.resolve(`./src/templates/states.js`);
   const { createPage } = actions;
   const result = await graphql(`
     query {
@@ -104,12 +126,11 @@ exports.createPages = async ({ graphql, actions }) => {
       );
     }
   });
+};
 
-  createPage({
-    path: `/federal/`,
-    component: FederalPage,
-    context: {},
-  });
+exports.createPages = async (props) => {
+  await createStatePages(props);
+  await createFederalPage(props);
 };
 
 // allow import of local components
