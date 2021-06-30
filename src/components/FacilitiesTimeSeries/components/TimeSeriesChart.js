@@ -79,7 +79,7 @@ const TimeSeriesChart = () => {
   return (
     <XYChart
       height={400}
-      margin={{ top: 20, right: 150, bottom: 20, left: 0 }}
+      margin={{ top: 55, right: 150, bottom: 55, left: 55 }}
       xScale={{ type: "time" }}
       yScale={{ type: "linear" }}
       theme={customTheme}
@@ -101,11 +101,23 @@ const TimeSeriesChart = () => {
               <AnnotationLabel
                 title={name}
                 showAnchorLine={false}
-                backgroundFill="rgba(0,150,150,0)"
+                backgroundFill="#F9FCF8"
+                // titleProps={{ paddingLeft: "35px" }}
+                // fontColor={"#283224"}
                 horizontalAnchor="start"
                 verticalAnchor="middle"
                 width={150}
               />
+              {/* <AnnotationLabel
+                title={"⬤"}
+                titleProps={{ color: getFacilityColor(i) }}
+                showAnchorLine={false}
+                backgroundFill="#F9FCF8"
+                fontColor={getFacilityColor(i)}
+                horizontalAnchor="middle"
+                verticalAnchor="middle"
+                // width={10}
+              /> */}
             </Annotation>
           )
       )}
