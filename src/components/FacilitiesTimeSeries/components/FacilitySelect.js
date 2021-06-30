@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   root: {},
   placeholder: {
     "& $chip": {
+      display: "inline-flex",
       marginRight: theme.spacing(0.5),
       marginBottom: theme.spacing(0.5),
     },
@@ -82,7 +83,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
               classes={{ root: classes.chip }}
               component="li"
               icon={<FiberManualRecord style={{ fill: getFacilityColor(i) }} />}
-              key={facility.name}
+              key={formatFacilityName(facility)}
               label={formatFacilityName(facility)}
               onDelete={null}
             />
