@@ -221,7 +221,14 @@ const useStyles = makeStyles((theme) => ({
 
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx } = props.data;
-  const { date, image, name: title, description, meta } = mdx.frontmatter;
+  const {
+    date,
+    image,
+    name: title,
+    description,
+    meta,
+    category,
+  } = mdx.frontmatter;
   const { author } = meta;
   const featuredImage = image && getImage(image);
   const classes = useStyles();
@@ -249,9 +256,11 @@ const BlogPostTemplate = (props) => {
           <MDXRenderer>{body}</MDXRenderer>
         </Box>
       </Block>
-      <LinkedBlock bgcolor="background.paper">
-        <BlogLinkedPost {...postNode} />
-      </LinkedBlock>
+      {category === "blog" && (
+        <LinkedBlock bgcolor="background.paper">
+          <BlogLinkedPost {...postNode} />
+        </LinkedBlock>
+      )}
     </Layout>
   );
 };
@@ -283,6 +292,7 @@ export const query = graphql`
         date
         name
         description
+        category
         image {
           childImageSharp {
             gatsbyImageData(

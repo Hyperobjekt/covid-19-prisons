@@ -78,12 +78,20 @@ const template = {
   default: "blog",
 };
 
+const category = {
+  label: "Category",
+  name: "category",
+  widget: "hidden",
+  default: "blog",
+};
+
 // insert extra fields
 fields.splice(1, 0, featured); // below draft toggle
 fields.splice(2, 0, date); // below feature toggle
 fields.splice(fields.length - 1, 0, summary); // before blog body
 fields.splice(fields.length - 1, 0, image); // before blog body
-fields.splice(fields.length, 0, template); // last field
+fields.splice(fields.length, 0, template); // end
+fields.splice(fields.length, 0, category); // end
 
 // create the blog config, with updated meta field
 const blog = {
