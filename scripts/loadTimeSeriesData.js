@@ -55,21 +55,34 @@ async function loadTimeSeries() {
         const newRateKey = newKey + "_rate";
         facility[newRateKey] = "";
 
+        let nullValues = "";
+        let nullRateValues = "";
+
         facRows.forEach((row) => {
           const date = row["Date"];
           const value = getInt(row[accessor]);
+          const valueString = date + "|" + value + ";";
 
-          // record non-values only if some value is already recorded
-          // (so gaps between data are shown, but not large leading gaps)
-          if (Number.isInteger(value) || facility[newKey]) {
-            facility[newKey] += date + "|" + value + ";";
-
-            // ignore populations of 0
-            const population = getInt(row[popAccessor]) || NaN;
+          // ignore populations of 0
+          const population = getInt(row[popAccessor]) || NaN;
+          
+          if (Number.isInteger(value)) {
+            facility[newKey] += nullValues + valueString;
+            nullValues = "";
 
             if (Number.isInteger(population) || facility[newRateKey]) {
               const rate = value / population;
-              facility[newRateKey] += date + "|" + rate + ";";
+              facility[newRateKey] += nullRateValues + date + "|" + rate + ";";
+              nullRateValues = "";
+            }
+          } else if (facility[newKey]) {
+            // record non-values only if some value is already recorded and others are coming
+            // (so gaps between data are shown, but not large leading/trailing gaps)
+            nullValues += valueString;
+
+            if (Number.isInteger(population) || facility[newRateKey]) {
+              const rate = value / population;
+              nullRateValues += date + "|" + rate + ";";
             }
           }
         });
