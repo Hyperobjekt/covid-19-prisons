@@ -6,11 +6,13 @@ import {
 } from "../../../common/utils/formatters";
 import moment from "moment";
 import {
-  AnimatedAxis,
+  Axis,
   Grid,
-  AnimatedLineSeries,
+  LineSeries,
   XYChart,
   Tooltip,
+  Annotation,
+  AnnotationLabel,
   buildChartTheme,
 } from "@visx/xychart";
 import useTimeSeriesStore from "../useTimeSeriesStore";
@@ -40,8 +42,11 @@ const TimeSeriesChart = () => {
     const lineData = facilityData[accessor];
     const { id } = facilitiesData;
     const name = formatFacilityName(facilityData);
-
-    return { name, id, lineData };
+    const lastDatum = lineData.reduceRight((accum, datum) => {
+      if (accum) return accum;;
+      if (!!datum.value) return datum;;
+    }, null);
+    return { name, id, lineData, lastDatum };
   });
 
   const colors = linesData.map((l, i) => getFacilityColor(i));
@@ -74,28 +79,36 @@ const TimeSeriesChart = () => {
   return (
     <XYChart
       height={400}
+      margin={{ top: 20, right: 150, bottom: 20, left: 0 }}
       xScale={{ type: "time" }}
       yScale={{ type: "linear" }}
       theme={customTheme}
     >
-      <AnimatedAxis tickFormat={formatDate} orientation="bottom" />
-      <AnimatedAxis
+      <Axis tickFormat={formatDate} orientation="bottom" />
+      <Axis
         orientation="left"
         numTicks={4}
         // tickLabelProps={() => ({ dx: -10 })}
       />
-      <Grid
-        columns={false}
-        numTicks={4}
-      />
+      <Grid columns={false} numTicks={4} />
       {linesData.map(({ name, lineData }, i) => (
-        <AnimatedLineSeries
-          key={name}
-          dataKey={name}
-          data={lineData}
-          {...accessors}
-        />
+        <LineSeries key={name} dataKey={name} data={lineData} {...accessors} />
       ))}
+      {linesData.map(
+        ({ name, lastDatum }, i) =>
+          lastDatum && (
+            <Annotation dataKey={name} datum={lastDatum} dx={0} dy={0}>
+              <AnnotationLabel
+                title={name}
+                showAnchorLine={false}
+                backgroundFill="rgba(0,150,150,0)"
+                horizontalAnchor="start"
+                verticalAnchor="middle"
+                width={150}
+              />
+            </Annotation>
+          )
+      )}
       <Tooltip
         snapTooltipToDatumX
         snapTooltipToDatumY
@@ -115,6 +128,6 @@ const TimeSeriesChart = () => {
       />
     </XYChart>
   );
-};;;;
+};
 
 export default TimeSeriesChart;
