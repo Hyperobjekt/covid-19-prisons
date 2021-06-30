@@ -10,7 +10,8 @@ import {
   makeStyles,
   TextField,
   Chip,
-  Icon,
+  Box,
+  Typography,
 } from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
@@ -19,13 +20,20 @@ import {
   formatFacilityName,
   getFacilityColor,
 } from "../../../common/utils/formatters";
-import { FiberManualRecord } from "@material-ui/icons";
+import { KeyboardArrowDown, FiberManualRecord } from "@material-ui/icons";
 import CloseIcon from "../../../../content/assets/close-icon.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   placeholder: {
-    display: "none",
+    "& $chip": {
+      marginRight: theme.spacing(0.5),
+      marginBottom: theme.spacing(0.5),
+    },
+    "& li": {
+      display: "inline-block",
+      listStyle: "none",
+    },
   },
   chip: {
     background: "none",
@@ -61,44 +69,52 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
 
   return (
     <div className={classes.root}>
-      <div onClick={openHandler}>
-        <Autocomplete
-          multiple
-          open={false}
-          value={selectedFacilities}
-          id="facility-autocomplete-placeholder"
-          options={allFacilities}
-          getOptionLabel={formatFacilityName}
-          renderOption={(option) => option.name}
-          limitTags={4}
-          disableClearable
-          size="small"
-          classes={{ input: classes.placeholder }}
-          renderTags={(tagValue, getTagProps) =>
-            tagValue.map((option, i) => (
-              <Chip
-                classes={{ root: classes.chip }}
-                icon={
-                  <FiberManualRecord style={{ fill: getFacilityColor(i) }} />
-                }
-                label={formatFacilityName(option)}
-                {...getTagProps({ i })}
-                onDelete={null}
-              />
-            ))
-          }
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Facilities"
-              placeholder=""
+      <Box
+        // onClick={openHandler}
+        className={classes.placeholder}
+        position="relative"
+        display="flex"
+        pr={6}
+      >
+        <Box pl={2} component="ul">
+          {selectedFacilities.slice(0, 4).map((facility, i) => (
+            <Chip
+              classes={{ root: classes.chip }}
+              component="li"
+              icon={<FiberManualRecord style={{ fill: getFacilityColor(i) }} />}
+              key={facility.name}
+              label={formatFacilityName(facility)}
+              onDelete={null}
             />
+          ))}
+          {selectedFacilities.length > 4 && (
+            <li>
+              <Typography variant="body">
+                +{selectedFacilities.length - 4}
+              </Typography>
+            </li>
           )}
-        />
-      </div>
-      <Dialog open={modalOpen} onClose={closeHandler}>
-        <DialogTitle>{getLang("time_series_facility_select")}</DialogTitle>
+        </Box>
+        <Box
+          clone
+          position="absolute"
+          width="100%"
+          height="100%"
+          justifyContent="flex-end"
+        >
+          <Button onClick={openHandler}>
+            <KeyboardArrowDown aria-label="edit facilities" />
+          </Button>
+        </Box>
+      </Box>
+      <Dialog
+        aria-labelledby="dialog-title"
+        open={modalOpen}
+        onClose={closeHandler}
+      >
+        <DialogTitle id="dialog-title">
+          {getLang("time_series_facility_select")}
+        </DialogTitle>
         <DialogContent>
           <Autocomplete
             multiple
