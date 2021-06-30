@@ -4,6 +4,7 @@ import blog from "./blog";
 import data from "./data";
 import lang from "./lang";
 import authors from "./authors";
+import reports from "./reports";
 
 window.CMS_MANUAL_INIT = true;
 
@@ -26,6 +27,6 @@ CMS.init({
     },
     media_folder: "/static/images",
     public_folder: "/images",
-    collections: [config, pages, blog, authors, data, lang],
+    collections: [config, pages, blog, authors, reports, data, lang],
   },
 });

@@ -9,7 +9,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import moment from "moment";
-
+import useInternalReports from "./useInternalReports";
+import { Link as GatsbyLink } from "gatsby-theme-material-ui";
 const useStyles = makeStyles((theme) => ({
   details: {
     display: "inline",
@@ -19,14 +20,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ReportTitle = ({ report }) => {
+const ReportTitle = ({ report, external }) => {
   const classes = useStyles();
 
   return (
     <>
-      <Link target="_blank" href={report.url}>
-        {report.title}
-      </Link>
+      {external && (
+        <Link target="_blank" href={report.url}>
+          {report.title}
+        </Link>
+      )}
+      {!external && <GatsbyLink to={report.url}>{report.title}</GatsbyLink>}
       <br />
       <Typography variant="body2" className={classes.details}>
         {moment(report.date).format("MMMM Do, YYYY")}, {report.author}
@@ -35,16 +39,16 @@ const ReportTitle = ({ report }) => {
   );
 };
 
-const ReportList = (props) => {
-  const reports = useReportsData();
+const ReportList = ({ reports = [], external, ...props }) => {
   const classes = useStyles();
-
+  if (reports.length === 0)
+    return <Typography>No reports available</Typography>;
   return (
     <List>
       {reports.map((report) => (
         <ListItem disableGutters>
           <ListItemText
-            primary={<ReportTitle report={report} />}
+            primary={<ReportTitle report={report} external={external} />}
             secondary={report.description}
             classes={{ primary: classes.primary }}
           />
@@ -54,6 +58,14 @@ const ReportList = (props) => {
   );
 };
 
-ReportList.propTypes = {};
+export const ExternalReportList = (props) => {
+  const reports = useReportsData();
+  return <ReportList external reports={reports} {...props} />;
+};
+
+export const InternalReportList = (props) => {
+  const reports = useInternalReports();
+  return <ReportList reports={reports} {...props} />;
+};
 
 export default ReportList;
