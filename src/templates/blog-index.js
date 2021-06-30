@@ -51,7 +51,7 @@ export const pageQuery = graphql`
     }
     allMdx(
       sort: { fields: frontmatter___date, order: DESC }
-      filter: { frontmatter: { template: { eq: "blog" } } }
+      filter: { frontmatter: { category: { eq: "blog" } } }
     ) {
       nodes {
         id

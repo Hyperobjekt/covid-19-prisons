@@ -6,8 +6,17 @@ name: Reports
 path: /reports
 ---
 
-import ReportList from "components/reports/ReportList";
+import {
+  ExternalReportList,
+  InternalReportList,
+} from "components/reports/ReportList";
 
 ## Reports
 
-<ReportList />
+### Internal
+
+<InternalReportList />
+
+### External
+
+<ExternalReportList />
