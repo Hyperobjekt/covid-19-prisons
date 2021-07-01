@@ -17,7 +17,21 @@ const home = {
       ...table,
       label: "Vaccine Table",
       name: "vaccineTable",
-      fields: [table.fields[0], makeTextField("Subtitle"), table.fields[1]],
+      fields: [
+        table.fields[0], // title
+        makeTextField("Subtitle"),
+        table.fields[1], // notes
+        {
+          label: "Flag Notes",
+          name: "flag_notes",
+          widget: "list",
+          summary: "{{fields.key}}",
+          fields: [
+            makeStringField("entity", { label: "Entry" }),
+            makeStringField("text"),
+          ],
+        },
+      ],
     },
     {
       label: "Sponsors",

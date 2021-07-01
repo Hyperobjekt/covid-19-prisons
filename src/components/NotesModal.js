@@ -1,114 +1,60 @@
-import React from "react"
-import PropTypes from "prop-types"
-import clsx from "clsx"
-import InfoIcon from "../../content/assets/info-icon.svg"
-import {
-  ButtonBase,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Typography,
-  withStyles,
-} from "@material-ui/core"
-import CloseIcon from "@material-ui/icons/Close"
-import { sansSerifyTypography } from "../gatsby-theme-hypercore/theme"
+import React from "react";
+import PropTypes from "prop-types";
+import { Typography, withStyles } from "@material-ui/core";
+import InfoIcon from "../common/icons/InfoIcon";
+import { getLang } from "../common/utils/i18n";
+import Modal from "./modal/Modal";
 
 export const styles = (theme) => ({
-  iconWrapper: {
-    "& img": {
-      paddingRight: theme.spacing(1),
-    },
+  button: {
+    border: "none",
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(-1),
+    marginRight: "auto",
+    marginTop: theme.spacing(2),
+    fontSize: theme.typography.pxToRem(14),
   },
-  dialog: {
-    maxWidth: theme.typography.pxToRem(555),
-  },
-  title: {
-    padding: theme.spacing(3, 4, 2),
-    borderBottom: "1px solid #C8C8B9",
-    "& *": {
-      ...sansSerifyTypography,
-      color: theme.palette.text.secondary,
-      fontWeight: 500,
-      fontSize: theme.typography.pxToRem(18),
-    },
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1.5),
-    top: theme.spacing(1.5),
-    color: theme.palette.grey[500],
-  },
-  content: {
-    padding: theme.spacing(3, 8, 3, 4),
-  },
-  notes: {
-    listStyle: "none",
-    padding: 0,
-    margin: 0,
-    "& li + li": {
-      marginTop: theme.spacing(1),
-    },
-  },
-})
+});
+
+const getNumberPrefix = (num) =>
+  `<sup style="position:absolute; margin-left: -1em;">${num}</sup>`;
 
 const NotesModal = ({
   classes,
   className,
-  title = "Data Notes",
-  iconText = "Open data notes",
-  icon = InfoIcon,
+  disableNumbering,
   notes,
   ...props
 }) => {
-  const [modalOpen, setModalOpen] = React.useState(false)
-  const openHandler = () => setModalOpen(true)
-  const closeHandler = () => setModalOpen(false)
-
   return (
-    <div className="notes-modal">
-      <ButtonBase onClick={openHandler} classes={{ root: classes.iconWrapper }}>
-        <img alt="info" src={icon} />
-        {iconText}
-      </ButtonBase>
-      <Dialog
-        classes={{ paper: classes.dialog }}
-        open={modalOpen}
-        onClose={closeHandler}
-      >
-        <DialogTitle classes={{ root: classes.title }}>
-          {title}
-          <IconButton
-            aria-label="close"
-            className={classes.closeButton}
-            onClick={closeHandler}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent classes={{ root: classes.content }}>
-          <ol className={classes.notes}>
-            {notes.map((note, i) => (
-              <li key={i}>
-                <Typography
-                  variant="body2"
-                  dangerouslySetInnerHTML={{ __html: note }}
-                />
-              </li>
-            ))}
-          </ol>
-        </DialogContent>
-      </Dialog>
-    </div>
-  )
-}
+    <Modal
+      classes={{ button: classes.button }}
+      title={getLang("notes_dialog_title")}
+      content={
+        <>
+          {notes.map((note, i) => (
+            <Typography
+              key={note}
+              variant="body2"
+              gutterBottom
+              dangerouslySetInnerHTML={{
+                __html: disableNumbering ? note : getNumberPrefix(i + 1) + note,
+              }}
+            />
+          ))}
+        </>
+      }
+      {...props}
+    >
+      <InfoIcon aria-hidden="true" style={{ marginRight: 8 }} />
+      {getLang("notes_open")}
+    </Modal>
+  );
+};
 
 NotesModal.propTypes = {
   notes: PropTypes.array,
-  title: PropTypes.string,
-  iconText: PropTypes.string,
   className: PropTypes.string,
-  icon: PropTypes.object,
-}
+};
 
-export default withStyles(styles)(NotesModal)
+export default withStyles(styles)(NotesModal);

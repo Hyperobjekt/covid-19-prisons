@@ -18,6 +18,7 @@ import Notes from "../Notes";
 import { formatMetricValue } from "../../common/utils/formatters";
 import clsx from "clsx";
 import { Link } from "gatsby-theme-material-ui";
+import NotesModal from "../NotesModal";
 
 const styles = (theme) => ({
   root: {
@@ -266,9 +267,7 @@ const HomeTable = ({
           classes={{ root: classes.toggleContainer }}
         />
       </Table>
-      {note && note.length > 0 && (
-        <Notes notes={note} className={classes.notes} />
-      )}
+      {note && note.length > 0 && <NotesModal notes={note} />}
     </Block>
   );
 };

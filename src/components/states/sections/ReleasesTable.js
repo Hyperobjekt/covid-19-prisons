@@ -1,10 +1,10 @@
-import React from "react"
-import { DefaultTable } from "../../table"
-import { Typography, withStyles } from "@material-ui/core"
-import LinkIcon from "@material-ui/icons/Link"
-import Notes from "../../Notes"
-import StepWrapper from "../StepWrapper"
-import { titleTypography } from "../../../gatsby-theme-hypercore/theme"
+import React from "react";
+import { DefaultTable } from "../../table";
+import { Typography, withStyles } from "@material-ui/core";
+import LinkIcon from "@material-ui/icons/Link";
+import StepWrapper from "../StepWrapper";
+import { titleTypography } from "../../../gatsby-theme-hypercore/theme";
+import NotesModal from "../../NotesModal";
 
 const styles = (theme) => ({
   title: {
@@ -25,14 +25,9 @@ const styles = (theme) => ({
   notes: {
     listStyle: "none",
   },
-})
+});
 
-const ReleasesTable = ({
-  classes,
-  data,
-  lang,
-  ...props
-}) => {
+const ReleasesTable = ({ classes, data, lang, ...props }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -103,13 +98,13 @@ const ReleasesTable = ({
         Header: lang.table.source,
         accessor: "source",
         Cell: ({ value }) => {
-          if (!value) return " "
+          if (!value) return " ";
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
           return (
             <a title={value} href={value} target="__blank">
               <LinkIcon />
             </a>
-          )
+          );
         },
         style: {
           minWidth: "4rem",
@@ -128,27 +123,27 @@ const ReleasesTable = ({
       lang.table.releases,
       lang.table.source,
     ]
-  )
+  );
 
-  const { detailTypeMap } = lang.table
+  const { detailTypeMap } = lang.table;
   const getReleaseData = (releaseEdges) => {
     return releaseEdges.map((ed) => {
-      const { node } = ed
-      const details = []
+      const { node } = ed;
+      const details = [];
       Object.keys(detailTypeMap).forEach((detailKey) => {
         if (node[detailKey]) {
-          const detailText = detailTypeMap[detailKey]
-          details.push(detailText)
+          const detailText = detailTypeMap[detailKey];
+          details.push(detailText);
         }
-      })
-      node.details = details.join(", ")
+      });
+      node.details = details.join(", ");
 
-      return node
-    })
-  }
-  const jailReleaseData = getReleaseData(data.allJailReleases.edges)
-  const prisonReleaseData = getReleaseData(data.allPrisonReleases.edges)
-  const extractedData = [...jailReleaseData, ...prisonReleaseData]
+      return node;
+    });
+  };
+  const jailReleaseData = getReleaseData(data.allJailReleases.edges);
+  const prisonReleaseData = getReleaseData(data.allPrisonReleases.edges);
+  const extractedData = [...jailReleaseData, ...prisonReleaseData];
   return (
     <StepWrapper>
       <div className={classes.headers}>
@@ -165,11 +160,11 @@ const ReleasesTable = ({
         data={extractedData}
         {...props}
       ></DefaultTable>
-      <Notes notes={lang.notes} className={classes.notes}></Notes>
+      <NotesModal disableNumbering notes={lang.notes} />
     </StepWrapper>
-  )
-}
+  );
+};
 
-ReleasesTable.propTypes = {}
+ReleasesTable.propTypes = {};
 
-export default withStyles(styles)(ReleasesTable)
+export default withStyles(styles)(ReleasesTable);
