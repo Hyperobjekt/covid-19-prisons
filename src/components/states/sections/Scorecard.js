@@ -1,21 +1,21 @@
-import React from "react"
-import clsx from "clsx"
-import { Table } from "../../table"
+import React from "react";
+import clsx from "clsx";
+import { Table } from "../../table";
 import {
   Grid,
   Typography,
   useMediaQuery,
   useTheme,
   withStyles,
-} from "@material-ui/core"
-import StepWrapper from "../StepWrapper"
-import BadIcon from "../../../../content/assets/score-bad.svg"
-import OkayIcon from "../../../../content/assets/score-okay.svg"
-import GoodIcon from "../../../../content/assets/score-good.svg"
-import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme"
+} from "@material-ui/core";
+import StepWrapper from "../StepWrapper";
+import BadIcon from "../../../../content/assets/score-bad.svg";
+import OkayIcon from "../../../../content/assets/score-okay.svg";
+import GoodIcon from "../../../../content/assets/score-good.svg";
+import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
 
 // const MIN_COL_WIDTH = 116
-const MAX_COL_WIDTH = 230
+const MAX_COL_WIDTH = 230;
 
 const styles = (theme) => ({
   title: {
@@ -38,6 +38,7 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(2),
     borderTop: "2px dotted #92926C",
     margin: theme.spacing(2, 0),
+    maxWidth: "7em",
     [theme.breakpoints.up("lg")]: {
       margin: theme.spacing(3, 0),
       paddingTop: theme.spacing(3),
@@ -162,56 +163,56 @@ const styles = (theme) => ({
       // },
     },
   },
-})
+});
 
 const getQualityValue = (value, lang) => {
-  let alt = lang.table_value.no
-  let icon = BadIcon
-  let text = lang.table_value.no
+  let alt = lang.table_value.no;
+  let icon = BadIcon;
+  let text = lang.table_value.no;
 
-  const val = value && value.toLowerCase()
+  const val = value && value.toLowerCase();
   if (val === "yes") {
-    alt = lang.table_value.yes
-    icon = GoodIcon
-    text = lang.table_value.yes
+    alt = lang.table_value.yes;
+    icon = GoodIcon;
+    text = lang.table_value.yes;
   }
   return (
     <>
       <img alt={alt} src={icon} />
       <p>{text}</p>
     </>
-  )
-}
+  );
+};
 
 const getReportingValue = (value, lang) => {
-  let alt = lang.table_value.none_alt
-  let icon = BadIcon
-  let text = lang.table_value.none
+  let alt = lang.table_value.none_alt;
+  let icon = BadIcon;
+  let text = lang.table_value.none;
 
-  const val = value && value.toLowerCase()
+  const val = value && value.toLowerCase();
   if (val === "facility-level") {
-    alt = lang.table_value.facility_level_alt
-    icon = GoodIcon
-    text = lang.table_value.facility_level
+    alt = lang.table_value.facility_level_alt;
+    icon = GoodIcon;
+    text = lang.table_value.facility_level;
   } else if (val === "statewide") {
-    alt = lang.table_value.statewide_alt
-    icon = OkayIcon
-    text = lang.table_value.statewide
+    alt = lang.table_value.statewide_alt;
+    icon = OkayIcon;
+    text = lang.table_value.statewide;
   }
   return (
     <>
       <img alt={alt} src={icon} />
       <p>{text}</p>
     </>
-  )
-}
+  );
+};
 
 const qualityColumns = [
   { id: "machine" },
   { id: "regularly" },
   { id: "defined" },
   { id: "history" },
-]
+];
 
 const resReportingColumns = [
   { id: "cases_residents" },
@@ -220,7 +221,7 @@ const resReportingColumns = [
   { id: "tests_residents" },
   { id: "population_residents" },
   { id: "vaccinations_residents" },
-]
+];
 
 const staffReportingColumns = [
   { id: "cases_staff" },
@@ -229,7 +230,7 @@ const staffReportingColumns = [
   { id: "tests_staff" },
   { id: "population_staff" },
   { id: "vaccinations_staff" },
-]
+];
 
 const ScorecardSection = ({
   data,
@@ -256,8 +257,8 @@ const ScorecardSection = ({
         // equal width columns
         width: `${100 / columnMeta.length}%`,
       },
-    }))
-  }, [getDisplayValue, classes, columnMeta, lang])
+    }));
+  }, [getDisplayValue, classes, columnMeta, lang]);
 
   const table = (
     <Table
@@ -267,7 +268,7 @@ const ScorecardSection = ({
       disableFilter={true}
       disableFooter={true}
     />
-  )
+  );
 
   const pivotedTable = (
     <table className={classes.pivotedTable}>
@@ -282,11 +283,11 @@ const ScorecardSection = ({
         ))}
       </tbody>
     </table>
-  )
+  );
 
-  const theme = useTheme()
-  const bumpWidth = theme.breakpoints.values["md"]
-  const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`)
+  const theme = useTheme();
+  const bumpWidth = theme.breakpoints.values["md"];
+  const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`);
 
   return (
     <Grid container spacing={3} className={clsx(className, classes.section)}>
@@ -299,16 +300,19 @@ const ScorecardSection = ({
         {isLarge ? table : pivotedTable}
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
 const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
-  const scorecardData = data.scorecard?.nodes[0]
-  if (!scorecardData) return null
+  const scorecardData = data.scorecard?.nodes[0];
+  if (!scorecardData) return null;
 
-  const asteriskKey = props.isFederal ? "federal" : state.toLowerCase()
-  const asteriskText = lang.asterisk_notes[asteriskKey]
-  const asterisk = <span className={classes.asterisk}>*</span>
+  const asteriskKey = props.isFederal ? "federal" : state.toLowerCase();
+  const asteriskNote = lang.asterisk_notes.find(
+    (entry) => asteriskKey === entry.key
+  );
+  const asteriskText = asteriskNote && asteriskNote.note;
+  const asterisk = <span className={classes.asterisk}>*</span>;
 
   return (
     <StepWrapper>
@@ -318,11 +322,7 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             {lang.title}
           </Typography>
           <Typography variant="body1" className={classes.score}>
-            <span className={classes.scoreTitle}>
-              {lang.score_title[0]}
-              <br />
-              {lang.score_title[1]}
-            </span>
+            <span className={classes.scoreTitle}>{lang.score_title}</span>
             <span className={classes.scoreGrade}>
               {scorecardData.score}
               {asteriskText && asterisk}
@@ -391,9 +391,9 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
       </Grid>
       {/* <Notes notes={[lang.notes.lorem]}></Notes> */}
     </StepWrapper>
-  )
-}
+  );
+};
 
-Scorecard.propTypes = {}
+Scorecard.propTypes = {};
 
-export default withStyles(styles)(Scorecard)
+export default withStyles(styles)(Scorecard);

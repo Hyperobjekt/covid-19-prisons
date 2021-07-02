@@ -7,7 +7,6 @@ import { NationalMap, MapLegend } from "../maps";
 import { navigate } from "gatsby";
 import { useMapStore } from "@hyperobjekt/svg-maps";
 import { useActiveMetric, useMappableFacilities } from "../../common/hooks";
-import { getLang } from "../../common/utils/i18n";
 import MetricSelectionTitle from "../controls/MetricSelectionTitle";
 import { getSlug } from "../../common/utils/selectors";
 
@@ -95,6 +94,7 @@ const HomeMap = ({
   categories,
   children,
   isImmigration,
+  lang,
   selectedRegion,
   ...props
 }) => {
@@ -110,7 +110,7 @@ const HomeMap = ({
 
   // MetricSelection includes region name in immigration map
 
-  const notes = getLang("map", "notes", isImmigration && "immigration");
+  const notes = lang.notes;
   return (
     <Block data-tip="" className={clsx(classes.root, className)} {...props}>
       <Box className={classes.mapContent}>
@@ -118,7 +118,7 @@ const HomeMap = ({
           <MetricSelectionTitle title={title} isImmigration={isImmigration} />
         </Box>
         <Typography className={classes.mapDescription} variant="body2">
-          {getLang("map", metric, isImmigration && "immigration")}
+          {lang.labels[metric]}
         </Typography>
         <MapLegend data={data} className={classes.legend} />
         <Box className={classes.mapContainer}>

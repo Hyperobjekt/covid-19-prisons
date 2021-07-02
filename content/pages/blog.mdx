@@ -1,0 +1,13 @@
+---
+meta:
+  title: Blog
+name: Blog Index
+path: /blog
+template: blogIndex
+---
+
+import { BlogPosts, BlogFeatured } from "components/blog";
+
+<BlogFeatured title="Featured Post" post={props.featuredPost} />
+
+<BlogPosts title="Recent Posts" posts={props.posts} />

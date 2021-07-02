@@ -5,3 +5,4 @@ export { default as HomeTable } from "./HomeTable";
 export { default as HomeMapTooltip } from "./HomeMapTooltip";
 export { default as VaccineTable } from "./VaccineTable";
 export { default as FacilitiesTimeSeries } from "../FacilitiesTimeSeries";
+export { default as HomeContent } from "../../../content/lang/home.json";

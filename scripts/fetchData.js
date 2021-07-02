@@ -1,7 +1,7 @@
 if (typeof fetch !== "function") {
   global.fetch = require("node-fetch");
 }
-const { text: fetchText } = require("d3-fetch");
+const { csv: fetchCsv, text: fetchText } = require("d3-fetch");
 const { csvParse } = require("d3-dsv");
 const { groups } = require("d3-array");
 const {
@@ -38,6 +38,7 @@ exports.getVaccines = () => getData(vaccinesCsv, parseVaccine);
  */
 
 const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=696812429&format=csv`;
+// const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=687147875&format=csv`;
 
 const scorecardMap = {
   state: ["state", "string", exactMatch],

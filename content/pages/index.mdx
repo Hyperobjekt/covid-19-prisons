@@ -1,42 +1,10 @@
 ---
 meta:
   title: UCLA Law COVID Behind Bars Data Project
+  isBlogPost: false
+path: /
 name: Home
 template: home
-path: /
-intro:
-  title: COVID behind bars data project
-  subtitle: UCLA Law
-  body:
-    We collect and report data on COVID in prisons, jails, and immigration detention centers, as well as pandemic-related prison
-    and jail releases, legal filings and court orders, and grassroots and community organizing efforts.
-    Our team is still in the process of adding all of our facility-level data to the national and state maps.
-    Please check back regularly for updates.
-map:
-  title: Showing ${metric} in carceral facilities
-  description: >-
-    (set map_notes in en.json used instead for markup)
-table:
-  title: Facilities with the highest ${metric}
-  note:
-    - Testing and reporting practices vary widely by correctional agency. True case and mortality counts are likely higher and may be significantly higher than reported.
-    - Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.
-vaccineTable:
-  title: COVID Vaccines in Carceral Facilities
-  subtitle: This table reflects data publicly reported by correctional agencies about the administration of COVID vaccines to incarcerated people and staff in their facilities. Agencies differ in the number and definitions of variables they report about vaccination, but, to the best of our knowledge, the numbers reported here refer to the number of people who have received <u>at least</u> one dose of a vaccine. Some individuals may have also received a second dose, though it is not always clear from the data. We will add jurisdictions to this table as more data become available.
-  vaccine_note: Vaccination totals refer to the number of people who have received at least one dose of vaccine. The population value used to calculate the vaccination rate for incarcerated people is from January 2021, and the population value used for staff is the most recent data available. Many of the staff population denominators come from the Marshall Project’s data.
-sponsors:
-  title: "Our generous supporters include:"
-  logos:
-    - image: /images/arnold-ventures-logo.svg
-      link: ""
-      alt: "Arnold Ventures Logo"
-    - image: /images/arnold-ventures-logo.svg
-      link: ""
-      alt: "CDC Logo"
-    - image: /images/vital-projects-fund-logo.svg
-      link: ""
-      alt: "Vital Projects Fund Logo"
 ---
 
 import {
@@ -46,26 +14,25 @@ import {
   HomeTable,
   VaccineTable,
   FacilitiesTimeSeries,
+  HomeSponsors,
 } from "components/home";
+import homeContent from "../lang/home.json";
 
 <HomeIntro
-  title={props.frontmatter.intro.title}
-  subtitle={props.frontmatter.intro.subtitle}
-  body={props.frontmatter.intro.body}
+  title={homeContent.intro.title}
+  subtitle={homeContent.intro.subtitle}
+  body={homeContent.intro.body}
 />
-<HomeMap title={props.frontmatter.map.title} />
+<HomeMap title={homeContent.map.title} lang={homeContent.map} />
 <HomeMapTooltip />
-<HomeTable
-  title={props.frontmatter.table.title}
-  note={props.frontmatter.table.note}
-/>
+<HomeTable title={homeContent.table.title} note={homeContent.table.note} />
 <VaccineTable
-  title={props.frontmatter.vaccineTable.title}
-  subtitle={props.frontmatter.vaccineTable.subtitle}
-  note={[props.frontmatter.vaccineTable.note]}
+  title={homeContent.vaccineTable.title}
+  subtitle={homeContent.vaccineTable.subtitle}
+  note={homeContent.vaccineTable.note}
 />
 <FacilitiesTimeSeries />
-<Sponsors
-  title={props.frontmatter.sponsors.title}
-  logos={props.frontmatter.sponsors.logos}
+<HomeSponsors
+  title={homeContent.sponsors.title}
+  logos={homeContent.sponsors.logos}
 />

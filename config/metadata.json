@@ -1,11 +1,19 @@
 {
-  "title": "UCLA Law COVID-19 Behind Bars Data Project",
-  "description": "Reporting COVID-19 data from U.S. carceral facilities.",
-  "keywords": "UCLA Law, COVID, prisons",
-  "copyright": "Copyright © 2020",
+  "copyright": "Copyright © 2021",
   "siteUrl": "https://uclacovidbehindbars.org",
-  "image": "https://via.placeholder.com/1230x600",
+  "keywords": "UCLA Law, COVID, prisons",
   "logo": "/images/site-logo.svg",
+  "social": [
+    {
+      "name": "Twitter",
+      "value": "https://twitter.com/uclaprisondata"
+    },
+    {
+      "name": "Instagram",
+      "value": "https://instagram.com/uclaprisondata"
+    }
+  ],
+  "title": "UCLA Law COVID-19 Behind Bars Data Project",
   "menuLinks": [
     {
       "name": "Explore Data",
@@ -16,17 +24,34 @@
           "name": "Federal Bureau of Prisons",
           "link": "/federal"
         },
-        { "name": "ICE Detention", "link": "/ice" },
-
-        { "name": "Alaska", "link": "/states/alaska" },
-        { "name": "Alabama", "link": "/states/alabama" },
-        { "name": "Arizona", "link": "/states/arizona" },
-        { "name": "Arkansas", "link": "/states/arkansas" },
+        {
+          "name": "ICE Detention",
+          "link": "/ice"
+        },
+        {
+          "name": "Alaska",
+          "link": "/states/alaska"
+        },
+        {
+          "name": "Alabama",
+          "link": "/states/alabama"
+        },
+        {
+          "name": "Arizona",
+          "link": "/states/arizona"
+        },
+        {
+          "name": "Arkansas",
+          "link": "/states/arkansas"
+        },
         {
           "name": "California",
           "link": "/states/california"
         },
-        { "name": "Colorado", "link": "/states/colorado" },
+        {
+          "name": "Colorado",
+          "link": "/states/colorado"
+        },
         {
           "name": "Connecticut",
           "link": "/states/connecticut"
@@ -35,27 +60,66 @@
           "name": "District of Columbia",
           "link": "/states/district-of-columbia"
         },
-        { "name": "Delaware", "link": "/states/delaware" },
-        { "name": "Florida", "link": "/states/florida" },
-        { "name": "Georgia", "link": "/states/georgia" },
-        { "name": "Hawaii", "link": "/states/hawaii" },
-        { "name": "Idaho", "link": "/states/idaho" },
-        { "name": "Illinois", "link": "/states/illinois" },
-        { "name": "Indiana", "link": "/states/indiana" },
-        { "name": "Iowa", "link": "/states/iowa" },
-        { "name": "Kansas", "link": "/states/kansas" },
-        { "name": "Kentucky", "link": "/states/kentucky" },
+        {
+          "name": "Delaware",
+          "link": "/states/delaware"
+        },
+        {
+          "name": "Florida",
+          "link": "/states/florida"
+        },
+        {
+          "name": "Georgia",
+          "link": "/states/georgia"
+        },
+        {
+          "name": "Hawaii",
+          "link": "/states/hawaii"
+        },
+        {
+          "name": "Idaho",
+          "link": "/states/idaho"
+        },
+        {
+          "name": "Illinois",
+          "link": "/states/illinois"
+        },
+        {
+          "name": "Indiana",
+          "link": "/states/indiana"
+        },
+        {
+          "name": "Iowa",
+          "link": "/states/iowa"
+        },
+        {
+          "name": "Kansas",
+          "link": "/states/kansas"
+        },
+        {
+          "name": "Kentucky",
+          "link": "/states/kentucky"
+        },
         {
           "name": "Louisiana",
           "link": "/states/louisiana"
         },
-        { "name": "Maine", "link": "/states/maine" },
-        { "name": "Maryland", "link": "/states/maryland" },
+        {
+          "name": "Maine",
+          "link": "/states/maine"
+        },
+        {
+          "name": "Maryland",
+          "link": "/states/maryland"
+        },
         {
           "name": "Massachusetts",
           "link": "/states/massachusetts"
         },
-        { "name": "Michigan", "link": "/states/michigan" },
+        {
+          "name": "Michigan",
+          "link": "/states/michigan"
+        },
         {
           "name": "Minnesota",
           "link": "/states/minnesota"
@@ -64,10 +128,22 @@
           "name": "Mississippi",
           "link": "/states/mississippi"
         },
-        { "name": "Missouri", "link": "/states/missouri" },
-        { "name": "Montana", "link": "/states/montana" },
-        { "name": "Nebraska", "link": "/states/nebraska" },
-        { "name": "Nevada", "link": "/states/nevada" },
+        {
+          "name": "Missouri",
+          "link": "/states/missouri"
+        },
+        {
+          "name": "Montana",
+          "link": "/states/montana"
+        },
+        {
+          "name": "Nebraska",
+          "link": "/states/nebraska"
+        },
+        {
+          "name": "Nevada",
+          "link": "/states/nevada"
+        },
         {
           "name": "New Hampshire",
           "link": "/states/new-hampshire"
@@ -80,7 +156,10 @@
           "name": "New Mexico",
           "link": "/states/new-mexico"
         },
-        { "name": "New York", "link": "/states/new-york" },
+        {
+          "name": "New York",
+          "link": "/states/new-york"
+        },
         {
           "name": "North Carolina",
           "link": "/states/north-carolina"
@@ -89,9 +168,18 @@
           "name": "North Dakota",
           "link": "/states/north-dakota"
         },
-        { "name": "Ohio", "link": "/states/ohio" },
-        { "name": "Oklahoma", "link": "/states/oklahoma" },
-        { "name": "Oregon", "link": "/states/oregon" },
+        {
+          "name": "Ohio",
+          "link": "/states/ohio"
+        },
+        {
+          "name": "Oklahoma",
+          "link": "/states/oklahoma"
+        },
+        {
+          "name": "Oregon",
+          "link": "/states/oregon"
+        },
         {
           "name": "Pennsylvania",
           "link": "/states/pennsylvania"
@@ -116,10 +204,22 @@
           "name": "Tennessee",
           "link": "/states/tennessee"
         },
-        { "name": "Texas", "link": "/states/texas" },
-        { "name": "Utah", "link": "/states/utah" },
-        { "name": "Vermont", "link": "/states/vermont" },
-        { "name": "Virginia", "link": "/states/virginia" },
+        {
+          "name": "Texas",
+          "link": "/states/texas"
+        },
+        {
+          "name": "Utah",
+          "link": "/states/utah"
+        },
+        {
+          "name": "Vermont",
+          "link": "/states/vermont"
+        },
+        {
+          "name": "Virginia",
+          "link": "/states/virginia"
+        },
         {
           "name": "Washington",
           "link": "/states/washington"
@@ -132,7 +232,10 @@
           "name": "Wisconsin",
           "link": "/states/wisconsin"
         },
-        { "name": "Wyoming", "link": "/states/wyoming" }
+        {
+          "name": "Wyoming",
+          "link": "/states/wyoming"
+        }
       ]
     },
     {
@@ -161,7 +264,7 @@
       "subMenu": [
         {
           "name": "About the project",
-          "link": "/about-the-project"
+          "link": "/about"
         },
         {
           "name": "Project Team",
@@ -176,12 +279,11 @@
           "link": "/faq"
         },
         {
-          "name": "In the news",
-          "link": "/in-the-news"
+          "name": "Media",
+          "link": "/media"
         }
       ]
     },
-
     {
       "name": "Home",
       "link": "/",
@@ -189,7 +291,7 @@
     },
     {
       "name": "About",
-      "link": "/about-the-project",
+      "link": "/about",
       "location": "footer"
     },
     {
@@ -218,16 +320,6 @@
       "location": "footer"
     }
   ],
-  "social": [
-    {
-      "name": "Twitter",
-      "value": "https://twitter.com/uclaprisondata",
-      "location": "footer"
-    },
-    {
-      "name": "Instagram",
-      "value": "https://instagram.com/uclaprisondata",
-      "location": "footer"
-    }
-  ]
+  "image": "/images/site-social.png",
+  "description": "Reporting COVID-19 data from U.S. carceral facilities."
 }

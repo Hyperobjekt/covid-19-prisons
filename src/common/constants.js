@@ -1,4 +1,4 @@
-import { format as d3Format } from "d3-format"
+import { format as d3Format } from "d3-format";
 
 export const KEYS = {
   jurisdiction: "jurisdiction",
@@ -8,13 +8,13 @@ export const KEYS = {
   active: "active",
   tested: "tested",
   population: "population",
-}
+};
 
-export const GROUPS = ["residents", "staff"]
+export const GROUPS = ["residents", "staff"];
 
-export const JURISDICTIONS = ["state", "federal", "county", "immigration"]
+export const JURISDICTIONS = ["state", "federal", "county", "immigration"];
 // fixes #157: don't sum over county jails
-export const SUMMABLE_JURISDICTIONS = ["state", "federal", "immigration"]
+export const SUMMABLE_JURISDICTIONS = ["state", "federal", "immigration"];
 
 export const METRICS = {
   residents: [
@@ -36,7 +36,7 @@ export const METRICS = {
     "active_rate",
   ],
   staff: ["confirmed", "deaths", "active", "tested"],
-}
+};
 
 export const METRIC_FORMATTERS = {
   confirmed: d3Format(",d"),
@@ -52,7 +52,7 @@ export const METRIC_FORMATTERS = {
   rate_legend_small: d3Format(".1%"), // legend gets 1 decimal for values <1
 
   home_table_rate: d3Format(".0%"), // TODO: use col id instead to select proper metric formatter
-}
+};
 
 export const JURISDICTION_COLORS = [
   "#D7790F",
@@ -60,7 +60,7 @@ export const JURISDICTION_COLORS = [
   "#77AAC7",
   "#96738F",
   "#555526",
-]
+];
 // export const JURISDICTION_COLORS = ["#CA7F26", "#6BA084", "#758EAC", "#555526"]
 
 export const JURISDICTION_GRADIENTS = [
@@ -69,7 +69,7 @@ export const JURISDICTION_GRADIENTS = [
   "url(#g3)",
   "url(#g4)",
   "url(#g5)",
-]
+];
 
 export const TIME_SERIES_COLORS = [
   "#D7790F",

@@ -1,9 +1,9 @@
-import React from "react"
-import clsx from "clsx"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import { AppBar, withStyles } from "@material-ui/core"
-import { Link } from "gatsby-theme-material-ui"
+import React from "react";
+import clsx from "clsx";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import { AppBar, withStyles } from "@material-ui/core";
+import { Link } from "gatsby-theme-material-ui";
 
 const styles = (theme) => ({
   root: {
@@ -18,7 +18,7 @@ const styles = (theme) => ({
     width: `calc(100% + ${theme.spacing(4)})`,
     zIndex: 3, // so it appears above visual
     [theme.breakpoints.up("sm")]: {
-      margin: theme.spacing(0, -3),
+      margin: theme.spacing(0, -6),
       width: `calc(100% + ${theme.spacing(6)})`,
     },
     "& .MuiTabs-indicator": {
@@ -38,7 +38,7 @@ const styles = (theme) => ({
       color: theme.palette.text.primary,
     },
   },
-})
+});
 
 function SectionNavigation({
   classes,
@@ -78,11 +78,11 @@ function SectionNavigation({
               component={Link}
               to={"#" + section.id}
             />
-          )
+          );
         })}
       </Tabs>
     </AppBar>
-  )
+  );
 }
 
-export default withStyles(styles)(SectionNavigation)
+export default withStyles(styles)(SectionNavigation);
