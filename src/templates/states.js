@@ -156,10 +156,6 @@ const StateTemplate = ({ pageContext, data }) => {
     );
   const scorecardData = data.scorecard?.nodes[0];
 
-  if (!scorecardData) {
-    delete content.scorecard;
-  }
-
   // set the state name in the store
   setStateName(state);
   // set the data in the store
@@ -173,10 +169,15 @@ const StateTemplate = ({ pageContext, data }) => {
   };
 
   // setctions for section nav
-  const sections = Object.entries(content).map(([key, section]) => ({
-    id: key,
-    name: section.link,
-  }));
+  const sections = Object.entries(content)
+    .map(([key, section]) => ({
+      id: key,
+      name: section.link,
+    }))
+    .filter((section) => {
+      if (!scorecardData && section.id === "scorecard") return false;
+      return true;
+    });
   const theme = useTheme();
   const isHorizontalLayout = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -197,7 +198,7 @@ const StateTemplate = ({ pageContext, data }) => {
             onStepEnter={handleStepEnter}
             offset={isHorizontalLayout ? 0.3 : 0.15}
           >
-            {scrollSections.map((section, index) => {
+            {scrollSections.map((section = {}, index) => {
               const Component = SECTION_COMPONENTS[section.id];
               return (
                 <Step key={section.id} data={section.id}>
@@ -374,57 +375,5 @@ export const query = graphql`
     }
   }
 `;
-
-/*
- * Unused sections
-
-  allImmigrationCases(filter: { state: { eq: $state } }) {
-    edges {
-      node {
-        cases
-        deaths
-        facility
-        fieldOffice
-      }
-    }
-  }
-  allImmigrationFilings(filter: { state: { eq: $state } }) {
-    edges {
-      node {
-        cancer
-        diabetes
-        heart
-        facility
-        lung
-        medication
-        other
-        smoking
-        substance
-      }
-    }
-  }
-  allFundraisers(filter: { state: { eq: $state } }) {
-    edges {
-      node {
-        ongoing
-        goal
-        fundraiser
-        date
-        organization
-        sources
-      }
-    }
-  }
-  allYouth(filter: { state: { eq: $state } }) {
-    edges {
-      node {
-        cases_staff
-        cases_youth
-        county
-        facility
-      }
-    }
-  }
-*/
 
 export default StateTemplate;

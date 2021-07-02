@@ -245,9 +245,9 @@ const CovidTheme = () => {
           color: theme.palette.text.secondary,
           fontSize: theme.typography.pxToRem(15),
           letterSpacing: "0.03em",
-          "&$text": {
-            padding: theme.spacing(0.5, 3),
-          },
+        },
+        text: {
+          padding: theme.spacing(0.5, 3),
         },
       },
       MuiButtonGroup: {
@@ -290,6 +290,11 @@ const CovidTheme = () => {
       /** Page level overrides */
       HypPage: {
         root: {
+          "&.page": {
+            position: "relative",
+            right: "auto",
+            bottom: "auto",
+          },
           // no header box shadow when there's a section nav
           "&.HypPage-states .HypHeader-root": {
             boxShadow: "none",

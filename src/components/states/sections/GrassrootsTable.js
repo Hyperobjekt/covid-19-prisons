@@ -1,10 +1,10 @@
-import React from "react"
-import { DefaultTable } from "../../table"
-import { Typography, withStyles } from "@material-ui/core"
-import LinkIcon from "@material-ui/icons/Link"
-import Notes from "../../Notes"
-import StepWrapper from "../StepWrapper"
-import { titleTypography } from "../../../gatsby-theme-hypercore/theme"
+import React from "react";
+import { DefaultTable } from "../../table";
+import { Typography, withStyles } from "@material-ui/core";
+import LinkIcon from "@material-ui/icons/Link";
+import StepWrapper from "../StepWrapper";
+import { titleTypography } from "../../../gatsby-theme-hypercore/theme";
+import NotesModal from "../../NotesModal";
 
 const styles = (theme) => ({
   title: {
@@ -22,7 +22,7 @@ const styles = (theme) => ({
   body: {
     margin: theme.spacing(1, 0),
   },
-})
+});
 
 const GrassrootsTable = ({ classes, data, lang, ...props }) => {
   const columns = React.useMemo(
@@ -94,13 +94,13 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         Header: lang.table.source,
         accessor: "source",
         Cell: ({ value }) => {
-          if (!value) return " "
+          if (!value) return " ";
           // const trunc = value.length < 35 ? value : value.slice(0, 31) + "..."
           return (
             <a title={value} href={value} target="__blank">
               <LinkIcon />
             </a>
-          )
+          );
         },
         style: {
           minWidth: "4rem",
@@ -118,39 +118,39 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
       lang.table.source,
       lang.table.type,
     ]
-  )
+  );
 
-  const { concernTypeMap, effortMap } = lang.table
-  
+  const { concernTypeMap, effortMap } = lang.table;
+
   const getGrassrootsData = (releaseEdges) => {
     return releaseEdges.map((ed) => {
-      const node = { ...ed.node }
+      const node = { ...ed.node };
 
-      let effort = " "
-      const internal = node.internal_effort
-      const external = node.external_effort
+      let effort = " ";
+      const internal = node.internal_effort;
+      const external = node.external_effort;
       if (internal && external) {
-        effort = effortMap.coordinated_effort
+        effort = effortMap.coordinated_effort;
       } else if (internal) {
-        effort = effortMap.internal_effort
+        effort = effortMap.internal_effort;
       } else if (external) {
-        effort = effortMap.external_effort
+        effort = effortMap.external_effort;
       }
-      node.effort = effort
+      node.effort = effort;
 
-      const concerns = []
+      const concerns = [];
       Object.keys(concernTypeMap).forEach((concernKey) => {
         if (node[concernKey]) {
-          const concernText = concernTypeMap[concernKey]
-          concerns.push(concernText)
+          const concernText = concernTypeMap[concernKey];
+          concerns.push(concernText);
         }
-      })
-      node.concerns = concerns.join(", ")
-      return node
-    })
-  }
+      });
+      node.concerns = concerns.join(", ");
+      return node;
+    });
+  };
 
-  const extractedData = getGrassrootsData(data.allGrassroots.edges)
+  const extractedData = getGrassrootsData(data.allGrassroots.edges);
 
   return (
     <StepWrapper>
@@ -168,11 +168,11 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         data={extractedData}
         {...props}
       ></DefaultTable>
-      <Notes notes={[lang.notes.sourcing]}></Notes>
+      <NotesModal notes={[lang.notes.sourcing]} />
     </StepWrapper>
-  )
-}
+  );
+};
 
-GrassrootsTable.propTypes = {}
+GrassrootsTable.propTypes = {};
 
-export default withStyles(styles)(GrassrootsTable)
+export default withStyles(styles)(GrassrootsTable);
