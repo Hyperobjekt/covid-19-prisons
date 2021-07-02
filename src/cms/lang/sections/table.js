@@ -7,7 +7,7 @@ const table = {
   fields: [
     makeStringField("Title"),
     {
-      label: "Notes",
+      label: "Data Notes",
       name: "note",
       widget: "list",
       summary: "{{fields.note}}",

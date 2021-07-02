@@ -1,14 +1,14 @@
 import React from "react";
-import { format } from "d3-format";
 import { useVaccineData } from "../../common/hooks";
 import { Block } from "@hyperobjekt/material-ui-website";
 import { getSlug, isNumber } from "../../common/utils/selectors";
-import { getLang } from "../../common/utils/i18n";
 import { Link } from "gatsby-theme-material-ui";
 import { DefaultTable } from "../table";
 import { Typography, withStyles } from "@material-ui/core";
 import { formatMetricValue } from "../../common/utils/formatters";
-import Notes from "../Notes";
+import FlagIcon from "../../../content/assets/flag-icon.svg";
+import IconWithTooltip from "../IconWithTooltip";
+import NotesModal from "../NotesModal";
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -38,6 +38,10 @@ const rateSorter = (a, b, columnId) => {
 const styles = (theme) => ({
   root: {
     background: theme.palette.background.paper,
+
+    "& .notes-modal": {
+      margin: theme.spacing(3, 0, 2),
+    },
   },
   wrapper: {
     [theme.breakpoints.up("md")]: {
@@ -72,32 +76,31 @@ const styles = (theme) => ({
         textDecorationColor: theme.palette.secondary.main,
       },
     },
-  },
-  notes: {
-    listStyle: "none",
-    margin: theme.spacing(2, "auto"),
-    maxWidth: "24rem",
-    "& li": {
-      maxWidth: "24rem",
+    "& .icon-with-tooltip": {
+      display: "inline-block",
     },
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-      justifyContent: "space-around",
-      maxWidth: "none",
-      "& li + li": {
-        marginTop: 0,
-      },
+    "& .icon-wrapper": {
+      margin: theme.spacing(0, 0, 0, 1),
+      padding: 0,
     },
   },
 });
 
-const intFormatter = format(",d");
+// const intFormatter = format(",d");
 
 const perFormatter = (v) => formatMetricValue(v, "home_table_rate");
-const countFormatter = (value) =>
-  !isNumber(value) ? "--" : intFormatter(value);
+// const countFormatter = (value) =>
+//   !isNumber(value) ? "--" : intFormatter(value);
 
-const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
+const VaccineTable = ({
+  title,
+  subtitle,
+  columnHeaders,
+  note,
+  flagNote,
+  classes,
+  ...props
+}) => {
   // data for table
   const data = useVaccineData();
 
@@ -106,7 +109,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
     () => [
       {
         id: "jurisdiction",
-        Header: getLang("jurisdiction"),
+        Header: columnHeaders["jurisdiction"],
         accessor: "jurisdiction",
         sortType: alphaStateSort,
         Cell: (prop) => {
@@ -126,64 +129,52 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
           ) : (
             jurisdiction
           );
+
+          const ent = isFederal ? "federal" : jurisdiction.toLowerCase();
+          const flagNoteDetails = flagNote.find(({ entity }) => entity === ent);
+
+          const flagNoteElement = flagNoteDetails ? (
+            <IconWithTooltip
+              iconText={null}
+              title={null}
+              icon={FlagIcon}
+              notes={[flagNoteDetails.text]}
+            />
+          ) : null;
+
           return (
             <Typography variant="body2" color="textSecondary">
               {jurisdictionElement}
+              {flagNoteElement}
             </Typography>
           );
         },
       },
       {
-        id: "r-initiated",
-        Header: getLang("initiated_total"),
-        accessor: "residents.initiated",
-        Cell: (prop) => countFormatter(prop.value),
-        style: {
-          width: "6em",
-          textAlign: "right",
-        },
-      },
-      {
         id: "residents-percentInitiated",
-        Header: getLang("initiated_percent"),
+        Header: columnHeaders["residents_rate"],
         accessor: "residents.percentInitiated",
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "6em",
-          textAlign: "right",
-        },
-      },
-      {
-        id: "s-initiated",
-        Header: getLang("initiated_total"),
-        accessor: "staff.initiated",
-        Cell: (prop) => countFormatter(prop.value),
-        style: {
-          width: "6em",
+          width: "12em",
           textAlign: "right",
         },
       },
       {
         id: "staff-percentInitiated",
-        Header: getLang("initiated_percent"),
+        Header: columnHeaders["staff_rate"],
         accessor: "staff.percentInitiated",
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "6em",
+          width: "8em",
           textAlign: "right",
         },
       },
     ],
     [classes.jurisdictionLink]
   );
-
-  const topLevelHeaders = [
-    { colSpan: 1, text: " " },
-    { colSpan: 2, align: "center", text: getLang("residents_initiated") },
-    { colSpan: 2, align: "center", text: getLang("staff_initiated") },
-  ];
 
   return (
     <Block className={classes.root} {...props}>
@@ -195,6 +186,7 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
             dangerouslySetInnerHTML={{ __html: subtitle }}
             className={classes.body}
           />
+          <NotesModal notes={note} />
         </div>
         <div className={classes.tableWrapper}>
           <DefaultTable
@@ -202,12 +194,10 @@ const VaccineTable = ({ title, subtitle, note, classes, ...props }) => {
             data={data}
             columns={columns}
             startDesc={true}
-            preventReverseSort={true}
             initialSortColumn={"jurisdiction"}
             disableFilter={true}
-            topLevelHeaders={topLevelHeaders}
+            // topLevelHeaders={topLevelHeaders}
           />
-          <Notes notes={note} className={classes.notes} />
         </div>
       </div>
     </Block>

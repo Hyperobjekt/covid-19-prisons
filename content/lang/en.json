@@ -37,6 +37,8 @@
       "value": "Map of ${stateName} with spikes representing the active metric for each facility."
     },
     { "key": "empty_legend_message", "value": "no data available" },
-    { "key": "scroll_up", "value": "Back to top" }
+    { "key": "scroll_up", "value": "Back to top" },
+    { "key": "notes_dialog_title", "value": "Data Notes" },
+    { "key": "notes_open", "value": "Open data notes" }
   ]
 }

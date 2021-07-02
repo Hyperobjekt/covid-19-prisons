@@ -25,7 +25,7 @@ export const query = graphql`
       body
     }
   }
-`;
+`
 
 /**
  * Use default page template, but provide content prop
