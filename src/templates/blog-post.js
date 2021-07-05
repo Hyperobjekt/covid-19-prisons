@@ -129,8 +129,10 @@ const useStyles = makeStyles((theme) => ({
       },
       // links
       "& .MuiLink-root": {
-        fontWeight: 700,
-        color: theme.palette.secondary.main,
+        color: theme.palette.text.primary,
+        textDecoration: "underline",
+        textUnderlineOffset: "3px",
+        textDecorationColor: theme.palette.secondary.main,
       },
       // table body text
       "& .MuiTypography-body1": {

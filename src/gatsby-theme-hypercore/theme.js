@@ -166,12 +166,13 @@ const CovidTheme = () => {
           },
           a: {
             "&:not([class])": {
-              color: theme.palette.secondary.main,
-              fontWeight: "bold",
-              textDecoration: "none",
+              color: theme.palette.text.primary,
+              textDecoration: "underline",
+              textUnderlineOffset: "3px",
+              textDecorationColor: theme.palette.secondary.main,
             },
             "&:not([class]):visited": {
-              color: theme.palette.secondary.main,
+              color: theme.palette.text.primary,
             },
             "&:not([class]):hover": {
               textDecoration: "underline",
@@ -210,6 +211,19 @@ const CovidTheme = () => {
           color: theme.palette.text.tertiary,
           fontSize: theme.typography.pxToRem(12),
           lineHeight: 1.43,
+        },
+      },
+      MuiLink: {
+        root: {
+          color: theme.palette.text.primary,
+          textDecoration: "underline",
+          textUnderlineOffset: "3px",
+          textDecorationColor: theme.palette.secondary.main,
+        },
+        underlineHover: {
+          textDecoration: "underline",
+          textUnderlineOffset: "3px",
+          textDecorationColor: theme.palette.secondary.main,
         },
       },
       MuiListItem: {
@@ -367,7 +381,10 @@ const CovidTheme = () => {
           maxWidth: "38.5rem",
           // override link colors in content
           "& .MuiLink-root.MuiTypography-root": {
-            color: theme.palette.secondary.main,
+            color: theme.palette.text.primary,
+            textDecoration: "underline",
+            textUnderlineOffset: "3px",
+            textDecorationColor: theme.palette.secondary.main,
           },
           // unset bottom padding
           "& > .block:last-child": {

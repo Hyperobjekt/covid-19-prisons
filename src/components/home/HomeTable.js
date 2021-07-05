@@ -4,7 +4,7 @@ import { format } from "d3-format";
 import { Typography, withStyles } from "@material-ui/core";
 import { useFacilitiesData, useOptionsStore } from "../../common/hooks";
 import { Block } from "@hyperobjekt/material-ui-website";
-
+import slugify from "slugify";
 import {
   getColorForJurisdiction,
   isNumber,
@@ -131,7 +131,7 @@ const HomeTable = ({
       Cell: (prop) => {
         const { state, jurisdiction, name } = prop.row.original;
         let entity = state;
-        let link = `/states/${state}`;
+        let link = `/states/${slugify(state, { lower: true })}`;
 
         if (name.toLowerCase().startsWith("all ice")) {
           entity = "ICE Detention";

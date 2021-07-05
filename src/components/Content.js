@@ -16,8 +16,10 @@ const Content = withStyles((theme) => ({
       marginTop: `1.5em`,
     },
     "& a": {
-      color: theme.palette.secondary.main,
-      fontWeight: "bold",
+      color: theme.palette.text.primary,
+      textDecoration: "underline",
+      textUnderlineOffset: "3px",
+      textDecorationColor: theme.palette.secondary.main 
     },
   },
 }))(Box);
