@@ -1,24 +1,21 @@
-import { makeStyles } from "@material-ui/core"
-import React from "react"
-import ReactTooltip from "react-tooltip"
+import React from "react";
+import ReactTooltip from "react-tooltip";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    background: theme.palette.text.primary,
-  },
-}))
-
+/**
+ * Tooltip component used for maps
+ * See theme.js for style overrides using `ucla-tooltip` class
+ */
 const Tooltip = (props) => {
-  const classes = useStyles()
   return (
     <ReactTooltip
-      backgroundColor="#283224"
-      className={classes.root}
+      type="dark"
+      backgroundColor="rgba(32,32,32,0.9)"
+      className="ucla-tooltip"
       place="left"
       // offset={{ top: -15 }}
       {...props}
     />
-  )
-}
+  );
+};
 
-export default Tooltip
+export default Tooltip;
