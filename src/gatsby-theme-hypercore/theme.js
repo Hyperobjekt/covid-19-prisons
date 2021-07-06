@@ -187,6 +187,13 @@ const CovidTheme = () => {
           ".HypSocialLinks-root svg": {
             fontSize: 18, // reduce size of social share icons
           },
+          /** Global react-tooltip overrides */
+          ".ucla-tooltip": {
+            fontSize: "14px!important",
+            padding: "0.75rem 1rem!important",
+            borderRadius: "4px!important",
+            border: "none!important",
+          },
         },
       },
       /** Add margins to material UI typography */
@@ -242,9 +249,11 @@ const CovidTheme = () => {
       },
       MuiTooltip: {
         tooltip: {
-          backgroundColor: fade(theme.palette.text.primary, 0.9),
-          padding: theme.spacing(1),
+          backgroundColor: `rgba(32,32,32,0.9)`,
+          padding: theme.spacing(1.5, 2),
+          fontSize: 14,
           borderRadius: 4,
+          lineHeight: 18.2 / 14,
         },
         arrow: {
           color: fade(theme.palette.text.primary, 0.9),
