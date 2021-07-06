@@ -1,24 +1,20 @@
 import React from "react";
 import { Table } from "../table";
-import { format } from "d3-format";
 import { Typography, withStyles } from "@material-ui/core";
 import { useFacilitiesData, useOptionsStore } from "../../common/hooks";
 import { Block } from "@hyperobjekt/material-ui-website";
 import slugify from "slugify";
-import {
-  getColorForJurisdiction,
-  isNumber,
-} from "../../common/utils/selectors";
+import { getColorForJurisdiction } from "../../common/utils/selectors";
 import shallow from "zustand/shallow";
 import { getLang } from "../../common/utils/i18n";
 import JurisdictionToggles from "../controls/JurisdictionToggles";
 import DotMarker from "../markers/DotMarker";
 import MetricSelectionTitle from "../controls/MetricSelectionTitle";
-import Notes from "../Notes";
-import { formatMetricValue } from "../../common/utils/formatters";
+
 import clsx from "clsx";
 import { Link } from "gatsby-theme-material-ui";
 import NotesModal from "../NotesModal";
+import { countFormatter, rateFormatter, rateSorter } from "../table/utils";
 
 const styles = (theme) => ({
   root: {
@@ -36,10 +32,7 @@ const styles = (theme) => ({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     overflow: "hidden",
-    maxWidth: 224,
-    [theme.breakpoints.up(1440)]: {
-      maxWidth: 320,
-    },
+    width: "100%",
   },
   state: {
     "&.MuiLink-root.MuiTypography-root": {
@@ -75,24 +68,6 @@ const styles = (theme) => ({
   },
 });
 
-const intFormatter = format(",d");
-const perFormatter = (v) => formatMetricValue(v, "home_table_rate");
-
-const countFormatter = (value) =>
-  !isNumber(value) ? "--" : intFormatter(value);
-
-const rateFormatter = (value) =>
-  !isNumber(value) ? "--" : perFormatter(value);
-
-const rateSorter = (a, b, columnId) => {
-  const vals = [a, b].map((v) => v["original"]["residents"][columnId]);
-  if (isNumber(vals[0]) && !isNumber(vals[1])) return 1;
-  if (!isNumber(vals[0]) && isNumber(vals[1])) return -1;
-  if (!isNumber(vals[0]) && !isNumber(vals[1])) return 0;
-  const diff = vals[0] - vals[1];
-  return diff < 0 ? -1 : 1;
-};
-
 const HomeTable = ({
   title,
   note,
@@ -114,8 +89,8 @@ const HomeTable = ({
   // styles for number columns in table
   const numberColStyle = React.useMemo(
     () => ({
-      width: "12.5%",
-      minWidth: 100,
+      width: "10%",
+      minWidth: "7rem",
       textAlign: "right",
     }),
 
@@ -142,7 +117,11 @@ const HomeTable = ({
         }
         return (
           <>
-            <Typography className={classes.name} variant="body1">
+            <Typography
+              title={prop.value}
+              className={classes.name}
+              variant="body1"
+            >
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
@@ -158,8 +137,7 @@ const HomeTable = ({
         );
       },
       style: {
-        width: "25%",
-        minWidth: 260,
+        maxWidth: "10.5rem",
       },
     };
 
@@ -206,16 +184,17 @@ const HomeTable = ({
 
   const [sortCol, setSortCol] = React.useState(metric);
   const [sortedByMetric, setSortedByMetric] = React.useState(true);
+  const [sortDesc, setSortDesc] = React.useState(true);
 
   // memoized table options
   const options = React.useMemo(
     () => ({
       initialState: {
         pageSize: 5,
-        sortBy: [{ id: sortCol, desc: sortedByMetric }],
+        sortBy: [{ id: sortCol, desc: sortDesc }],
       },
     }),
-    [sortedByMetric, sortCol]
+    [sortDesc, sortCol]
   );
 
   // handler for when table headers are clicked
@@ -224,12 +203,15 @@ const HomeTable = ({
       const isMetric = sortBy !== "name";
       setSortedByMetric(isMetric);
       setSortCol(sortBy);
-
-      if (!isMetric) return;
+      if (!isMetric) {
+        setSortDesc(!sortDesc);
+        return;
+      }
       const newMetric = sortBy;
       metric !== newMetric && setMetric(newMetric);
+      setSortDesc(true);
     },
-    [metric, setMetric]
+    [metric, setMetric, sortDesc]
   );
 
   // if user selects metric via dropdown, update sort col
