@@ -84,12 +84,7 @@ const IconWithTooltip = ({
 
   return (
     <div className={clsx(classes.root, "icon-with-tooltip")}>
-      <Tooltip
-        title={tooltipContent}
-        enterTouchDelay={1}
-        open={true}
-        interactive
-      >
+      <Tooltip title={tooltipContent} enterTouchDelay={1}>
         <ButtonBase className={clsx(classes.iconWrapper, "icon-wrapper")}>
           <img alt="info" src={icon} />
           {iconText}
