@@ -23,7 +23,7 @@ CMS.init({
     backend: {
       name: "git-gateway",
       repo: "Hyperobjekt/covid-19-behind-bars",
-      branch: "staging",
+      branch: process.env.BRANCH || "staging",
     },
     media_folder: "/static/images",
     public_folder: "/images",
