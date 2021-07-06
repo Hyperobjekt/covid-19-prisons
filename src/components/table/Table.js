@@ -1,48 +1,40 @@
-import React, { useEffect } from "react"
-import clsx from "clsx"
-import MaUTable from "@material-ui/core/Table"
-import PropTypes from "prop-types"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
-import TableFooter from "@material-ui/core/TableFooter"
-import TableHead from "@material-ui/core/TableHead"
-import TablePagination from "@material-ui/core/TablePagination"
-import TablePaginationActions from "./TablePaginationActions"
-import TableRow from "@material-ui/core/TableRow"
-import TableSortLabel from "@material-ui/core/TableSortLabel"
-import TableToolbar from "./TableToolbar"
+import React, { useEffect } from "react";
+import clsx from "clsx";
+import MaUTable from "@material-ui/core/Table";
+import PropTypes from "prop-types";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableFooter from "@material-ui/core/TableFooter";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TablePaginationActions from "./TablePaginationActions";
+import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import TableToolbar from "./TableToolbar";
 import {
   useGlobalFilter,
   usePagination,
   useRowSelect,
   useSortBy,
   useTable,
-} from "react-table"
-import { withStyles } from "@material-ui/core"
-import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme"
+} from "react-table";
+import { withStyles } from "@material-ui/core";
+import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme";
 
 const styles = (theme) => ({
   table: {
-    // at wide enough screen, allow sticky header
-    // [theme.breakpoints.up("lg")]: {
-    //   overflow: "visible",
-    //   "& .MuiTableCell-head": {
-    //     background: theme.palette.background.default,
-    //     zIndex: 1,
-    //     position: "sticky !important",
-    //     top: `calc(2*${theme.layout.headerHeight} - .5rem)`,
-    //     [theme.breakpoints.up("lg")]: {
-    //       top: `calc(2*${theme.layout.headerHeight} - 1rem)`,
-    //     },
-    //   },
-    // },
-
     "& .MuiTableCell-root": {
       ...sansSerifyTypography,
     },
     "& .MuiTableBody-root .MuiTableRow-root:hover": {
       background: theme.palette.background.default,
+    },
+    "& .MuiTableRow-root.row--action:hover": {
+      background: "rgba(0,0,0,0.02)",
+      "& .MuiTableCell-body.tableCell--active": {
+        background: "rgba(0,0,0,0)",
+      },
     },
     "& .MuiTypography-root": {
       ...sansSerifyTypography,
@@ -53,21 +45,40 @@ const styles = (theme) => ({
       fontWeight: 700,
       lineHeight: 1.2,
       overflow: "hidden",
+      padding: 0,
       "&.tableCell--active": {
         boxShadow: `inset 0 -4px ${theme.palette.secondary.main}`,
         background: theme.palette.background.default,
       },
     },
+    // right align columns
     "& .MuiTableCell-head .MuiTableSortLabel-root": {
-      position: "absolute",
-      right: 0,
-      transform: `translateX(4px)`,
-      top: 0,
-      bottom: 0,
-      display: "none",
+      width: "100%",
+      height: "100%",
+      textAlign: "right",
+      padding: theme.spacing(2),
+      display: "flex",
+      flexDirection: "row-reverse",
+    },
+    // left align first column
+    "& .MuiTableCell-head:first-child .MuiTableSortLabel-root": {
+      flexDirection: "row",
     },
     "& .MuiTableSortLabel-icon": {
-      fontSize: 12,
+      fontSize: 16,
+      fill: theme.palette.secondary.main,
+    },
+    // align first column left, all others right
+    "& .MuiTableCell-body": {
+      textAlign: "right",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      maxWidth: "7rem",
+      whiteSpace: "nowrap",
+      "&:first-child": {
+        textAlign: "left",
+        maxWidth: "14.5rem",
+      },
     },
     "& .MuiTableCell-body.tableCell--active": {
       background: theme.palette.background.default,
@@ -80,7 +91,7 @@ const styles = (theme) => ({
     },
   },
   toolbar: {},
-})
+});
 
 const Table = ({
   columns,
@@ -124,60 +135,60 @@ const Table = ({
     useSortBy,
     usePagination,
     useRowSelect
-  )
+  );
 
   useEffect(() => {
     if (sortColumn) {
-      const { id, desc } = sortBy[0]
+      const { id, desc } = sortBy[0];
       if (id !== sortColumn || desc !== sortDesc) {
-        toggleSortBy(sortColumn, sortDesc)
+        toggleSortBy(sortColumn, sortDesc);
       }
     }
-  }, [sortColumn, toggleSortBy, sortBy, sortDesc])
+  }, [sortColumn, toggleSortBy, sortBy, sortDesc]);
 
-  const [filtered, setFiltered] = React.useState(globalFilter)
+  const [filtered, setFiltered] = React.useState(globalFilter);
 
   const handleChangePage = (event, newPage) => {
-    gotoPage(newPage)
+    gotoPage(newPage);
     if (onChangePage) {
-      onChangePage(newPage)
+      onChangePage(newPage);
     }
 
     // globalFilter value resets on page change
-    setGlobalFilter(filtered)
-  }
+    setGlobalFilter(filtered);
+  };
 
   const handleChangeRowsPerPage = (event) => {
-    setPageSize(Number(event.target.value))
+    setPageSize(Number(event.target.value));
     if (onChangeRowsPerPage) {
-      onChangeRowsPerPage(Number(event.target.value))
+      onChangeRowsPerPage(Number(event.target.value));
     }
-  }
+  };
 
   const handleSetGlobalFilter = (value) => {
     // eg true if user is deleting letters from search term
     const lessRestrictiveFilter =
-      !value || (filtered && filtered.includes(value))
+      !value || (filtered && filtered.includes(value));
 
     if (!lessRestrictiveFilter) {
       // so we don't stay on a page that no longer exists
-      gotoPage(0)
+      gotoPage(0);
       if (onChangePage) {
-        onChangePage(0)
+        onChangePage(0);
       }
     }
 
-    setGlobalFilter(value)
-    setFiltered(value)
-  }
+    setGlobalFilter(value);
+    setFiltered(value);
+  };
 
   // keep globalFilter in sync with filtered
   // (eg preserves filter state if element is scrolled off-screen)
   useEffect(() => {
     if (globalFilter !== filtered) {
-      setGlobalFilter(filtered)
+      setGlobalFilter(filtered);
     }
-  }, [globalFilter, filtered])
+  }, [globalFilter, filtered]);
 
   return (
     <>
@@ -207,7 +218,7 @@ const Table = ({
               return (
                 <TableRow {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => {
-                    const sortProps = column.getSortByToggleProps()
+                    const sortProps = column.getSortByToggleProps();
                     return (
                       <TableCell
                         {...column.getHeaderProps({
@@ -219,27 +230,33 @@ const Table = ({
                         })}
                         variant="head"
                       >
-                        {column.render("Header")}
                         <TableSortLabel
                           active={column.isSorted}
                           // react-table has a unsorted state which is not treated here
-                          direction="desc"
-                        />
+                          direction={
+                            !column.isSorted || column.isSortedDesc
+                              ? "desc"
+                              : "asc"
+                          }
+                        >
+                          {column.render("Header")}
+                        </TableSortLabel>
                       </TableCell>
-                    )
+                    );
                   })}
                 </TableRow>
-              )
+              );
             })}
           </TableHead>
           <TableBody>
             {page.map((row, i) => {
-              prepareRow(row)
+              prepareRow(row);
               return (
                 <TableRow
                   {...row.getRowProps({
                     onClick: (event) => onRowClick && onRowClick(row, event),
                     style: { cursor: onRowClick ? "pointer" : undefined },
+                    className: onRowClick && "row--action",
                   })}
                 >
                   {row.cells.map((cell) => {
@@ -256,10 +273,10 @@ const Table = ({
                       >
                         {cell.render("Cell")}
                       </TableCell>
-                    )
+                    );
                   })}
                 </TableRow>
-              )
+              );
             })}
           </TableBody>
 
@@ -291,17 +308,17 @@ const Table = ({
         </MaUTable>
       </TableContainer>
     </>
-  )
-}
+  );
+};
 
 Table.defaultProps = {
   options: {},
-}
+};
 
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   skipPageReset: PropTypes.bool,
-}
+};
 
-export default withStyles(styles)(Table)
+export default withStyles(styles)(Table);

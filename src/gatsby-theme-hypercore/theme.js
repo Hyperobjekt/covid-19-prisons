@@ -194,6 +194,25 @@ const CovidTheme = () => {
             borderRadius: "4px!important",
             border: "none!important",
           },
+          /** Utility Classes */
+          ".w-700": {
+            fontWeight: 700,
+          },
+          ".sans-serif": {
+            ...sansSerifyTypography,
+          },
+          ".body-xs": {
+            fontSize: theme.typography.pxToRem(12),
+          },
+          ".body-sm": {
+            fontSize: theme.typography.pxToRem(14),
+          },
+          ".body-md": {
+            fontSize: theme.typography.pxToRem(16),
+          },
+          ".body-lg": {
+            fontSize: theme.typography.pxToRem(18),
+          },
         },
       },
       /** Add margins to material UI typography */

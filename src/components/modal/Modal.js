@@ -37,7 +37,7 @@ export const styles = (theme) => ({
     fontSize: theme.typography.pxToRem(18),
   },
   content: {
-    padding: theme.spacing(3, 8, 3, 4),
+    padding: theme.spacing(3, 4, 3, 4),
   },
 });
 
@@ -56,13 +56,15 @@ const Modal = ({
 
   return (
     <>
-      <Button
-        onClick={openHandler}
-        className={clsx(classes.button, className)}
-        {...props}
-      >
-        {children}
-      </Button>
+      {children && (
+        <Button
+          onClick={openHandler}
+          className={clsx(classes.button, className)}
+          {...props}
+        >
+          {children}
+        </Button>
+      )}
       <Dialog
         aria-labelledby="modal-title"
         classes={{ paper: classes.dialog }}
@@ -75,7 +77,7 @@ const Modal = ({
           <IconButton
             aria-label="close"
             className={classes.closeButton}
-            onClick={closeHandler}
+            onClick={DialogProps.onClose || closeHandler}
           >
             <CloseIcon />
           </IconButton>

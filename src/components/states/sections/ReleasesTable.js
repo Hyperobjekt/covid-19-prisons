@@ -158,6 +158,7 @@ const ReleasesTable = ({ classes, data, lang, ...props }) => {
         columns={columns}
         initialSortCol={"jurisdiction"}
         data={extractedData}
+        rowModal
         {...props}
       ></DefaultTable>
       <NotesModal disableNumbering notes={lang.notes} />

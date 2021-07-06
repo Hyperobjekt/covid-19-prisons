@@ -149,6 +149,9 @@ const VaccineTable = ({
             </Typography>
           );
         },
+        style: {
+          width: "15rem",
+        },
       },
       {
         id: "residents-percentInitiated",
@@ -157,7 +160,7 @@ const VaccineTable = ({
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "12em",
+          minWidth: "11.5rem",
           textAlign: "right",
         },
       },
@@ -168,7 +171,7 @@ const VaccineTable = ({
         sortType: rateSorter,
         Cell: (prop) => perFormatter(prop.value),
         style: {
-          width: "8em",
+          minWidth: "9rem",
           textAlign: "right",
         },
       },
