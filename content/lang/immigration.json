@@ -1,0 +1,75 @@
+{
+  "intro": {
+    "title": "COVID-19 in ICE Detention",
+    "subtitle": "UCLA Law",
+    "body": "Our immigration detention research team collects data on the number of people detained by U.S. Immigrations and Customs Enforcement (ICE) across the country who have been infected with or died from COVID. Our data come directly from ICE’s website and are updated several times per week."
+  },
+  "map": {
+    "title": "Showing ${metric}",
+    "description": "<span>This map displays COVID-19 cases and related deaths of people detained by ICE in facilities across the US, as well as the boundaries for the <a href='https://www.ice.gov/contact/field-offices?office=16#slc'>24 ICE Enforcement & Removal Operations Field Office regions</a>.</span>",
+    "labels": {
+      "confirmed": "Each spike represents the number of detained people who have had COVID-19 within a facility",
+      "confirmed_rate": "Each spike represents the % of detained people who have had COVID-19 within a facility",
+      "deaths": "Each spike represents the number of detained people who have died due to COVID-19 within a facility",
+      "deaths_rate": "Each spike represents the % of detained people who have died due to COVID-19 in a facility",
+      "active": "Each spike represents the number detained people who currently have COVID-19 in a facility",
+      "active_rate": "Each spike represents the % of detained people who currently have COVID-19 in a facility",
+      "tested": "Each spike represents the number of incarcerated people who have been tested for COVID-19 within a facility",
+      "tested_rate": "Each spike represents the % of incarcerated people who have been tested for COVID-19 within a facility"
+    },
+    "notes": "<span>This map displays COVID-19 cases and related deaths of people detained by ICE in facilities across the US, as well as the boundaries for the <a href='https://www.ice.gov/contact/field-offices?office=16#slc'>24 ICE Enforcement & Removal Operations Field Office regions</a>.</span>"
+  },
+  "table": {
+    "title": "Facilities with the highest ${metric}",
+    "note": [
+      "Actual COVID case counts are likely much higher than reported by ICE, as testing by the agency has been limited.",
+      "Rates are calculated using a denominator of average facility-level population for 2020. Populations have decreased significantly over the course of the pandemic."
+    ]
+  },
+  "scorecard": {
+    "title": "Data Reporting & Quality Scorecard",
+    "link": "Data Scorecard",
+    "description": "This scorecard assesses data reporting and quality for ICE. <a href='https://uclacovidbehindbars.org/blog/scorecard'>Read more about our scoring methodology</a> and to see how this jurisdiction compares to other state and federal systems.",
+    "score_title": "Data Reporting & Quality Grade",
+    "date_note": "Scores assessed as of ${date}.",
+    "asterisk_notes": [
+      {
+        "key": "immigration",
+        "note": "We have observed several unexplained fluctuations in the cumulative number of COVID-19 cases and tests that ICE reports."
+      }
+    ],
+    "section": {
+      "resident_reporting": "Data reporting for detained people",
+      "staff_reporting": "Data reporting for staff",
+      "data_quality": "Data quality"
+    },
+    "table_header": {
+      "machine": "Machine Readable",
+      "regularly": "Regularly Updated",
+      "defined": "Clearly Defined",
+      "history": "Contextualized Historically",
+      "cases_residents": "Cumulative Cases",
+      "deaths_residents": "Cumulative Deaths",
+      "active_residents": "Active Cases",
+      "tests_residents": "Tests Administered",
+      "population_residents": "Population",
+      "vaccinations_residents": "Vaccinations",
+      "cases_staff": "Cumulative Cases",
+      "deaths_staff": "Cumulative Deaths",
+      "active_staff": "Active Cases",
+      "tests_staff": "Tests Administered",
+      "population_staff": "Population",
+      "vaccinations_staff": "Vaccinations"
+    },
+    "table_value": {
+      "yes": "Yes",
+      "no": "No",
+      "none": "None",
+      "none_alt": "not reported",
+      "statewide": "Systemwide only",
+      "statewide_alt": "reported systemwide",
+      "facility_level": "By facility",
+      "facility_level_alt": "reported at the facility level"
+    }
+  }
+}

@@ -1,8 +1,7 @@
-import React from "react"
-import { Block } from "gatsby-theme-hyperobjekt-core"
-import Stack from "../Stack"
-import { Typography, withStyles } from "@material-ui/core"
-import ResponsiveContainer from "../ResponsiveContainer"
+import React from "react";
+import { Block } from "@hyperobjekt/material-ui-website";
+import Stack from "../Stack";
+import { Typography, withStyles } from "@material-ui/core";
 
 export const styles = (theme) => ({
   root: {},
@@ -20,40 +19,33 @@ export const styles = (theme) => ({
       minWidth: "33%",
     },
   },
-})
+});
 
 const Sponsors = ({ title, logos, children, classes, ...props }) => {
   return (
-    <Block className={classes.root} type="fullWidth" {...props}>
-      <ResponsiveContainer>
+    <Block className={classes.root} {...props}>
+      <Stack horizontal="sm" spacing={3} justify="space-between" align="center">
+        {title && (
+          <div className={classes.titleWrapper}>
+            <Typography className={classes.title} variant="h3">
+              {title}
+            </Typography>
+          </div>
+        )}
         <Stack
           horizontal="sm"
           spacing={3}
-          justify="space-between"
-          align="center"
+          justify="space-around"
+          style={{ flex: 1 }}
         >
-          {title && (
-            <div className={classes.titleWrapper}>
-              <Typography className={classes.title} variant="h3">
-                {title}
-              </Typography>
-            </div>
-          )}
-          <Stack
-            horizontal="sm"
-            spacing={3}
-            justify="space-around"
-            style={{ flex: 1 }}
-          >
-            {logos.map((logo) => (
-              <img key={logo.alt} src={logo.image} alt={logo.alt} />
-            ))}
-          </Stack>
+          {logos.map((logo) => (
+            <img key={logo.alt} src={logo.image} alt={logo.alt} />
+          ))}
         </Stack>
-        {children}
-      </ResponsiveContainer>
+      </Stack>
+      {children}
     </Block>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(Sponsors)
+export default withStyles(styles)(Sponsors);

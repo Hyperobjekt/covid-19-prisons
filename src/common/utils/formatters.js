@@ -1,10 +1,10 @@
 import { METRIC_FORMATTERS } from "../constants"
 
-export const formatMetricValue = (value, metric, defaultValue="N/A") => {
+export const formatMetricValue = (value, metric) => {
   const format = METRIC_FORMATTERS[metric] || ((d) => d)
   if (typeof value !== "number" || !Number.isFinite(value)) {
     // fixes #55
-    return defaultValue
+    return "N/A"
   } else if (metric.includes("_rate") && (value < .01) && (value > 0)) {
     return "<1%"
   } else if (metric === "rate_legend" && (value < .01) && (value > 0)) {

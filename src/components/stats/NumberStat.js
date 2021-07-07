@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 import { format as d3Format } from "d3-format"
-import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme"
 import PropTypes from "prop-types"
 import { Typography, withStyles } from "@material-ui/core"
 import Stack from "../Stack"

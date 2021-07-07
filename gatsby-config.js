@@ -1,20 +1,36 @@
-const metadata = require("./config/metadata.json")
-const coreOptions = require("./config/core.json")
+const metadata = require("./config/metadata.json");
 module.exports = {
   siteMetadata: metadata,
   plugins: [
+    `gatsby-plugin-meta-redirect`,
     {
-      resolve: `gatsby-theme-hyperobjekt-core`,
+      resolve: `gatsby-theme-hypersite`,
       options: {
-        ...coreOptions,
-        typekitId: "uiz8duz",
+        contentPath: `content/pages`,
+        assetPath: `content/assets`,
         templates: {
-          home: require.resolve("./src/components/home/home.js"),
-          immigration: require.resolve(
-            "./src/components/immigration/immigration.js"
-          ),
-          blog: require.resolve("./src/components/blog/blog.js"),
-          blogIndex: require.resolve("./src/components/blog/BlogIndex.js"),
+          default: require.resolve("./src/templates/page.js"),
+          home: require.resolve("./src/templates/home.js"),
+          immigration: require.resolve("./src/templates/immigration.js"),
+          blogIndex: require.resolve("./src/templates/blog-index.js"),
+          blog: require.resolve("./src/templates/blog-post.js"),
+          author: require.resolve("./src/templates/author.js"),
+        },
+      },
+    },
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./content/data/`,
+      },
+    },
+    // load typekit fonts
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        typekit: {
+          id: "uiz8duz",
         },
       },
     },
@@ -33,6 +49,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-netlify-cms`,
       options: {
+        manualInit: true,
         modulePath: `./src/cms/cms.js`,
       },
     },
@@ -70,4 +87,4 @@ module.exports = {
       },
     },
   ],
-}
+};

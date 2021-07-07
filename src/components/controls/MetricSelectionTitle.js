@@ -3,7 +3,7 @@ import clsx from "clsx"
 import { fade, Typography, withStyles } from "@material-ui/core"
 import MetricSelection from "./MetricSelection"
 import RegionSelection from "../immigration/RegionSelection"
-import { serifTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { serifTypography } from "../../gatsby-theme-hypercore/theme"
 import { useOptionsStore } from "../../common/hooks"
 
 const styles = (theme) => ({

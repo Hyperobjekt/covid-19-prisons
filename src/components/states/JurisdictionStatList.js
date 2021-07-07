@@ -7,7 +7,7 @@ import { SUMMABLE_JURISDICTIONS, METRICS } from "../../common/constants"
 import Stack from "../Stack"
 import NumberStat from "../stats/NumberStat"
 import { formatMetricValue } from "../../common/utils/formatters"
-import { sansSerifyTypography } from "../../gatsby-theme-hyperobjekt-core/theme"
+import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme"
 import { AnchorLink } from "gatsby-plugin-anchor-links"
 
 const styles = (theme) => ({

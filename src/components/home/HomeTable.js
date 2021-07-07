@@ -1,24 +1,20 @@
-import React from "react"
-import { Table } from "../table"
-import { format } from "d3-format"
-import { Typography, withStyles } from "@material-ui/core"
-import { useFacilitiesData, useOptionsStore } from "../../common/hooks"
-import { Block } from "gatsby-theme-hyperobjekt-core"
+import React from "react";
+import { Table } from "../table";
+import { Typography, withStyles } from "@material-ui/core";
+import { useFacilitiesData, useOptionsStore } from "../../common/hooks";
+import { Block } from "@hyperobjekt/material-ui-website";
+import slugify from "slugify";
+import { getColorForJurisdiction } from "../../common/utils/selectors";
+import shallow from "zustand/shallow";
+import { getLang } from "../../common/utils/i18n";
+import JurisdictionToggles from "../controls/JurisdictionToggles";
+import DotMarker from "../markers/DotMarker";
+import MetricSelectionTitle from "../controls/MetricSelectionTitle";
 
-import ResponsiveContainer from "../ResponsiveContainer"
-import {
-  getColorForJurisdiction,
-  isNumber,
-} from "../../common/utils/selectors"
-import shallow from "zustand/shallow"
-import { getLang } from "../../common/utils/i18n"
-import JurisdictionToggles from "../controls/JurisdictionToggles"
-import DotMarker from "../markers/DotMarker"
-import MetricSelectionTitle from "../controls/MetricSelectionTitle"
-import Notes from "../Notes"
-import { formatMetricValue } from "../../common/utils/formatters"
-import clsx from "clsx"
-import { Link } from "gatsby-theme-material-ui"
+import clsx from "clsx";
+import { Link } from "gatsby-theme-material-ui";
+import NotesModal from "../NotesModal";
+import { countFormatter, rateFormatter, rateSorter } from "../table/utils";
 
 const styles = (theme) => ({
   root: {
@@ -36,10 +32,7 @@ const styles = (theme) => ({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     overflow: "hidden",
-    maxWidth: 224,
-    [theme.breakpoints.up(1440)]: {
-      maxWidth: 320,
-    },
+    width: "100%",
   },
   state: {
     "&.MuiLink-root.MuiTypography-root": {
@@ -73,24 +66,7 @@ const styles = (theme) => ({
       },
     },
   },
-})
-
-const intFormatter = format(",d")
-const perFormatter = (v) => formatMetricValue(v, "home_table_rate")
-
-const countFormatter = (value) =>
-  !isNumber(value) ? "--" : intFormatter(value)
-
-const rateFormatter = (value) => (!isNumber(value) ? "--" : perFormatter(value))
-
-const rateSorter = (a, b, columnId) => {
-  const vals = [a, b].map((v) => v["original"]["residents"][columnId])
-  if (isNumber(vals[0]) && !isNumber(vals[1])) return 1
-  if (!isNumber(vals[0]) && isNumber(vals[1])) return -1
-  if (!isNumber(vals[0]) && !isNumber(vals[1])) return 0
-  const diff = vals[0] - vals[1]
-  return diff < 0 ? -1 : 1
-}
+});
 
 const HomeTable = ({
   title,
@@ -105,21 +81,21 @@ const HomeTable = ({
   const [metric, setMetric] = useOptionsStore(
     (state) => [state.metric, state.setMetric],
     shallow
-  )
+  );
 
   // data for table
-  const data = useFacilitiesData(categories, selectedRegion)
+  const data = useFacilitiesData(categories, selectedRegion);
 
   // styles for number columns in table
   const numberColStyle = React.useMemo(
     () => ({
-      width: "12.5%",
-      minWidth: 100,
+      width: "10%",
+      minWidth: "7rem",
       textAlign: "right",
     }),
 
     []
-  )
+  );
 
   // column configuration for the table
   const columns = React.useMemo(() => {
@@ -128,20 +104,24 @@ const HomeTable = ({
       id: "name",
       accessor: "name",
       Cell: (prop) => {
-        const { state, jurisdiction, name } = prop.row.original
-        let entity = state
-        let link = `/states/${state}`
+        const { state, jurisdiction, name } = prop.row.original;
+        let entity = state;
+        let link = `/states/${slugify(state, { lower: true })}`;
 
         if (name.toLowerCase().startsWith("all ice")) {
-          entity = "ICE Detention"
-          link = "/ice"
+          entity = "ICE Detention";
+          link = "/ice";
         } else if (name.toLowerCase().startsWith("all bop")) {
-          entity = "Federal Bureau of Prisons"
-          link = "/federal"
+          entity = "Federal Bureau of Prisons";
+          link = "/federal";
         }
         return (
           <>
-            <Typography className={classes.name} variant="body1">
+            <Typography
+              title={prop.value}
+              className={classes.name}
+              variant="body1"
+            >
               {prop.value}
             </Typography>
             <Typography variant="body2" color="textSecondary">
@@ -154,13 +134,12 @@ const HomeTable = ({
               />
             </Typography>
           </>
-        )
+        );
       },
       style: {
-        width: "25%",
-        minWidth: 260,
+        maxWidth: "10.5rem",
       },
-    }
+    };
 
     const colMetrics = isImmigration
       ? [
@@ -180,7 +159,7 @@ const HomeTable = ({
           "deaths_rate",
           "tested",
           "tested_rate",
-        ]
+        ];
 
     const cols = colMetrics.map((colMetric) => {
       const col = {
@@ -189,94 +168,90 @@ const HomeTable = ({
         accessor: `residents.${colMetric}`,
         Cell: (prop) => countFormatter(prop.value),
         style: numberColStyle,
-      }
+      };
 
-      const isRate = colMetric.indexOf("_rate") > 0
+      const isRate = colMetric.indexOf("_rate") > 0;
       if (isRate) {
-        col.sortType = rateSorter
-        col.Cell = (prop) => rateFormatter(prop.value)
+        col.sortType = rateSorter;
+        col.Cell = (prop) => rateFormatter(prop.value);
       }
 
-      return col
-    })
+      return col;
+    });
 
-    return [facilityCol, ...cols]
-  }, [classes.name, classes.state, isImmigration, numberColStyle])
+    return [facilityCol, ...cols];
+  }, [classes.name, classes.state, isImmigration, numberColStyle]);
 
-  const [sortCol, setSortCol] = React.useState(metric)
-  const [sortedByMetric, setSortedByMetric] = React.useState(true)
+  const [sortCol, setSortCol] = React.useState(metric);
+  const [sortedByMetric, setSortedByMetric] = React.useState(true);
+  const [sortDesc, setSortDesc] = React.useState(true);
 
   // memoized table options
   const options = React.useMemo(
     () => ({
       initialState: {
         pageSize: 5,
-        sortBy: [{ id: sortCol, desc: sortedByMetric }],
+        sortBy: [{ id: sortCol, desc: sortDesc }],
       },
     }),
-    [sortedByMetric, sortCol]
-  )
+    [sortDesc, sortCol]
+  );
 
   // handler for when table headers are clicked
   const handleSortChange = React.useCallback(
     (sortBy) => {
-      const isMetric = sortBy !== "name"
-      setSortedByMetric(isMetric)
-      setSortCol(sortBy)
-
-      if (!isMetric) return
-      const newMetric = sortBy
-      metric !== newMetric && setMetric(newMetric)
+      const isMetric = sortBy !== "name";
+      setSortedByMetric(isMetric);
+      setSortCol(sortBy);
+      if (!isMetric) {
+        setSortDesc(!sortDesc);
+        return;
+      }
+      const newMetric = sortBy;
+      metric !== newMetric && setMetric(newMetric);
+      setSortDesc(true);
     },
-    [metric, setMetric]
-  )
+    [metric, setMetric, sortDesc]
+  );
 
   // if user selects metric via dropdown, update sort col
   React.useEffect(() => {
-    setSortCol(metric)
-    setSortedByMetric(true)
-  }, [metric])
+    setSortCol(metric);
+    setSortedByMetric(true);
+  }, [metric]);
 
   // otherwise column won't update if table sorted by name and active metric is (re)selected
   const handleSelection = (metric) => {
-    setSortedByMetric(true)
-    setSortCol(metric)
-  }
+    setSortedByMetric(true);
+    setSortCol(metric);
+  };
 
   return (
-    <Block
-      type="fullWidth"
-      className={clsx(classes.root, "home-table")}
-      {...props}
-    >
-      <ResponsiveContainer>
-        <MetricSelectionTitle
-          title={sortedByMetric ? title : "Facilities by ${metric}"}
-          isImmigration={isImmigration}
-          handleSelection={handleSelection}
-          forceSelectedOption={!sortedByMetric && sortCol}
+    <Block className={clsx(classes.root, "home-table")} {...props}>
+      <MetricSelectionTitle
+        title={sortedByMetric ? title : "Facilities by ${metric}"}
+        isImmigration={isImmigration}
+        handleSelection={handleSelection}
+        forceSelectedOption={!sortedByMetric && sortCol}
+      />
+      <Table
+        className={classes.table}
+        data={data.filter((d) => d.name !== "Statewide")}
+        columns={columns}
+        options={options}
+        // sortColumn={sortCol}
+        // sortDesc={sortedByMetric}
+        onSort={handleSortChange}
+      >
+        <JurisdictionToggles
+          marker="dot"
+          horizontal="md"
+          classes={{ root: classes.toggleContainer }}
         />
-        <Table
-          className={classes.table}
-          data={data.filter((d) => d.name !== "Statewide")}
-          columns={columns}
-          options={options}
-          // sortColumn={sortCol}
-          // sortDesc={sortedByMetric}
-          onSort={handleSortChange}
-        >
-          <JurisdictionToggles
-            marker="dot"
-            horizontal="md"
-            classes={{ root: classes.toggleContainer }}
-          />
-        </Table>
-        {note && note.length > 0 && (
-          <Notes notes={note} className={classes.notes} />
-        )}
-      </ResponsiveContainer>
+      </Table>
+      {note && note.length > 0 && <NotesModal notes={note} />}
     </Block>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(HomeTable)
+export default withStyles(styles)(HomeTable);

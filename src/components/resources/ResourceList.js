@@ -1,12 +1,12 @@
-import React from "react"
-import useResourcesData from "./useResourcesData"
+import React from "react";
+import useResourcesData from "./useResourcesData";
 import {
   Link,
   List,
   ListItem,
   ListItemText,
   Typography,
-} from "@material-ui/core"
+} from "@material-ui/core";
 
 const ResourceTitle = ({ resource, ...props }) => {
   return resource.links.length === 1 ? (
@@ -14,12 +14,12 @@ const ResourceTitle = ({ resource, ...props }) => {
       {resource.organization}
     </Link>
   ) : (
-    resource.organization
-  )
-}
+    resource.organization || "none"
+  );
+};
 
 const ResourceDescription = ({ resource, ...props }) => {
-  const hasManyLinks = resource.links.length > 1
+  const hasManyLinks = resource.links.length > 1;
   return hasManyLinks ? (
     <>
       {resource.description}
@@ -37,17 +37,17 @@ const ResourceDescription = ({ resource, ...props }) => {
     </>
   ) : (
     resource.description
-  )
-}
+  );
+};
 
 const ResourceList = (props) => {
-  const data = useResourcesData()
+  const data = useResourcesData();
   return data.map((category) => (
     <>
       <Typography variant="h3">{category.fieldValue}</Typography>
       <List>
         {category.nodes.map((resource) => (
-          <ListItem>
+          <ListItem disableGutters>
             <ListItemText
               primary={<ResourceTitle resource={resource} />}
               secondary={<ResourceDescription resource={resource} />}
@@ -56,9 +56,9 @@ const ResourceList = (props) => {
         ))}
       </List>
     </>
-  ))
-}
+  ));
+};
 
-ResourceList.propTypes = {}
+ResourceList.propTypes = {};
 
-export default ResourceList
+export default ResourceList;

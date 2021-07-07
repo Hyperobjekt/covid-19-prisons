@@ -6,3 +6,5 @@ dist
 .vscode
 .cache
 public
+yarn-error.log
+static/data

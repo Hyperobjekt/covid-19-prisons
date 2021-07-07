@@ -1,0 +1,44 @@
+{
+  "id": "en",
+  "lang": [
+    { "key": "residents", "value": "Incarcerated People" },
+    { "key": "residents_immigration", "value": "Detained People" },
+    { "key": "staff", "value": "Staff" },
+    { "key": "confirmed", "value": "Cumulative Cases" },
+    { "key": "confirmed_rate", "value": "Cumulative Case Rate" },
+    { "key": "confirmed_label", "value": "Cases" },
+    { "key": "deaths", "value": "Cumulative Deaths" },
+    { "key": "deaths_rate", "value": "Death Rate" },
+    { "key": "deaths_label", "value": "Deaths" },
+    { "key": "active", "value": "Active Cases" },
+    { "key": "active_rate", "value": "Active Case Rate" },
+    { "key": "active_label", "value": "Active Cases" },
+    { "key": "tested", "value": "Tests" },
+    { "key": "tested_label", "value": "Tests" },
+    { "key": "tested_rate", "value": "Test Rate" },
+    { "key": "data_score", "value": "Data Grade" },
+    { "key": "jurisdiction", "value": "Jurisdiction" },
+    { "key": "residents_initiated", "value": "Incarcerated people" },
+    { "key": "staff_initiated", "value": "Staff" },
+    { "key": "initiated_percent", "value": "Rate" },
+    { "key": "initiated_total", "value": "Total" },
+    { "key": "total", "value": "Total" },
+    { "key": "state", "value": "State Facilities" },
+    { "key": "federal", "value": "Federal Facilities" },
+    { "key": "county", "value": "County Jails" },
+    { "key": "immigration", "value": "ICE Detention Centers" },
+    { "key": "unavailable", "value": "Unavailable" },
+    {
+      "key": "nat_map_title",
+      "value": "This map displays COVID-19 cases and related deaths of people incarcerated in prisons and jails across the US. Click on a state to access more data."
+    },
+    {
+      "key": "state_map_title",
+      "value": "Map of ${stateName} with spikes representing the active metric for each facility."
+    },
+    { "key": "empty_legend_message", "value": "no data available" },
+    { "key": "scroll_up", "value": "Back to top" },
+    { "key": "notes_dialog_title", "value": "Data Notes" },
+    { "key": "notes_open", "value": "Open data notes" }
+  ]
+}

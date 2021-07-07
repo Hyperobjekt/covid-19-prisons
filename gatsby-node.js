@@ -1,3 +1,4 @@
+const path = require("path");
 const {
   getFacilities,
   getVaccines,
@@ -11,8 +12,23 @@ const {
   getGrassroots,
   // getFundraisers,
   getResources,
-} = require(`./scripts/fetchData.js`)
-const { validStatePages, slugify } = require(`./scripts/utils.js`)
+} = require(`./scripts/fetchData.js`);
+const { validStatePages, slugify } = require(`./scripts/utils.js`);
+
+exports.createSchemaCustomization = ({ actions: { createTypes } }) => {
+  createTypes(`
+    type AuthorsJson implements Node {
+      id: String!
+      authors: [Author]
+    }
+
+    type Author {
+      name: String
+      bio: String
+      image: File @fileByRelativePath
+    }
+  `);
+};
 
 /**
  * Creates a data node from the data fetcher
@@ -25,9 +41,9 @@ const createSourceNodes = async (
   fetcher,
   { actions, createNodeId, createContentDigest, reporter }
 ) => {
-  const activity = reporter.activityTimer(`created source node for ${id}`)
-  activity.start()
-  const data = await fetcher()
+  const activity = reporter.activityTimer(`created source node for ${id}`);
+  activity.start();
+  const data = await fetcher();
   data.forEach((d, i) => {
     const node = {
       ...d,
@@ -36,11 +52,11 @@ const createSourceNodes = async (
         type: id,
         contentDigest: createContentDigest(d),
       },
-    }
-    actions.createNode(node)
-  })
-  activity.end()
-}
+    };
+    actions.createNode(node);
+  });
+  activity.end();
+};
 
 exports.sourceNodes = async (params) => {
   const nodes = [
@@ -56,17 +72,24 @@ exports.sourceNodes = async (params) => {
     ["Grassroots", getGrassroots],
     // ["Fundraisers", getFundraisers],
     ["Resources", getResources],
-  ]
+  ];
   for (let i = 0; i < nodes.length; i++) {
-    await createSourceNodes(nodes[i][0], nodes[i][1], params)
+    await createSourceNodes(nodes[i][0], nodes[i][1], params);
   }
-}
+};
 
-const StateTemplate = require.resolve(`./src/components/states/states.js`)
-const FederalPage = require.resolve(`./src/components/states/Federal.js`)
+const createFederalPage = async ({ actions: { createPage } }) => {
+  const FederalTemplate = require.resolve(`./src/templates/federal.js`);
+  createPage({
+    path: `/federal/`,
+    component: FederalTemplate,
+    context: {},
+  });
+};
 
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+const createStatePages = async ({ graphql, actions }) => {
+  const StateTemplate = require.resolve(`./src/templates/states.js`);
+  const { createPage } = actions;
   const result = await graphql(`
     query {
       allFacilities {
@@ -83,11 +106,11 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `)
+  `);
 
-  const states = result.data.allFacilities.group
+  const states = result.data.allFacilities.group;
   states.forEach(({ fieldValue: stateName }) => {
-    const pageName = slugify(stateName)
+    const pageName = slugify(stateName);
     if (validStatePages.indexOf(pageName) > -1) {
       createPage({
         path: `/states/${pageName}/`,
@@ -96,17 +119,25 @@ exports.createPages = async ({ graphql, actions }) => {
           slug: pageName,
           state: stateName,
         },
-      })
+      });
     } else {
       console.warn(
         `invalid state name: not creating a state page for ${pageName} `
-      )
+      );
     }
-  })
+  });
+};
 
-  createPage({
-    path: `/federal/`,
-    component: FederalPage,
-    context: {},
-  })
-}
+exports.createPages = async (props) => {
+  await createStatePages(props);
+  await createFederalPage(props);
+};
+
+// allow import of local components
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      modules: [path.resolve(__dirname, "src"), "node_modules"],
+    },
+  });
+};
