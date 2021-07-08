@@ -35,7 +35,7 @@
       "staff_rate": "Vaccine Rate for Staff"
     },
     "note": [
-      "Rates for incarcerated people are calculated using a population denominator from June 2021, and rates for staff are based on the most recent population data available. Many of the staff population values come from data collected by <a href=\"https://github.com/themarshallproject/COVID_prison_data\">The Marshall Project</a>. \n\nWe collect additional data on vaccine administration; these variables are presented in our full dataset on GitHub. These include state-level data on the number of incarcerated people and staff who are fully vaccinated, facility-level data on the number of staff and incarcerated people who are vaccinated, and data from several county jail systems. Click here to learn more information about the vaccine data we collect. \n"
+      "Rates for incarcerated people are calculated using a population denominator from June 2021, and rates for staff are based on the most recent population data available. Many of the staff population values come from data collected by <a href=\"https://github.com/themarshallproject/COVID_prison_data\">The Marshall Project</a>. \n\nWe collect additional data on vaccine administration; these variables are presented in our full dataset on <a href=\"https://github.com/uclalawcovid19behindbars/data\">GitHub</a>. These include state-level data on the number of incarcerated people and staff who are fully vaccinated, facility-level data on the number of staff and incarcerated people who are vaccinated, and data from several county jail systems. <a href=\"http://uclacovidbehindbars.org/blog/vaccinedata\">Click here</a> to learn more information about the vaccine data we collect. \n"
     ],
     "flag_note": [
       {
