@@ -310,7 +310,7 @@ export const query = graphql`
     # get all posts to connect the next/prev
     allMdx(
       sort: { fields: frontmatter___date, order: ASC }
-      filter: { frontmatter: { meta: { isBlogPost: { eq: true } } } }
+      filter: { frontmatter: { category: { eq: "blog" } } }
     ) {
       edges {
         node {
