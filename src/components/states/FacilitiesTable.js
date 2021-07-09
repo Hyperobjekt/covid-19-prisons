@@ -112,6 +112,7 @@ const FacilitiesTable = ({ classes, filter, isFederal, ...props }) => {
                 }}
                 className={classes.name}
                 variant="body1"
+                title={prop.value}
               >
                 {prop.value}
               </Typography>
