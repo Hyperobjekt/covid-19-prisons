@@ -39,14 +39,14 @@ const styles = (theme) => ({
   },
 });
 
-const SocialLinks = ({ classes, title }) => {
+export const PostSocialLinks = ({ classes, shareText, baseUrl }) => {
   const location = useLocation();
-  const url = "https://uclacovidbehindbars.org" + location.pathname;
+  const url = baseUrl + location.pathname;
 
   const twitterClick = (e) => {
     window
       .open(
-        `https://twitter.com/share?text=${title}&url=${url}`,
+        `https://twitter.com/share?text=${shareText}&url=${url}`,
         "_blank",
         "width=550,height=420"
       )
@@ -75,7 +75,7 @@ const SocialLinks = ({ classes, title }) => {
         <IconButton>
           <a
             target="_blank"
-            href={`mailto:?subject=${title} - UCLA COVID Behind Bars&body=${url}`}
+            href={`mailto:?subject=${shareText}&body=${url}`}
             rel="noreferrer"
           >
             <EmailIcon />
@@ -88,4 +88,4 @@ const SocialLinks = ({ classes, title }) => {
   );
 };
 
-export default withStyles(styles)(SocialLinks);
+export default withStyles(styles)(PostSocialLinks);

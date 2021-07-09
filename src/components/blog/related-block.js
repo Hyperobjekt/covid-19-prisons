@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, withStyles } from "@material-ui/core";
 import { subtitleTypography } from "../../gatsby-theme-hypercore/theme";
-import { BlogPost } from ".";
+import Post from "./post";
 
 const styles = (theme) => ({
   sectionTitle: {
@@ -17,7 +17,7 @@ const styles = (theme) => ({
   },
 });
 
-const Linked = ({ classes, next, previous }) => {
+const RelatedBlock = ({ classes, next, previous }) => {
   const post = next || previous;
   if (!post) {
     return null;
@@ -28,9 +28,9 @@ const Linked = ({ classes, next, previous }) => {
       <Typography variant="h2" component="h2" className={classes.sectionTitle}>
         {sectionTitle}
       </Typography>
-      <BlogPost post={post} />
+      <Post post={post} />
     </div>
   );
 };
 
-export default withStyles(styles)(Linked);
+export default withStyles(styles)(RelatedBlock);
