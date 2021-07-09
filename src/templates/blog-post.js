@@ -13,6 +13,7 @@ import {
   sansSerifyTypography,
 } from "../gatsby-theme-hypercore/theme";
 import { BlogHero, BlogSocialLinks, BlogLinkedPost } from "../components/blog";
+import { postDataToProps } from "../components/blog/utils";
 
 const maxContentWidth = "37.5rem";
 
@@ -223,15 +224,7 @@ const useStyles = makeStyles((theme) => ({
 
 const BlogPostTemplate = (props) => {
   const { mdx, allMdx } = props.data;
-  const {
-    date,
-    image,
-    name: title,
-    description,
-    meta,
-    category,
-  } = mdx.frontmatter;
-  const { author } = meta;
+  const post = postDataToProps(mdx);
   const featuredImage = image && getImage(image);
   const classes = useStyles();
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id);
@@ -240,24 +233,16 @@ const BlogPostTemplate = (props) => {
   if (!mdxProps.meta.title) mdxProps.meta.title = title;
   // fallback description if it is not set in metadata
   if (!mdxProps.meta.description) mdxProps.meta.description = description;
+  return <PageTemplate {...{ previousPost, nextPost, post }} {...props} />;
   return (
     <Layout {...mdxProps} {...props}>
-      <BlogHero {...{ author, date, title }} />
-      <Block
+      <PostHeroBlock {...{ author, date, title }} />
+      <PostContentBlock
         bgcolor="background.paper"
         ContainerProps={{ style: { position: "relative" } }}
-      >
-        <BlogSocialLinks title={title} />
-        <Box className={classes.postContent}>
-          {featuredImage && (
-            <GatsbyImage
-              className={classes.featuredImage}
-              image={featuredImage}
-            />
-          )}
-          <MDXRenderer>{body}</MDXRenderer>
-        </Box>
-      </Block>
+      />
+      <PostRelatedBlock {...{ previousPost, nextPost }} />
+
       {category === "blog" && (
         <LinkedBlock bgcolor="background.paper">
           <BlogLinkedPost {...postNode} />
