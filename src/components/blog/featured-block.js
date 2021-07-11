@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core";
 import { subtitleTypography } from "../../gatsby-theme-hypercore/theme";
 import clsx from "clsx";
+import FeaturedPost from "./featured-post";
 
 const styles = (theme) => ({
   root: {
@@ -31,7 +32,7 @@ function FeaturedBlock({ classes, className, title, post }) {
   return (
     <div className={clsx(classes.root, className)}>
       <h2 className={classes.title}>{title}</h2>
-      <FeaturedPost post={post} isFeatured={true} />
+      <FeaturedPost {...post} isFeatured={true} />
     </div>
   );
 }

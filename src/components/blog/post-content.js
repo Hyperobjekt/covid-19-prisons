@@ -1,20 +1,15 @@
 import React from "react";
-import { MDXRenderer } from "gatsby-plugin-mdx";
 import { Block } from "@hyperobjekt/material-ui-website";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { Box, withStyles } from "@material-ui/core";
-import { sansSerifyTypography } from "../gatsby-theme-hypercore/theme";
-import { PostSocialLinks } from ".";
-
-const maxContentWidth = "37.5rem";
-
+import { withStyles } from "@material-ui/core";
+import { sansSerifyTypography } from "../../gatsby-theme-hypercore/theme";
+import clsx from "clsx";
 const styles = (theme) => ({
   root: {},
   content: {
     position: "relative",
     wordWrap: "break-word",
     margin: "auto",
-    maxWidth: maxContentWidth,
+    maxWidth: "37.5rem",
     // dividers within blog post
     "& > hr": {
       margin: theme.spacing(3, 0),
@@ -160,7 +155,7 @@ const styles = (theme) => ({
       },
     },
   },
-  featuredImage: {
+  "& .HypPostContent-featuredImage": {
     [theme.breakpoints.up("sm")]: {
       width: "110%",
       marginLeft: "-5%",
@@ -179,33 +174,20 @@ const styles = (theme) => ({
 export const PostContentBlock = ({
   classes,
   className,
-  shareText,
-  body,
-  featuredImage,
+  children,
+  ContainerProps = {},
   ...props
 }) => {
   return (
     <Block
       className={clsx("HypPostContent-root", classes.root, className)}
+      ContainerProps={{
+        className: clsx("HypPostContent-content", classes.content),
+        ...ContainerProps,
+      }}
       {...props}
     >
-      <PostSocialLinks
-        className={clsx("HypPostContent-social", classes.social)}
-        shareText={shareText}
-        baseUrl="https://uclacovidbehindbars.org"
-      />
-      <Box className={clsx("HypPostContent-content", classes.content)}>
-        {featuredImage && (
-          <GatsbyImage
-            className={clsx(
-              "HypPostContent-featuredImage",
-              classes.featuredImage
-            )}
-            image={featuredImage}
-          />
-        )}
-        <MDXRenderer>{body}</MDXRenderer>
-      </Box>
+      {children}
     </Block>
   );
 };

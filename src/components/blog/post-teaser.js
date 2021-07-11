@@ -5,6 +5,7 @@ import { Link } from "gatsby-theme-material-ui";
 import { serifTypography } from "../../gatsby-theme-hypercore/theme";
 import ReadLink from "./read-link";
 import PostMeta from "./post-meta";
+import { graphql } from "gatsby";
 
 const styles = (theme) => ({
   root: {
@@ -119,24 +120,23 @@ const Post = ({
 export default withStyles(styles)(Post);
 
 export const query = graphql`
-  fragment BlogPostTeaser on allMdx {
-      id
-      frontmatter {
-        meta {
-          title
-          description
-          keywords
-          image {
-            childImageSharp {
-              gatsbyImageData(
-                transformOptions: { fit: COVER, cropFocus: CENTER }
-                width: 1200
-                height: 630
-              )
-            }
+  fragment BlogPostTeaser on Mdx {
+    id
+    frontmatter {
+      meta {
+        title
+        description
+        keywords
+        image {
+          childImageSharp {
+            gatsbyImageData(
+              transformOptions: { fit: COVER, cropFocus: CENTER }
+              width: 1200
+              height: 630
+            )
           }
-          isBlogPost
         }
+        isBlogPost
       }
     }
   }

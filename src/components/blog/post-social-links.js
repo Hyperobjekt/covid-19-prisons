@@ -5,9 +5,11 @@ import EmailIcon from "@material-ui/icons/Email";
 import IconButton from "@material-ui/core/IconButton";
 import { useLocation } from "@reach/router";
 import { Box, withStyles } from "@material-ui/core";
+import { Block } from "@hyperobjekt/material-ui-website";
 
 const styles = (theme) => ({
   social: {
+    padding: 0,
     display: "flex",
     margin: "auto",
     marginBottom: theme.spacing(3),
@@ -35,6 +37,9 @@ const styles = (theme) => ({
         padding: "12px",
         marginBottom: theme.spacing(1),
       },
+    },
+    "& > .MuiBox-root": {
+      width: 64,
     },
   },
 });
@@ -64,27 +69,23 @@ export const PostSocialLinks = ({ classes, shareText, baseUrl }) => {
   };
 
   return (
-    <>
-      <div className={classes.social}>
-        <IconButton onClick={twitterClick}>
-          <TwitterIcon />
-        </IconButton>
-        <IconButton onClick={facebookClick}>
-          <img alt="share on Facebook" src={FbIcon} />
-        </IconButton>
-        <IconButton>
-          <a
-            target="_blank"
-            href={`mailto:?subject=${shareText}&body=${url}`}
-            rel="noreferrer"
-          >
-            <EmailIcon />
-          </a>
-        </IconButton>
-      </div>
-      {/* Box adds negative margin to account for sticky social icons */}
-      <Box display={{ xs: "none", lg: "block" }} mb={-22} />
-    </>
+    <Block className={classes.social}>
+      <IconButton onClick={twitterClick}>
+        <TwitterIcon />
+      </IconButton>
+      <IconButton onClick={facebookClick}>
+        <img alt="share on Facebook" src={FbIcon} />
+      </IconButton>
+      <IconButton>
+        <a
+          target="_blank"
+          href={`mailto:?subject=${shareText}&body=${url}`}
+          rel="noreferrer"
+        >
+          <EmailIcon />
+        </a>
+      </IconButton>
+    </Block>
   );
 };
 

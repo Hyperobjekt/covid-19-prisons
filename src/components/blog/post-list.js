@@ -1,12 +1,12 @@
 import React from "react";
-import Post from "./post";
+import PostTeaser from "./post-teaser";
 
 /** Renders a list of posts */
 const PostList = ({ posts }) => {
   return (
     <>
       {posts.map((p) => (
-        <Post post={p} key={p.url} />
+        <PostTeaser {...p} key={p.url} />
       ))}
     </>
   );

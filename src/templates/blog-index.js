@@ -36,6 +36,7 @@ export const postDataToProps = (post) => {
   };
 };
 
+/** Global page styles */
 const useStyles = makeStyles((theme) =>
   createStyles({
     "@global": {

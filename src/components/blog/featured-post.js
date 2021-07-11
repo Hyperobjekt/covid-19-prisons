@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import { compactTitleTypography } from "../../gatsby-theme-hypercore/theme";
-import Post from "./post";
+import PostTeaser from "./post-teaser";
 
 const FeaturedPost = withStyles((theme) => ({
   title: {
@@ -17,6 +17,6 @@ const FeaturedPost = withStyles((theme) => ({
       fontSize: theme.typography.pxToRem(62),
     },
   },
-}))(Post);
+}))(PostTeaser);
 
 export default FeaturedPost;

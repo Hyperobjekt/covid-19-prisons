@@ -30,7 +30,7 @@ const styles = (theme) => ({
   },
 });
 
-const Hero = ({ classes, author, date, title, ...props }) => {
+const PostHeroBlock = ({ classes, author, date, title, ...props }) => {
   return (
     <Block>
       <div className={classes.hero} {...props}>
@@ -43,4 +43,4 @@ const Hero = ({ classes, author, date, title, ...props }) => {
   );
 };
 
-export default withStyles(styles)(Hero);
+export default withStyles(styles)(PostHeroBlock);

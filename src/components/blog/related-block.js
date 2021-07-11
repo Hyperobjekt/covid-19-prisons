@@ -1,7 +1,36 @@
 import React from "react";
 import { Typography, withStyles } from "@material-ui/core";
-import { subtitleTypography } from "../../gatsby-theme-hypercore/theme";
-import Post from "./post";
+import {
+  CONTENT_MAXWIDTH_LG,
+  CONTENT_MAXWIDTH_XL,
+  subtitleTypography,
+} from "../../gatsby-theme-hypercore/theme";
+import PostTeaser from "./post-teaser";
+import { Block } from "@hyperobjekt/material-ui-website";
+
+const LinkedBlock = withStyles((theme) => ({
+  root: {
+    [theme.breakpoints.down("xs")]: {
+      paddingBottom: 0,
+    },
+  },
+  container: {
+    background: theme.palette.background.alt3,
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    marginRight: 0, // shift container so it is pushed to the right side of the page
+    // extend container widths at different resolutions, so left margin aligns with content
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: `calc((100% - 6rem) + ((100vw - (100% - 6rem)) / 2))`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      maxWidth: `calc((${CONTENT_MAXWIDTH_LG}px - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_LG}px - 6rem)) / 2))`,
+    },
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: `calc((${CONTENT_MAXWIDTH_XL}px - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_XL}px - 6rem)) / 2))`,
+    },
+  },
+}))(Block);
 
 const styles = (theme) => ({
   sectionTitle: {
@@ -17,19 +46,25 @@ const styles = (theme) => ({
   },
 });
 
-const RelatedBlock = ({ classes, next, previous }) => {
-  const post = next || previous;
+const RelatedBlock = ({ classes, nextPost, previousPost }) => {
+  const post = nextPost || previousPost;
   if (!post) {
     return null;
   }
-  const sectionTitle = (next ? "next" : "previous") + " post";
+  const sectionTitle = (nextPost ? "next" : "previous") + " post";
   return (
-    <div className={classes.root}>
-      <Typography variant="h2" component="h2" className={classes.sectionTitle}>
-        {sectionTitle}
-      </Typography>
-      <Post post={post} />
-    </div>
+    <LinkedBlock bgcolor="background.paper">
+      <div className={classes.root}>
+        <Typography
+          variant="h2"
+          component="h2"
+          className={classes.sectionTitle}
+        >
+          {sectionTitle}
+        </Typography>
+        <PostTeaser {...post} />
+      </div>
+    </LinkedBlock>
   );
 };
 

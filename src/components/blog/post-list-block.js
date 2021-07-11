@@ -22,7 +22,7 @@ const styles = (theme) => ({
   },
 });
 
-const PostList = ({ classes, className, title, posts, ...props }) => {
+const PostListBlock = ({ classes, className, title, posts, ...props }) => {
   return (
     <div className={clsx(classes.root, className)} {...props}>
       <h2 className={classes.title}>{title}</h2>
@@ -31,4 +31,4 @@ const PostList = ({ classes, className, title, posts, ...props }) => {
   );
 };
 
-export default withStyles(styles)(PostList);
+export default withStyles(styles)(PostListBlock);
