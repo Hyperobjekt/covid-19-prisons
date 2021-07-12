@@ -16,8 +16,9 @@ const BlogPostTemplate = (props) => {
   const { mdx, allMdx } = props.data;
   const post = postDataToProps(mdx);
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id);
-  const nextPost = postDataToProps(postNode.next);
-  const previousPost = postDataToProps(postNode.previous);
+  const nextPost = postNode && postDataToProps(postNode.next);
+  const previousPost = postNode && postDataToProps(postNode.previous);
+  console.log({ nextPost, previousPost, postNode });
   const { body, ...mdxProps } = getMdxProps(props);
   // fallback title if it is not set in metadata
   if (!mdxProps.meta.title) mdxProps.meta.title = post.title;
@@ -93,7 +94,10 @@ export const query = graphql`
       body
     }
     # get all posts to connect the next/prev
-    allMdx(sort: { fields: frontmatter___date, order: ASC }) {
+    allMdx(
+      sort: { fields: frontmatter___date, order: ASC }
+      filter: { frontmatter: { category: { eq: "blog" } } }
+    ) {
       edges {
         node {
           id

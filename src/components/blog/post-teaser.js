@@ -42,8 +42,8 @@ const styles = (theme) => ({
     "&.MuiLink-root": {
       textDecoration: "none",
       "&:hover": {
-        textDecoration: "underline",
-        textDecorationColor: theme.palette.secondary.main,
+        textDecoration: "none",
+        opacity: 0.7,
       },
     },
   },

@@ -24,10 +24,11 @@ const LinkedBlock = withStyles((theme) => ({
       maxWidth: `calc((100% - 6rem) + ((100vw - (100% - 6rem)) / 2))`,
     },
     [theme.breakpoints.up("lg")]: {
-      maxWidth: `calc((${CONTENT_MAXWIDTH_LG}px - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_LG}px - 6rem)) / 2))`,
+      paddingLeft: theme.spacing(12),
+      maxWidth: `calc((${CONTENT_MAXWIDTH_LG}px - 15rem) + ((100vw - (${CONTENT_MAXWIDTH_LG}px - 15rem)) / 2))`,
     },
     [theme.breakpoints.up("xl")]: {
-      maxWidth: `calc((${CONTENT_MAXWIDTH_XL}px - 6rem) + ((100vw - (${CONTENT_MAXWIDTH_XL}px - 6rem)) / 2))`,
+      maxWidth: `calc((${CONTENT_MAXWIDTH_XL}px - 15rem) + ((100vw - (${CONTENT_MAXWIDTH_XL}px - 15rem)) / 2))`,
     },
   },
 }))(Block);

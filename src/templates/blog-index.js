@@ -7,7 +7,7 @@ import { getImage } from "gatsby-plugin-image";
  * Takes the data post object and maps it to <Post /> props
  */
 export const postDataToProps = (post) => {
-  if (!post || !post.frontmatter) return {};
+  if (!post || !post.frontmatter) return null;
   // grab attributes from post frontmatter
   const {
     date,
