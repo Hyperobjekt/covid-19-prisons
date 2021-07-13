@@ -12,6 +12,7 @@ import {
   Chip,
   Box,
   Typography,
+  fade,
 } from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
@@ -20,16 +21,21 @@ import {
   formatFacilityName,
   getFacilityColor,
 } from "../../../common/utils/formatters";
-import { KeyboardArrowDown, FiberManualRecord } from "@material-ui/icons";
+import { FiberManualRecord } from "@material-ui/icons";
+import ArrowDown from "@material-ui/icons/ArrowDropDown";
 import CloseIcon from "../../../../content/assets/close-icon.svg";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    display: "inline-flex",
+    margin: "15px 0 0",
+  },
   placeholder: {
     "& $chip": {
       display: "inline-flex",
       marginRight: theme.spacing(0.5),
       marginBottom: theme.spacing(0.5),
+      border: 0,
     },
     "& li": {
       display: "inline-block",
@@ -39,6 +45,20 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     background: "none",
     border: "1px solid #DDDDCC",
+  },
+  list: {
+    padding: 0,
+    margin: 0,
+  },
+  button: {
+    padding: 0,
+    border: 0,
+    border: `2px dotted transparent`,
+    borderBottomColor: fade(theme.palette.text.secondary, 0.333),
+    borderRadius: 5,
+    "& .MuiButton-label": {
+      color: theme.palette.secondary.main,
+    },
   },
 }));
 
@@ -77,14 +97,14 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
         display="flex"
         pr={6}
       >
-        <Box pl={2} component="ul">
+        <Box pl={2} component="ul" className={classes.list}>
           {selectedFacilities.slice(0, 4).map((facility, i) => (
             <Chip
               classes={{ root: classes.chip }}
               component="li"
               icon={<FiberManualRecord style={{ fill: getFacilityColor(i) }} />}
               key={formatFacilityName(facility)}
-              label={formatFacilityName(facility)}
+              label={formatFacilityName(facility) + ";"}
               onDelete={null}
             />
           ))}
@@ -103,8 +123,8 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
           height="100%"
           justifyContent="flex-end"
         >
-          <Button onClick={openHandler}>
-            <KeyboardArrowDown aria-label="edit facilities" />
+          <Button onClick={openHandler} className={classes.button}>
+            <ArrowDown aria-label="edit facilities" />
           </Button>
         </Box>
       </Box>
@@ -139,7 +159,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
                     <FiberManualRecord style={{ fill: getFacilityColor(i) }} />
                   }
                   label={formatFacilityName(option)}
-                  {...getTagProps({ i })}
+                  {...getTagProps({ index: i })}
                 />
               ))
             }
