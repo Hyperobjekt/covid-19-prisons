@@ -33,7 +33,6 @@
         { "name": "Amanda Klonsky", "roles": ["Research and Policy Fellow"] },
         { "name": "Joshua Manson", "roles": ["Communications Manager"] },
         { "name": "Neal Marquez", "roles": ["Data Science Fellow"] },
-        { "name": "Poornima Rajeshwar", "roles": ["Policy Fellow"] },
         { "name": "Erika Tyagi", "roles": ["Data Science Fellow"] }
       ]
     },
@@ -43,6 +42,7 @@
         { "name": "Chase Hommeyer", "roles": ["Data Science Fellow"] },
         { "name": "Hunter Nagai", "roles": ["Project Coordinator"] },
         { "name": "Kalind Parish", "roles": ["Data Science Fellow"] },
+        { "name": "Poornima Rajeshwar", "roles": ["Policy Fellow"] },
         { "name": "Victoria Rossi", "roles": ["Project Investigator"] }
       ]
     },
