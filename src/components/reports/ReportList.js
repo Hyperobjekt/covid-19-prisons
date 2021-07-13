@@ -39,8 +39,13 @@ const ReportTitle = ({ report, external }) => {
   );
 };
 
-const ReportList = ({ reports = [], external, ...props }) => {
+const ReportList = ({ ...props }) => {
   const classes = useStyles();
+  const internal = useInternalReports();
+  const external = useReportsData().map((r) => ({ ...r, external: true }));
+  const reports = [...internal, ...external].sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
   if (reports.length === 0)
     return <Typography>No reports available</Typography>;
   return (
@@ -48,7 +53,7 @@ const ReportList = ({ reports = [], external, ...props }) => {
       {reports.map((report) => (
         <ListItem disableGutters>
           <ListItemText
-            primary={<ReportTitle report={report} external={external} />}
+            primary={<ReportTitle report={report} external={report.external} />}
             secondary={report.description}
             classes={{ primary: classes.primary }}
           />
@@ -56,16 +61,6 @@ const ReportList = ({ reports = [], external, ...props }) => {
       ))}
     </List>
   );
-};
-
-export const ExternalReportList = (props) => {
-  const reports = useReportsData();
-  return <ReportList external reports={reports} {...props} />;
-};
-
-export const InternalReportList = (props) => {
-  const reports = useInternalReports();
-  return <ReportList reports={reports} {...props} />;
 };
 
 export default ReportList;

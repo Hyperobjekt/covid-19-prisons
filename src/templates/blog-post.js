@@ -129,8 +129,10 @@ const useStyles = makeStyles((theme) => ({
       },
       // links
       "& .MuiLink-root": {
-        fontWeight: 700,
-        color: theme.palette.secondary.main,
+        color: theme.palette.text.primary,
+        textDecoration: "underline",
+        textUnderlineOffset: "3px",
+        textDecorationColor: theme.palette.secondary.main,
       },
       // table body text
       "& .MuiTypography-body1": {
@@ -308,7 +310,7 @@ export const query = graphql`
     # get all posts to connect the next/prev
     allMdx(
       sort: { fields: frontmatter___date, order: ASC }
-      filter: { frontmatter: { meta: { isBlogPost: { eq: true } } } }
+      filter: { frontmatter: { category: { eq: "blog" } } }
     ) {
       edges {
         node {

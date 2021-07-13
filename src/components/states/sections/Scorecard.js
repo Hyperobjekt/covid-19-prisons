@@ -1,21 +1,11 @@
 import React from "react";
 import clsx from "clsx";
-import { Table } from "../../table";
-import {
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-  withStyles,
-} from "@material-ui/core";
+import { Box, Grid, Typography, withStyles } from "@material-ui/core";
 import StepWrapper from "../StepWrapper";
-import BadIcon from "../../../../content/assets/score-bad.svg";
-import OkayIcon from "../../../../content/assets/score-okay.svg";
-import GoodIcon from "../../../../content/assets/score-good.svg";
 import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
-
-// const MIN_COL_WIDTH = 116
-const MAX_COL_WIDTH = 230;
+import { BadIcon } from "../../../common/icons/BadIcon";
+import { GoodIcon } from "../../../common/icons/GoodIcon";
+import { OkayIcon } from "../../../common/icons/OkayIcon";
 
 const styles = (theme) => ({
   title: {
@@ -30,6 +20,11 @@ const styles = (theme) => ({
     "& $scoreTitle, & $scoreGrade": {
       ...sansSerifyTypography,
       display: "inline-block",
+    },
+  },
+  scorecardSections: {
+    [theme.breakpoints.up("md")]: {
+      marginTop: theme.spacing(2),
     },
   },
   scoreTitle: {
@@ -61,7 +56,7 @@ const styles = (theme) => ({
     display: "inline-block",
   },
   body: {
-    fontSize: theme.typography.pxToRem(14),
+    fontSize: theme.typography.pxToRem(16),
   },
   dateExplainer: {
     marginTop: theme.spacing(2),
@@ -88,18 +83,9 @@ const styles = (theme) => ({
   section: {
     marginBottom: theme.spacing(5),
     "&$residentSection": {
-      "& $table": {
-        maxWidth: MAX_COL_WIDTH * resReportingColumns.length,
-      },
       [theme.breakpoints.down("md")]: {
         marginTop: theme.spacing(5),
       },
-    },
-    "&$staffSection $table": {
-      maxWidth: MAX_COL_WIDTH * staffReportingColumns.length,
-    },
-    "&$qualitySection $table": {
-      maxWidth: MAX_COL_WIDTH * qualityColumns.length,
     },
     "& .MuiGrid-item": {
       // only use the horizontal padding from spacing
@@ -107,104 +93,42 @@ const styles = (theme) => ({
       paddingBottom: 0,
     },
   },
-  cellValue: {
-    display: "flex",
-    "& p": {
-      margin: theme.spacing(0.4, 0, 0, 0.2),
-      [theme.breakpoints.up("md")]: {
-        marginLeft: theme.spacing(1),
-      },
-    },
-    "& img": {
-      transform: "scale(.6)",
-      [theme.breakpoints.up("sm")]: {
-        transform: "scale(.8)",
-      },
-      [theme.breakpoints.up("md")]: {
-        transform: "scale(1)",
-      },
-    },
-  },
-  table: {
-    "& .MuiTableBody-root .MuiTableRow-root:hover": {
-      background: "unset !important",
-    },
-    "& .MuiTableCell-root": {
-      padding: theme.spacing(2, 1, 2, 0),
-      fontSize: theme.typography.pxToRem(13),
-      "&.MuiTableCell-body": {
-        border: "none",
-      },
-    },
-  },
-  pivotedTable: {
-    [theme.breakpoints.up(800)]: {
-      // where space is sufficient, use more of it
-      marginLeft: theme.columnSpacing(1),
-    },
-    fontSize: theme.typography.pxToRem(13),
-    "& th, & td": {
-      paddingBottom: theme.spacing(0.5),
-    },
-    "& th": {
-      textAlign: "start",
-      paddingRight: theme.spacing(1),
-      width: "8rem",
-      [theme.breakpoints.up(420)]: {
-        width: "11rem",
-      },
-    },
-    "& td": {
-      // "& img": {
-      //   transform: "scale(.6)",
-      // },
-      // "& p": {
-      //   marginLeft: ".1rem",
-      // },
-    },
-  },
 });
 
-const getQualityValue = (value, lang) => {
-  let alt = lang.table_value.no;
-  let icon = BadIcon;
-  let text = lang.table_value.no;
-
+const getItemProps = (value, lang) => {
   const val = value && value.toLowerCase();
-  if (val === "yes") {
-    alt = lang.table_value.yes;
-    icon = GoodIcon;
-    text = lang.table_value.yes;
+  switch (val) {
+    case "facility-level":
+      return {
+        alt: lang.table_value.facility_level_alt,
+        icon: GoodIcon,
+        text: lang.table_value.facility_level,
+      };
+    case "statewide":
+      return {
+        alt: lang.table_value.statewide_alt,
+        icon: OkayIcon,
+        text: lang.table_value.statewide,
+      };
+    case "yes":
+      return {
+        alt: lang.table_value.yes_alt,
+        icon: GoodIcon,
+        text: lang.table_value.yes,
+      };
+    case "no":
+      return {
+        alt: lang.table_value.no_alt,
+        icon: BadIcon,
+        text: lang.table_value.no,
+      };
+    default:
+      return {
+        alt: lang.table_value.none_alt,
+        icon: BadIcon,
+        text: lang.table_value.none,
+      };
   }
-  return (
-    <>
-      <img alt={alt} src={icon} />
-      <p>{text}</p>
-    </>
-  );
-};
-
-const getReportingValue = (value, lang) => {
-  let alt = lang.table_value.none_alt;
-  let icon = BadIcon;
-  let text = lang.table_value.none;
-
-  const val = value && value.toLowerCase();
-  if (val === "facility-level") {
-    alt = lang.table_value.facility_level_alt;
-    icon = GoodIcon;
-    text = lang.table_value.facility_level;
-  } else if (val === "statewide") {
-    alt = lang.table_value.statewide_alt;
-    icon = OkayIcon;
-    text = lang.table_value.statewide;
-  }
-  return (
-    <>
-      <img alt={alt} src={icon} />
-      <p>{text}</p>
-    </>
-  );
 };
 
 const qualityColumns = [
@@ -232,72 +156,97 @@ const staffReportingColumns = [
   { id: "vaccinations_staff" },
 ];
 
+const ScorecardItem = ({ icon, alt, text, ...props }) => {
+  const Icon = icon;
+  return (
+    <Box display="flex" alignItems="center" {...props}>
+      <Icon aria-label={alt} />
+      <Typography variant="body2">{text}</Typography>
+    </Box>
+  );
+};
+
+const ScorecardList = withStyles((theme) => ({
+  root: {
+    padding: 0,
+    margin: 0,
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      flexWrap: "wrap",
+      "& > $item + $item": {
+        marginLeft: theme.spacing(2),
+      },
+    },
+  },
+  item: {
+    height: theme.spacing(4),
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    [theme.breakpoints.up("md")]: {
+      flexDirection: "column",
+      height: theme.spacing(8),
+      justifyContent: "flex-start",
+      alignItems: "stretch",
+    },
+    [theme.breakpoints.up("lg")]: {
+      minWidth: `calc(33.333% - ${theme.spacing(4)})`,
+      "&:nth-child(4)": {
+        marginLeft: 0 + "!important",
+      },
+    },
+  },
+  label: {
+    ...sansSerifyTypography,
+    fontWeight: 700,
+    fontSize: theme.typography.pxToRem(14),
+    marginBottom: theme.spacing(1),
+  },
+  value: {
+    "& svg": {
+      width: "1em",
+      height: "1em",
+      marginRight: theme.spacing(1),
+    },
+  },
+}))(({ columnMeta, lang, data, classes }) => {
+  return (
+    <Box className={classes.root} component="ul">
+      {columnMeta.map((col) => {
+        return (
+          <Box className={classes.item} component="li" key={col.id}>
+            <Typography className={classes.label}>
+              {lang.table_header[col.id]}
+            </Typography>
+            <ScorecardItem
+              className={classes.value}
+              {...getItemProps(data[col.id], lang)}
+            />
+          </Box>
+        );
+      })}
+    </Box>
+  );
+});
+
 const ScorecardSection = ({
   data,
   lang,
   columnMeta,
   title,
-  getDisplayValue,
   className,
   classes,
 }) => {
-  const columns = React.useMemo(() => {
-    return columnMeta.map((c) => ({
-      Header: lang.table_header[c.id],
-      accessor: c.id,
-      disableSortBy: true,
-      Cell: (prop) => (
-        <span className={classes.cellValue}>
-          {getDisplayValue(prop.value, lang)}
-        </span>
-      ),
-      style: {
-        // minWidth: MIN_COL_WIDTH,
-        // maxWidth: MAX_COL_WIDTH,
-        // equal width columns
-        width: `${100 / columnMeta.length}%`,
-      },
-    }));
-  }, [getDisplayValue, classes, columnMeta, lang]);
-
-  const table = (
-    <Table
-      className={classes.table}
-      columns={columns}
-      data={[data]}
-      disableFilter={true}
-      disableFooter={true}
-    />
-  );
-
-  const pivotedTable = (
-    <table className={classes.pivotedTable}>
-      <tbody>
-        {columnMeta.map((c) => (
-          <tr key={c.id}>
-            <th>{lang.table_header[c.id]}</th>
-            <td className={classes.cellValue}>
-              {getDisplayValue(data[c.id], lang)}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
-  const theme = useTheme();
-  const bumpWidth = theme.breakpoints.values["md"];
-  const isLarge = useMediaQuery(`(min-width:${bumpWidth}px)`);
-
   return (
-    <Grid container spacing={3} className={clsx(className, classes.section)}>
+    <Grid container spacing={3} className={clsx(classes.section, className)}>
       <Grid item xs={12} sm={5} md={12}>
         <Typography className={classes.sectionTitle} variant="h5">
           {title}
         </Typography>
       </Grid>
       <Grid item xs={12} sm={7} md={12}>
-        {isLarge ? table : pivotedTable}
+        <ScorecardList columnMeta={columnMeta} data={data} lang={lang} />
       </Grid>
     </Grid>
   );
@@ -317,7 +266,7 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
   return (
     <StepWrapper>
       <Grid container spacing={0}>
-        <Grid item xs={12} lg={3} className={classes.info}>
+        <Grid item xs={12} lg={4} className={classes.info}>
           <Typography variant="h3" className={classes.title}>
             {lang.title}
           </Typography>
@@ -359,7 +308,7 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
           )}
         </Grid>
         <Grid item xs={12} lg={1}></Grid>
-        <Grid item xs={12} lg={8} className={classes.scorecardSections}>
+        <Grid item xs={12} lg={7} className={classes.scorecardSections}>
           <ScorecardSection
             className={classes.residentSection}
             classes={classes}
@@ -367,7 +316,6 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             columnMeta={resReportingColumns}
             data={scorecardData}
             title={lang.section.resident_reporting}
-            getDisplayValue={getReportingValue}
           />
           <ScorecardSection
             className={classes.staffSection}
@@ -376,7 +324,6 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             columnMeta={staffReportingColumns}
             data={scorecardData}
             title={lang.section.staff_reporting}
-            getDisplayValue={getReportingValue}
           />
           <ScorecardSection
             className={classes.qualitySection}
@@ -385,7 +332,6 @@ const Scorecard = ({ classes, data, state = "", lang, ...props }) => {
             columnMeta={qualityColumns}
             data={scorecardData}
             title={lang.section.data_quality}
-            getDisplayValue={getQualityValue}
           />
         </Grid>
       </Grid>

@@ -38,6 +38,13 @@ const styles = (theme) => ({
     [theme.breakpoints.up("sm")]: {
       fontSize: theme.typography.pxToRem(40),
     },
+    "&.MuiLink-root": {
+      textDecoration: "none",
+      "&:hover": {
+        textDecoration: "underline",
+        textDecorationColor: theme.palette.secondary.main,
+      },
+    },
   },
   featured: {},
   date: {

@@ -165,6 +165,7 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
       <DefaultTable
         columns={columns}
         initialSortCol={"facility"}
+        rowModal
         data={extractedData}
         {...props}
       ></DefaultTable>

@@ -20,7 +20,7 @@ const PageTemplate = (props) => {
   } = props.data.mdx;
   const posts = props.data.allMdx.nodes
     .map((node) => ({
-      authors: node.frontmatter.meta.author,
+      authors: node.frontmatter.meta.author || [],
       path: node.frontmatter.path || node.slug,
       name: node.frontmatter.name,
       date: node.frontmatter.date,

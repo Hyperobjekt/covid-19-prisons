@@ -23,9 +23,9 @@ const home = {
         table.fields[1], // notes
         {
           label: "Flag Notes",
-          name: "flag_notes",
+          name: "flag_note",
           widget: "list",
-          summary: "{{fields.key}}",
+          summary: "{{fields.entity}}",
           fields: [
             makeStringField("entity", { label: "Entry" }),
             makeStringField("text"),
