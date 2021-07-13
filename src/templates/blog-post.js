@@ -18,7 +18,6 @@ const BlogPostTemplate = (props) => {
   const postNode = allMdx.edges.find((edge) => edge.node.id === mdx.id);
   const nextPost = postNode && postDataToProps(postNode.next);
   const previousPost = postNode && postDataToProps(postNode.previous);
-  console.log({ nextPost, previousPost, postNode });
   const { body, ...mdxProps } = getMdxProps(props);
   // fallback title if it is not set in metadata
   if (!mdxProps.meta.title) mdxProps.meta.title = post.title;
