@@ -45,7 +45,7 @@ exports.getVaccines = () => getData(vaccinesCsv, parseVaccine);
  * sheet has hidden top row with stable, machine-readable names
  */
 
-const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=696812429&format=csv`;
+const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=687147875&format=csv`;
 
 const scorecardMap = {
   state: ["state", "string", exactMatch],
