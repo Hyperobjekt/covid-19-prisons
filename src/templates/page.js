@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 import { getMdxProps } from "gatsby-theme-hypercore/src/templates/page";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Layout from "gatsby-theme-hypersite/src/layout";
-import { withStyles } from "@material-ui/core";
 import Content from "../components/Content";
 
 const PageTemplate = (props) => {

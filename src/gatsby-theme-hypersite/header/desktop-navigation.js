@@ -15,6 +15,13 @@ const styles = (theme) => ({
   depth0: {
     height: 64,
     zIndex: 2,
+    // health is justice link style
+    "& $list > $listItem:nth-child(2) .HypNavigation-listItem:last-child": {
+      borderTop: `1px solid ${theme.palette.divider}`,
+      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%23ccc' d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z' /%3E%3C/svg%3E")`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: `90% 50%`,
+    },
   },
   depth1: {
     position: "absolute",
@@ -174,7 +181,8 @@ const getLinkName = (linkItem, url) => {
 
 export default function UclaNavigation({ links, ...props }) {
   const { pathname } = useLocation();
-
+  console.log({ links, props });
+  // add active state to links
   const updatedLinks = links.map((linkItem) => ({
     ...linkItem,
     name: getLinkName(linkItem, pathname), // change the name of "Explore Data" to active data page if needed
