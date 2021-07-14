@@ -19,7 +19,7 @@ const styles = (theme) => ({
   depth1: {
     position: "absolute",
     top: 64,
-    left: 0,
+    left: 1,
     zIndex: 1,
     width: "12rem",
     marginLeft: 0,
@@ -32,7 +32,7 @@ const styles = (theme) => ({
     display: "block",
     // height: theme.typography.pxToRem(264),
     // padding: theme.spacing(0, 0),
-    boxShadow: theme.shadows[1],
+    boxShadow: `0px 5px 10px rgb(0 0 0 / 5%)`,
     "& $list": {},
     "& $listItem": {},
     "& $link": {
