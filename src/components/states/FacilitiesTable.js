@@ -90,7 +90,7 @@ const FacilitiesTable = ({ classes, filter, isFederal, ...props }) => {
         setSortCol(col);
       }
     },
-    [facilitiesGroup, setFacilitiesGroup, sortDesc]
+    [facilitiesGroup, setFacilitiesGroup, sortDesc, sortCol]
   );
 
   const columns = React.useMemo(

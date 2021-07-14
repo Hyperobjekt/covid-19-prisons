@@ -176,7 +176,7 @@ const VaccineTable = ({
         },
       },
     ],
-    [classes.jurisdictionLink]
+    [classes.jurisdictionLink, columnHeaders, flagNote]
   );
 
   return (
