@@ -24,6 +24,7 @@ import {
 import { FiberManualRecord } from "@material-ui/icons";
 import ArrowDown from "@material-ui/icons/ArrowDropDown";
 import CloseIcon from "../../../../content/assets/close-icon.svg";
+import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +50,47 @@ const useStyles = makeStyles((theme) => ({
   list: {
     padding: 0,
     margin: 0,
+    "& .MuiTypography-root": {
+      ...sansSerifyTypography,
+      top: "-2px",
+      fontSize: theme.typography.pxToRem(15),
+      position: "relative",
+      color: "inherit",
+    },
+  },
+  dialogText: {
+    padding: theme.spacing(3),
+    "& .MuiTypography-root": {
+      fontSize: theme.typography.pxToRem(14),
+      lineHeight: theme.typography.pxToRem(21),
+      ...sansSerifyTypography,
+      color: theme.palette.text.secondary,
+      maxWidth: "390px",
+    },
+  },
+  dialogActions: {
+    padding: theme.spacing(3),
+    color: "white",
+    "& .MuiButton-root": {
+      width: "100%",
+      maxWidth: "160px",
+      backgroundColor: theme.palette.text.secondary,
+      fontWeight: "300",
+    },
+  },
+  autocomplete: {
+    paddingBottom: theme.spacing(1),
+    backgroundImage:
+      "repeating-linear-gradient(90deg,#C6C6B8,#C6C6B8 1.8px,transparent 0,transparent 7px)",
+    backgroundPosition: "0 100%",
+    backgroundSize: "100% 1.5px",
+    backgroundRepeat: "no-repeat",
+    "& .MuiAutocomplete-input": {
+      marginTop: theme.spacing(1),
+    },
+    "& .MuiAutocomplete-popupIndicator": {
+      color: theme.palette.secondary.main,
+    },
   },
   button: {
     padding: 0,
@@ -133,11 +175,12 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
         open={modalOpen}
         onClose={closeHandler}
       >
-        <DialogTitle id="dialog-title">
+        <DialogTitle id="dialog-title" className={classes.dialogText}>
           {getLang("time_series_facility_select")}
         </DialogTitle>
         <DialogContent>
           <Autocomplete
+            className={classes.autocomplete}
             multiple
             value={selectedFacilities}
             id="facility-autocomplete"
@@ -169,12 +212,18 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
                 variant="standard"
                 label="Facilities"
                 placeholder="Add location"
+                InputProps={{ ...params.InputProps, disableUnderline: true }}
               />
             )}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={closeHandler} color="primary">
+        <DialogActions className={classes.dialogActions}>
+          <Button
+            onClick={closeHandler}
+            variant="contained"
+            disableElevation
+            color="inherit"
+          >
             Done
           </Button>
         </DialogActions>
