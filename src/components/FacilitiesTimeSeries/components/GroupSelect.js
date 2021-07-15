@@ -19,11 +19,14 @@ const GroupSelect = ({ ...props }) => {
   );
 
   return (
-    <GenericSelection
-      options={GROUPS}
-      selectedOption={selectedGroup}
-      handleSelect={setSelectedGroup}
-    />
+    <>
+      <GenericSelection
+        options={GROUPS}
+        selectedOption={selectedGroup}
+        handleSelect={setSelectedGroup}
+      />
+      <br />
+    </>
   );
 };
 

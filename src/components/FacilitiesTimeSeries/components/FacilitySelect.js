@@ -13,6 +13,8 @@ import {
   Box,
   Typography,
   fade,
+  useTheme,
+  useMediaQuery,
 } from "@material-ui/core";
 // import useFacilitiesMetadata from "../../../common/hooks/use-facilities-metadata";
 import { csv } from "d3-fetch";
@@ -30,8 +32,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "inline-flex",
     margin: "15px 0 0",
+    [theme.breakpoints.down("sm")]: {
+      margin: 0,
+      maxWidth: "85%",
+    },
   },
   placeholder: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
     "& $chip": {
       display: "inline-flex",
       marginRight: theme.spacing(0.5),
@@ -57,6 +66,11 @@ const useStyles = makeStyles((theme) => ({
       position: "relative",
       color: "inherit",
     },
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      width: "100%",
+      overflow: "hidden",
+    },
   },
   dialogText: {
     padding: theme.spacing(3),
@@ -71,11 +85,17 @@ const useStyles = makeStyles((theme) => ({
   dialogActions: {
     padding: theme.spacing(3),
     color: "white",
+    [theme.breakpoints.down("sm")]: {
+      borderTop: "1px solid #E0E0E0",
+    },
     "& .MuiButton-root": {
       width: "100%",
       maxWidth: "160px",
       backgroundColor: theme.palette.text.secondary,
       fontWeight: "300",
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: "100%",
+      },
     },
   },
   autocomplete: {
@@ -106,6 +126,8 @@ const useStyles = makeStyles((theme) => ({
 
 const FacilitySelect = ({ defaultFacilities = [] }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const [allFacilities, setAllFacilities] = React.useState([]);
@@ -174,6 +196,7 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
         aria-labelledby="dialog-title"
         open={modalOpen}
         onClose={closeHandler}
+        fullScreen={isMobile}
       >
         <DialogTitle id="dialog-title" className={classes.dialogText}>
           {getLang("time_series_facility_select")}

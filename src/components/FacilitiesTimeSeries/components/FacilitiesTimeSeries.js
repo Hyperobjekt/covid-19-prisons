@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
       position: "relative",
       top: "-0.15rem",
     },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: theme.typography.pxToRem(23),
+      lineHeight: theme.typography.pxToRem(30),
+    },
   },
 }));
 
