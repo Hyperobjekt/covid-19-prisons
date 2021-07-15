@@ -11,15 +11,14 @@ import {
   LineSeries,
   XYChart,
   Tooltip,
-  Annotation,
-  AnnotationLabel,
   buildChartTheme,
 } from "@visx/xychart";
 import useTimeSeriesStore from "../useTimeSeriesStore";
 import shallow from "zustand/shallow";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, useMediaQuery, useTheme } from "@material-ui/core";
 import clsx from "clsx";
 import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
+import TimeSeriesAnnotations from "./TimeSeriesAnnotations";
 
 const accessors = {
   xAccessor: (d) => new Date(`${d.date}T00:00:00`),
@@ -33,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TimeSeriesChart = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
   const facilitiesData = useTimeSeriesData();
 
@@ -87,8 +88,9 @@ const TimeSeriesChart = () => {
 
   const maxAnnotationWidth = 19;
   const facilitiesById = {};
-  selectedFacilities.forEach(({ id, ...facilityData }) => {
+  selectedFacilities.forEach(({ id, ...facilityData }, i) => {
     facilitiesById[id] = facilityData;
+    facilitiesById[id].color = getFacilityColor(i);
     const labelArr = [
       facilityData.name,
       facilityData.state === "*other" ? "" : ", " + facilityData.state,
@@ -106,47 +108,67 @@ const TimeSeriesChart = () => {
   return (
     <XYChart
       height={400}
-      margin={{ top: 55, right: 150, bottom: 55, left: 55 }}
+      margin={{ top: 55, right: isMobile ? 120 : 150, bottom: 75, left: 25 }}
       xScale={{ type: "time" }}
       yScale={{ type: "linear" }}
       theme={customTheme}
     >
-      <Axis tickFormat={formatDate} orientation="bottom" />
+      <Axis
+        tickFormat={formatDate}
+        orientation="bottom"
+        label="Date"
+        top={350}
+        strokeWidth={2}
+        labelOffset={25}
+        numTicks={isMobile ? 5 : 20}
+        labelProps={{
+          style: {
+            fontSize: "14px",
+            fontWeight: 300,
+          },
+        }}
+        tickLabelProps={() => ({
+          style: {
+            fontSize: "14px",
+            fontWeight: 300,
+          },
+        })}
+      />
       <Axis
         orientation="left"
-        numTicks={4}
-        // tickLabelProps={() => ({ dx: -10 })}
+        numTicks={6}
+        labelOffset={5}
+        hideAxisLine
+        hideTicks
+        label={[
+          selectedMetric.slice(0, 1).toUpperCase(),
+          selectedMetric.slice(1),
+        ].join("")}
+        labelProps={{
+          style: {
+            fontSize: "14px",
+            fontWeight: 300,
+          },
+        }}
+        tickLabelProps={() => ({
+          dx: 10,
+          dy: -5,
+          textAnchor: "start",
+          verticalAnchor: "end",
+          style: {
+            fontSize: "14px",
+            fontWeight: 300,
+          },
+        })}
       />
       <Grid columns={false} numTicks={4} />
       {linesData.map(({ id, lineData }, i) => (
         <LineSeries key={id} dataKey={id} data={lineData} {...accessors} />
       ))}
-      {linesData.map(
-        ({ id, lastDatum }, i) =>
-          lastDatum && (
-            <Annotation dataKey={id} datum={lastDatum} dx={0} dy={0} key={i}>
-              <AnnotationLabel
-                title={facilitiesById[id].truncatedLabel}
-                showAnchorLine={false}
-                backgroundFill="#F9FCF8"
-                horizontalAnchor="start"
-                verticalAnchor="middle"
-                width={150}
-                key={0}
-              />
-              <AnnotationLabel
-                title={"⬤"}
-                titleProps={{ color: getFacilityColor(i) }}
-                showAnchorLine={false}
-                backgroundFill="#F9FCF8"
-                fontColor={getFacilityColor(i)}
-                horizontalAnchor="middle"
-                verticalAnchor="middle"
-                key={1}
-              />
-            </Annotation>
-          )
-      )}
+      <TimeSeriesAnnotations
+        linesData={linesData}
+        facilitiesById={facilitiesById}
+      />
       <Tooltip
         snapTooltipToDatumX
         snapTooltipToDatumY
