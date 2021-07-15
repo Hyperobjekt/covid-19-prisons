@@ -181,7 +181,6 @@ const getLinkName = (linkItem, url) => {
 
 export default function UclaNavigation({ links, ...props }) {
   const { pathname } = useLocation();
-  console.log({ links, props });
   // add active state to links
   const updatedLinks = links.map((linkItem) => ({
     ...linkItem,
