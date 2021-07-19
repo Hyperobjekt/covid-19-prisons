@@ -25,11 +25,11 @@ function getLabelYValues(linesData, getYPosition, height) {
 
 const TimeSeriesAnnotations = ({ linesData, facilitiesById }) => {
   const { width, height, margin, yScale } = useContext(DataContext);
-  const getYPosition = (d) => yScale(accessors.yAccessor(d));
+  if (!yScale) return null;
+  const getYPosition = (d) => (d ? yScale(accessors.yAccessor(d)) : height);
   const sortedLineData = linesData
     .slice(0)
     .sort((l, r) => getYPosition(r.lastDatum) - getYPosition(l.lastDatum));
-  if (!yScale) return null;
   const seriesLabelYs = getLabelYValues(sortedLineData, getYPosition, height);
 
   return sortedLineData.map((lineData, i) => (
