@@ -29,6 +29,15 @@ const useStyles = makeStyles((theme) => ({
   root: {
     ...sansSerifyTypography,
   },
+  lineInactive: {
+    opacity: 0.2,
+  },
+  lineActive: {
+    opacity: 1,
+  },
+  line: {
+    opacity: 1,
+  },
 }));
 
 const TimeSeriesChart = () => {
@@ -36,6 +45,8 @@ const TimeSeriesChart = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const classes = useStyles();
   const facilitiesData = useTimeSeriesData();
+
+  const [activeLine, setActiveLine] = React.useState(null);
 
   const [selectedFacilities, selectedGroup, selectedMetric] =
     useTimeSeriesStore(
@@ -105,6 +116,16 @@ const TimeSeriesChart = () => {
         : labelArr.join("");
   });
 
+  const handlePointerMove = (props) => {
+    if (props.key && activeLine !== props.key) {
+      setActiveLine(props.key);
+    }
+  };
+
+  const handlePointerOut = () => {
+    setActiveLine(null);
+  };
+
   return (
     <XYChart
       height={400}
@@ -112,6 +133,8 @@ const TimeSeriesChart = () => {
       xScale={{ type: "time" }}
       yScale={{ type: "linear" }}
       theme={customTheme}
+      onPointerMove={handlePointerMove}
+      onPointerOut={handlePointerOut}
     >
       <Axis
         tickFormat={formatDate}
@@ -163,7 +186,19 @@ const TimeSeriesChart = () => {
       />
       <Grid columns={false} numTicks={4} />
       {linesData.map(({ id, lineData }, i) => (
-        <LineSeries key={id} dataKey={id} data={lineData} {...accessors} />
+        <LineSeries
+          key={id}
+          dataKey={id}
+          data={lineData}
+          className={
+            activeLine
+              ? activeLine === id
+                ? classes.lineActive
+                : classes.lineInactive
+              : classes.line
+          }
+          {...accessors}
+        />
       ))}
       <TimeSeriesAnnotations
         linesData={linesData}
