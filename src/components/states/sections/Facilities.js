@@ -3,6 +3,7 @@ import FacilitiesTable from "../FacilitiesTable";
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle";
 import useStatesStore from "../useStatesStore";
 import StepWrapper from "./../StepWrapper";
+import DownloadDataButton from '../../DownloadDataButton';
 
 const Facilities = ({ id, lang, isFederal, ...props }) => {
   const stateName = useStatesStore((state) => state.stateName);
@@ -16,6 +17,7 @@ const Facilities = ({ id, lang, isFederal, ...props }) => {
       <StepWrapper>
         <MetricSelectionTitle title={lang.title} />
         <FacilitiesTable lang={lang} isFederal={isFederal} filter={filter} />
+        {lang.dataLink && lang.dataLink.length > 0 && <DownloadDataButton dataLink={lang.dataLink} />}
       </StepWrapper>
     </div>
   );

@@ -8,6 +8,7 @@ import { getLang } from "../../../common/utils/i18n";
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle";
 import StepWrapper from "./../StepWrapper";
 import NotesModal from "../../NotesModal";
+import DownloadDataButton from '../../DownloadDataButton';
 
 /* eslint-disable no-template-curly-in-string */
 const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
@@ -51,6 +52,7 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
           </Typography>
         )}
         {notes.length > 0 && <NotesModal notes={notes} />}
+        {lang.dataLink && lang.dataLink.length > 0 && <DownloadDataButton dataLink={lang.dataLink} />}
       </StepWrapper>
     </div>
   );
