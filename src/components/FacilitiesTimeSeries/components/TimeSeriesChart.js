@@ -189,7 +189,7 @@ const TimeSeriesChart = () => {
         <LineSeries
           key={id}
           dataKey={id}
-          data={lineData}
+          data={lineData.length > 0 ? lineData : [0]}
           className={
             activeLine
               ? activeLine === id
