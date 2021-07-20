@@ -24,7 +24,7 @@ function getLabelYValues(linesData, getYPosition, height) {
 }
 
 const TimeSeriesAnnotations = ({ linesData, facilitiesById }) => {
-  const { width, height, margin, yScale } = useContext(DataContext);
+  const { width, height, margin, yScale, theme } = useContext(DataContext);
   if (!yScale) return null;
   const getYPosition = (d) => (d ? yScale(accessors.yAccessor(d)) : height);
   const sortedLineData = linesData
@@ -40,11 +40,19 @@ const TimeSeriesAnnotations = ({ linesData, facilitiesById }) => {
       facility={facilitiesById[lineData.id]}
       y={seriesLabelYs[i].y}
       key={i}
+      textColor={theme.axisStyles.x.bottom.axisLine.stroke}
     />
   ));
 };
 
-const TimeSeriesAnnotation = ({ lineData, facility, width, margin, y }) => {
+const TimeSeriesAnnotation = ({
+  lineData,
+  facility,
+  width,
+  margin,
+  y,
+  textColor,
+}) => {
   const { id, lastDatum } = lineData;
   const { truncatedLabel, color } = facility;
 
@@ -58,8 +66,11 @@ const TimeSeriesAnnotation = ({ lineData, facility, width, margin, y }) => {
             style: {
               fontSize: "11px",
               fontWeight: 300,
+              color: textColor,
+              fill: textColor,
             },
           }}
+          fontColor={textColor}
           showAnchorLine={false}
           showBackground={false}
           horizontalAnchor="start"

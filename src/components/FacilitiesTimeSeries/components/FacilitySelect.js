@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     background: "none",
     border: "1px solid #DDDDCC",
+    color: theme.palette.text.secondary,
   },
   list: {
     padding: 0,

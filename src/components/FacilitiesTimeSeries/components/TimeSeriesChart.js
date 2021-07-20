@@ -73,7 +73,11 @@ const TimeSeriesChart = () => {
   });
 
   const colors = linesData.map((l, i) => getFacilityColor(i));
-  const customTheme = buildChartTheme({ colors });
+  const customTheme = buildChartTheme({
+    colors,
+    xAxisLineStyles: { stroke: theme.palette.text.secondary },
+    xTickLineStyles: { stroke: theme.palette.text.secondary },
+  });
 
   const dataLoading = selectedFacilities.some(({ id }) => {
     return !linesData.find((lineData) => lineData.id === id);
@@ -146,17 +150,20 @@ const TimeSeriesChart = () => {
         top={350}
         strokeWidth={2}
         labelOffset={25}
-        numTicks={isMobile ? 5 : 20}
         labelProps={{
           style: {
             fontSize: "14px",
             fontWeight: 300,
+            color: theme.palette.text.secondary,
+            fill: theme.palette.text.secondary,
           },
         }}
         tickLabelProps={() => ({
           style: {
             fontSize: "14px",
             fontWeight: 300,
+            color: theme.palette.text.secondary,
+            fill: theme.palette.text.secondary,
           },
         })}
       />
@@ -174,6 +181,8 @@ const TimeSeriesChart = () => {
           style: {
             fontSize: "14px",
             fontWeight: 300,
+            color: theme.palette.text.secondary,
+            fill: theme.palette.text.secondary,
           },
         }}
         tickLabelProps={() => ({
@@ -184,10 +193,12 @@ const TimeSeriesChart = () => {
           style: {
             fontSize: "14px",
             fontWeight: 300,
+            color: theme.palette.text.secondary,
+            fill: theme.palette.text.secondary,
           },
         })}
       />
-      <Grid columns={false} numTicks={4} />
+      <Grid columns={false} numTicks={5} stroke="#E0E0E0" />
       {linesData.map(({ id, lineData }, i) => (
         <LineSeries
           key={id}
