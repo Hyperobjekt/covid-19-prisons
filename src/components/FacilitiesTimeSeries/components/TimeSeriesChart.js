@@ -61,16 +61,24 @@ const TimeSeriesChart = () => {
 
   const accessor = selectedGroup + "_" + selectedMetric;
 
-  const linesData = facilitiesData.map((facilityData) => {
-    const lineData = facilityData[accessor];
-    const { id } = facilityData;
-    const name = formatFacilityName(facilityData);
-    const lastDatum = lineData.reduceRight((accum, datum) => {
-      if (accum) return accum;
-      if (!!datum.value) return datum;
-    }, null);
-    return { name, id, lineData, lastDatum };
-  });
+  const linesData =
+    facilitiesData.length > 0
+      ? facilitiesData.map((facilityData) => {
+          const lineData = facilityData[accessor];
+          const { id } = facilityData;
+          const name = formatFacilityName(facilityData);
+          const lastDatum = lineData.reduceRight((accum, datum) => {
+            if (accum) return accum;
+            if (!!datum.value) return datum;
+          }, null);
+          return { name, id, lineData, lastDatum };
+        })
+      : [
+          {
+            id: null,
+            lineData: [0],
+          },
+        ];
 
   const maxAnnotationWidth = isMobile ? 19 : 34;
   const facilitiesById = {};
@@ -154,6 +162,7 @@ const TimeSeriesChart = () => {
         top={350}
         strokeWidth={2}
         labelOffset={25}
+        numTicks={isMobile ? 5 : 10}
         labelProps={{
           style: {
             fontSize: "14px",
@@ -233,49 +242,51 @@ const TimeSeriesChart = () => {
           borderRadius: "4px",
           padding: "16px 20px",
         }}
-        renderTooltip={({ tooltipData, colorScale }) => (
-          <div className={clsx(classes.root)}>
-            <span style={{ fontWeight: 700 }}>
-              {facilitiesById[tooltipData.nearestDatum.key].name}
-            </span>
-            <div
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(90deg,white,white 1px,transparent 0,transparent 4px)",
-                backgroundPosition: "0 100%",
-                backgroundSize: "100% 1px",
-                backgroundRepeat: "no-repeat",
-                padding: "5px 0 10px",
-              }}
-            >
-              {facilitiesById[tooltipData.nearestDatum.key].state &&
-                facilitiesById[tooltipData.nearestDatum.key].state !==
-                  "*other" && (
-                  <span
-                    style={{
-                      borderRight: "1px solid rgba(255, 255, 255, 0.7)",
-                      paddingRight: "10px",
-                      marginRight: "10px",
-                      fontWeight: 100,
-                    }}
-                  >
-                    {facilitiesById[tooltipData.nearestDatum.key].state}
-                  </span>
-                )}
-              <span style={{ fontWeight: 100 }}>
-                {accessors
-                  .xAccessor(tooltipData.nearestDatum.datum)
-                  .toDateString()}
+        renderTooltip={({ tooltipData, colorScale }) =>
+          facilitiesById[tooltipData.nearestDatum.key] && (
+            <div className={clsx(classes.root)}>
+              <span style={{ fontWeight: 700 }}>
+                {facilitiesById[tooltipData.nearestDatum.key].name}
               </span>
+              <div
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(90deg,white,white 1px,transparent 0,transparent 4px)",
+                  backgroundPosition: "0 100%",
+                  backgroundSize: "100% 1px",
+                  backgroundRepeat: "no-repeat",
+                  padding: "5px 0 10px",
+                }}
+              >
+                {facilitiesById[tooltipData.nearestDatum.key].state &&
+                  facilitiesById[tooltipData.nearestDatum.key].state !==
+                    "*other" && (
+                    <span
+                      style={{
+                        borderRight: "1px solid rgba(255, 255, 255, 0.7)",
+                        paddingRight: "10px",
+                        marginRight: "10px",
+                        fontWeight: 100,
+                      }}
+                    >
+                      {facilitiesById[tooltipData.nearestDatum.key].state}
+                    </span>
+                  )}
+                <span style={{ fontWeight: 100 }}>
+                  {accessors
+                    .xAccessor(tooltipData.nearestDatum.datum)
+                    .toDateString()}
+                </span>
+              </div>
+              <div style={{ paddingTop: "5px" }}>
+                <span style={{ fontWeight: 700, marginRight: "10px" }}>
+                  {accessors.yAccessor(tooltipData.nearestDatum.datum)}
+                </span>
+                <span style={{ fontWeight: 100 }}>{selectedMetric}</span>
+              </div>
             </div>
-            <div style={{ paddingTop: "5px" }}>
-              <span style={{ fontWeight: 700, marginRight: "10px" }}>
-                {accessors.yAccessor(tooltipData.nearestDatum.datum)}
-              </span>
-              <span style={{ fontWeight: 100 }}>{selectedMetric}</span>
-            </div>
-          </div>
-        )}
+          )
+        }
       />
     </XYChart>
   );

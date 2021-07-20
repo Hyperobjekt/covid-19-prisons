@@ -53,6 +53,7 @@ const TimeSeriesAnnotation = ({
   y,
   textColor,
 }) => {
+  if (!facility) return null;
   const { id, lastDatum } = lineData;
   const { truncatedLabel, color } = facility;
 

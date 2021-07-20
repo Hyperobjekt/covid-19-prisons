@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
       top: "-2px",
       fontSize: theme.typography.pxToRem(15),
       position: "relative",
-      color: "inherit",
+      color: theme.palette.text.secondary,
     },
     [theme.breakpoints.down("sm")]: {
       display: "flex",
@@ -177,6 +177,13 @@ const FacilitySelect = ({ defaultFacilities = [] }) => {
             <li>
               <Typography variant="body">
                 +{selectedFacilities.length - 4}
+              </Typography>
+            </li>
+          )}
+          {selectedFacilities.length < 1 && (
+            <li>
+              <Typography variant="body">
+                {getLang("no_facilities_selected")}
               </Typography>
             </li>
           )}
