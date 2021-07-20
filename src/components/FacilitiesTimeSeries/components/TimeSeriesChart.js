@@ -72,7 +72,32 @@ const TimeSeriesChart = () => {
     return { name, id, lineData, lastDatum };
   });
 
-  const colors = linesData.map((l, i) => getFacilityColor(i));
+  const maxAnnotationWidth = isMobile ? 19 : 34;
+  const facilitiesById = {};
+  selectedFacilities.forEach(({ id, ...facilityData }, i) => {
+    facilitiesById[id] = facilityData;
+    facilitiesById[id].color = getFacilityColor(i);
+    const labelArr = [
+      facilityData.name,
+      facilityData.state === "*other"
+        ? ""
+        : ", " + getStateCodeByName(facilityData.state),
+    ];
+    facilitiesById[id].truncatedLabel =
+      labelArr.join("").length > maxAnnotationWidth
+        ? labelArr[0]
+            .slice(0, maxAnnotationWidth - labelArr[1].length - 3)
+            .trim() +
+          "..." +
+          labelArr[1]
+        : labelArr.join("");
+  });
+
+  const colors = Object.keys(facilitiesById)
+    .map((k) => Number(k))
+    .sort((a, b) => a - b)
+    .map((id) => facilitiesById[id].color);
+
   const customTheme = buildChartTheme({
     colors,
     xAxisLineStyles: { stroke: theme.palette.text.secondary },
@@ -101,27 +126,6 @@ const TimeSeriesChart = () => {
       return d.format(format);
     }
   };
-
-  const maxAnnotationWidth = isMobile ? 19 : 34;
-  const facilitiesById = {};
-  selectedFacilities.forEach(({ id, ...facilityData }, i) => {
-    facilitiesById[id] = facilityData;
-    facilitiesById[id].color = getFacilityColor(i);
-    const labelArr = [
-      facilityData.name,
-      facilityData.state === "*other"
-        ? ""
-        : ", " + getStateCodeByName(facilityData.state),
-    ];
-    facilitiesById[id].truncatedLabel =
-      labelArr.join("").length > maxAnnotationWidth
-        ? labelArr[0]
-            .slice(0, maxAnnotationWidth - labelArr[1].length - 3)
-            .trim() +
-          "..." +
-          labelArr[1]
-        : labelArr.join("");
-  });
 
   const handlePointerMove = (props) => {
     if (props.key && activeLine !== props.key) {
@@ -201,7 +205,7 @@ const TimeSeriesChart = () => {
       <Grid columns={false} numTicks={5} stroke="#E0E0E0" />
       {linesData.map(({ id, lineData }, i) => (
         <LineSeries
-          key={id}
+          key={i}
           dataKey={id}
           data={lineData.length > 0 ? lineData : [0]}
           className={
