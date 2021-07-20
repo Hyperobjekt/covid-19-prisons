@@ -19,6 +19,7 @@ import { makeStyles, useMediaQuery, useTheme } from "@material-ui/core";
 import clsx from "clsx";
 import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
 import TimeSeriesAnnotations from "./TimeSeriesAnnotations";
+import { getStateCodeByName } from "../../../common/utils/selectors";
 
 const accessors = {
   xAccessor: (d) => new Date(`${d.date}T00:00:00`),
@@ -97,14 +98,16 @@ const TimeSeriesChart = () => {
     }
   };
 
-  const maxAnnotationWidth = 19;
+  const maxAnnotationWidth = isMobile ? 19 : 34;
   const facilitiesById = {};
   selectedFacilities.forEach(({ id, ...facilityData }, i) => {
     facilitiesById[id] = facilityData;
     facilitiesById[id].color = getFacilityColor(i);
     const labelArr = [
       facilityData.name,
-      facilityData.state === "*other" ? "" : ", " + facilityData.state,
+      facilityData.state === "*other"
+        ? ""
+        : ", " + getStateCodeByName(facilityData.state),
     ];
     facilitiesById[id].truncatedLabel =
       labelArr.join("").length > maxAnnotationWidth
@@ -129,7 +132,7 @@ const TimeSeriesChart = () => {
   return (
     <XYChart
       height={400}
-      margin={{ top: 55, right: isMobile ? 120 : 150, bottom: 75, left: 25 }}
+      margin={{ top: 55, right: isMobile ? 120 : 195, bottom: 75, left: 25 }}
       xScale={{ type: "time" }}
       yScale={{ type: "linear" }}
       theme={customTheme}
