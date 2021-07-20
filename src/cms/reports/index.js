@@ -1,5 +1,4 @@
 import blog from "../blog";
-import { updateField } from "../utils";
 
 // reports is the same a blog config
 const reports = {
@@ -8,9 +7,18 @@ const reports = {
   name: "reports",
   folder: "content/pages/reports",
   media_folder: "/content/pages/reports/images",
+  // same fields as blog, but set category default to report
+  fields: blog.fields.map((field) => {
+    if (field.name === "category") {
+      return {
+        label: "Category",
+        name: "category",
+        widget: "hidden",
+        default: "report",
+      };
+    }
+    return field;
+  }),
 };
-
-// set default category to report
-updateField(reports.fields, "category", { default: "report" });
 
 export default reports;
