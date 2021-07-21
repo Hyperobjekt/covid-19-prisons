@@ -5,6 +5,7 @@ import LinkIcon from "@material-ui/icons/Link";
 import StepWrapper from "../StepWrapper";
 import { titleTypography } from "../../../gatsby-theme-hypercore/theme";
 import NotesModal from "../../NotesModal";
+import DownloadDataButton from "../../DownloadDataButton";
 
 const styles = (theme) => ({
   title: {
@@ -161,7 +162,12 @@ const ReleasesTable = ({ classes, data, lang, ...props }) => {
         rowModal
         {...props}
       ></DefaultTable>
-      <NotesModal disableNumbering notes={lang.notes} />
+      <div style={{ display: "flex" }}>
+        <NotesModal disableNumbering notes={lang.notes} />
+        {lang.data_link && lang.data_link.length > 0 && (
+          <DownloadDataButton dataLink={lang.data_link} />
+        )}
+      </div>
     </StepWrapper>
   );
 };

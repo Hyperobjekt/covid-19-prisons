@@ -9,6 +9,7 @@ import { summaryStyles as styles } from "./styles";
 import MetricSelectionTitle from "../../controls/MetricSelectionTitle";
 import StepWrapper from "./../StepWrapper";
 import NotesModal from "../../NotesModal";
+import DownloadDataButton from "../../DownloadDataButton";
 
 const ResidentsSummary = ({
   id,
@@ -53,7 +54,12 @@ const ResidentsSummary = ({
           iceScore={iceScore}
           fedScore={fedScore}
         />
-        {notes.length > 0 && <NotesModal notes={notes} />}
+        <div style={{ display: "flex" }}>
+          {notes.length > 0 && <NotesModal notes={notes} />}
+          {lang.data_link && lang.data_link.length > 0 && (
+            <DownloadDataButton dataLink={lang.data_link} />
+          )}
+        </div>
       </StepWrapper>
     </div>
   );

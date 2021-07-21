@@ -24,7 +24,8 @@
     "note": [
       "Testing and reporting practices vary widely by correctional agency. True case and mortality counts are likely higher and may be significantly higher than reported.",
       "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach."
-    ]
+    ],
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "vaccineTable": {
     "title": "COVID-19 Vaccines in State and Federal Prisons ",
@@ -55,7 +56,8 @@
         "entity": "south carolina",
         "text": "South Carolina only reports the number of people who have completed their vaccination schedules. The number of people who have received at least one dose may be higher."
       }
-    ]
+    ],
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "sponsors": {
     "title": "Our generous supporters include:",

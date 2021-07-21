@@ -10,7 +10,7 @@ export const styles = (theme) => ({
     border: "none",
     padding: theme.spacing(1),
     marginLeft: theme.spacing(-1),
-    marginRight: "auto",
+    marginRight: theme.spacing(1),
     marginTop: theme.spacing(2),
     fontSize: theme.typography.pxToRem(14),
   },

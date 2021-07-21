@@ -51,6 +51,7 @@ const releases = {
       summary: "{{fields.note}}",
       field: { label: "note", name: "note", widget: "string" },
     },
+    makeStringField("Data Link"),
   ],
 };
 

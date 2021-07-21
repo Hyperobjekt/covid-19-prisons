@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { Link } from "gatsby-theme-material-ui";
 import NotesModal from "../NotesModal";
 import { countFormatter, rateFormatter, rateSorter } from "../table/utils";
+import DownloadDataButton from "../DownloadDataButton";
 const MAX_FACILITY_LENGTH = 24;
 
 const styles = (theme) => ({
@@ -76,6 +77,7 @@ const HomeTable = ({
   categories,
   selectedRegion,
   isImmigration,
+  dataLink,
   ...props
 }) => {
   // pull active metric from the store, with setter
@@ -263,7 +265,12 @@ const HomeTable = ({
           classes={{ root: classes.toggleContainer }}
         />
       </Table>
-      {note && note.length > 0 && <NotesModal notes={note} />}
+      <div style={{ display: "flex" }}>
+        {note && note.length > 0 && <NotesModal notes={note} />}
+        {dataLink && dataLink.length > 0 && (
+          <DownloadDataButton dataLink={dataLink} />
+        )}
+      </div>
     </Block>
   );
 };

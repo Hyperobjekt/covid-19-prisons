@@ -16,7 +16,8 @@
       "tested": "Some agencies report the number of persons tested, while others report the number of tests administered. We record whichever number is available.",
       "tested_rate": "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
       "ALL": "We do not display total counts for jails because our jail data is not comprehensive for the entire state. See the table below to view jail data at the facility level."
-    }
+    },
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "staff": {
     "id": "staff",
@@ -33,13 +34,15 @@
       "tested": "Testing data is not reported by all correctional agencies. Some jurisdictions leave it to staff members’ discretion whether to report positive test results they receive from community healthcare providers. True test counts are likely higher and may be significantly higher than reported.",
       "tested_rate": "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
       "ALL": "We do not display total counts for jails because our jail data is not comprehensive for the entire state. See the table below to view jail data at the facility level."
-    }
+    },
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "facilities": {
     "id": "facilities",
     "title": "Facilities by ${metric}",
     "link": "Facilities",
-    "body": ""
+    "body": "",
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "scorecard": {
     "id": "scorecard",
@@ -146,7 +149,8 @@
       "Date corresponds to the date of releases, if available. Otherwise, this refers to the date on which releases first were reported.",
       "Population reduction refers to the total number of releases reported when available. Otherwise, this refers to the change in population to which the releases contributed is reported.",
       "Population prior to releases refers to the last reported inmate population before releases were realized. Capacity is often determined differently across jurisdictions, and some facilities often report more than one capacity number. In these cases, we report the higher of the figures available."
-    ]
+    ],
+    "data_link": "https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533"
   },
   "grassroots": {
     "id": "grassroots",
@@ -181,6 +185,7 @@
     },
     "notes": {
       "sourcing": "You can find our full dataset <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154'>here</a>."
-    }
+    },
+    "data_link": "https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154"
   }
 }

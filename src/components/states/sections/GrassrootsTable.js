@@ -5,6 +5,7 @@ import LinkIcon from "@material-ui/icons/Link";
 import StepWrapper from "../StepWrapper";
 import { titleTypography } from "../../../gatsby-theme-hypercore/theme";
 import NotesModal from "../../NotesModal";
+import DownloadDataButton from "../../DownloadDataButton";
 
 const styles = (theme) => ({
   title: {
@@ -169,7 +170,12 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         data={extractedData}
         {...props}
       ></DefaultTable>
-      <NotesModal notes={[lang.notes.sourcing]} />
+      <div style={{ display: "flex" }}>
+        <NotesModal notes={[lang.notes.sourcing]} />
+        {lang.data_link && lang.data_link.length > 0 && (
+          <DownloadDataButton dataLink={lang.data_link} />
+        )}
+      </div>
     </StepWrapper>
   );
 };
