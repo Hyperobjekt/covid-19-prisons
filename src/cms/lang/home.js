@@ -34,6 +34,12 @@ const home = {
       ],
     },
     {
+      label: "Updates",
+      name: "updates",
+      widget: "object",
+      fields: [makeStringField("Title")],
+    },
+    {
       label: "Sponsors",
       name: "sponsors",
       widget: "object",

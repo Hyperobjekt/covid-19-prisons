@@ -2,12 +2,14 @@ import React from "react";
 import { Block } from "@hyperobjekt/material-ui-website";
 import Stack from "../Stack";
 import { Typography, withStyles } from "@material-ui/core";
+import { titleTypography } from "../../gatsby-theme-hypercore/theme";
+import { useLatestPosts } from "../../common/hooks";
+import { postDataToProps, PostList } from "../blog";
 
 export const styles = (theme) => ({
-  root: {
-    background: theme.palette.background.paper,
-  },
+  root: {},
   title: {
+    ...titleTypography,
     fontSize: theme.typography.pxToRem(23),
     textAlign: "center",
     maxWidth: "10em",
@@ -23,7 +25,10 @@ export const styles = (theme) => ({
   },
 });
 
-const Sponsors = ({ title, logos, children, classes, ...props }) => {
+const HomeUpdates = ({ title, classes, ...props }) => {
+  const posts = useLatestPosts();
+  console.log("posts:", posts);
+
   return (
     <Block className={classes.root} {...props}>
       <Stack horizontal="sm" spacing={3} justify="space-between" align="center">
@@ -34,20 +39,17 @@ const Sponsors = ({ title, logos, children, classes, ...props }) => {
             </Typography>
           </div>
         )}
-        <Stack
-          horizontal="sm"
-          spacing={3}
-          justify="space-around"
-          style={{ flex: 1 }}
-        >
-          {logos.map((logo) => (
-            <img key={logo.alt} src={logo.image} alt={logo.alt} />
-          ))}
-        </Stack>
       </Stack>
-      {children}
+      <Stack
+        horizontal="sm"
+        spacing={3}
+        justify="space-around"
+        style={{ flex: 1 }}
+      >
+        <PostList posts={posts.slice(0, 3)} />
+      </Stack>
     </Block>
   );
 };
 
-export default withStyles(styles)(Sponsors);
+export default withStyles(styles)(HomeUpdates);

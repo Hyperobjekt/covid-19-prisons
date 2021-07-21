@@ -6,7 +6,6 @@ path: /
 name: Home
 template: home
 ---
-
 import {
   HomeIntro,
   HomeMap,
@@ -14,6 +13,7 @@ import {
   HomeTable,
   VaccineTable,
   HomeSponsors,
+  HomeUpdates
 } from "components/home";
 import homeContent from "../lang/home.json";
 
@@ -31,6 +31,9 @@ import homeContent from "../lang/home.json";
   columnHeaders={homeContent.vaccineTable.columnHeaders}
   note={homeContent.vaccineTable.note}
   flagNote={homeContent.vaccineTable.flag_note}
+/>
+<HomeUpdates
+  title={homeContent.updates.title}
 />
 <HomeSponsors
   title={homeContent.sponsors.title}
