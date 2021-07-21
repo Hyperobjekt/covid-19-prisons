@@ -7,9 +7,8 @@ const styles = (theme) => ({
   root: {
     border: "none",
     padding: theme.spacing(1),
-    marginLeft: theme.spacing(-1),
-    marginRight: "auto",
     marginTop: theme.spacing(2),
+    maxWidth: "190px",
     fontSize: theme.typography.pxToRem(14),
   },
   icon: {

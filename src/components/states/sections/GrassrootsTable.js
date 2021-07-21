@@ -170,10 +170,12 @@ const GrassrootsTable = ({ classes, data, lang, ...props }) => {
         data={extractedData}
         {...props}
       ></DefaultTable>
-      <NotesModal notes={[lang.notes.sourcing]} />
-      {lang.data_link && lang.data_link.length > 0 && (
-        <DownloadDataButton dataLink={lang.data_link} />
-      )}
+      <div style={{ display: "flex" }}>
+        <NotesModal notes={[lang.notes.sourcing]} />
+        {lang.data_link && lang.data_link.length > 0 && (
+          <DownloadDataButton dataLink={lang.data_link} />
+        )}
+      </div>
     </StepWrapper>
   );
 };

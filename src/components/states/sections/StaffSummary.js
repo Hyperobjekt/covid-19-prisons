@@ -51,10 +51,12 @@ const StaffSummary = ({ id, lang, data, isFederal, ...props }) => {
             {lang.unavailable.replace("${metric}", getLang(metric))}
           </Typography>
         )}
-        {notes.length > 0 && <NotesModal notes={notes} />}
-        {lang.data_link && lang.data_link.length > 0 && (
-          <DownloadDataButton dataLink={lang.data_link} />
-        )}
+        <div style={{ display: "flex" }}>
+          {notes.length > 0 && <NotesModal notes={notes} />}
+          {lang.data_link && lang.data_link.length > 0 && (
+            <DownloadDataButton dataLink={lang.data_link} />
+          )}
+        </div>
       </StepWrapper>
     </div>
   );

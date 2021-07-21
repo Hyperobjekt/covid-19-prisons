@@ -162,10 +162,12 @@ const ReleasesTable = ({ classes, data, lang, ...props }) => {
         rowModal
         {...props}
       ></DefaultTable>
-      <NotesModal disableNumbering notes={lang.notes} />
-      {lang.data_link && lang.data_link.length > 0 && (
-        <DownloadDataButton dataLink={lang.data_link} />
-      )}
+      <div style={{ display: "flex" }}>
+        <NotesModal disableNumbering notes={lang.notes} />
+        {lang.data_link && lang.data_link.length > 0 && (
+          <DownloadDataButton dataLink={lang.data_link} />
+        )}
+      </div>
     </StepWrapper>
   );
 };

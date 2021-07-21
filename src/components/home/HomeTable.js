@@ -265,10 +265,12 @@ const HomeTable = ({
           classes={{ root: classes.toggleContainer }}
         />
       </Table>
-      {note && note.length > 0 && <NotesModal notes={note} />}
-      {dataLink && dataLink.length > 0 && (
-        <DownloadDataButton dataLink={dataLink} />
-      )}
+      <div style={{ display: "flex" }}>
+        {note && note.length > 0 && <NotesModal notes={note} />}
+        {dataLink && dataLink.length > 0 && (
+          <DownloadDataButton dataLink={dataLink} />
+        )}
+      </div>
     </Block>
   );
 };

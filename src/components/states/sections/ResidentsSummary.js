@@ -54,10 +54,12 @@ const ResidentsSummary = ({
           iceScore={iceScore}
           fedScore={fedScore}
         />
-        {notes.length > 0 && <NotesModal notes={notes} />}
-        {lang.data_link && lang.data_link.length > 0 && (
-          <DownloadDataButton dataLink={lang.data_link} />
-        )}
+        <div style={{ display: "flex" }}>
+          {notes.length > 0 && <NotesModal notes={notes} />}
+          {lang.data_link && lang.data_link.length > 0 && (
+            <DownloadDataButton dataLink={lang.data_link} />
+          )}
+        </div>
       </StepWrapper>
     </div>
   );
