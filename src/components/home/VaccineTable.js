@@ -9,7 +9,7 @@ import { formatMetricValue } from "../../common/utils/formatters";
 import FlagIcon from "../../../content/assets/flag-icon.svg";
 import IconWithTooltip from "../IconWithTooltip";
 import NotesModal from "../NotesModal";
-import DownloadDataButton from '../DownloadDataButton';
+import DownloadDataButton from "../DownloadDataButton";
 
 const alphaStateSort = (a, b) => {
   // Total row goes first
@@ -192,7 +192,9 @@ const VaccineTable = ({
             className={classes.body}
           />
           <NotesModal disableNumbering notes={note} />
-          {dataLink && dataLink.length > 0 && <DownloadDataButton dataLink={dataLink} />}
+          {dataLink && dataLink.length > 0 && (
+            <DownloadDataButton dataLink={dataLink} />
+          )}
         </div>
         <div className={classes.tableWrapper}>
           <DefaultTable

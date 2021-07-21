@@ -17,7 +17,7 @@
       "tested_rate": "Rates are calculated using a denominator of facility-level population as of February 2020. See our methodology to learn more about why we chose this approach.",
       "ALL": "We do not display total counts for jails because our jail data is not comprehensive for the entire state. See the table below to view jail data at the facility level."
     },
-    "dataLink": "https://github.com/uclalawcovid19behindbars/data"
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "staff": {
     "id": "staff",
@@ -35,14 +35,14 @@
       "tested_rate": "We do not have reliable data for staffing levels at all facilities. As a result, we are not currently providing rates for staff.",
       "ALL": "We do not display total counts for jails because our jail data is not comprehensive for the entire state. See the table below to view jail data at the facility level."
     },
-    "dataLink": "https://github.com/uclalawcovid19behindbars/data"
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "facilities": {
     "id": "facilities",
     "title": "Facilities by ${metric}",
     "link": "Facilities",
     "body": "",
-    "dataLink": "https://github.com/uclalawcovid19behindbars/data"
+    "data_link": "https://github.com/uclalawcovid19behindbars/data"
   },
   "scorecard": {
     "id": "scorecard",
@@ -150,7 +150,7 @@
       "Population reduction refers to the total number of releases reported when available. Otherwise, this refers to the change in population to which the releases contributed is reported.",
       "Population prior to releases refers to the last reported inmate population before releases were realized. Capacity is often determined differently across jurisdictions, and some facilities often report more than one capacity number. In these cases, we report the higher of the figures available."
     ],
-    "dataLink": "https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533"
+    "data_link": "https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1678228533"
   },
   "grassroots": {
     "id": "grassroots",
@@ -186,6 +186,6 @@
     "notes": {
       "sourcing": "You can find our full dataset <a href='https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154'>here</a>."
     },
-    "dataLink": "https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154"
+    "data_link": "https://docs.google.com/spreadsheets/d/1X6uJkXXS-O6eePLxw2e4JeRtM41uPZ2eRcOA_HkPVTk/edit#gid=1720501154"
   }
 }

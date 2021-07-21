@@ -13,6 +13,7 @@ const facilities = {
     makeStringField("Title"),
     makeStringField("Link"),
     makeStringField("Body"),
+    makeStringField("Data Link"),
   ],
 };
 

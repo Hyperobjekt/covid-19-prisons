@@ -34,6 +34,7 @@ const summary = {
         makeTextField("Tested Rate"),
       ],
     },
+    makeStringField("Data Link"),
   ],
 };
 

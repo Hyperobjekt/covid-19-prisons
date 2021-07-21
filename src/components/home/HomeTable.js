@@ -15,7 +15,7 @@ import clsx from "clsx";
 import { Link } from "gatsby-theme-material-ui";
 import NotesModal from "../NotesModal";
 import { countFormatter, rateFormatter, rateSorter } from "../table/utils";
-import DownloadDataButton from '../DownloadDataButton';
+import DownloadDataButton from "../DownloadDataButton";
 const MAX_FACILITY_LENGTH = 24;
 
 const styles = (theme) => ({
@@ -266,9 +266,9 @@ const HomeTable = ({
         />
       </Table>
       {note && note.length > 0 && <NotesModal notes={note} />}
-      {dataLink && dataLink.length > 0 && 
+      {dataLink && dataLink.length > 0 && (
         <DownloadDataButton dataLink={dataLink} />
-      }
+      )}
     </Block>
   );
 };

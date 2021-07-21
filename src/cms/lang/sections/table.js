@@ -13,6 +13,7 @@ const table = {
       summary: "{{fields.note}}",
       field: makeTextField("Note"),
     },
+    makeStringField("Data Link"),
   ],
 };
 

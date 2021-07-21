@@ -31,6 +31,7 @@ const home = {
             makeStringField("text"),
           ],
         },
+        table.fields[2], // data_link
       ],
     },
     {
