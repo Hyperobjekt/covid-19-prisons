@@ -8,12 +8,7 @@
 [context.production]
   environment = { DATA_BRANCH = "website" }
 
-# Redirects from site structure changes
 [[redirects]]
-  from = "/blog"
-  to = "/publications-and-resources/blog"
-  status = 301
-[[redirects]]
-  from = "/blog"
-  to = "/publications-and-resources/blog"
-  status = 301
+  from = "/assets/*"
+  to = "/images/:splat"
+  status = 200

@@ -4,7 +4,11 @@ export default function useInternalReports() {
   const { allMdx } = useStaticQuery(
     graphql`
       query {
-        allMdx(filter: { frontmatter: { category: { eq: "report" } } }) {
+        allMdx(
+          filter: {
+            frontmatter: { draft: { ne: true }, category: { eq: "report" } }
+          }
+        ) {
           nodes {
             id
             slug
