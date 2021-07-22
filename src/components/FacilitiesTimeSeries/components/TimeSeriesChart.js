@@ -2,6 +2,7 @@ import React from "react";
 import useTimeSeriesData from "../../../common/hooks/use-time-series-data";
 import {
   formatFacilityName,
+  formatMetricValue,
   getFacilityColor,
 } from "../../../common/utils/formatters";
 import moment from "moment";
@@ -20,6 +21,7 @@ import clsx from "clsx";
 import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
 import TimeSeriesAnnotations from "./TimeSeriesAnnotations";
 import { getStateCodeByName } from "../../../common/utils/selectors";
+import { getLang } from "../../../common/utils/i18n";
 
 const accessors = {
   xAccessor: (d) => new Date(`${d.date}T00:00:00`),
@@ -186,10 +188,7 @@ const TimeSeriesChart = () => {
         labelOffset={5}
         hideAxisLine
         hideTicks
-        label={[
-          selectedMetric.slice(0, 1).toUpperCase(),
-          selectedMetric.slice(1),
-        ].join("")}
+        label={getLang(selectedMetric)}
         labelProps={{
           style: {
             fontSize: "14px",
@@ -273,16 +272,23 @@ const TimeSeriesChart = () => {
                     </span>
                   )}
                 <span style={{ fontWeight: 100 }}>
-                  {accessors
-                    .xAccessor(tooltipData.nearestDatum.datum)
-                    .toDateString()}
+                  {moment(
+                    accessors
+                      .xAccessor(tooltipData.nearestDatum.datum)
+                      .toDateString()
+                  ).format("MMM D, YYYY")}
                 </span>
               </div>
               <div style={{ paddingTop: "5px" }}>
                 <span style={{ fontWeight: 700, marginRight: "10px" }}>
-                  {accessors.yAccessor(tooltipData.nearestDatum.datum)}
+                  {formatMetricValue(
+                    accessors.yAccessor(tooltipData.nearestDatum.datum),
+                    selectedMetric
+                  )}
                 </span>
-                <span style={{ fontWeight: 100 }}>{selectedMetric}</span>
+                <span style={{ fontWeight: 100 }}>
+                  {getLang(selectedMetric)}
+                </span>
               </div>
             </div>
           )
