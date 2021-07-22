@@ -4,12 +4,12 @@ import { getMdxProps } from "gatsby-theme-hypercore/src/templates/page";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Layout from "gatsby-theme-hypersite/src/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
-import { postDataToProps } from "./blog-index";
 import {
   PostHeroBlock,
   PostRelatedBlock,
   PostContentBlock,
   PostSocialLinks,
+  postDataToProps,
 } from "../components/blog";
 
 const BlogPostTemplate = (props) => {

@@ -9,7 +9,7 @@ const styles = (theme) => ({
     position: "relative",
     wordWrap: "break-word",
     margin: "auto",
-    maxWidth: "37.5rem",
+    maxWidth: "43.5rem",
     // dividers within blog post
     "& > hr": {
       margin: theme.spacing(3, 0),

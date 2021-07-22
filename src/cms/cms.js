@@ -21,10 +21,11 @@ CMS.init({
     load_config_file: false,
     // remember to run npx netlify-cms-proxy-server if running locally
     local_backend: process.env.CI !== true,
+    publish_mode: "editorial_workflow",
     backend: {
       name: "git-gateway",
       repo: "Hyperobjekt/covid-19-behind-bars",
-      branch: process.env.BRANCH || "staging",
+      branch: process.env.BRANCH || "production",
     },
     media_folder: "/static/images",
     public_folder: "/images",
