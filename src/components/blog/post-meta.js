@@ -21,7 +21,8 @@ const PostMeta = ({ author = [], date, ...props }) => {
     <Wrapper variant="body2" {...props}>
       {formattedDate}
       {author && author.length > 0 && " • "}
-      {author &&
+      {typeof author === "string" && author}
+      {Array.isArray(author) &&
         author.map((a, i) => (
           <React.Fragment key={a}>
             <Link to={`/blog/authors/${slugify(a, { lower: true })}`}>{a}</Link>
