@@ -1,8 +1,8 @@
 {
   "name": "gatsby-ucla-site",
   "description": "Gatsby site for COVID-19 Behind Bars",
-  "version": "1.0.0",
-  "author": "Lane Olson <laneolson@gmail.com>",
+  "version": "2.0.2",
+  "author": "Hyperobjekt",
   "dependencies": {
     "@hyperobjekt/cms-config": "1.0.3",
     "@hyperobjekt/hooks": "^1.0.10",
