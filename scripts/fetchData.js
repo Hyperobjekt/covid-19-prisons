@@ -12,15 +12,7 @@ const {
   roughMatch,
 } = require(`./parseData.js`);
 const US_STATES = require("../data/us_states.json");
-
-async function getData(url, parser, options = {}) {
-  let data = await fetchCsv(url, parser);
-  // remove descriptive rows following the top identifier row
-  if (options.dropRows) {
-    data = data.slice(options.dropRows);
-  }
-  return data;
-}
+const { getData } = require("./utils.js");
 
 const dataBranch = process.env.DATA_BRANCH || "master";
 
@@ -28,7 +20,7 @@ const dataBranch = process.env.DATA_BRANCH || "master";
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
  */
 
-const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/adult_facility_covid_counts.csv`;
+const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/latest_facility_counts.csv`;
 
 exports.getFacilities = () => getData(facilitiesCsv, parseFacility);
 
@@ -36,7 +28,7 @@ exports.getFacilities = () => getData(facilitiesCsv, parseFacility);
  * VACCINE DATA (RESIDENTS / STAFF INITIATED)
  */
 
-const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`;
+const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/latest_state_counts.csv`;
 
 exports.getVaccines = () => getData(vaccinesCsv, parseVaccine);
 
@@ -45,7 +37,8 @@ exports.getVaccines = () => getData(vaccinesCsv, parseVaccine);
  * sheet has hidden top row with stable, machine-readable names
  */
 
-const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=687147875&format=csv`;
+const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=696812429&format=csv`;
+// const scorecard = `https://docs.google.com/spreadsheets/d/1fHhRAjwYGVmgoHLUENvcYffHDjEQnpp7Rwt9tLeX_Xk/export?gid=687147875&format=csv`;
 
 const scorecardMap = {
   state: ["state", "string", exactMatch],
