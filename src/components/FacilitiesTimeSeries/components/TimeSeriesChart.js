@@ -69,7 +69,7 @@ const TimeSeriesChart = () => {
           const name = formatFacilityName(facilityData);
           const lastDatum = lineData.reduceRight((accum, datum) => {
             if (accum) return accum;
-            if (!!datum.value) return datum;
+            if (!!datum.value && datum.value !== "NaN") return datum;
           }, null);
           return { name, id, lineData, lastDatum };
         })

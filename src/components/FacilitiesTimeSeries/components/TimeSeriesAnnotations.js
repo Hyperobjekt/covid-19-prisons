@@ -28,6 +28,7 @@ const TimeSeriesAnnotations = ({ linesData, facilitiesById }) => {
   if (!yScale) return null;
   const getYPosition = (d) => (d ? yScale(accessors.yAccessor(d)) : height);
   const sortedLineData = linesData
+    .filter((lD) => lD.lineData.length > 0 && lD.lastDatum)
     .slice(0)
     .sort((l, r) => getYPosition(r.lastDatum) - getYPosition(l.lastDatum));
   const seriesLabelYs = getLabelYValues(sortedLineData, getYPosition, height);
