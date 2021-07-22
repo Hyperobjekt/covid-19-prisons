@@ -1,45 +1,22 @@
 import React from "react";
 import useReportsData from "./useReportsData";
-import {
-  Link,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
-import moment from "moment";
+import { Typography, makeStyles } from "@material-ui/core";
 import useInternalReports from "./useInternalReports";
-import { Link as GatsbyLink } from "gatsby-theme-material-ui";
+import { PostList } from "../blog";
 const useStyles = makeStyles((theme) => ({
-  details: {
-    display: "inline",
+  root: {
+    // add top margin to the first report
+    "&:first-of-type": {
+      marginTop: theme.spacing(5),
+    },
   },
-  primary: {
-    marginBottom: theme.spacing(0.5),
+  titleWrapper: {
+    // override margins added from page content
+    "& > h3": { marginTop: `0!important` },
   },
 }));
 
-const ReportTitle = ({ report, external }) => {
-  const classes = useStyles();
-
-  return (
-    <>
-      {external && (
-        <Link target="_blank" href={report.url}>
-          {report.title}
-        </Link>
-      )}
-      {!external && <GatsbyLink to={report.url}>{report.title}</GatsbyLink>}
-      <br />
-      <Typography variant="body2" className={classes.details}>
-        {moment(report.date).format("MMMM Do, YYYY")}, {report.author}
-      </Typography>
-    </>
-  );
-};
-
-const ReportList = ({ ...props }) => {
+const ReportList = (props) => {
   const classes = useStyles();
   const internal = useInternalReports();
   const external = useReportsData().map((r) => ({ ...r, external: true }));
@@ -48,19 +25,7 @@ const ReportList = ({ ...props }) => {
   });
   if (reports.length === 0)
     return <Typography>No reports available</Typography>;
-  return (
-    <List>
-      {reports.map((report) => (
-        <ListItem disableGutters>
-          <ListItemText
-            primary={<ReportTitle report={report} external={report.external} />}
-            secondary={report.description}
-            classes={{ primary: classes.primary }}
-          />
-        </ListItem>
-      ))}
-    </List>
-  );
+  return <PostList posts={reports} classes={classes} {...props} />;
 };
 
 export default ReportList;
