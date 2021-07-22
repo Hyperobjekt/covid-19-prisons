@@ -22,6 +22,7 @@ import { sansSerifyTypography } from "../../../gatsby-theme-hypercore/theme";
 import TimeSeriesAnnotations from "./TimeSeriesAnnotations";
 import { getStateCodeByName } from "../../../common/utils/selectors";
 import { getLang } from "../../../common/utils/i18n";
+import TimeSeriesLines from "./TimeSeriesLines";
 
 const accessors = {
   xAccessor: (d) => new Date(`${d.date}T00:00:00`),
@@ -84,7 +85,7 @@ const TimeSeriesChart = () => {
 
   const maxAnnotationWidth = isMobile ? 19 : 34;
   const facilitiesById = {};
-  selectedFacilities.forEach(({ id, ...facilityData }, i) => {
+  facilitiesData.forEach(({ id, ...facilityData }, i) => {
     facilitiesById[id] = facilityData;
     facilitiesById[id].color = getFacilityColor(i);
     const labelArr = [
@@ -104,6 +105,7 @@ const TimeSeriesChart = () => {
   });
 
   const colors = Object.keys(facilitiesById)
+    .filter((k) => facilitiesById[k][accessor].length > 0)
     .map((k) => Number(k))
     .sort((a, b) => a - b)
     .map((id) => facilitiesById[id].color);
@@ -211,21 +213,7 @@ const TimeSeriesChart = () => {
         })}
       />
       <Grid columns={false} numTicks={5} stroke="#E0E0E0" />
-      {linesData.map(({ id, lineData }, i) => (
-        <LineSeries
-          key={i}
-          dataKey={id}
-          data={lineData.length > 0 ? lineData : [0]}
-          className={
-            activeLine
-              ? activeLine === id
-                ? classes.lineActive
-                : classes.lineInactive
-              : classes.line
-          }
-          {...accessors}
-        />
-      ))}
+      <TimeSeriesLines linesData={linesData} />
       <TimeSeriesAnnotations
         linesData={linesData}
         facilitiesById={facilitiesById}
