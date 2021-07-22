@@ -4,6 +4,12 @@ import { Typography, makeStyles } from "@material-ui/core";
 import useInternalReports from "./useInternalReports";
 import { PostList } from "../blog";
 const useStyles = makeStyles((theme) => ({
+  root: {
+    // add top margin to the first report
+    "&:first-of-type": {
+      marginTop: theme.spacing(5),
+    },
+  },
   titleWrapper: {
     // override margins added from page content
     "& > h3": { marginTop: `0!important` },
