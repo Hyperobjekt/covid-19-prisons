@@ -9,6 +9,6 @@
   environment = { DATA_BRANCH = "website" }
 
 [[redirects]]
-  from = "/assets"
-  to = "/images"
+  from = "/assets/*"
+  to = "/images/:splat"
   status = 200
