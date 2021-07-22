@@ -1,7 +1,6 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 import { TeamList } from "./team-list";
-import { DriveEtaRounded } from "@material-ui/icons";
 
 export const TeamBlock = ({
   name,

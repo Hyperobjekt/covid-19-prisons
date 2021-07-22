@@ -20,7 +20,7 @@ const dataBranch = process.env.DATA_BRANCH || "master";
  * FACILITY DATA (CASES / DEATHS / ACTIVE, ETC)
  */
 
-const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/adult_facility_covid_counts.csv`;
+const facilitiesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/latest_facility_counts.csv`;
 
 exports.getFacilities = () => getData(facilitiesCsv, parseFacility);
 
@@ -28,7 +28,7 @@ exports.getFacilities = () => getData(facilitiesCsv, parseFacility);
  * VACCINE DATA (RESIDENTS / STAFF INITIATED)
  */
 
-const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/state_aggregate_counts.csv`;
+const vaccinesCsv = `https://raw.githubusercontent.com/uclalawcovid19behindbars/data/${dataBranch}/latest-data/latest_state_counts.csv`;
 
 exports.getVaccines = () => getData(vaccinesCsv, parseVaccine);
 

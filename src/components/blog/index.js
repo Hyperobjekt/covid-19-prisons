@@ -7,3 +7,4 @@ export { default as PostContentBlock } from "./post-content";
 export { default as PostTeaser } from "./post-teaser";
 export { default as PostList } from "./post-list";
 export { default as PostSocialLinks } from "./post-social-links";
+export { postDataToProps } from "./utils";

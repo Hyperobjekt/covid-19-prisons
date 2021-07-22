@@ -6,6 +6,7 @@ import { serifTypography } from "../../gatsby-theme-hypercore/theme";
 import ReadLink from "./read-link";
 import PostMeta from "./post-meta";
 import { graphql } from "gatsby";
+import { OpenInNew } from "@material-ui/icons";
 
 const styles = (theme) => ({
   root: {
@@ -32,12 +33,12 @@ const styles = (theme) => ({
     display: "block",
     marginTop: theme.spacing(1),
     color: theme.palette.text.primary,
-    fontSize: theme.typography.pxToRem(32),
+    fontSize: theme.typography.pxToRem(24),
     fontWeight: 400,
     lineHeight: 1.2,
-    maxWidth: "16em",
+    maxWidth: "20em",
     [theme.breakpoints.up("sm")]: {
-      fontSize: theme.typography.pxToRem(40),
+      fontSize: theme.typography.pxToRem(28),
     },
     "&.MuiLink-root": {
       textDecoration: "none",
@@ -58,6 +59,7 @@ const styles = (theme) => ({
   },
   titleWrapper: {
     position: "relative",
+    paddingRight: theme.spacing(2),
   },
   description: {
     ...serifTypography,
@@ -73,7 +75,16 @@ const styles = (theme) => ({
     [theme.breakpoints.up("md")]: {
       maxWidth: theme.columnSpacing(5),
     },
+    [theme.breakpoints.up("xl")]: {
+      maxWidth: theme.columnSpacing(4),
+    },
     // marginRight: theme.columnSpacing(2),
+  },
+  icon: {
+    fontSize: 16,
+    position: "relative",
+    top: 3,
+    left: 2,
   },
 });
 
@@ -86,6 +97,7 @@ const Post = ({
   url,
   author,
   isFeatured,
+  external,
   ...props
 }) => {
   // const { date, name: title, description, path, meta } = post.frontmatter;
@@ -103,7 +115,11 @@ const Post = ({
       <PostMeta date={date} author={author} />
       <div className={classes.titleWrapper}>
         <Typography variant="h3" component="h3">
-          <Link className={classes.title} to={url}>
+          <Link
+            className={classes.title}
+            to={url}
+            target={external && "_blank"}
+          >
             {title}
           </Link>
         </Typography>
@@ -111,7 +127,7 @@ const Post = ({
       </div>
 
       <ReadLink aria-hidden="true" to={url}>
-        Read more
+        Read more {external && <OpenInNew className={classes.icon} />}
       </ReadLink>
     </div>
   );
